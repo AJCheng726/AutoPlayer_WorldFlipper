@@ -11,10 +11,10 @@ from settings import *
 from utils.Timer import Timer
 
 # 桌面模式下的鼠标操作延迟，程序已经设置随机延迟这里无需设置修改
-pyautogui.PAUSE = 0.01
+pyautogui.PAUSE = 0.1
 find_sleep_time = 1
 
-open('./log.txt','a')
+open('./log.txt','w+')
 
 
 # adb模式下设置连接测试
@@ -53,10 +53,10 @@ def retry(func):
 
 # 截屏并发送到目录./screen, 默认返回cv2读取后的图片
 def screen_shot(device=None):
-    try:
-        os.remove('./screen/screen_{0}.jpg'.format(device))
-    except:
-        pass
+    # try:
+    #     os.remove('./screen/screen_{0}.jpg'.format(device))
+    # except:
+    #     pass
     if mode == 0:  # adb截屏并传输文件
         if device == None:
             a = "adb shell screencap -p sdcard/screen.jpg"
@@ -200,7 +200,7 @@ def find_touch(target, tap=True, device=None):
 
 # 直至出现target再点击，超过max_wait则报错
 def wait_touch(target, tap=True, device=None, max_wait_time = None):
-    print('[info] 等待目标', target)
+    print('\r [info] 等待目标', target)
     timer = Timer()
     wanted = imgs[target]
     size = wanted[0].shape

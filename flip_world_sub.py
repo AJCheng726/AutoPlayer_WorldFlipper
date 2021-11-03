@@ -5,8 +5,9 @@ import auto_player as player
 import time
 
 loop_time = 0  # 循环次数，若0则无限
-count = 1
+count = 0
 wait_in_battle = 20
+wait_out_battle = 30
 use_device = 'emulator-5554'
 
 player.adb_test()
@@ -23,3 +24,4 @@ while(count < loop_time or loop_time == 0):
     player.wait_touch("button_zhaomu", device=use_device, max_wait_time=60)
     player.wait_touch("button_kaishizhaomu", device=use_device, max_wait_time=5)
     count += 1
+    print('[info] 已执行{0}次'.format(count))
