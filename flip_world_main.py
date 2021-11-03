@@ -25,4 +25,4 @@ while(count < loop_time or loop_time == 0):
         player.wait_touch("button_ok", device=use_device, max_wait_time=1)
     player.wait_touch("button_zhunbeiwanbi", device=use_device, max_wait_time=600)
     count += 1
-    print('[info] 已执行{0}次'.format(count))
+    print('[info] 农号已执行{0}次'.format(count))

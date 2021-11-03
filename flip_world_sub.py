@@ -24,4 +24,4 @@ while(count < loop_time or loop_time == 0):
     player.wait_touch("button_zhaomu", device=use_device, max_wait_time=60)
     player.wait_touch("button_kaishizhaomu", device=use_device, max_wait_time=5)
     count += 1
-    print('[info] 已执行{0}次'.format(count))
+    print('[info] 建房号已执行{0}次'.format(count))
