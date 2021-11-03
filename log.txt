@@ -1,1 +1,1 @@
-sdcard/screen_emulator-5556.jpg: 1 file pulled, 0 skipped. 9.7 MB/s (157561 bytes in 0.015s)
+sdcard/screen_emulator-5556.jpg: 1 file pulled, 0 skipped. 8.6 MB/s (56610 bytes in 0.006s)

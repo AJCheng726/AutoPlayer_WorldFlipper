@@ -13,6 +13,7 @@ from utils.Timer import Timer
 # 桌面模式下的鼠标操作延迟，程序已经设置随机延迟这里无需设置修改
 pyautogui.PAUSE = 0.1
 find_sleep_time = 1
+adb_path = 'toolkits\\adb.exe'
 
 open('./log.txt','w+')
 
@@ -21,7 +22,7 @@ open('./log.txt','w+')
 def adb_test():
     if mode == 1:
         return
-    raw_content = os.popen('adb devices').read()
+    raw_content = os.popen('{0} devices'.format(adb_path)).read()
     row_list = raw_content.split('List of devices attached\n')[1].split('\n')
     devices_list = [i for i in row_list if len(i) > 1]
     print(raw_content)
@@ -59,12 +60,12 @@ def screen_shot(device=None):
     #     pass
     if mode == 0:  # adb截屏并传输文件
         if device == None:
-            a = "adb shell screencap -p sdcard/screen.jpg"
-            b = "adb pull sdcard/screen.jpg ./screen"
+            a = "{0} shell screencap -p sdcard/screen.jpg".format(adb_path)
+            b = "{0} pull sdcard/screen.jpg ./screen".format(adb_path)
         else:
-            a = "adb -s {0} shell screencap -p sdcard/screen_{1}.jpg".format(device, device)
-            b = "adb -s {0} pull sdcard/screen_{1}.jpg ./screen >log.txt".format(device, device)
-            # b = "adb -s {0} pull sdcard/screen_{1}.jpg ./screen".format(device, device)
+            a = "{2} -s {0} shell screencap -p sdcard/screen_{1}.jpg".format(device, device,adb_path)
+            b = "{2} -s {0} pull sdcard/screen_{1}.jpg ./screen >log.txt".format(device, device,adb_path)
+            # b = "{2} -s {0} pull sdcard/screen_{1}.jpg ./screen".format(device, device,adb_path)
         for row in [a,b]:
             time.sleep(0.1)
             os.system(row)
@@ -84,10 +85,10 @@ def touch(pos, device=None):
     x, y = pos
     if mode == 0:  # adb点击
         if device == None:
-            a = "adb shell input touchscreen tap {0} {1}" .format(x, y)
+            a = "{2} shell input touchscreen tap {0} {1}" .format(x, y, adb_path)
         else:
-            a = "adb -s {2} shell input touchscreen tap {0} {1}" .format(
-                x, y, device)
+            a = "{3} -s {2} shell input touchscreen tap {0} {1}" .format(
+                x, y, device,adb_path)
         os.system(a)
     else:  # 桌面鼠标点击
         pyautogui.moveTo(x, y)
