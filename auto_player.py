@@ -196,7 +196,7 @@ def find_touch(target, tap=True, device=None):
             random_delay()
         return True
     else:
-        print('[result] N 未找到目标 ', target)
+        # print('[result] N 未找到目标 ', target)
         return False
 
 # 直至出现target再点击，超过max_wait则报错
@@ -217,14 +217,14 @@ def wait_touch(target, tap=True, device=None, max_wait_time = None):
         screen = screen_shot(device=device)
         pts = locate(screen, wanted)
         if pts:
-            print('[result]Y 已找到目标 ',  target)
+            # print('[result]Y 已找到目标 ',  target)
             xx = pts[0]
             xx = random_offset(xx, w, h)
             if tap:
                 touch(xx,device=device)
                 random_delay()
             return True
-        time.sleep(find_sleep_time)
+        # time.sleep(find_sleep_time)
 
 # 寻找并点击,找到返回目标名，未找到返回NONE
 # def find_touch_any(target_list, tap=True):

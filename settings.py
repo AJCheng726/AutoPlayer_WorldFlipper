@@ -8,4 +8,8 @@ accuracy = 0.85
 #匹配目标图片地址， 默认在./wanted文件夹
 wanted_path = './wanted' 
 
+main_device = 'emulator-5556'
+
+sub_device = 'emulator-5554'
+
 

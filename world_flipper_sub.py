@@ -3,12 +3,13 @@
 # 代码示例：
 import auto_player as player
 import time
+from settings import *
 
 loop_time = 0  # 循环次数，若0则无限
 count = 0
 wait_in_battle = 20
 wait_out_battle = 30
-use_device = 'emulator-5554'
+use_device = sub_device
 
 player.adb_test()
 
