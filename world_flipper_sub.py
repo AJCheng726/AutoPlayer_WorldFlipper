@@ -13,10 +13,12 @@ player.adb_test()
 
 # 选boss建房之后开始，小号退出再重建
 while(count < loop_time or loop_time == 0):
-    if player.wait("button_tiaozhan", device=use_device, max_wait_time=600):
-        player.find_touch("button_tiaozhan", device=use_device)
-    else:
-        raise Exception("房间自动解散了...")
+    # if player.wait("button_tiaozhan", device=use_device, max_wait_time=600):
+    #     player.find_touch("button_tiaozhan", device=use_device)
+    # else:
+    #     raise Exception("房间自动解散了...")
+    while not player.find("button_pause", device=use_device):
+        player.wait_touch("button_tiaozhan", device=use_device,max_wait_time=5)
     while not player.find("button_duorenyouxi", device=use_device):
         player.wait_touch("button_pause",  device=use_device,max_wait_time=1)
         player.wait_touch("button_fangqi", device=use_device,max_wait_time=1)

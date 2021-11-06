@@ -10,7 +10,7 @@ count = 0
 use_device = main_device
 
 player.adb_test()
-
+print("使用设备：",use_device)
 # 大号开始战斗后运行
 while(count < loop_time or loop_time == 0):
     player.wait("button_jixu", device=use_device, max_wait_time=600)
@@ -22,7 +22,7 @@ while(count < loop_time or loop_time == 0):
     while not player.find("button_zhunbeiwanbi", device=use_device):
         player.find_touch("button_gengxinliebiao", device=use_device)
         time.sleep(1)
-        player.wait_touch("xiaohaoid", device=use_device,max_wait_time=1)
+        player.wait_touch(sub_account, device=use_device,max_wait_time=1)
         player.find_touch("button_shi", device=use_device)
         player.find_touch("button_ok", device=use_device)
     player.wait_touch("button_zhunbeiwanbi", device=use_device, max_wait_time=600)
