@@ -11,6 +11,8 @@ wanted_path = "./wanted"
 device_w, device_h = 540, 960
 # 截图间隔时间，用于所有wait函数，如果CPU占用太高就调久一点
 screenshot_blank = 0.5
+# adb路径
+adb_path = "toolkits\\ADB\\adb.exe"
 
 # 蹭房设备号，如果是雷电64单开就填emulator-5554
 canzhan_device_1 = "emulator-5554"

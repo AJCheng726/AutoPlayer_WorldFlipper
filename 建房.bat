@@ -1,1 +1,1 @@
-python world_flipper_fangzhu.py
+.\toolkits\Python\python.exe world_flipper_fangzhu.py
