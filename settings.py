@@ -17,7 +17,7 @@ canzhan_device_1 = "emulator-5554"
 canzhan_device_2 = "emulator-5560"
 # 建房设备号，如果是雷电64多开，就按多开每次递增2
 fangzhu_device = "emulator-5556"
-# 小号ID用哪个，模拟器原比例截图放到wanted文件夹下，名字填在下面
+# 房主ID用哪个，模拟器原比例截图放到wanted文件夹下，名字填在下面
 fangzhu_account = "ajcheng"
 
 # 重复刷本设备号

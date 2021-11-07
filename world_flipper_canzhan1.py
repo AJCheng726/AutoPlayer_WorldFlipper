@@ -27,4 +27,5 @@ def wf_join(use_device,loop_time = 0):
         count += 1
         print("[info] {1} 农号已执行{0}次".format(count, datetime.datetime.now()))
 
-wf_join(use_device = canzhan_device_1)
+if __name__=='__main__':
+    wf_join(use_device = canzhan_device_1)
