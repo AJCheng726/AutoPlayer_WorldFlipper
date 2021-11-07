@@ -16,4 +16,4 @@ device_w,device_h = 540,960
 # 截图间隔时间，用于所有wait函数，如果CPU占用太高就调久一点
 screenshot_blank = 0.5
 # 小号ID用哪个，模拟器原比例截图放到wanted文件夹下，名字填在下面
-sub_account = "xiaohaoid"
+sub_account = "azhecheng"

@@ -172,7 +172,7 @@ def find_touch(target, device=None):
 
 # 出现target返回true，超时返回false
 def wait(target, device=None, max_wait_time = None):
-    print('\r [wait] 等待目标', target)
+    print('\r[wait] 等待目标', target,end='')
     timer = Timer()
     wanted = imgs[target]
     size = wanted[0].shape
@@ -188,7 +188,7 @@ def wait(target, device=None, max_wait_time = None):
         screen = screen_shot(device=device)
         pts = locate(screen, wanted)
         if pts:
-            print('[wait] 已找到目标 ',  target)
+            print('\r[wait] 已找到目标 ',  target, pts)
             xx = pts[0]
             touch(xx,device=device)
             return True
@@ -196,7 +196,7 @@ def wait(target, device=None, max_wait_time = None):
 
 # 直至出现target再点击，超过max_wait_time则报错
 def wait_touch(target, tap=True, device=None, max_wait_time = None):
-    print('[wait_touch] 等待目标', target)
+    print('[wait_touch] 等待目标', target, end='')
     timer = Timer()
     wanted = imgs[target]
     size = wanted[0].shape
@@ -204,7 +204,7 @@ def wait_touch(target, tap=True, device=None, max_wait_time = None):
 
     while True:
         duration = timer.get_duration()
-        print('\r > wait %s ... %ds ' % (target, duration), end='')
+        print('\r[wait_touch] wait %s ... %ds ' % (target, duration), end='')
         if max_wait_time is not None and 0 < max_wait_time < duration:
             print(' 超时', flush=True)
             return False
@@ -212,7 +212,7 @@ def wait_touch(target, tap=True, device=None, max_wait_time = None):
         screen = screen_shot(device=device)
         pts = locate(screen, wanted)
         if pts:
-            print('[wait_touch] 已找到目标 ',  target)
+            print('\r[wait_touch] 已找到目标 ',  target)
             xx = pts[0]
             if tap:
                 touch(xx,device=device)
