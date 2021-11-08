@@ -20,6 +20,9 @@ fangzhu_device = "emulator-5556"
 # 房主ID用哪个，模拟器原比例截图放到wanted文件夹下，名字填在下面
 fangzhu_account = "ajcheng"
 
+# 房主退出后等待多少秒再重建
+wait_outof_room = 180
+
 # 重复刷本设备号
 loop_device = "emulator-5554"
 

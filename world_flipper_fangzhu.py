@@ -1,3 +1,4 @@
+# todo：超时重建
 import datetime
 import time
 
@@ -20,6 +21,9 @@ def wf_owner(use_device,loop_time = 0):
             player.wait_touch("button_pause", device=use_device, max_wait_time=1)
             player.wait_touch("button_fangqi", device=use_device, max_wait_time=1)
             player.wait_touch("button_shi", device=use_device, max_wait_time=1)
+        if wait_outof_room > 0:
+            print("防止等待超时，等待{0}秒后重新建房...".format(wait_outof_room))
+            time.sleep(wait_outof_room)
         print("(stage3) 房主重建房...")
         player.wait_touch("button_duorenyouxi", device=use_device, max_wait_time=60)
         player.wait_touch("button_shi", device=use_device, max_wait_time=5)
