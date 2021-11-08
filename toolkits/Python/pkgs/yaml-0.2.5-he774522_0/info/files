@@ -1,7 +1,0 @@
-Library/bin/yaml.dll
-Library/cmake/yamlConfig.cmake
-Library/cmake/yamlConfigVersion.cmake
-Library/cmake/yamlTargets-release.cmake
-Library/cmake/yamlTargets.cmake
-Library/include/yaml.h
-Library/lib/yaml.lib

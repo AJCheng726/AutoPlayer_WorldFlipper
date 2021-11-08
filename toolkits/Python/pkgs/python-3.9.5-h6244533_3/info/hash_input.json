@@ -1,8 +1,0 @@
-{
-  "sqlite": "3",
-  "target_platform": "win-64",
-  "openssl": "1.1.1",
-  "cxx_compiler": "vs2017",
-  "channel_targets": "defaults",
-  "c_compiler": "vs2017"
-}
