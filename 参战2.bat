@@ -1,1 +1,1 @@
-python world_flipper_canzhan2.py
+.\toolkits\Python\python.exe world_flipper_canzhan2.py

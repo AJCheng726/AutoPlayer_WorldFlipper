@@ -14,7 +14,7 @@ from utils.Timer import Timer
 
 # 桌面模式下的鼠标操作延迟，程序已经设置随机延迟这里无需设置修改
 pyautogui.PAUSE = 0.1
-adb_path = "toolkits\\adb.exe"
+
 
 # adb模式下设置连接测试
 def adb_test():
