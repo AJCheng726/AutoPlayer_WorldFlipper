@@ -13,7 +13,7 @@ def wf_owner(use_device,loop_time = 0):
     print("[info] 使用设备{0}开始建房...".format(use_device))
     while count < loop_time or loop_time == 0:
         # 等待战斗中的暂停键,没出现就一直点挑战
-        print("(stage1) 在房间中等待队友...")
+        print(datetime.datetime.now(),"(stage1) 在房间中等待队友...")
         while not player.find("button_pause", device=use_device):
             player.find_touch("button_tiaozhan", device=use_device)
             if player.find_touch("button_ok", device=use_device): # 超时房间解散
@@ -22,7 +22,7 @@ def wf_owner(use_device,loop_time = 0):
 
         # 没有退出房间之前,无限尝试暂停=>放弃=>"是"
         if not timeout_flag:
-            print("(stage2) 房主退出战斗中...")
+            print(datetime.datetime.now(),"(stage2) 房主退出战斗中...")
             while not player.find("button_duorenyouxi", device=use_device):
                 player.wait_touch("button_pause", device=use_device, max_wait_time=1)
                 player.wait_touch("button_fangqi", device=use_device, max_wait_time=1)
@@ -31,7 +31,7 @@ def wf_owner(use_device,loop_time = 0):
                 print("防止等待超时，等待{0}秒后重新建房...".format(wait_outof_room))
                 time.sleep(wait_outof_room)
 
-        print("(stage3) 房主重建房...")
+        print(datetime.datetime.now(),"(stage3) 房主重建房...")
         player.wait_touch("button_duorenyouxi", device=use_device, max_wait_time=60)
         player.wait_touch("button_shi", device=use_device, max_wait_time=5)
         player.wait_touch("button_zhaomu", device=use_device, max_wait_time=60)

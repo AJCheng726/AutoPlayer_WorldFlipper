@@ -12,7 +12,7 @@ def wf_join(use_device,loop_time = 0):
     print("[info] 使用设备{0}农BOSS, 搜索房主{1}".format(use_device, fangzhu_account))
     while count < loop_time or loop_time == 0:
         # 战斗中=>继续（同时处理升级、掉落）=>离开房间
-        print("(stage1) 等待战斗结算...")
+        print(datetime.datetime.now(),"(stage1) 等待战斗结算...")
         player.wait("button_jixu", device=use_device, max_wait_time=600)
         timer = Timer()
         while not player.find("button_likaifangjian", device=use_device):
@@ -25,7 +25,7 @@ def wf_join(use_device,loop_time = 0):
         player.wait_touch("button_likaifangjian", device=use_device, max_wait_time=10)
 
         # 找建房号ID=>"ok"和"是"处理双倍\房满的问题=>没找到就更新=>准备完毕
-        print("(stage2) 再次寻找房间...")
+        print(datetime.datetime.now(),"(stage2) 再次寻找房间...")
         while not player.find_touch("button_zhunbeiwanbi", device=use_device):
             player.find_touch(fangzhu_account, device=use_device)
             player.find_touch("button_shi", device=use_device)

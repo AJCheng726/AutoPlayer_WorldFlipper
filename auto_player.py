@@ -157,18 +157,30 @@ def find(target, device=None):
     if debug:
         print("[find] 寻找目标并点击", target)
     wanted = imgs[target]
-    size = wanted[0].shape
-    h, w, ___ = size
     pts = locate(screen, wanted)
     if pts:
         if debug:
-            print("[find] Y 已找到目标 ", target)
+            print("[find] 已找到目标 ", target)
         xx = pts[0]
         return True
     else:
         if debug:
-            print("[find] N 未找到目标 ", target)
+            print("[find] 未找到目标 ", target)
         return False
+
+# 寻找多个目标，返回index，都没找到返回-1
+def find_any(target = [], device=None):
+    screen = screen_shot(device)
+    if debug:
+        print("[find_any] 寻找多个目标", target)
+    for tgt in target:
+        wanted = imgs[tgt]
+        pts = locate(screen, wanted)
+        if pts:
+            if debug:
+                print("[find_any] 已找到目标 ", tgt)
+            return target.index(tgt)
+    return -1
 
 
 # 寻找并点击, tap为FALSE则只寻找不点击，返回结果是否找到TURE/FALSE
