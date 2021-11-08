@@ -14,6 +14,9 @@ screenshot_blank = 0.5
 # adb路径
 adb_path = "toolkits\\ADB\\adb.exe"
 
+# 超时，600秒，超时则认为阵亡或房间解散
+timeout = 600
+
 # 蹭房设备号，如果是雷电64单开就填emulator-5554
 canzhan_device_1 = "emulator-5554"
 canzhan_device_2 = "emulator-5560"
