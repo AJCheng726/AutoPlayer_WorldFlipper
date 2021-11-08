@@ -1,0 +1,13 @@
+{
+  "arch": null,
+  "build": "h52ac0ba_0",
+  "build_number": 0,
+  "depends": [],
+  "license": "LicenseRef-Public-Domain AND BSD-3-clause",
+  "name": "tzdata",
+  "noarch": "generic",
+  "platform": null,
+  "subdir": "noarch",
+  "timestamp": 1623996945083,
+  "version": "2021a"
+}

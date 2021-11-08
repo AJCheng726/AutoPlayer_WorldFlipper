@@ -1,0 +1,49 @@
+{% set version = "228" %}
+
+package:
+  name: pywin32
+  version: {{ version }}
+
+source:
+  url: https://github.com/mhammond/pywin32/archive/b{{ version }}.tar.gz
+  sha256: 894cde85c251a3da6d341a711d7259ca11097bfd1b16e10024988790aa5c81b1
+  patches:
+    - disable_exchange_modules.patch
+    - 0003-remove-PATH-pth-hack.patch
+    # https://github.com/mhammond/pywin32/commit/9fbc2ed3c0d69aca2475975a599cc316016599d3
+    - fix-formatting.diff
+    # HACK: Avoid https://bugs.python.org/issue42009
+    - ensure-PythonService-mc-before-cpp.diff
+
+build:
+  number: 0
+  # script:
+  #  - {{ PYTHON }} setup.py -q install --record=record.txt --skip-verstamp
+  #  - copy %PREFIX%\Lib\site-packages\pywin32_system32\*.dll %PREFIX%\Lib\site-packages\win32\
+  #  - copy %PREFIX%\Lib\site-packages\pywin32_system32\*.dll %LIBRARY_BIN%\
+  skip: true  # [not win or py27]
+
+requirements:
+  build:
+    - {{ compiler("c") }}
+    - m2-patch  # [win]
+  host:
+    - python
+    - pip
+  run:
+    - python
+
+about:
+  home: https://github.com/mhammond/pywin32
+  license: PSF-2.0
+  license_file: Pythonwin/License.txt
+  summary: Python extensions for Windows
+  description: |
+    A set of extension modules that provides access to many of the Windows API functions.
+  dev_url: https://github.com/mhammond/pywin32
+
+extra:
+  recipe-maintainers:
+    - mingwandroid
+    - nicoddemus
+    - carlodri

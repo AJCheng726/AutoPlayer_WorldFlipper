@@ -1,0 +1,76 @@
+# This file created by conda-build 3.21.4
+# meta.yaml template originally from:
+# C:\ci\containers\00002qp556n\tmp\build\80754af9\combined_recipe, last modified Fri Jul  9 06:53:56 2021
+# ------------------------------------------------
+
+package:
+  name: cffi
+  version: 1.14.6
+source:
+  patches:
+    - 0001-Link-to-dl-library.patch
+  sha256: c9a875ce9d7fe32887784274dd533c57909b7b1dcadcc128a2ac21331a9765dd
+  url: https://pypi.io/packages/source/c/cffi/cffi-1.14.6.tar.gz
+build:
+  number: '0'
+  script: C:\\ci\\cffi_1625831756778\\_h_env\\python.exe -m pip install . --no-deps
+    -vv
+  string: py39h2bbff1b_0
+requirements:
+  build:
+    - m2-msys2-runtime 2.5.0.17080.65c939c 3
+    - m2-patch 2.7.5 2
+    - msys2-conda-epoch 20160418 1
+    - vs2017_win-64 19.16.27032.1 hb4161e2_3
+    - vswhere 2.8.4 haa95532_0
+  host:
+    - ca-certificates 2021.7.5 haa95532_1
+    - certifi 2021.5.30 py39haa95532_0
+    - openssl 1.1.1k h2bbff1b_0
+    - pip 21.1.3 py39haa95532_0
+    - python 3.9.5 h6244533_3
+    - setuptools 52.0.0 py39haa95532_0
+    - sqlite 3.36.0 h2bbff1b_0
+    - tzdata 2021a h52ac0ba_0
+    - vc 14.2 h21ff451_1
+    - vs2015_runtime 14.27.29016 h5e58377_2
+    - wheel 0.36.2 pyhd3eb1b0_0
+    - wincertstore 0.2 py39h2bbff1b_0
+  run:
+    - pycparser >=2.06
+    - python >=3.9,<3.10.0a0
+    - vc >=14.1,<15.0a0
+    - vs2015_runtime >=14.16.27012,<15.0a0
+test:
+  commands:
+    - pip check
+  imports:
+    - _cffi_backend
+    - cffi
+  requires:
+    - pip
+about:
+  description: 'Cffi aims to allow users to call C code from Python without having
+    to
+
+    learn a 3rd language. It provides a convenient and reliable way to call
+
+    compiled C code from Python using interface declarations written in C.
+
+    '
+  dev_url: https://foss.heptapod.net/pypy/cffi
+  doc_source_url: https://foss.heptapod.net/pypy/cffi/-/tree/branch/default/doc/source
+  doc_url: https://cffi.readthedocs.io/en/latest/
+  home: http://cffi.readthedocs.org/
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  summary: Foreign Function Interface for Python calling C code.
+extra:
+  copy_test_source_files: true
+  final: true
+  recipe-maintainers:
+    - goanpeca
+    - inducer
+    - mingwandroid
+    - ocefpaf

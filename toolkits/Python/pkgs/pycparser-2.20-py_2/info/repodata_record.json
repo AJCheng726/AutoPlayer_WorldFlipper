@@ -1,0 +1,25 @@
+{
+  "build": "py_2",
+  "build_number": 2,
+  "channel": "https://repo.anaconda.com/pkgs/main/noarch",
+  "constrains": [],
+  "depends": [
+    "python"
+  ],
+  "features": "",
+  "fn": "pycparser-2.20-py_2.conda",
+  "legacy_bz2_md5": "bc20c885814700fdc0187918f9aff9ac",
+  "legacy_bz2_size": 95951,
+  "license": "BSD-3-Clause",
+  "md5": "fcfeb621c6f895f3562ff01d9d6ce959",
+  "name": "pycparser",
+  "noarch": "python",
+  "package_type": "noarch_python",
+  "sha256": "b166672b541ab2931f98e762dbf1c84fd1d48400f0406d08aae57150d517ceed",
+  "size": 96676,
+  "subdir": "noarch",
+  "timestamp": 1594388539730,
+  "track_features": "",
+  "url": "https://repo.anaconda.com/pkgs/main/noarch/pycparser-2.20-py_2.conda",
+  "version": "2.20"
+}

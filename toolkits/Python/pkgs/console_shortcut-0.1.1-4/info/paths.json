@@ -1,0 +1,17 @@
+{
+  "paths": [
+    {
+      "_path": "Menu/Iconleak-Atrous-Console.ico",
+      "path_type": "hardlink",
+      "sha256": "92183372a2d388578c5c7b9d72c7b4c1aaccd9078ec44fd12b500777026a3395",
+      "size_in_bytes": 432254
+    },
+    {
+      "_path": "Menu/console_shortcut.json",
+      "path_type": "hardlink",
+      "sha256": "99628caf708fd83638b3422250d3fb7470775339d1a21300210c48c7265e04cd",
+      "size_in_bytes": 351
+    }
+  ],
+  "paths_version": 1
+}

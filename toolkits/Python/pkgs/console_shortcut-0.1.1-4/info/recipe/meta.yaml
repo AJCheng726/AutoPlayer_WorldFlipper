@@ -1,0 +1,26 @@
+# This file created by conda-build 3.17.8
+# meta.yaml template originally from:
+# C:\ci\containers\00001gbds2s\tmp\build\80754af9\rsync-recipes\console_shortcut-0.1.1-on-winbuilder, last modified Thu Jan 23 10:52:03 2020
+# ------------------------------------------------
+
+package:
+    name: console_shortcut
+    version: 0.1.1
+build:
+    number: '4'
+    string: '4'
+requirements:
+    run:
+        - python
+    run_constrained:
+        - anaconda-navigator >=1.9.8
+app:
+    entry: start cmd.exe /K "${CONDA_ROOT_PREFIX}\\Scripts\\activate.bat" "${CONDA_PREFIX}"
+    summary: Anaconda Powershell Prompt
+    type: desk
+about:
+    license: BSD
+    summary: Console shortcut creator for Windows (using menuinst)
+extra:
+    copy_test_source_files: true
+    final: true

@@ -1,0 +1,18 @@
+{
+  "arch": null,
+  "build": "pyhd3eb1b0_1",
+  "build_number": 1,
+  "depends": [
+    "cryptography >=2.8",
+    "python",
+    "six >=1.5.2"
+  ],
+  "license": "Apache 2.0",
+  "license_family": "Apache",
+  "name": "pyopenssl",
+  "noarch": "python",
+  "platform": null,
+  "subdir": "noarch",
+  "timestamp": 1608057995890,
+  "version": "20.0.1"
+}

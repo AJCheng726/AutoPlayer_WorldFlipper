@@ -1,0 +1,73 @@
+# This file created by conda-build 3.21.4
+# meta.yaml template originally from:
+# /tmp/build/80754af9/rsync-recipes/six-1.16.0-on-linux_64, last modified Mon Jun 14 22:33:52 2021
+# ------------------------------------------------
+
+package:
+  name: six
+  version: 1.16.0
+source:
+  sha256: 1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926
+  url: https://pypi.io/packages/source/s/six/six-1.16.0.tar.gz
+build:
+  noarch: python
+  number: '0'
+  script: /tmp/build/80754af9/six_1623709665295/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_/bin/python
+    -m pip install . -vv
+  string: pyhd3eb1b0_0
+requirements:
+  host:
+    - _libgcc_mutex 0.1 main
+    - _openmp_mutex 4.5 1_gnu
+    - ca-certificates 2021.5.25 h06a4308_1
+    - certifi 2021.5.30 py39h06a4308_0
+    - ld_impl_linux-64 2.35.1 h7274673_9
+    - libffi 3.3 he6710b0_2
+    - libgcc-ng 9.3.0 h5101ec6_17
+    - libgomp 9.3.0 h5101ec6_17
+    - libstdcxx-ng 9.3.0 hd4cf53a_17
+    - ncurses 6.2 he6710b0_1
+    - openssl 1.1.1k h27cfd23_0
+    - pip 21.1.2 py39h06a4308_0
+    - python 3.9.5 h12debd9_4
+    - readline 8.1 h27cfd23_0
+    - setuptools 52.0.0 py39h06a4308_0
+    - sqlite 3.35.4 hdfb4753_0
+    - tk 8.6.10 hbc83047_0
+    - tzdata 2020f h52ac0ba_0
+    - wheel 0.36.2 pyhd3eb1b0_0
+    - xz 5.2.5 h7b6447c_0
+    - zlib 1.2.11 h7b6447c_3
+  run:
+    - python
+test:
+  commands:
+    - pip check
+  imports:
+    - six
+  requires:
+    - pip
+about:
+  description: 'Six provides simple utilities for wrapping over differences between
+
+    Python 2 and Python 3. It is intended to support codebases that work on
+
+    both Python 2 and 3 without modification. six consists of only one Python
+
+    file, so it is painless to copy into a project.
+
+    '
+  dev_url: https://github.com/benjaminp/six
+  doc_url: https://six.readthedocs.io/
+  home: https://six.readthedocs.io/
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  summary: Python 2 and 3 compatibility utilities
+extra:
+  copy_test_source_files: true
+  final: true
+  recipe-maintainers:
+    - jakirkham
+    - msarahan
+    - ocefpaf

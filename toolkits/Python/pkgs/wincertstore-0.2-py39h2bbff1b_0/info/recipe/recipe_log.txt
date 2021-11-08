@@ -1,0 +1,68 @@
+commit 5ba7d5d3e7566732cd7f39b6b8f43758568aba8a
+Author: Ray Donnelly <mingw.android@gmail.com>
+Date:   Fri Sep 15 04:08:32 2017 -0700
+
+    Needs a host python
+
+commit 0f0516eaddf601bea22f6f3e0474a70b567cbae3
+Author: Travis-CI on github.com/conda-forge/staged-recipes <conda-forge@googlegroups.com>
+Date:   Sat Aug 26 20:02:26 2017 +0000
+
+    [ci skip] [skip ci] Update anaconda token
+
+commit 8f25e9c759d707d2893ae0ba6f6059cd9cfb9117
+Merge: d67c832 f2b502a
+Author: Filipe <ocefpaf@gmail.com>
+Date:   Sun Dec 25 18:39:50 2016 -0300
+
+    Merge pull request #4 from ocefpaf/py36
+    
+    rerender
+
+commit f2b502a4765300a44bcf730f581ece3501343533
+Author: ocefpaf <ocefpaf@gmail.com>
+Date:   Sun Dec 25 17:26:29 2016 -0300
+
+    rerender
+
+commit d67c832902540d6ff860db1431f9be49b6f21ed5
+Merge: 179d289 a3ee7ec
+Author: jakirkham <jakirkham@gmail.com>
+Date:   Tue Nov 1 22:15:16 2016 -0400
+
+    Merge pull request #2 from jakirkham/re-render_1.4.5
+    
+    MNT: Re-rendered with conda-smithy 1.4.5 [ci skip]
+
+commit a3ee7ec591106fc26bd40ebe433ccbe06486d83d
+Author: John Kirkham <kirkhamj@janelia.hhmi.org>
+Date:   Tue Nov 1 06:01:41 2016 -0400
+
+    MNT: Re-rendered with conda-smithy 1.4.5
+
+commit 179d2897512ad666abc89f8b563f2eefb042f151
+Merge: ddfa842 aa6a820
+Author: jakirkham <jakirkham@gmail.com>
+Date:   Mon Oct 31 21:51:52 2016 -0400
+
+    Merge pull request #1 from conda-forge-admin/feedstock_rerender_master
+    
+    MNT: Re-render the feedstock [ci skip]
+
+commit aa6a82074c2a67ef46e4ac61498d8d0e466d2103
+Author: conda-forge-admin <pelson.pub+conda-forge@gmail.com>
+Date:   Sat Oct 29 03:42:15 2016 +0000
+
+    MNT: Updated the feedstock for conda-smithy version 1.4.2.
+
+commit ddfa84298732f290429d33b69724d9f96076f7ce
+Author: Travis-CI on github.com/conda-forge/staged-recipes <conda-forge@googlegroups.com>
+Date:   Sat Jul 16 16:33:53 2016 +0000
+
+    Re-render the feedstock after CI registration.
+
+commit 03788ddf707d67ece470073d03f08dbd812d2814
+Author: Travis-CI on github.com/conda-forge/staged-recipes <conda-forge@googlegroups.com>
+Date:   Sat Jul 16 16:32:33 2016 +0000
+
+    Initial commit of the wincertstore feedstock.

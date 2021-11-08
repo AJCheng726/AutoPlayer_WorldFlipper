@@ -1,0 +1,63 @@
+# This file created by conda-build 3.20.5
+# meta.yaml template originally from:
+# /home/linux1/recipes/idna-feedstock/recipe, last modified Mon Jan 18 11:07:51 2021
+# ------------------------------------------------
+
+package:
+    name: idna
+    version: '2.10'
+source:
+    sha256: b307872f855b18632ce0c21c5e45be78c0ea7ae4c15c828c20788b26921eb3f6
+    url: https://pypi.io/packages/source/i/idna/idna-2.10.tar.gz
+build:
+    noarch: python
+    number: '0'
+    script: /home/linux1/recipes/ci/idna_1610986105248/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_place/bin/python
+        -m pip install . -vvv
+    string: pyhd3eb1b0_0
+requirements:
+    host:
+        - _libgcc_mutex 0.1 anaconda_defaults
+        - _openmp_mutex 4.5 1_gnu
+        - ca-certificates 2020.12.8 ha847dfd_0
+        - certifi 2020.12.5 py37ha847dfd_0
+        - ld_impl_linux-s390x 2.33.1 ha4e4b1c_1
+        - libedit 3.1.20191231 h2a837d6_0
+        - libffi 3.2.1 hd8db5ea_1007
+        - libgcc-ng 9.3.0 hc647ab7_17
+        - libgomp 9.3.0 hc647ab7_17
+        - libstdcxx-ng 9.3.0 hc891710_17
+        - ncurses 6.2 h2a837d6_0
+        - openssl 1.1.1i h2a837d6_0
+        - pip 20.3.3 py37ha847dfd_0
+        - python 3.7.9 h08cc55f_0
+        - readline 8.0 h2a837d6_0
+        - setuptools 51.1.2 py37ha847dfd_4
+        - sqlite 3.32.3 haa4ac92_0
+        - tk 8.6.10 h2795051_1
+        - wheel 0.36.2 pyhd3eb1b0_0
+        - xz 5.2.5 h2a837d6_0
+        - zlib 1.2.11 h2a837d6_4
+    run:
+        - python
+test:
+    imports:
+        - idna
+about:
+    description: 'A library to support the Internationalised Domain Names in Applications
+
+        (IDNA) protocol as specified in RFC 5891. This version of the protocol
+
+        is often referred to as "IDNA2008".
+
+        '
+    home: https://github.com/kjd/idna
+    license: BSD Like
+    license_file: LICENSE.rst
+    summary: Internationalized Domain Names in Applications (IDNA).
+extra:
+    copy_test_source_files: true
+    final: true
+    recipe-maintainers:
+        - goanpeca
+        - jschueller

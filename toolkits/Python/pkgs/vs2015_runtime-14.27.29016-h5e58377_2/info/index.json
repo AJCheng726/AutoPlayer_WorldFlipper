@@ -1,0 +1,11 @@
+{
+  "arch": "x86_64",
+  "build": "h5e58377_2",
+  "build_number": 2,
+  "depends": [],
+  "name": "vs2015_runtime",
+  "platform": "win",
+  "subdir": "win-64",
+  "timestamp": 1605602872095,
+  "version": "14.27.29016"
+}

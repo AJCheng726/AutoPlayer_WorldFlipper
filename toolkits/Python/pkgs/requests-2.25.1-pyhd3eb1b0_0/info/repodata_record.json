@@ -1,0 +1,29 @@
+{
+  "build": "pyhd3eb1b0_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/noarch",
+  "constrains": [],
+  "depends": [
+    "certifi >=2017.4.17",
+    "chardet >=3.0.2,<5",
+    "idna >=2.5,<3",
+    "python",
+    "urllib3 >=1.21.1,<1.27"
+  ],
+  "features": "",
+  "fn": "requests-2.25.1-pyhd3eb1b0_0.conda",
+  "legacy_bz2_md5": "b403001a8842763085ec42a635ab8a64",
+  "legacy_bz2_size": 52418,
+  "license": "Apache-2.0",
+  "md5": "9d30b41b315403c7c74793b9b8d88580",
+  "name": "requests",
+  "noarch": "python",
+  "package_type": "noarch_python",
+  "sha256": "bafbd058e982376384088ca8264aa5f2e2e57f2c74c5d7c110ff203f069a9625",
+  "size": 53705,
+  "subdir": "noarch",
+  "timestamp": 1608241453837,
+  "track_features": "",
+  "url": "https://repo.anaconda.com/pkgs/main/noarch/requests-2.25.1-pyhd3eb1b0_0.conda",
+  "version": "2.25.1"
+}

@@ -1,0 +1,26 @@
+{
+  "build": "pyhd3eb1b0_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/noarch",
+  "constrains": [],
+  "depends": [
+    "python"
+  ],
+  "features": "",
+  "fn": "six-1.16.0-pyhd3eb1b0_0.conda",
+  "legacy_bz2_md5": "4b46cefc41f565ce5a7a5d572d851c49",
+  "legacy_bz2_size": 18781,
+  "license": "MIT",
+  "license_family": "MIT",
+  "md5": "529b369e1accc75b89f2d7e184a898d0",
+  "name": "six",
+  "noarch": "python",
+  "package_type": "noarch_python",
+  "sha256": "5b04aac9e55ddd591d29bb842d30c6287d7f202b7dca849b1944c172c33d7dc7",
+  "size": 18538,
+  "subdir": "noarch",
+  "timestamp": 1623709705233,
+  "track_features": "",
+  "url": "https://repo.anaconda.com/pkgs/main/noarch/six-1.16.0-pyhd3eb1b0_0.conda",
+  "version": "1.16.0"
+}

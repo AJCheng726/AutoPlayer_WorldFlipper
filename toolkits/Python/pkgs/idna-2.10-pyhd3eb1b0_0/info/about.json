@@ -1,0 +1,28 @@
+{
+  "channels": [
+    "defaults"
+  ],
+  "conda_build_version": "3.20.5",
+  "conda_private": false,
+  "conda_version": "4.9.2",
+  "description": "A library to support the Internationalised Domain Names in Applications\n(IDNA) protocol as specified in RFC 5891. This version of the protocol\nis often referred to as \"IDNA2008\".\n",
+  "env_vars": {
+    "CIO_TEST": "<not set>"
+  },
+  "extra": {
+    "copy_test_source_files": true,
+    "final": true,
+    "recipe-maintainers": [
+      "goanpeca",
+      "jschueller"
+    ]
+  },
+  "home": "https://github.com/kjd/idna",
+  "identifiers": [],
+  "keywords": [],
+  "license": "BSD Like",
+  "license_file": "LICENSE.rst",
+  "root_pkgs": [],
+  "summary": "Internationalized Domain Names in Applications (IDNA).",
+  "tags": []
+}

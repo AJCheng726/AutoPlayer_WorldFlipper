@@ -1,0 +1,23 @@
+{
+  "build": "py39haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "constrains": [],
+  "depends": [
+    "python >=3.9,<3.10.0a0"
+  ],
+  "features": "",
+  "fn": "certifi-2021.5.30-py39haa95532_0.conda",
+  "legacy_bz2_md5": "27d2497fdfe7578c93da6dc7fe13178e",
+  "legacy_bz2_size": 145518,
+  "license": "MPL-2.0",
+  "md5": "03e45b30295fd50e1eeeca9501a23caa",
+  "name": "certifi",
+  "sha256": "75b5a50b363d6d53ed84a908ea7526cdbf2011791b0bcd48650041647c36b12e",
+  "size": 142997,
+  "subdir": "win-64",
+  "timestamp": 1622567970211,
+  "track_features": "",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/certifi-2021.5.30-py39haa95532_0.conda",
+  "version": "2021.5.30"
+}

@@ -1,0 +1,39 @@
+# This file created by conda-build 3.21.4
+# meta.yaml template originally from:
+# C:\ci\containers\00002lh7r3l\tmp\build\80754af9\combined_recipe, last modified Tue Jul  6 02:04:44 2021
+# ------------------------------------------------
+
+package:
+  name: ca-certificates
+  version: 2021.7.5
+source:
+  fn: cacert.pem
+  sha256: a3b534269c6974631db35f952e8d7c7dbf3d81ab329a232df575c2661de1214a
+  url: https://curl.haxx.se/ca/cacert-2021-07-05.pem
+build:
+  commands:
+    - /usr/bin/curl --cacert %LIBRARY_PREFIX%\\ssl\\cacert.pem https://www.google.com
+    - if not exist %LIBRARY_PREFIX%\\ssl\\cacert.pem exit 1
+    - if not exist %LIBRARY_PREFIX%\\ssl\\cert.pem exit 1
+  number: '1'
+  string: haa95532_1
+requirements:
+  build: []
+  run: []
+about:
+  home: https://github.com/conda-forge/ca-certificates-feedstock
+  license: MPL 2.0
+  license_file: LICENSE.txt
+  summary: Certificates for use with other packages.
+extra:
+  copy_test_source_files: true
+  final: true
+  recipe-maintainers:
+    - jakirkham
+    - jjhelmus
+    - msarahan
+    - mwcraig
+    - ocefpaf
+    - patricksnape
+    - pelson
+    - scopatz

@@ -1,0 +1,61 @@
+{% set version = "4.61.2" %}
+
+package:
+  name: tqdm
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/t/tqdm/tqdm-{{ version }}.tar.gz
+  sha256: 8bb94db0d4468fea27d004a0f1d1c02da3cdedc00fe491c0de986b76a04d6b0a
+
+build:
+  noarch: python
+  entry_points:
+    - tqdm = tqdm.cli:main
+  number: 1
+  script: {{ PYTHON }} -m pip install . --no-deps -vv
+
+requirements:
+  host:
+    - python >=2.7
+    - pip
+    - setuptools_scm >=3.4
+    - setuptools >=42
+    - toml
+    - wheel
+  run:
+    - python >=2.7
+    - colorama  # [win]
+
+test:
+  requires:
+    - pip
+    - pytest
+    - pytest-timeout
+    - pytest-asyncio  # [py>=37]
+  source_files:
+    - tests
+    - setup.cfg
+    - pyproject.toml
+  imports:
+    - tqdm
+  commands:
+    - pip check
+    - tqdm --help
+    - tqdm -v
+    - pytest -k "not tests_perf"
+
+about:
+  home: https://pypi.python.org/pypi/tqdm
+  license: MPL-2.0 AND MIT
+  license_family: MOZILLA
+  license_file: LICENCE
+  summary: A Fast, Extensible Progress Meter
+  dev_url: https://github.com/tqdm/tqdm
+  doc_url: https://github.com/tqdm/tqdm#tqdm
+  doc_source_url: https://github.com/tqdm/tqdm/blob/master/README.rst
+
+extra:
+  recipe-maintainers:
+    - casperdcl
+    - pmlandwehr

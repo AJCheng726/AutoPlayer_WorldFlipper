@@ -1,0 +1,191 @@
+# This file created by conda-build 3.21.4
+# ------------------------------------------------
+
+package:
+  name: python
+  version: 3.9.5
+source:
+  - md5: 71f7ada6bec9cdbf4538adc326120cfd
+    patches:
+      - patches/0000-Fix-off-by-one-error-in-_winapi_WaitForMultipleObjec.patch
+      - patches/0001-Darwin-Add-arch-x86_64-to-UnicCCompiler-ld_args.patch
+      - patches/0002-Win32-Change-FD_SETSIZE-from-512-to-2048.patch
+      - patches/0003-Win32-distutils-Add-support-to-cygwinccompiler-for-V.patch
+      - patches/0004-Do-not-pass-g-to-GCC-when-not-Py_DEBUG.patch
+      - patches/0005-Support-cross-compiling-byte-code.patch
+      - patches/0006-Win32-Fixes-for-Windows-GCC-interop-needed-by-RPy2-a.patch
+      - patches/0007-Darwin-Look-in-sysroot-usr-lib-include-if-sysroot-is.patch
+      - patches/0008-runtime_library_dir_option-Use-1st-word-of-CC-as-com.patch
+      - patches/0009-Win32-Do-not-download-externals.patch
+      - patches/0010-Add-support-for-_CONDA_PYTHON_SYSCONFIGDATA_NAME-if-.patch
+      - patches/0011-Fix-find_library-so-that-it-looks-in-sys.prefix-lib-.patch
+      - patches/0012-Disable-new-dtags-in-unixccompiler.py.patch
+      - patches/0013-Fix-cross-compilation-on-Debian-based-distros.patch
+      - patches/0014-Disable-registry-lookup-unless-CONDA_PY_ALLOW_REG_PA.patch
+      - patches/0015-Unvendor-openssl.patch
+      - patches/0016-Unvendor-sqlite3.patch
+      - patches/0017-venv-Revert-a-change-from-https-github.com-python-cp.patch
+      - patches/0018-Win-Add-back-the-DLLSuffix-used-to-find-the-openssl-.patch
+      - patches/0019-Use-ranlib-from-env-if-env-variable-is-set.patch
+      - patches/0020-Add-CondaEcosystemModifyDllSearchPath.patch
+      - patches/0021-Add-d1trimfile-SRC_DIR-to-make-pdbs-more-relocatable.patch
+      - patches/0022-Doing-d1trimfile.patch
+      - patches/0023-egg-debugging-with-Windows-debug-builds.patch
+      - patches/0024-Add-CONDA_DLL_SEARCH_MODIFICATION_KEEP_GIL-to-aid-de.patch
+      - patches/0025-cross-compile-darwin.patch
+      - patches/0032-Fix-TZPATH-on-windows.patch
+      - patches/0033-gh24324.patch
+      - patches/9999-Add-Anaconda-Distribution-version-logic.patch
+    url: https://www.python.org/ftp/python/3.9.5/Python-3.9.5.tar.xz
+  - folder: externals/xz-5.2.2
+    sha256: 02b6d6f1e0369940e7e1f0d324992e069d09f5f3d32d86e2d22cd8b82ac3fb3f
+    url: https://github.com/python/cpython-source-deps/archive/xz-5.2.2.zip
+  - folder: externals/tcl-core-8.6.9.0
+    sha256: ea9e724536ec13b476ebbd47948303b92fdd90a33aa94f30fcc2f5c3a899f69e
+    url: https://github.com/python/cpython-source-deps/archive/tcl-core-8.6.9.0.zip
+  - folder: externals/tk-8.6.9.0
+    sha256: f3112b6bbc3bd163c877030187e73ce9a113ce03eff559ec5b9df697e3a08fad
+    url: https://github.com/python/cpython-source-deps/archive/tk-8.6.9.0.zip
+  - folder: externals/tcltk-8.6.9.0
+    sha256: 37cd629a75d2a34974a3d771ccab5c9e3caf3d138cea81040f9cdba1aded1cf2
+    url: https://github.com/python/cpython-bin-deps/archive/tcltk-8.6.9.0.zip
+  - folder: externals/tix-8.4.3.6
+    sha256: e558e3dc5e67ac0942f8fceafce00ca46b177da9ebeaf38ec7fafd9b9913ac56
+    url: https://github.com/python/cpython-source-deps/archive/tix-8.4.3.6.zip
+  - folder: externals/bzip2-1.0.6
+    sha256: c42fd1432a2667b964a74bc423bb7485059c4a6d5dc92946d59dbf9a6bdb988d
+    url: https://github.com/python/cpython-source-deps/archive/bzip2-1.0.6.zip
+  - folder: externals/zlib-1.2.11
+    sha256: debb1952945fa6c25817a40abe90641b572c83171f244937b70b9fe156f5a63a
+    url: https://github.com/python/cpython-source-deps/archive/zlib-1.2.11.zip
+  - folder: externals/nasm-2.11.06
+    sha256: de3c87b26a80e789986d8e6950c6304175d3829afe9c6c7211eb7257266ab0ac
+    url: https://github.com/python/cpython-bin-deps/archive/nasm-2.11.06.zip
+  - folder: externals/libffi
+    sha256: 4872e72e188a5aa1124db0c3b163a4163e84ead359a514d86dd7c6fa2d2ff02a
+    url: https://github.com/python/cpython-bin-deps/archive/libffi.zip
+build:
+  activate_in_script: true
+  detect_binary_files_with_prefix: true
+  missing_dso_whitelist:
+    - '**/MSVCR71.dll'
+    - '**/MSVCR80.dll'
+    - '**/api-ms-win-core-path-l1-1-0.dll'
+  no_link:
+    - DLLs/_ctypes.pyd
+  number: 3
+  script_env:
+    - CONDA_FORGE=no
+    - OPENSSL_DIR=%PREFIX%\Library
+    - PY_INTERP_DEBUG=no
+    - PY_INTERP_LINKAGE_NATURE=static
+    - SQLITE3_DIR=%PREFIX%\Library
+  skip_compile_pyc: null
+  string: h6244533_3
+requirements:
+  build:
+    - ripgrep 12.1.1 0
+    - vs2017_win-64 19.16.27032.1 hb4161e2_3
+    - vswhere 2.8.4 haa95532_0
+  host:
+    - ca-certificates 2021.4.13 haa95532_1
+    - openssl 1.1.1k h2bbff1b_0
+    - sqlite 3.35.4 h2bbff1b_0
+    - vc 14.2 h21ff451_1
+    - vs2015_runtime 14.27.29016 h5e58377_2
+  run:
+    - openssl >=1.1.1k,<1.1.2a
+    - sqlite >=3.35.4,<4.0a0
+    - tzdata
+    - vc >=14.1,<15.0a0
+    - vs2015_runtime >=14.16.27012,<15.0a0
+test:
+  commands:
+    - echo on
+    - set
+    - python -V
+    - 2to3 -h
+    - pydoc -h
+    - python run_test.py
+    - set "PIP_NO_BUILD_ISOLATION=False"
+    - set "PIP_NO_DEPENDENCIES=True"
+    - set "PIP_IGNORE_INSTALLED=True"
+    - set "PIP_NO_INDEX=True"
+    - set "PIP_CACHE_DIR=%CONDA_PREFIX%/pip_cache"
+    - set "TEMP=%CONDA_PREFIX%/tmp"
+    - mkdir "%TEMP%"
+    - python -Im ensurepip --upgrade --default-pip
+    - python -c "from zoneinfo import ZoneInfo; from datetime import datetime; dt
+      = datetime(2020, 10, 31, 12, tzinfo=ZoneInfo('America/Los_Angeles')); print(dt.tzname())"
+    - python -m venv test-venv
+    - if exist %PREFIX%\\Scripts\\pydoc exit 1
+    - if exist %PREFIX%\\Scripts\\idle exit 1
+    - if exist %PREFIX%\\Scripts\\2to3 exit 1
+    - if not exist %PREFIX%\\Scripts\\pydoc-script.py exit 1
+    - if not exist %PREFIX%\\Scripts\\idle-script.py exit 1
+    - if not exist %PREFIX%\\Scripts\\2to3-script.py exit 1
+    - if not exist %PREFIX%\\Scripts\\idle.exe exit 1
+    - if not exist %PREFIX%\\Scripts\\2to3.exe exit 1
+    - if not exist %PREFIX%\\Scripts\\pydoc.exe exit 1
+    - pushd tests
+    - pushd distutils
+    - python setup.py install -v -v
+    - python -c "import foobar"
+    - popd
+    - pushd cmake
+    - run_cmake_test.bat 3.9.5
+    - popd
+    - pushd processpoolexecutor-max_workers-61
+    - python ppe.py
+    - popd
+    - popd
+  downstreams:
+    - cython
+    - setuptools
+  files:
+    - run_test.py
+    - tests/cmake/*
+    - tests/cython/*
+    - tests/distutils/*
+    - tests/embedding-interpreter/*
+    - tests/processpoolexecutor-max_workers-61/*
+  requires:
+    - cmake
+    - ninja
+    - ripgrep
+    - vs2017_win-64
+about:
+  description: 'Python is a widely used high-level, general-purpose, interpreted,
+    dynamic
+
+    programming language. Its design philosophy emphasizes code
+
+    readability, and its syntax allows programmers to express concepts in
+
+    fewer lines of code than would be possible in languages such as C++ or
+
+    Java. The language provides constructs intended to enable clear programs
+
+    on both a small and large scale.
+
+    '
+  dev_url: https://docs.python.org/devguide/
+  doc_source_url: https://github.com/python/pythondotorg/blob/master/docs/source/index.rst
+  doc_url: https://www.python.org/doc/versions/
+  home: https://www.python.org/
+  license: Python-2.0
+  license_file: LICENSE
+  summary: General purpose programming language
+extra:
+  copy_test_source_files: true
+  feedstock-name: python
+  final: true
+  recipe-maintainers:
+    - isuruf
+    - jakirkham
+    - mbargull
+    - mingwandroid
+    - msarahan
+    - ocefpaf
+    - pelson
+    - scopatz

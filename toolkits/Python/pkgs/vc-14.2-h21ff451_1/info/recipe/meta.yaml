@@ -1,0 +1,30 @@
+# This file created by conda-build 3.20.2
+# ------------------------------------------------
+
+package:
+    name: vc
+    version: 14.2
+build:
+    number: 1
+    string: h21ff451_1
+    track_features:
+        - vc14
+requirements:
+    run:
+        - vs2015_runtime >=14.27.29016
+about:
+    description: 'This metapackage is used to enforce consistency of runtime
+
+        dependencies within an environment
+
+        '
+    dev_url: https://github.com/conda/conda/wiki/VC-features
+    doc_url: https://github.com/conda/conda/wiki/VC-features
+    home: https://github.com/conda/conda/wiki/VC-features
+    license: Modified BSD License (3-clause)
+    license_family: BSD
+    summary: A meta-package to impose mutual exclusivity among software built with
+        different VS versions
+extra:
+    copy_test_source_files: true
+    final: true

@@ -1,0 +1,80 @@
+# This file created by conda-build 3.21.4
+# meta.yaml template originally from:
+# C:\ci\containers\00003ub53lv\tmp\build\80754af9\combined_recipe, last modified Mon Apr 12 16:15:05 2021
+# ------------------------------------------------
+
+package:
+  name: conda-package-handling
+  version: 1.7.3
+source:
+  fn: conda-package-handling-1.7.3.tar.gz
+  patches:
+    - 0002-punt-test_secure_refusal.patch
+  sha256: d908640a7fd6ec789afb3dc8ecdebef145f3c5dfdd4fa89dc866ea69edeea122
+  url: https://github.com/conda/conda-package-handling/releases/download/1.7.3/conda-package-handling-1.7.3.tar.gz
+build:
+  entry_points:
+    - cph = conda_package_handling.cli:main
+  missing_dso_whitelist:
+    - '*/VCRUNTIME140.dll'
+    - MSVCR90.dll
+  number: '1'
+  script: C:\ci\conda-package-handling_1618262410900\_h_env\python.exe -m pip install
+    . --no-deps -vv
+  string: py39h8cc25b3_1
+requirements:
+  build:
+    - vs2017_win-64 19.16.27032.1 hb4161e2_3
+    - vswhere 2.8.4 haa95532_0
+  host:
+    - _libarchive_static_for_cph 3.4.3 h62dcd97_2
+    - ca-certificates 2021.1.19 haa95532_1
+    - certifi 2020.12.5 py39haa95532_0
+    - cython 0.29.22 py39hd77b12b_0
+    - openssl 1.1.1k h2bbff1b_0
+    - pip 21.0.1 py39haa95532_0
+    - python 3.9.2 h6244533_0
+    - setuptools 52.0.0 py39haa95532_0
+    - sqlite 3.35.4 h2bbff1b_0
+    - tzdata 2020f h52ac0ba_0
+    - vc 14.2 h21ff451_1
+    - vs2015_runtime 14.27.29016 h5e58377_2
+    - wheel 0.36.2 pyhd3eb1b0_0
+    - wincertstore 0.2 py39h2bbff1b_0
+  run:
+    - python >=3.9,<3.10.0a0
+    - six
+    - tqdm
+    - vc >=14.1,<15.0a0
+    - vs2015_runtime >=14.16.27012,<15.0a0
+test:
+  commands:
+    - pytest tests
+  imports:
+    - conda_package_handling
+    - conda_package_handling.archive_utils_cy
+  requires:
+    - mock
+    - pytest
+    - pytest-cov
+    - pytest-mock
+  source_files:
+    - tests
+about:
+  home: https://github.com/conda/conda-package-handling
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file:
+    - LICENSE
+    - static_deps_licenses/bzip2.txt
+    - static_deps_licenses/libarchive.txt
+    - static_deps_licenses/zlib.txt
+    - static_deps_licenses/zstd.txt
+  summary: Create and extract conda packages of various formats
+extra:
+  copy_test_source_files: true
+  final: true
+  recipe-maintainers:
+    - jjhelmus
+    - mingwandroid
+    - msarahan

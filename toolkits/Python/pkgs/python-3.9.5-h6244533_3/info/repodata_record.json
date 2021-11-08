@@ -1,0 +1,28 @@
+{
+  "build": "h6244533_3",
+  "build_number": 3,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "constrains": [],
+  "depends": [
+    "openssl >=1.1.1k,<1.1.2a",
+    "sqlite >=3.35.4,<4.0a0",
+    "tzdata",
+    "vc >=14.1,<15.0a0",
+    "vs2015_runtime >=14.16.27012,<15.0a0",
+    "pip"
+  ],
+  "features": "",
+  "fn": "python-3.9.5-h6244533_3.conda",
+  "legacy_bz2_md5": "eea1021d660ee5b3600f288edb964b97",
+  "legacy_bz2_size": 20714227,
+  "license": "Python-2.0",
+  "md5": "52903288ef30c9e8aa2795c004f10f63",
+  "name": "python",
+  "sha256": "c27f2139b33beaa3c7143dbd4a5948a8743a296b00227a9bbde5963ec2fc52c2",
+  "size": 17277859,
+  "subdir": "win-64",
+  "timestamp": 1621367760930,
+  "track_features": "",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/python-3.9.5-h6244533_3.conda",
+  "version": "3.9.5"
+}

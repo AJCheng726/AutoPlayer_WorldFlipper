@@ -1,0 +1,26 @@
+# This file created by conda-build 3.20.2
+# ------------------------------------------------
+
+package:
+    name: vs2015_runtime
+    version: 14.27.29016
+build:
+    missing_dso_whitelist:
+        - '*.DLL'
+        - '*.dll'
+    no_link:
+        - '*.dll
+
+            '
+        - Library/bin/*.dll
+    number: 2
+    string: h5e58377_2
+requirements:
+    build:
+        - vswhere 2.7.1 h21ff451_0
+about:
+    summary: MSVC runtimes associated with cl.exe version 19.27.29111 (VS 2019 update
+        5)
+extra:
+    copy_test_source_files: true
+    final: true

@@ -1,0 +1,149 @@
+{
+  "paths": [
+    {
+      "_path": "Lib/site-packages/brotli/__init__.py",
+      "path_type": "hardlink",
+      "sha256": "7312e8658449f917e0337303556f6bbff7745baa35dc8ff620d337b11cbf6300",
+      "size_in_bytes": 201
+    },
+    {
+      "_path": "Lib/site-packages/brotli/__pycache__/__init__.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "876d9984109ed17b6b063bd0a6fa33198a5be9df56505dac4538c56c288699fc",
+      "size_in_bytes": 377
+    },
+    {
+      "_path": "Lib/site-packages/brotli/__pycache__/brotli.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "b7454ab4a5d4df1f696105e8a52b582f8e0abd4c903045a20f5c6924e053ea3e",
+      "size_in_bytes": 12182
+    },
+    {
+      "_path": "Lib/site-packages/brotli/__pycache__/build.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "bc3679a0e13aaedc26ba8270da22c7b0ad1c093833c1fc7ada0bee89539b6243",
+      "size_in_bytes": 10507
+    },
+    {
+      "_path": "Lib/site-packages/brotli/_brotli.pyd",
+      "path_type": "hardlink",
+      "sha256": "d3181bf2c08e470fda6ceeb9a91727957e31c65678284aff9d4b139a71ccf5ed",
+      "size_in_bytes": 830464
+    },
+    {
+      "_path": "Lib/site-packages/brotli/brotli.py",
+      "path_type": "hardlink",
+      "sha256": "1eda615477a8d7626b9890d3e84c913e0d4e3a7b205e98101c246789a54c383e",
+      "size_in_bytes": 15861
+    },
+    {
+      "_path": "Lib/site-packages/brotli/build.py",
+      "path_type": "hardlink",
+      "sha256": "9188030082244b48ef482682f5989fd64b5fb722a5582ddc3c14c93e582646d4",
+      "size_in_bytes": 10405
+    },
+    {
+      "_path": "Lib/site-packages/brotlipy-0.7.0-py3.9.egg-info/PKG-INFO",
+      "path_type": "hardlink",
+      "sha256": "31eb594c03482c9a191f798c290f920a91ff14421104109a73a9014778532a0b",
+      "size_in_bytes": 3522
+    },
+    {
+      "_path": "Lib/site-packages/brotlipy-0.7.0-py3.9.egg-info/SOURCES.txt",
+      "path_type": "hardlink",
+      "sha256": "5758f38e2ead643fd6173879db6d176166c3c8985fcee3700241fd8b2998b47e",
+      "size_in_bytes": 3349
+    },
+    {
+      "_path": "Lib/site-packages/brotlipy-0.7.0-py3.9.egg-info/dependency_links.txt",
+      "path_type": "hardlink",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "size_in_bytes": 1
+    },
+    {
+      "_path": "Lib/site-packages/brotlipy-0.7.0-py3.9.egg-info/not-zip-safe",
+      "path_type": "hardlink",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "size_in_bytes": 1
+    },
+    {
+      "_path": "Lib/site-packages/brotlipy-0.7.0-py3.9.egg-info/requires.txt",
+      "path_type": "hardlink",
+      "sha256": "75e66306966e6db4dd4d021f82e914daf1e29e45f8fe86af102fa571f0a0cce3",
+      "size_in_bytes": 84
+    },
+    {
+      "_path": "Lib/site-packages/brotlipy-0.7.0-py3.9.egg-info/top_level.txt",
+      "path_type": "hardlink",
+      "sha256": "82c4b9e07ae13b766f785c5e32b2a8ffba87e129b84db43b8c62d5044a89e0d2",
+      "size_in_bytes": 15
+    },
+    {
+      "_path": "Lib/site-packages/pycparser/__pycache__/__init__.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "37d24d464646a4f8f7ca25b98a40323e417158e00fbd78cd30d9601584394565",
+      "size_in_bytes": 2509
+    },
+    {
+      "_path": "Lib/site-packages/pycparser/__pycache__/ast_transforms.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "5468332227c4fcc14d2627a29ff504aeb51b437e2e75dcedce5776d5b92fc3ce",
+      "size_in_bytes": 2522
+    },
+    {
+      "_path": "Lib/site-packages/pycparser/__pycache__/c_ast.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "00d936c064f3123bb7783423777d176675ef43152b2ec1b181d350f47447e494",
+      "size_in_bytes": 35174
+    },
+    {
+      "_path": "Lib/site-packages/pycparser/__pycache__/c_lexer.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "4a67f276be4055551b23637b075679d33a640923a365ec78eaa389210caa2126",
+      "size_in_bytes": 11888
+    },
+    {
+      "_path": "Lib/site-packages/pycparser/__pycache__/c_parser.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "12c480f7911eea27bb25bbdab34999f793194b957aae434d98319eda719111ec",
+      "size_in_bytes": 60492
+    },
+    {
+      "_path": "Lib/site-packages/pycparser/__pycache__/lextab.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "f91af2bb83824e680c110e3f0db671bd7e1c7f91dfd416c7e2b4052497d4afba",
+      "size_in_bytes": 5404
+    },
+    {
+      "_path": "Lib/site-packages/pycparser/__pycache__/plyparser.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "58506facae0315ac6288f088d0e3ea6f3c1d6efabd897a7d082d8d59d81595da",
+      "size_in_bytes": 4669
+    },
+    {
+      "_path": "Lib/site-packages/pycparser/__pycache__/yacctab.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "5b56cdff4a9aa2adc8d6a30e672486910bd4a8842f289562a73a65a3a7c4e20c",
+      "size_in_bytes": 146777
+    },
+    {
+      "_path": "Lib/site-packages/pycparser/ply/__pycache__/__init__.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "513205747b16a6d81d1089c37eb6b513d7999cd117f88f0117340ae79dbdfbce",
+      "size_in_bytes": 219
+    },
+    {
+      "_path": "Lib/site-packages/pycparser/ply/__pycache__/lex.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "1a919b2d592d273742888a599692da55d2a5a45845749648f65def364a434684",
+      "size_in_bytes": 21413
+    },
+    {
+      "_path": "Lib/site-packages/pycparser/ply/__pycache__/yacc.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "914986189b2028f8ef9f11fb9023e99586b1764775c30fc88ef9719ab51ced06",
+      "size_in_bytes": 52968
+    }
+  ],
+  "paths_version": 1
+}

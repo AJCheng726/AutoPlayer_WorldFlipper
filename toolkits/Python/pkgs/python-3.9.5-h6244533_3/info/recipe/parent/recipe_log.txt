@@ -1,0 +1,3744 @@
+commit b21b99c2e5971454c8820cbc5aa7560bee052377
+Merge: 1de19ee 9c8ac0c
+Author: Kai Tietz <47363620+katietz@users.noreply.github.com>
+Date:   Tue May 18 13:56:54 2021 +0200
+
+    Merge pull request #29 from AnacondaRecipes/ktietz_fix_fno_semantics_interposition
+    
+    Move -fno-semantic-interposition option to CFLAGS_NODIST to avoid compatibility issues with older gcc compilers
+
+commit 9c8ac0cd0c602d893d1d73c20a692d7b4b982fdd
+Merge: 49dc2f3 1de19ee
+Author: Kai Tietz <47363620+katietz@users.noreply.github.com>
+Date:   Tue May 18 13:54:52 2021 +0200
+
+    Merge branch 'master' into ktietz_fix_fno_semantics_interposition
+
+commit 1de19eeaa9168cfa31ea1fdb7901efde8db5bd1c
+Author: Paul Yim <pseudoyim@users.noreply.github.com>
+Date:   Thu Apr 29 09:56:01 2021 -0400
+
+    Add comment for LDFLAGS on aarch64
+
+commit 749221e8c5223ecd756e6bd95b5a5a14d0a408cd
+Author: Paul Yim <paul.j.yim@gmail.com>
+Date:   Fri Apr 23 14:16:39 2021 +0000
+
+    Bump build number; rebuild with bootstrapping compilers but final activation pkgs 41
+
+commit 0146170ebc1624ba2f3d1404c7244546a19bd062
+Author: Paul Yim <paul.j.yim@gmail.com>
+Date:   Tue Apr 20 20:53:13 2021 +0000
+
+    For aarch64, add libcrypt.so.1 to missing_dso_whitelist and add libstdcxx-ng to ignore_run_exports (follows what we did on master-3.7 and master-3.8)
+
+commit 49dc2f32b94c10f86374ebaefd9bef7209b4f853
+Author: Kai Tietz <ktietz@anaconda.com>
+Date:   Tue Apr 20 21:04:15 2021 +0200
+
+    Move -fno-semantic-interposition option to CFLAGS_NODIST to avoid compatibility issues with older gcc compilers
+
+commit 1acee3960360d976679e94a714e8a4a5434bc2c1
+Merge: 72c202e 4f0ef7d
+Author: Paul Yim <pseudoyim@users.noreply.github.com>
+Date:   Wed Apr 14 13:46:59 2021 -0400
+
+    Merge pull request #28 from AnacondaRecipes/aarch64_build_py394
+    
+    Updates for building on linux-aarch64
+
+commit 4f0ef7d485eced2a33a00f6703c38f26272d4d1c
+Author: Paul Yim <paul.j.yim@gmail.com>
+Date:   Wed Apr 14 15:45:16 2021 +0000
+
+    Add condition to skip crypt test on Fedora aarch64
+
+commit e58965d166975771e0ab8a7eb688378fa218f28b
+Author: Paul Yim <paul.j.yim@gmail.com>
+Date:   Wed Apr 14 15:44:27 2021 +0000
+
+    Remove patch 0034 (not needed)
+
+commit b205a7e314dc4b77603edc10089e5efde34628f8
+Author: Paul Yim <paul.j.yim@gmail.com>
+Date:   Wed Apr 14 15:43:52 2021 +0000
+
+    Remove patch 0034 (not needed); improve jinja condition for libpython-static
+
+commit 72c202e50505115d7ac8b749eed4e6042bb46b5e
+Author: Kai Tietz <ktietz@anaconda.com>
+Date:   Fri Apr 9 19:15:52 2021 +0200
+
+    Update to python 3.9.4
+
+commit cfea20f9d67d68b763b30de93782219ac4904e3f
+Author: Ilan Schnell <ilanschnell@gmail.com>
+Date:   Mon Mar 1 17:10:11 2021 -0600
+
+    disable embedding-interpreter test for linux aarch64
+
+commit 2c03e1243b9e6ecb114996eb27518a67851d3f04
+Author: Ilan Schnell <ilanschnell@gmail.com>
+Date:   Mon Mar 1 16:01:45 2021 -0600
+
+    fix importing crypt on aarch64
+
+commit 14c1980b95454436c716c79cd987167f647d6d80
+Author: Ilan Schnell <ilanschnell@gmail.com>
+Date:   Mon Mar 1 15:36:45 2021 -0600
+
+    disbale tk test for aarch64
+
+commit cba6232445bad331377e8540b86aead507b2cf67
+Author: leej3 <johnleenimh@gmail.com>
+Date:   Mon Mar 1 20:44:21 2021 +0000
+
+    no libpython-static for arm64 and use run_test.py
+
+commit 987218b243bc47fff3e4b31741ad1b16985ff1f3
+Author: Ray Donnelly <mingw.android@gmail.com>
+Date:   Wed Mar 3 12:59:01 2021 +0100
+
+    Add missing file
+
+commit 5bff580a2896cafe802bb27c268d7c8de5d9aa15
+Author: Anthony DiPietro <adipietro@anaconda.com>
+Date:   Fri Feb 26 16:02:08 2021 -0500
+
+    Updating vc version to match what is included in default's central conda_build_config.yaml
+
+commit 926af627e3ec5f15ed36ac44fa7d4a5cc375379b
+Author: Ray Donnelly <mingw.android@gmail.com>
+Date:   Fri Sep 4 15:23:51 2020 +0200
+
+    Enable -fno-semantic-interposition
+    
+    Significant performance diffs are:
+    
+    +-------------------------+--------------+--------------+--------------+------------------------+
+    | Benchmark               | py385_1.json | py385_2.json | Change       | Significance           |
+    +=========================+==============+==============+==============+========================+
+    | deltablue               | 9.66 ms      | 9.40 ms      | 1.03x faster | Significant (t=4.83)   |
+    +-------------------------+--------------+--------------+--------------+------------------------+
+    | dulwich_log             | 97.0 ms      | 101 ms       | 1.04x slower | Significant (t=-7.90)  |
+    +-------------------------+--------------+--------------+--------------+------------------------+
+    | fannkuch                | 595 ms       | 573 ms       | 1.04x faster | Significant (t=43.63)  |
+    +-------------------------+--------------+--------------+--------------+------------------------+
+    | genshi_xml              | 76.9 ms      | 78.7 ms      | 1.02x slower | Significant (t=-7.62)  |
+    +-------------------------+--------------+--------------+--------------+------------------------+
+    | hexiom                  | 12.6 ms      | 12.3 ms      | 1.03x faster | Significant (t=19.79)  |
+    +-------------------------+--------------+--------------+--------------+------------------------+
+    | json_loads              | 33.8 us      | 35.4 us      | 1.05x slower | Significant (t=-3.47)  |
+    +-------------------------+--------------+--------------+--------------+------------------------+
+    | logging_format          | 13.0 us      | 13.3 us      | 1.02x slower | Significant (t=-4.94)  |
+    +-------------------------+--------------+--------------+--------------+------------------------+
+    | nbody                   | 167 ms       | 157 ms       | 1.06x faster | Significant (t=44.36)  |
+    +-------------------------+--------------+--------------+--------------+------------------------+
+    | nqueens                 | 125 ms       | 122 ms       | 1.03x faster | Significant (t=14.85)  |
+    +-------------------------+--------------+--------------+--------------+------------------------+
+    | pickle                  | 10.4 us      | 9.94 us      | 1.05x faster | Significant (t=17.78)  |
+    +-------------------------+--------------+--------------+--------------+------------------------+
+    | pickle_dict             | 29.0 us      | 28.0 us      | 1.04x faster | Significant (t=12.38)  |
+    +-------------------------+--------------+--------------+--------------+------------------------+
+    | pickle_pure_python      | 601 us       | 588 us       | 1.02x faster | Significant (t=6.57)   |
+    +-------------------------+--------------+--------------+--------------+------------------------+
+    | pyflate                 | 873 ms       | 847 ms       | 1.03x faster | Significant (t=9.77)   |
+    +-------------------------+--------------+--------------+--------------+------------------------+
+    | python_startup          | 13.4 ms      | 13.7 ms      | 1.02x slower | Significant (t=-3.06)  |
+    +-------------------------+--------------+--------------+--------------+------------------------+
+    | raytrace                | 662 ms       | 647 ms       | 1.02x faster | Significant (t=8.24)   |
+    +-------------------------+--------------+--------------+--------------+------------------------+
+    | richards                | 92.3 ms      | 89.5 ms      | 1.03x faster | Significant (t=10.90)  |
+    +-------------------------+--------------+--------------+--------------+------------------------+
+    | scimark_fft             | 467 ms       | 453 ms       | 1.03x faster | Significant (t=11.29)  |
+    +-------------------------+--------------+--------------+--------------+------------------------+
+    | scimark_lu              | 210 ms       | 202 ms       | 1.04x faster | Significant (t=19.89)  |
+    +-------------------------+--------------+--------------+--------------+------------------------+
+    | scimark_monte_carlo     | 138 ms       | 133 ms       | 1.04x faster | Significant (t=16.20)  |
+    +-------------------------+--------------+--------------+--------------+------------------------+
+    | scimark_sor             | 262 ms       | 256 ms       | 1.02x faster | Significant (t=9.11)   |
+    +-------------------------+--------------+--------------+--------------+------------------------+
+    | scimark_sparse_mat_mult | 5.83 ms      | 5.24 ms      | 1.11x faster | Significant (t=133.99) |
+    +-------------------------+--------------+--------------+--------------+------------------------+
+    | spectral_norm           | 178 ms       | 174 ms       | 1.03x faster | Significant (t=10.68)  |
+    +-------------------------+--------------+--------------+--------------+------------------------+
+    | unpickle                | 18.3 us      | 16.1 us      | 1.14x faster | Significant (t=10.51)  |
+    +-------------------------+--------------+--------------+--------------+------------------------+
+    | unpickle_list           | 4.33 us      | 4.60 us      | 1.06x slower | Significant (t=-33.27) |
+    +-------------------------+--------------+--------------+--------------+------------------------+
+
+commit 752605fef4acbf46137096d0f28eaf823dabfc36
+Author: Ray Donnelly <mingw.android@gmail.com>
+Date:   Mon Feb 8 23:10:49 2021 +0100
+
+    Keep (but split) the regression testsuite
+    
+    Re-sync with Anaconda defaults
+
+commit 8fae6d37ed0e54039822db89a78ab38a76db0110
+Merge: 289b2a8 69d2811
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Sat Feb 20 22:48:18 2021 -0600
+
+    Merge pull request #455 from junpuf/master
+    
+    v3.9.2
+
+commit 69d28112272b01a4aee311d398e48fef71f0d244
+Author: Junpu Fan <junpu@amazon.com>
+Date:   Sun Feb 21 00:35:32 2021 +0000
+
+    v3.9.2
+
+commit 289b2a8017ddd000896e525f18867f4caacec6f2
+Merge: 3e886cc ae52d4f
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Tue Jan 26 01:19:48 2021 +0000
+
+    Apply the patch
+    
+    automerged PR by conda-forge/automerge-action
+
+commit ae52d4f917d2652581bf2f6a6ede1571a8110894
+Author: conda-forge-linter <github-actions@email.com>
+Date:   Tue Jan 26 00:44:08 2021 +0000
+
+    MNT: Re-rendered with conda-build 3.21.4, conda-smithy 3.8.6, and conda-forge-pinning 2021.01.25.14.47.27
+
+commit 232966c33302583bef757f8b4c52aa8150ab3ecc
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Mon Jan 25 18:42:20 2021 -0600
+
+    need macos 11 sdk to support big sur
+
+commit 48822f19e55f41f66cca0995336589b6bfa9c795
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Mon Jan 25 18:37:01 2021 -0600
+
+    Apply the patch
+
+commit 3e886cc7ab05d2a44379a41acd9c5e1d67a7f45b
+Merge: d7270a9 8057299
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Mon Jan 25 21:36:47 2021 +0000
+
+    Fix finding system libraries on Big Sur
+    
+    automerged PR by conda-forge/automerge-action
+
+commit 8057299f531df49ce87e701fd71dacb7b51e18ad
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Mon Jan 25 14:52:20 2021 -0600
+
+    Fix finding system libraries on Big Sur
+
+commit d7270a972c0ec9e645ab9edc8af6d86b8e036431
+Merge: e1ffce7 df43943
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Sun Jan 10 02:40:04 2021 +0000
+
+    Fix archiver name
+    
+    automerged PR by conda-forge/automerge-action
+
+commit df43943a38b092f6acc4792699fb1aa435cf00cb
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Sat Jan 9 20:05:05 2021 -0600
+
+    Fix archiver name
+
+commit e1ffce77a181c2add7d845f025dc9b39350f2263
+Merge: e9a13bf 83846af
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Mon Dec 21 21:53:43 2020 +0000
+
+    Update cross-compile osx-arm64 configure vars to match native
+    
+    automerged PR by conda-forge/automerge-action
+
+commit 83846af7eb50d02cada9fd7558a3963d6daa1fa5
+Author: Eli Rykoff <erykoff@stanford.edu>
+Date:   Mon Dec 21 11:42:32 2020 -0800
+
+    Update cross-compile osx-arm64 configure vars to match native
+
+commit e9a13bfea192422d221b72b88b945c4273886bd2
+Merge: 98beee5 730ec12
+Author: jakirkham <jakirkham@gmail.com>
+Date:   Sun Dec 13 17:56:27 2020 -0800
+
+    Merge pull request #429 from jjhelmus/rm_jjh
+    
+    remove jjhelmus from maintainers
+
+commit 730ec12cbf770f70be2e01dd2ca29626f32448ed
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Sun Dec 13 18:49:24 2020 -0600
+
+    remove jjhelmus from maintainers
+
+commit 98beee57d844c11bb1bf4740c0fc090ed7b9e393
+Merge: 39e2070 f6169f5
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Tue Dec 8 18:56:10 2020 -0600
+
+    Merge pull request #426 from isuruf/libffi
+    
+    Use libffi from system for osx-arm64
+
+commit f6169f514eeab6c91e280436e024c8bbeee1293b
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Tue Dec 8 14:51:30 2020 -0800
+
+    Use libffi from system for osx-arm64
+
+commit 39e207081e7588cbadc604c470d17eef71a7000f
+Merge: 396abef c0d5fb4
+Author: Marcel Bargull <mbargull@users.noreply.github.com>
+Date:   Tue Dec 8 09:56:55 2020 +0100
+
+    Merge pull request #425 from isuruf/3.9.1
+    
+    Update to 3.9.1
+
+commit c0d5fb44a0356ebfaf6286bf2366587539bba679
+Author: conda-forge-linter <github-actions@email.com>
+Date:   Tue Dec 8 05:39:16 2020 +0000
+
+    MNT: Re-rendered with conda-build 3.20.5, conda-smithy 3.8.5, and conda-forge-pinning 2020.12.07.18.58.57
+
+commit 134aa733d7c1d9f0a1b149e00406a01bc81ecb5a
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Mon Dec 7 23:36:43 2020 -0600
+
+    Update to 3.9.1
+
+commit 396abef63035b1f71be1041c09ee1e5ad26ceb88
+Merge: c67d54b 613d07e
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Sat Nov 28 16:11:17 2020 -0600
+
+    Merge pull request #412 from isuruf/sdk
+    
+    Use latest SDK to build
+
+commit 613d07ee007dfac23ada76bbc6f7666c2fdd4cde
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Nov 26 16:38:54 2020 -0600
+
+    Bump build number
+
+commit 3e98f58502e61c8c70d34ad690f6c4ccd29c7480
+Author: conda-forge-linter <github-actions@email.com>
+Date:   Thu Nov 26 20:44:53 2020 +0000
+
+    MNT: Re-rendered with conda-build 3.20.5, conda-smithy 3.8.5, and conda-forge-pinning 2020.11.26.07.13.25
+
+commit 67ca14ce05751bce2edf14a808d09e0d9a71490e
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Nov 26 20:42:31 2020 +0000
+
+    Use latest SDK to build
+
+commit c67d54b2ea62c524f560652a5106a5cd70958a27
+Merge: 23618a3 6820d6e
+Author: Marcel Bargull <mbargull@users.noreply.github.com>
+Date:   Thu Nov 26 21:36:51 2020 +0100
+
+    Merge pull request #410 from isuruf/3.9.1.rc1
+    
+    Update to 3.9.1.rc1
+
+commit 6820d6efcad22f7c4140b4884a0e0ff90f0e1885
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Nov 26 13:57:33 2020 -0600
+
+    Fix version
+
+commit 33859298b25e717d19d4b9dda6897a71e58db2a2
+Author: conda-forge-linter <github-actions@email.com>
+Date:   Thu Nov 26 19:01:28 2020 +0000
+
+    MNT: Re-rendered with conda-build 3.20.5, conda-smithy 3.8.5, and conda-forge-pinning 2020.11.26.07.13.25
+
+commit e61ac2971d48b0d6b38d2e44675af32f7207541a
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Nov 26 18:57:43 2020 +0000
+
+    Upload to python_rc except for osx and arm64
+
+commit e20c6d58e0c0ffbce80b2e94be6527f76981d3f3
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Nov 26 18:55:38 2020 +0000
+
+    Update to 3.9.1.rc1
+
+commit 23618a3080becb4430b9891774f3b7ccce119c3b
+Merge: 9b263c0 4598b34
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Nov 26 11:24:51 2020 -0600
+
+    [ci skip] [skip ci] ***NO_CI*** Merge pull request #408 from isuruf/backport
+    
+    backport abi migrations to 3.6, 3.7, 3.8
+
+commit 4598b34b88400a13df5967b9c3e6fef14b97852e
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Nov 26 11:23:18 2020 -0600
+
+    [ci skip] [skip ci] ***NO_CI*** backport abi migrations to 3.6, 3.7, 3.8
+
+commit 9b263c03495a22c9fc08a86b6f9ac6e6d99469cb
+Merge: ebf38f6 7deffde
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Thu Nov 26 07:41:56 2020 +0000
+
+    Rebuild for libffi33
+    
+    automerged PR by conda-forge/automerge-action
+
+commit 7deffded5bba8e3a4eba6ff1189a749ee97ac67b
+Author: regro-cf-autotick-bot <36490558+regro-cf-autotick-bot@users.noreply.github.com>
+Date:   Thu Nov 26 07:02:39 2020 +0000
+
+    MNT: Re-rendered with conda-build 3.20.5, conda-smithy 3.8.5, and conda-forge-pinning 2020.11.26.06.28.51
+
+commit 11560ab615388eba84f9eb3b165767f9bdd82dbe
+Author: regro-cf-autotick-bot <36490558+regro-cf-autotick-bot@users.noreply.github.com>
+Date:   Thu Nov 26 07:02:26 2020 +0000
+
+    Rebuild for libffi33
+
+commit ebf38f648f8a9dffbb2e3d52b39c0598b005063b
+Merge: 19c3ddf 05e12e3
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Nov 26 00:58:57 2020 -0600
+
+    Merge pull request #406 from isuruf/rerenderable
+    
+    [ci skip] [skip ci] ***NO_CI*** make the feedstock rerenderable
+
+commit 05e12e3e487a3bc88006de998bdd4b0c43b22a62
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Wed Nov 25 23:33:09 2020 -0600
+
+    [ci skip] [skip ci] ***NO_CI*** make the feedstock rerenderable
+
+commit 19c3ddf7634aa7f86d372d202aa8fd83f4b4b229
+Merge: 42ad321 c5af9fa
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Wed Oct 14 22:44:28 2020 +0000
+
+     Add patch for https://bugs.python.org/issue42015 (which affects pybind11)
+    
+    automerged PR by conda-forge/automerge-action
+
+commit c5af9fadd2bfa46646cec1936a0f1cd6806e19a9
+Author: Marcel Bargull <marcel.bargull@udo.edu>
+Date:   Wed Oct 14 16:32:00 2020 +0200
+
+    maintainers: insert into alphabetical order
+
+commit 8d48a5eb088ffd190db701859bba40287995a9e3
+Author: Marcel Bargull <marcel.bargull@udo.edu>
+Date:   Wed Oct 14 12:48:19 2020 +0200
+
+    Fix another typo in build_base.bat
+
+commit c79e58bdb180aa9029f17a48329dc8fecdbaac3f
+Author: Marcel Bargull <marcel.bargull@udo.edu>
+Date:   Wed Oct 14 12:20:35 2020 +0200
+
+    Use consistent naming of non-dotted version
+
+commit 20c4a587855cf4e9a165f9f06d13054640de7009
+Author: Marcel Bargull <marcel.bargull@udo.edu>
+Date:   Wed Oct 14 11:33:16 2020 +0200
+
+    build_base.bat: Move comments out of for-block
+
+commit 5bf1300d9404724e7971685d06ea1127a7da490d
+Author: Marcel Bargull <marcel.bargull@udo.edu>
+Date:   Wed Oct 14 11:11:40 2020 +0200
+
+    Fix typo in build_base.bat
+
+commit c54fc58cb3e1b6c2466581a05ecec245736b4e21
+Author: Marcel Bargull <marcel.bargull@udo.edu>
+Date:   Wed Oct 14 10:43:18 2020 +0200
+
+    Revert "Add python_impl+numpy to cbc.yaml for rerender"
+    
+    This reverts commit f2cc1543b49c89507cd4e3783786cd95b10fa7f8.
+
+commit 7548664105d272f048cd4271225aeff7b622d94e
+Author: Marcel Bargull <marcel.bargull@udo.edu>
+Date:   Wed Oct 14 10:43:09 2020 +0200
+
+    MNT: Re-rendered with conda-build 3.20.3, conda-smithy 3.8.2, and conda-forge-pinning 2020.10.13.19.09.25
+
+commit f2cc1543b49c89507cd4e3783786cd95b10fa7f8
+Author: Marcel Bargull <marcel.bargull@udo.edu>
+Date:   Wed Oct 14 10:42:35 2020 +0200
+
+    Add python_impl+numpy to cbc.yaml for rerender
+
+commit f776b9f974c45e502ec3f4f30cfdf2dcc8349da9
+Author: Marcel Bargull <marcel.bargull@udo.edu>
+Date:   Wed Oct 14 10:39:58 2020 +0200
+
+    Add mbargull to maintainers
+
+commit c953720664e721331dc8815a7f4079a3f7394485
+Author: Marcel Bargull <marcel.bargull@udo.edu>
+Date:   Wed Oct 14 10:32:05 2020 +0200
+
+    Bump build number
+
+commit ae86d012945a16f1d7da3a049065789fb8fd802d
+Author: Marcel Bargull <marcel.bargull@udo.edu>
+Date:   Wed Oct 14 10:31:24 2020 +0200
+
+    Add patch for https://bugs.python.org/issue42015
+
+commit 2e6df79c8204fb6a04cacb3a02818f9a09a75102
+Author: Marcel Bargull <marcel.bargull@udo.edu>
+Date:   Wed Oct 14 10:27:47 2020 +0200
+
+    Make version in cbc.yaml, build_base.* consistent
+
+commit 42ad3212606934e1f5ceeec64104941b807cbd94
+Merge: 4eef7d2 7d61484
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Sat Oct 10 20:24:41 2020 +0000
+
+    Fix the rebase of a patch
+    
+    automerged PR by conda-forge/automerge-action
+
+commit 7d61484c4d46ba36d1ba33ce7413d05224ace523
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Sat Oct 10 14:34:47 2020 -0500
+
+    Fix the rebase of a patch
+
+commit 4eef7d24c009d825a59146692f0ed4137de76d6f
+Merge: 6542d7d c343c42
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Fri Oct 9 10:21:39 2020 +0000
+
+    Remove sysroot properly in sysconfigdata for osx
+    
+    automerged PR by conda-forge/automerge-action
+
+commit c343c423e5cd3b426880667ec65277fb263ccdf4
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Fri Oct 9 04:39:14 2020 -0500
+
+    commit the change
+
+commit e2e8616984d5488864bc2d34cd18cd3d372df23d
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Fri Oct 9 04:37:01 2020 -0500
+
+    Remove sysroot properly in sysconfigdata for osx
+
+commit 6542d7db42078ee97b19c83b96b69d35dc4fcc9c
+Merge: 0a2bee1 7c450dc
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Thu Oct 8 03:38:38 2020 +0000
+
+    Actually bump build number
+    
+    automerged PR by conda-forge/automerge-action
+
+commit 7c450dc0ac5351ea6d230df599b9ba88cdb503db
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Wed Oct 7 22:49:56 2020 -0400
+
+    Add jinja2 variable for build_number
+
+commit 0a2bee11ceab67d9b5068d63fa0c576a74e898fe
+Merge: e7ea437 3d22fab
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Thu Oct 8 01:31:55 2020 +0000
+
+    bump build number because prerelease one had the same the build number
+    
+    automerged PR by conda-forge/automerge-action
+
+commit 3d22fabbb0e9d3b0a6ca6be60cad57218c60831b
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Wed Oct 7 19:45:50 2020 -0500
+
+    bump build number because prerelease one had the same the build number
+
+commit e7ea437a819f8f06dcbc3769f6e46dc026070c44
+Merge: 8937238 362e1bc
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Wed Oct 7 14:26:14 2020 -0500
+
+    Merge pull request #395 from ocefpaf/py39
+    
+    Py39
+
+commit 362e1bc7fc89c2c4212eaa14d14e8c2dbf97c219
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Wed Oct 7 11:07:21 2020 -0500
+
+    need CPPFLAGS with -I. -isystem is not enough
+
+commit 2faf5e022c0c2ad1900835209133e945e64699e5
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Wed Oct 7 10:18:35 2020 -0500
+
+    replace - with _
+
+commit bd991412c4ac402319cc303562db6872259b951e
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Wed Oct 7 10:11:50 2020 -0500
+
+    Revert "Skip stripping on osx arm64"
+    
+    This reverts commit b2cb64ab03ba9be8ac0ac0b4534a10332b695671.
+
+commit baa1862b6426959474f70917508464cc4eaf7405
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Wed Oct 7 10:11:02 2020 -0500
+
+    Fix TZPATH on windows
+
+commit f988bc854c33bdb1bea6b4e14c43ec79a3b80dab
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Wed Oct 7 10:05:35 2020 -0500
+
+    fix typo
+
+commit 52e9d6af15190b2afcd360dd2cf7860dea5470d9
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Wed Oct 7 09:52:06 2020 -0500
+
+    Fix SGI_ABI
+
+commit d2b586b43ce2470727675da55e6ad853a804c8de
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Wed Oct 7 09:18:39 2020 -0500
+
+    Use non python tzdata
+
+commit db61f524cb9b8f5a9b53c1c543a5cef6f0d9ff88
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Wed Oct 7 09:16:38 2020 -0500
+
+    get rid of hand edited sysconfigdata
+
+commit 75c28fb9fcfa335475a18a7c9025fec33fa92132
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Wed Oct 7 01:19:40 2020 -0500
+
+    fix another typo
+
+commit cde13cf6926c3cfe180aeaa20add031159d5670b
+Author: Ray Donnelly <mingw.android@gmail.com>
+Date:   Wed Oct 7 15:06:51 2020 +0200
+
+    Force eol for recipe/tests/prefix-replacement/build-and-test.sh
+
+commit b2cb64ab03ba9be8ac0ac0b4534a10332b695671
+Author: Ray Donnelly <mingw.android@gmail.com>
+Date:   Wed Oct 7 14:41:25 2020 +0200
+
+    Skip stripping on osx arm64
+
+commit b149e6b1e880ca1511a26a05e7403c3e229c0655
+Author: Ray Donnelly <mingw.android@gmail.com>
+Date:   Wed Oct 7 14:17:43 2020 +0200
+
+    tzdata => python-tzdata
+
+commit 3f5209fd881fb15f80a99c32a65961d4037b7540
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Wed Oct 7 00:57:49 2020 -0500
+
+    Fix typo
+
+commit 16e811d14355935303fd2c552ea79a90fff408d7
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Wed Oct 7 00:22:18 2020 -0500
+
+    Fix conda_cos6
+
+commit 06493b2f6c82f7ba64ccbb525d6474d76b68bfcd
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Tue Oct 6 23:33:57 2020 -0500
+
+    fix sysconfigdata
+
+commit cd61f4eb340762d2e65600a3056a1ac559154f57
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Tue Oct 6 23:31:44 2020 -0500
+
+    update sysconfig data for linux-x86
+
+commit 754248f92090300147fe523cc877b035159ade0a
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Tue Oct 6 21:56:41 2020 -0500
+
+    asd
+
+commit a683dc1d4117e1d54e6706e176dfbe0dbce0259a
+Author: Filipe Fernandes <ocefpaf@gmail.com>
+Date:   Tue Oct 6 20:53:51 2020 -0300
+
+    tzdata path
+
+commit 13e1e36714597e37b84cfe41b84fffb5bf45b227
+Author: Filipe Fernandes <ocefpaf@gmail.com>
+Date:   Tue Oct 6 19:12:20 2020 -0300
+
+    revert patch
+
+commit cc8e87367789f3f8d85d0eba70119c0173f0825c
+Author: Filipe Fernandes <ocefpaf@gmail.com>
+Date:   Tue Oct 6 16:44:27 2020 -0300
+
+    restore patch
+
+commit 8a49f9d84858370fa3fce8b578d3bd3e4a32bc3b
+Author: Filipe <ocefpaf@gmail.com>
+Date:   Tue Oct 6 15:16:46 2020 -0300
+
+    Update recipe/meta.yaml
+    
+    Co-authored-by: Isuru Fernando <isuruf@gmail.com>
+
+commit 8da0ada5bced19685dc26fbdbe81a112a92008e7
+Author: Filipe Fernandes <ocefpaf@gmail.com>
+Date:   Tue Oct 6 14:52:58 2020 -0300
+
+    re-add tzdata
+
+commit 8d6d11a1d6139bd9526dfae12d3f7e08cd1dfd71
+Author: Filipe Fernandes <ocefpaf@gmail.com>
+Date:   Tue Oct 6 14:50:35 2020 -0300
+
+    MNT: Re-rendered with conda-build 3.20.3, conda-smithy 3.7.10, and conda-forge-pinning 2020.10.06.07.41.18
+
+commit e65c773613a1903a15fa6294153d5f4b1d8619bf
+Author: Filipe Fernandes <ocefpaf@gmail.com>
+Date:   Tue Oct 6 14:50:31 2020 -0300
+
+    update to 3.9
+
+commit 89372387ea6cc5aafc554a44028fa2faad5cb5d8
+Merge: 2db0168 fa28174
+Author: Filipe <ocefpaf@gmail.com>
+Date:   Thu Sep 24 13:06:40 2020 -0300
+
+    Merge pull request #391 from xhochy/fix-win-off-by-one
+    
+    Fix off-by-one on Windows, sync patch from Anaconda
+
+commit fa28174099603d60b2301bae430e075ad33f1808
+Author: Uwe L. Korn <uwe.korn@quantco.com>
+Date:   Thu Sep 24 16:14:01 2020 +0200
+
+    Fix off-by-one on Windows, sync patch from Anaconda
+
+commit 2db01683a36d9158472ab5335524521bef567da1
+Merge: bb2a89f 6f1bfaa
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Wed Sep 16 17:08:48 2020 +0000
+
+    Fix osx-arm64 build flags
+    
+    automerged PR by conda-forge/automerge-action
+
+commit 6f1bfaa13c6117934400ab26b1e5d4a092a891db
+Author: conda-forge-linter <github-actions@email.com>
+Date:   Wed Sep 16 15:53:39 2020 +0000
+
+    MNT: Re-rendered with conda-build 3.20.2, conda-smithy 3.7.10, and conda-forge-pinning 2020.09.16.09.15.38
+
+commit e7221096c5227df149d4a42403a89682c1141d61
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Wed Sep 16 01:32:51 2020 -0500
+
+    Fix osx-arm64 build flags
+
+commit bb2a89f0aaa6f2fc762c4e4d7a38b3a9aabda55d
+Merge: 366eafb 6e22f71
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Fri Aug 28 19:32:12 2020 -0500
+
+    Merge pull request #386 from isuruf/osx-arm64
+    
+    Fix arch flag for osx-arm64
+
+commit 6e22f715b74cfc9c472f2447481eee41600e2e36
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Fri Aug 28 22:48:42 2020 +0000
+
+    Add to CFLAGS
+
+commit e50091b2d323aae8e7c54f9029f86cba84107a5b
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Fri Aug 28 22:34:19 2020 +0000
+
+    Make sure -arch is in CFLAGS so that distutils doesn't change into build platform
+
+commit d64753fc8eff69dde5aa48ef867f354bd3cfafa1
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Fri Aug 28 22:19:35 2020 +0000
+
+    Fix arch flag for osx-arm64
+
+commit 366eafb256886d6eea6bb384f0c3c731ed62a8c6
+Merge: dd2c0e2 32abe2c
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Fri Aug 28 15:00:18 2020 -0500
+
+    Merge pull request #385 from xhochy/issue-384
+    
+    Ensure Windows scripts are correctly created
+
+commit 32abe2c92b6575834b9add102354f4389131c9e0
+Author: Uwe L. Korn <uwelk@xhochy.com>
+Date:   Wed Aug 26 11:41:57 2020 +0200
+
+    Manually create scripts on Windows
+
+commit 898b24d8f10c3b611a84df1f93c3188509fef59f
+Author: Uwe L. Korn <uwelk@xhochy.com>
+Date:   Wed Aug 26 09:43:36 2020 +0200
+
+    Bump build no
+
+commit 479439e574def80af971ae734bf6d27783de107a
+Author: Uwe L. Korn <uwelk@xhochy.com>
+Date:   Wed Aug 26 09:43:01 2020 +0200
+
+    Add failing test for #384
+
+commit dd2c0e2b4aad9cd8d4288ba16c3fa2808beb9180
+Merge: 3dca0f9 a25f7fb
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Fri Aug 21 17:29:57 2020 +0000
+
+    Fix PYTHON_HOST_PLATFORM on macOS
+    
+    automerged PR by conda-forge/automerge-action
+
+commit 3dca0f9fe78cdd3b80691c8f92d18a523dfaceec
+Merge: 20844bd a9c276b
+Author: Anthony Scopatz <scopatz@gmail.com>
+Date:   Fri Aug 21 09:20:22 2020 -0500
+
+    Merge pull request #383 from westurner/patch-1
+    
+    DOC: HTTPS://www.python.org/
+
+commit a25f7fbfe74165f5431fb8a8f5b4937c4802d8ec
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Fri Aug 21 03:44:15 2020 -0500
+
+    Fix patch
+
+commit 0e441843ad78e60c0f1abfb6d803d0739a48a2ca
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Fri Aug 21 03:16:09 2020 -0500
+
+    update patch
+
+commit a9c276b201b6263268a258ae1fc486501e79e27e
+Author: Wes Turner <50891+westurner@users.noreply.github.com>
+Date:   Fri Aug 21 03:37:35 2020 -0400
+
+    DOC: README.md: HTTPS homepage
+
+commit 0e925810bf845d4d697c6ed64bd3452a330e0a73
+Author: Wes Turner <50891+westurner@users.noreply.github.com>
+Date:   Fri Aug 21 03:36:33 2020 -0400
+
+    DOC: meta.yml: HTTPS homepage
+
+commit 5f03d858f6b6ae7d77aa25d7af786ceb522eda27
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Aug 20 23:39:55 2020 -0500
+
+    Update patch for cross compile darwin
+
+commit c5abdccaf144259809be4d46bee71311509ab132
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Aug 20 23:30:28 2020 -0500
+
+    Fix PYTHON_HOST_PLATFORM on macOS
+
+commit 20844bd6b82de22acb54cfe0549a4f018d32e8ce
+Merge: ca6e25e 9d53870
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Thu Aug 20 15:18:53 2020 -0500
+
+    Merge pull request #376 from regro-cf-autotick-bot/bot-pr_arm_osx_h1e6e19
+    
+    ARM OSX Migrator
+
+commit 9d538705941a04db6210a35450cad4e88209906e
+Merge: 7646dec 7f6ccdd
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Aug 20 13:12:27 2020 -0500
+
+    Merge branch 'bot-pr_arm_osx_h1e6e19' of github.com:regro-cf-autotick-bot/python-feedstock into bot-pr_arm_osx_h1e6e19
+
+commit 7646dec8d18b4a002e2b4a08361fa712344ebe6b
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Aug 20 13:11:50 2020 -0500
+
+    MNT: Re-rendered with conda-build 3.19.2, conda-smithy 3.7.10, and conda-forge-pinning 2020.08.17.20.01.55
+
+commit c55f00c0ecf2b3dbe03af0089252629ee6e2f384
+Merge: 180e3a1 ca6e25e
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Aug 20 13:10:07 2020 -0500
+
+    Merge branch 'master' of github.com:conda-forge/python-feedstock into bot-pr_arm_osx_h1e6e19
+
+commit ca6e25eab69a1936038c189307d6329b2c538254
+Merge: 0984422 8d4999a
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Aug 20 13:07:45 2020 -0500
+
+    Merge pull request #379 from xhochy/cfep-18-2
+    
+    Bump build number
+
+commit 7f6ccddf0b0e6119a8519358fef823ba8dc02f0a
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Aug 20 10:45:26 2020 -0500
+
+    build string for libpython-static
+
+commit 180e3a16ccd24db50760bcd5195f0653aa4e8c69
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Aug 20 02:17:24 2020 -0500
+
+    add a selector
+
+commit 2826466713b7238bf59748825bf7644c001823da
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Aug 20 01:53:08 2020 -0500
+
+    add quotes
+
+commit bd87476e5f2073ba6df9883eb00766638e453c1b
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Aug 20 01:51:44 2020 -0500
+
+    skip all
+
+commit 8d4999a53a4200f8d4cab747fe915ed68e4e7ee7
+Author: Uwe L. Korn <uwelk@xhochy.com>
+Date:   Thu Aug 20 08:11:44 2020 +0200
+
+    Set build string in libpython-static too
+
+commit 36f2f46938530875dd9aeebe844a836efe7ef799
+Author: Uwe L. Korn <uwelk@xhochy.com>
+Date:   Thu Aug 20 07:42:03 2020 +0200
+
+    Revert common build string, hash is not working in this case
+
+commit 6e02dd247e7ab3490306aeb59538613e505cfd99
+Author: Uwe L. Korn <uwelk@xhochy.com>
+Date:   Thu Aug 20 07:20:56 2020 +0200
+
+    MNT: Re-rendered with conda-build 3.19.2, conda-smithy 3.7.10, and conda-forge-pinning 2020.08.17.20.01.55
+
+commit 9f4e7d2c8530f89db89eaf90234e65d281eaaa84
+Author: Uwe L. Korn <uwelk@xhochy.com>
+Date:   Thu Aug 20 07:20:23 2020 +0200
+
+    Fix run_exports
+
+commit a5d51061d04adeaa6655726b77fff1c7e15cc419
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Wed Aug 19 22:52:58 2020 -0500
+
+    Update patch
+
+commit 784353ad53386d31074a8f5e54ade4e0de6f101f
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Wed Aug 19 22:25:24 2020 -0500
+
+    Update patch
+
+commit 7f392d7526b17d296c1e43020590ac903867b3db
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Wed Aug 19 22:07:46 2020 -0500
+
+    update patch
+
+commit b5f49fe7d0ba821cc4c987bd9c63ec9616b68a82
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Wed Aug 19 21:42:09 2020 -0500
+
+    Add libtool
+
+commit b3fb2ad5cd1380559151d79a8a0a13746959218f
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Wed Aug 19 21:41:47 2020 -0500
+
+    Fix patch
+
+commit ccf173bfd33502b528dc2de708d763389d5b26d9
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Wed Aug 19 21:23:49 2020 -0500
+
+    move script_env up
+
+commit 203aad1703f20c376952282845b20100949c18c0
+Merge: 7a062ec 0984422
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Wed Aug 19 21:04:59 2020 -0500
+
+    Merge branch 'master' of github.com:conda-forge/python-feedstock into bot-pr_arm_osx_h1e6e19
+
+commit 7a062ec204164f27c9dd03632f9343f5ba9789f9
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Wed Aug 19 14:35:58 2020 -0500
+
+    patch only for arm64
+
+commit 36722b8e879b279725aad83d125022859916c06f
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Wed Aug 19 14:35:15 2020 -0500
+
+    Add gh21564.patch
+
+commit 8c40d0ade9a932c03b430b70b5d0ce0503763d33
+Author: Uwe L. Korn <uwelk@xhochy.com>
+Date:   Wed Aug 19 21:01:02 2020 +0200
+
+    Bump build number
+
+commit 098442200c7be30d9e942dd442b2f6a88f4637cd
+Merge: d7fa919 a5fc190
+Author: Filipe <ocefpaf@gmail.com>
+Date:   Wed Aug 19 08:38:11 2020 -0300
+
+    Merge pull request #367 from xhochy/cfep-18
+
+commit a5fc1907c56e037444aa40f72b9e745baaa83a5a
+Author: Uwe L. Korn <uwelk@xhochy.com>
+Date:   Tue Aug 18 12:11:51 2020 +0200
+
+    Remove remaining explicit version mentions
+
+commit 9a9bf876ff2c3ef09f6bb24df6957b6304a5c848
+Author: Uwe L. Korn <uwelk@xhochy.com>
+Date:   Tue Aug 18 07:36:29 2020 +0200
+
+    Remove hard coded version from test
+
+commit 53545b41b001aba9e0cb20d673311270a09c1ad1
+Author: Uwe L. Korn <uwelk@xhochy.com>
+Date:   Mon Aug 17 10:02:40 2020 +0200
+
+    Remove explicit 3.8 mention
+
+commit d84006a6f6a9c183955c55e28f9a1e6343c2c490
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Fri Aug 14 15:32:40 2020 -0500
+
+    Skip all files that have syntax errors
+
+commit d73f965a1f7574305de0d6a62476fc05f4fa775b
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Fri Aug 14 15:01:22 2020 -0500
+
+    Update meta.yaml
+
+commit ea6c3aca43e2160f235b35c408c18f48804b4f0b
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Fri Aug 14 12:49:17 2020 -0500
+
+    pyc compile all at the end
+
+commit 91424e098d40e9b8a19f75dc4029f3dc2a7a50a2
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Fri Aug 14 12:18:45 2020 -0500
+
+    Skip compiling pyc
+
+commit 9527ba1ac89d631fd1812606f74d6229905e43e0
+Author: Uwe L. Korn <uwelk@xhochy.com>
+Date:   Fri Aug 14 17:00:04 2020 +0200
+
+    Fix build script
+
+commit 487e0d59738b7657caada91f7277b845e53bf5a0
+Author: Uwe L. Korn <uwelk@xhochy.com>
+Date:   Fri Aug 14 12:29:16 2020 +0200
+
+    MNT: Re-rendered with conda-build 3.19.2, conda-smithy 3.7.9, and conda-forge-pinning 2020.08.13.04.25.14
+
+commit f2c3a1b014bc30548924c65c50faad1ac1d39f0d
+Author: Uwe L. Korn <uwelk@xhochy.com>
+Date:   Fri Aug 14 12:27:02 2020 +0200
+
+    Silence log on Travis
+
+commit e4234a51974182494d5d7777d655682f23de71f1
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Fri Aug 14 04:19:31 2020 +0000
+
+    Add some upstream patches
+
+commit 98c12112ba4c7202693c20d0a85fcb987cfb449f
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Fri Aug 14 03:40:35 2020 +0000
+
+    Keep LTO and disable PGO
+
+commit 867917ad06c311145e0f2b693bc219a06129c0e0
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Fri Aug 14 03:20:29 2020 +0000
+
+    Fixes for cross compiling for darwin
+
+commit de384a0ed6c7c3cd83887a29d58730ce15673d7b
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Aug 13 19:43:34 2020 -0500
+
+    Move after build python is built
+
+commit 68dfd7e300379f1ccfa73c8baa5a67130fcbe17c
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Aug 13 19:42:15 2020 -0500
+
+    Set MACHDEP
+
+commit ee59120edd0275637fadd363ea153a41fd3e9ab9
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Aug 13 18:54:02 2020 -0500
+
+    Get an up-to-date config.sub
+
+commit ec1807bf2d4ad79f879965a93afeb507df05c9da
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Aug 13 18:39:57 2020 -0500
+
+    Use CC_FOR_BUILD
+
+commit 40a5e6a194668a5b0743f8ece70697af533cd8b8
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Aug 13 17:57:16 2020 -0500
+
+    osx arm64 support
+
+commit 8e72c440e24340a15694cd840e0f0226b0d3d954
+Author: Marcel Bargull <mbargull@users.noreply.github.com>
+Date:   Fri Aug 14 00:34:24 2020 +0200
+
+    win: set TEMP inside prefix to avoid perm errrors
+
+commit 0e2ff577aa9ca0065d50c1776860d39ad8ff92bf
+Author: conda-forge-linter <github-actions@email.com>
+Date:   Thu Aug 13 20:03:34 2020 +0000
+
+    MNT: Re-rendered with conda-build 3.19.2, conda-smithy 3.7.9, and conda-forge-pinning 2020.08.13.04.25.14
+
+commit 1aa13bdc4c31c90d36e70b019e4f227a36f6e3ad
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Aug 13 15:01:43 2020 -0500
+
+    Update conda_build_config.yaml
+
+commit be06056c16ddbd23192298a05fbdc1273dbee2f5
+Author: regro-cf-autotick-bot <circleci@cf-graph.regro.github.com>
+Date:   Thu Aug 13 19:51:48 2020 +0000
+
+    MNT: Re-rendered with conda-build 3.19.2, conda-smithy 3.7.9, and conda-forge-pinning 2020.08.13.04.25.14
+
+commit 2bef27badf1f0630486322a4d9dca2af555795ed
+Author: regro-cf-autotick-bot <circleci@cf-graph.regro.github.com>
+Date:   Thu Aug 13 19:51:22 2020 +0000
+
+    migration: OSXArm
+
+commit d7fa9190941c6505c3be86ff15e762988b743ee5
+Author: conda-forge-admin <conda-forge-admin@email.com>
+Date:   Sat Aug 8 15:45:21 2020 +0000
+
+    [ci skip] [skip ci] [cf admin skip] ***NO_CI*** admin migration CFEP13TokenCleanup
+
+commit bd9347918bffc82da8d2dddc8d48f11e3a63ff5c
+Merge: 4f83364 7572fa5
+Author: Uwe L. Korn <uwelk@xhochy.com>
+Date:   Fri Jul 31 08:59:12 2020 +0200
+
+    Merge branch 'master' into cfep-18
+
+commit 4f83364d021df7247b34ba168e63c1b7a06891c3
+Author: Uwe L. Korn <uwelk@xhochy.com>
+Date:   Fri Jul 31 08:56:10 2020 +0200
+
+    Debug windows env
+
+commit 7572fa5a11148591ac3f1e29aa24996f1e97d56b
+Author: Matthew R Becker <beckermr@users.noreply.github.com>
+Date:   Thu Jul 30 21:43:06 2020 -0400
+
+    ENH new sysroot for 3.8 (#370)
+    
+    * ENH new sysroot for 3.8
+    
+    * MNT: Re-rendered with conda-build 3.19.2, conda-smithy 3.7.5, and conda-forge-pinning 2020.07.29.10.14.20
+    
+    * Fix CMake test
+    
+    Co-authored-by: conda-forge-linter <github-actions@email.com>
+    Co-authored-by: Uwe L. Korn <uwe.korn@quantco.com>
+
+commit 25909853c726e91ff6d5152da5695d8cd9b2643c
+Author: Uwe L. Korn <uwe.korn@quantco.com>
+Date:   Thu Jul 30 13:47:15 2020 +0200
+
+    Explicitly run ensurepip
+
+commit fa0b5dfe1cd6525dcabab2ce44336e558eb4d30c
+Author: Uwe L. Korn <uwe.korn@quantco.com>
+Date:   Thu Jul 30 12:53:07 2020 +0200
+
+    Limit config check to osx
+
+commit eaa9ea2789c86947e13aca76c71dca70b68fdc08
+Author: Uwe L. Korn <uwe.korn@quantco.com>
+Date:   Thu Jul 30 11:10:45 2020 +0200
+
+    More debug output on Windows
+
+commit 5f3cc7a63f556eb487a5cc2395eefaf706526dd5
+Author: Uwe L. Korn <uwe.korn@quantco.com>
+Date:   Thu Jul 30 10:45:06 2020 +0200
+
+    Attempt to fix Windows and the arches
+
+commit 6589710c701f7bd182dfb25972bee117c3802560
+Author: Uwe L. Korn <uwe.korn@quantco.com>
+Date:   Thu Jul 30 09:47:43 2020 +0200
+
+    Remove local debug stuff
+
+commit b9625d76b6ca877dc81a4b1c5a4454bb7fd290a7
+Author: Uwe L. Korn <uwe.korn@quantco.com>
+Date:   Thu Jul 30 09:39:29 2020 +0200
+
+    MNT: Re-rendered with conda-build 3.19.2, conda-smithy 3.7.5, and conda-forge-pinning 2020.07.29.10.14.20
+
+commit 02bfd2447f724b6e2302e326a166107eeee7a297
+Author: Uwe L. Korn <uwe.korn@quantco.com>
+Date:   Thu Jul 30 09:08:33 2020 +0200
+
+    Merge again
+
+commit b0875fcb2af6e3e950a4bde686adce34cbba4bf6
+Merge: 2c16fb0 65afa1f
+Author: Uwe L. Korn <uwe.korn@quantco.com>
+Date:   Thu Jul 30 09:07:53 2020 +0200
+
+    Merge remote-tracking branch 'beckermr/sysroot-38' into cfep-18
+
+commit 65afa1f0ad80776a2c49c9acc84d7e844b4f17ba
+Author: Uwe L. Korn <uwe.korn@quantco.com>
+Date:   Wed Jul 29 16:25:54 2020 +0200
+
+    Fix CMake test
+
+commit 903c691763f5d037ef99a7dec8a6a757ad1ab57b
+Author: conda-forge-linter <github-actions@email.com>
+Date:   Wed Jul 29 12:50:16 2020 +0000
+
+    MNT: Re-rendered with conda-build 3.19.2, conda-smithy 3.7.5, and conda-forge-pinning 2020.07.29.10.14.20
+
+commit 3119c139377e0a3d26ef709dfb3ae7d2b3eb6126
+Author: Matthew R Becker <becker.mr@gmail.com>
+Date:   Wed Jul 29 07:47:30 2020 -0500
+
+    ENH new sysroot for 3.8
+
+commit 2c16fb0117f0c9d3deabcf4941a2f92ce1464bf2
+Author: Uwe L. Korn <uwe.korn@quantco.com>
+Date:   Tue Jul 28 23:08:41 2020 +0200
+
+    Handle linux name
+
+commit 371ba2ae856bb1c16e8b3ef881f1b36cbc34a26c
+Author: Uwe L. Korn <uwe.korn@quantco.com>
+Date:   Tue Jul 28 22:43:37 2020 +0200
+
+    CMake fix
+
+commit 46cfabdc706b7c8bd8238fccced001e6f8f959f1
+Author: Uwe L. Korn <uwe.korn@quantco.com>
+Date:   Tue Jul 28 10:29:38 2020 +0200
+
+    MNT: Re-rendered with conda-build 3.19.2, conda-smithy 3.7.4, and conda-forge-pinning 2020.07.27.18.59.53
+
+commit 348fc597a4a838ba4c54ad07d78bc4d78ca16283
+Author: Uwe L. Korn <uwe.korn@quantco.com>
+Date:   Tue Jul 28 10:29:01 2020 +0200
+
+    Fix Windows scripts
+
+commit a88b77face40b4eca2a25912bb4874ccc97b013d
+Author: Uwe L. Korn <uwe.korn@quantco.com>
+Date:   Tue Jul 28 10:28:18 2020 +0200
+
+    Fix Windows scripts
+
+commit 9a4f37217c34c10899826292d565c5e2ca80247c
+Author: Uwe L. Korn <uwe.korn@quantco.com>
+Date:   Tue Jul 28 10:17:04 2020 +0200
+
+    CFEP-18: Remove static libraries from main build
+
+commit cf7ba76a05cbf67883306ae2a83d3c626b94f172
+Merge: 25a715c 46e2634
+Author: Marcel Bargull <mbargull@users.noreply.github.com>
+Date:   Fri Jul 24 02:35:13 2020 +0200
+
+    Merge pull request #364 from mbargull-feedstocks/3.8-cpython-suffix
+    
+    3.8 cpython suffix
+
+commit 46e2634b9936ae65dfb8b34defae8b1f735b1798
+Author: Marcel Bargull <marcel.bargull@udo.edu>
+Date:   Thu Jul 23 23:26:08 2020 +0200
+
+    bump build number
+
+commit dfca38ce5e0dc8432ce6f98d648f6b1aa7526128
+Author: Marcel Bargull <marcel.bargull@udo.edu>
+Date:   Thu Jul 23 23:25:41 2020 +0200
+
+    Revert "end the build string with the build number"
+    
+    This reverts commit 162be594485664249bf04ecde1b789d1e0d74817.
+
+commit 25a715cc555be8030e2cbb52c5b153c7d534810b
+Merge: 452fd8f 2eaf9c4
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Wed Jul 22 11:40:13 2020 -0500
+
+    Merge pull request #360 from jjhelmus/3.8.5
+    
+    update to 3.8.5
+
+commit 2eaf9c487081cc8f7dff16952f2beef62b6f640d
+Author: conda-forge-linter <github-actions@email.com>
+Date:   Wed Jul 22 15:28:01 2020 +0000
+
+    MNT: Re-rendered with conda-build 3.19.2, conda-smithy 3.7.4, and conda-forge-pinning 2020.07.21.17.10.15
+
+commit 1ee66e3b199853f78f4f773ff7ba856cd338b4ac
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Wed Jul 22 10:25:47 2020 -0500
+
+    update to 3.8.5
+
+commit 452fd8f9be66636b4a78f56b2e482b7de75a735b
+Merge: d10c33e 25ea8e3
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Fri Jul 17 09:21:39 2020 -0500
+
+    Merge pull request #358 from jjhelmus/3.8.4
+    
+    Update to 3.8.4
+
+commit 25ea8e317ae25642c83ce2356124816bcd5071d5
+Author: conda-forge-linter <github-actions@email.com>
+Date:   Thu Jul 16 22:49:56 2020 +0000
+
+    MNT: Re-rendered with conda-build 3.19.2, conda-smithy 3.7.4, and conda-forge-pinning 2020.07.15.18.18.04
+
+commit a3d50ea493a6a0b0883c041478acd37574688159
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Thu Jul 16 17:47:07 2020 -0500
+
+    import patch from AnacondaRecipes
+    
+    include 0026-Revert-part-of-https-bugs.python.org-issue33895-http.patch
+    from AnacondaRecipes.
+
+commit 863b285614031e74599222e4dc80b9e282e49695
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Thu Jul 16 17:43:20 2020 -0500
+
+    require binutils and ld >=2.34
+    
+    closes #355
+
+commit 0cee6d416da42da1bcfb7d967c73244a51de2a2d
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Thu Jul 16 17:38:06 2020 -0500
+
+    refresh patches
+
+commit 597c631ff25eb695b31ad5cbf27705174120d6e1
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Thu Jul 16 17:37:52 2020 -0500
+
+    update to 3.8.4
+
+commit d10c33e479dc38d10114d72207b841a77a477f9c
+Merge: 86c3580 162be59
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Mon Jun 1 11:51:00 2020 -0500
+
+    Merge pull request #348 from jjhelmus/py383
+    
+    update to 3.8.3
+
+commit 162be594485664249bf04ecde1b789d1e0d74817
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue May 19 13:01:08 2020 -0500
+
+    end the build string with the build number
+    
+    Conda as well as other tools assume that package names end with an
+    underscore and a build number. Use this pattern in this package and move
+    the cpython_ string to the start of the build string.
+
+commit 9ace0d62c40d05a9ee0b11ce873643d70be7caf4
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue May 19 11:47:24 2020 -0500
+
+    replay patches against 3.8.3 source
+
+commit 608291fc02dd7343374b93c56d7eaddcc7c99472
+Author: conda-forge-linter <github-actions@email.com>
+Date:   Tue May 19 16:11:47 2020 +0000
+
+    MNT: Re-rendered with conda-build 3.19.2, conda-smithy 3.7.3, and conda-forge-pinning 2020.05.19.13.30.35
+
+commit 5bfc0c196825dc964d788929675ddfcd06a3b7a5
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue May 19 11:07:37 2020 -0500
+
+    reset build number
+
+commit d08acf5fd75e2f21b8c2668ee88c8c28618cbd66
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue May 19 11:06:52 2020 -0500
+
+    update to 3.8.3
+
+commit 86c35805daeae5573ed3961b8f6370ed4ad3ab74
+Author: conda-forge-admin <conda-forge-admin@email.com>
+Date:   Sun May 17 17:32:12 2020 +0000
+
+    [ci skip] [skip ci] [cf admin skip] ***NO_CI*** admin migration CondaForgeAutomerge
+
+commit 7ad63a5cfb159080c3c6cdb9aadf82944080a450
+Author: conda-forge-admin <conda-forge-admin@email.com>
+Date:   Sun May 17 17:31:34 2020 +0000
+
+    [ci skip] [skip ci] [cf admin skip] ***NO_CI*** admin migration CFEP13TokensAndConfig
+
+commit d0ab36792688c2531d6d89e5ad3f201af174094b
+Merge: 4d83049 607dbd0
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Fri Apr 24 07:25:59 2020 +0000
+
+    Rebuild with fixed clang
+    
+    automerged PR by regro-cf-autotick-bot-action
+
+commit 607dbd0a2e092fd6a885336ab0ab6e717ddbb9ea
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Apr 23 20:34:37 2020 -0500
+
+    Fix lints
+
+commit f4a0ecb87ae6c7e66ad06c41e3d6c4c419646212
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Apr 23 20:31:32 2020 -0500
+
+    Add a test
+
+commit 821706d9e173ab3746f4e7475518a07378d32f50
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Apr 23 20:30:00 2020 -0500
+
+    Bump build number
+
+commit 4d83049503d0ccf7e74d64982fad8f1a0092da4b
+Merge: 8da5111 59003ea
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Thu Apr 16 17:13:35 2020 +0000
+
+    Add optimizations to dylib
+    
+    automerged PR by regro-cf-autotick-bot-action
+
+commit 59003ea1527315f6e77387657449b97989f3249e
+Author: Cory Dolphin <cory@nextdoor.com>
+Date:   Mon Mar 30 15:13:29 2020 -0700
+
+    Add optimizations to dylib
+
+commit 8da51111da371f8f00fb8f1123b56f2efd42d3c8
+Merge: d127e33 cb4aab7
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Mon Mar 23 12:23:59 2020 -0500
+
+    Merge pull request #331 from SylvainCorlay/brand-regex-fix
+    
+    Fix brand regex
+
+commit cb4aab790dcfa778cbd6aba7b5c6fa093117ea25
+Author: Sylvain Corlay <sylvain.corlay@gmail.com>
+Date:   Mon Mar 23 14:48:10 2020 +0100
+
+    Bump build number
+
+commit b3bf1afba3954fdc8ea414c65f674eabb777b463
+Author: conda-forge-linter <github-actions@email.com>
+Date:   Fri Mar 20 17:39:02 2020 +0000
+
+    MNT: Re-rendered with conda-build 3.19.1, conda-smithy 3.6.14, and conda-forge-pinning 2020.03.20
+
+commit 0aa1a619c4a4926bf3beaea1b969ca00526bee7c
+Author: Sylvain Corlay <sylvain.corlay@gmail.com>
+Date:   Fri Mar 20 18:19:30 2020 +0100
+
+    Fix brand regex
+
+commit d127e33ec1c1332642ea810cdc1d09ea61add425
+Merge: 52846db c05030f
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Thu Mar 5 16:21:34 2020 +0000
+
+    Fix run_constrained
+    
+    automerged PR by regro-cf-autotick-bot-action
+
+commit c05030f43def92117ee8982b767d2020de5b16d3
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Mar 5 09:09:50 2020 -0600
+
+    Fix run_constrained
+
+commit 52846dbde4990cedfe3928b8da7f1b727773a4ac
+Merge: ff3cf6d 3118e2f
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Wed Mar 4 20:46:03 2020 +0000
+
+    Fix run_exports for python 3.8
+    
+    automerged PR by regro-cf-autotick-bot-action
+
+commit 3118e2fbd483c9588ac2929def73e106ffb2556f
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Wed Mar 4 13:41:47 2020 -0600
+
+    Fix run_exports for python 3.8
+
+commit ff3cf6d0f1917e959fd0dee17895d6bffe40775c
+Merge: b9e88d1 70c5ed1
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Wed Mar 4 11:14:32 2020 -0500
+
+    Merge pull request #310 from isuruf/noarch_exports
+    
+    noarch run_exports
+
+commit b9e88d10928f44583c35a3eb44153e9468aa44f4
+Merge: 336819a 4280163
+Author: Ray Donnelly <mingw.android@gmail.com>
+Date:   Wed Mar 4 10:52:57 2020 +0100
+
+    Merge pull request #318 from isuruf/maintainers
+    
+    [ci skip] [skip ci] ***NO_CI*** Add isuruf to maintainers
+
+commit 42801632e3df12e47ada80c4af8d601b4584cb26
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Tue Mar 3 21:47:20 2020 -0600
+
+    [ci skip] [skip ci] ***NO_CI*** Add isuruf to maintainers
+
+commit 70c5ed150254f378096d9d33a3aec006f70adcd9
+Merge: 43e40ae 336819a
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Tue Mar 3 21:02:14 2020 -0600
+
+    Merge branch 'master' into noarch_exports
+
+commit 336819addf996bd60045a4e4ee0dbf549933cfaf
+Author: conda-forge-admin <conda-forge-admin@email.com>
+Date:   Tue Mar 3 00:13:13 2020 +0000
+
+    [ci skip] [skip ci] [cf admin skip] ***NO_CI*** admin migration AutomergeAndRerender
+
+commit 4a6f76232ff3c3342f6dda60622c024599ad7364
+Merge: b53ad30 767caf9
+Author: Anthony Scopatz <scopatz@gmail.com>
+Date:   Fri Feb 28 11:30:50 2020 -0500
+
+    Merge pull request #315 from beckermr/beckermr-patch-1
+    
+    REF remove extra base_version key to allow bot to update python
+
+commit 767caf9b45a805e45054f824bca2c68d4947f119
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Feb 27 17:55:39 2020 -0600
+
+    Remove run_exports for now
+
+commit 77dc880736562c4544aa6308eddfd4aaf84b1ba5
+Merge: a56e33c b53ad30
+Author: Matthew R. Becker <beckermr@users.noreply.github.com>
+Date:   Thu Feb 27 14:01:47 2020 -0600
+
+    Merge branch 'master' into beckermr-patch-1
+
+commit b53ad30ede34b9b19bc84ec653e39e0f9c79449d
+Merge: 3eaacb1 dcffd8b
+Author: Anthony Scopatz <scopatz@gmail.com>
+Date:   Thu Feb 27 14:01:08 2020 -0500
+
+    Merge pull request #316 from ngoldbaum/3.8.2
+    
+    update for 3.8.2
+
+commit dcffd8b4a175f9f24cb6dfde1c96b28b0d6bde49
+Author: Nathan Goldbaum <nathan12343@gmail.com>
+Date:   Wed Feb 26 11:36:00 2020 -0700
+
+    update for 3.8.2
+
+commit a56e33cf9aa2f6ee13005cbf8a4c9a7da589bec2
+Author: conda-forge-admin <pelson.pub+conda-forge@gmail.com>
+Date:   Wed Feb 26 18:40:17 2020 +0000
+
+    MNT: Re-rendered with conda-build 3.18.11, conda-smithy 3.6.8, and conda-forge-pinning 2020.02.20
+
+commit 820d97afd0d56cee59be048fdba2fd6c39407f9e
+Author: Matthew R. Becker <beckermr@users.noreply.github.com>
+Date:   Wed Feb 26 12:36:37 2020 -0600
+
+    REF remove extra base_version key to allow bot to update python
+
+commit 43e40ae37beb619019553859bf7070ea6c45dc75
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Sat Feb 8 00:36:36 2020 -0600
+
+    noarch run_exports
+
+commit 3eaacb1569b2b7da959322759c48a2364aa4eabc
+Merge: 1c08c9a c48cbe3
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Wed Feb 5 13:01:59 2020 -0600
+
+    Merge pull request #309 from isuruf/cpython
+    
+    Add _cpython to build string
+
+commit c48cbe3514e52b789b6883119e214f47caec2b73
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Tue Feb 4 20:21:33 2020 -0600
+
+    Fix run_constrained too
+
+commit 3ac01f206e2ac389ba8184a996eaaa84b417b84a
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Tue Feb 4 20:20:20 2020 -0600
+
+    Use python_abi
+
+commit c26a553f61207d6c701a5d45b39c66bfaba621b7
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Sun Feb 2 00:19:10 2020 +0000
+
+    Add run_constrained
+
+commit bc6e2a65f7b341b8937652074f52acda687d707f
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Sat Feb 1 23:44:11 2020 +0000
+
+    Add _cpython to build number
+
+commit 1c08c9a820c656e6a6aea0d86cf78ff1a69ba8e3
+Merge: 5078cd9 ae0aa66
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Wed Jan 29 08:16:02 2020 -0600
+
+    Merge pull request #308 from isuruf/ld_impl
+    
+    Use ld_impl in aarch64
+
+commit ae0aa66ceb511247450bebaa5bc20644387b76d4
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Wed Jan 29 03:52:11 2020 +0000
+
+    Use ld_impl in aarch64
+
+commit 5078cd91bdb6a10929b20444eac2a9eec0108f94
+Merge: 953fb37 8c210a2
+Author: Anthony Scopatz <scopatz@gmail.com>
+Date:   Sun Jan 5 12:09:31 2020 -0800
+
+    Merge pull request #300 from AnacondaRecipes/master-3.8-cf
+    
+    Update to 3.8.1
+
+commit 8c210a24ab0a44787a27824869fe46a4061882c0
+Author: Ray Donnelly <mingw.android@gmail.com>
+Date:   Tue Dec 31 17:24:33 2019 +0100
+
+    Fix PROFILE_TASK (should be passed to configure)
+
+commit fd3b23e18aa5812f952781c02013522ad7ae4164
+Author: Ray Donnelly <mingw.android@gmail.com>
+Date:   Mon Dec 30 22:39:49 2019 +0100
+
+    MNT: Re-rendered with conda-build 3.18.11, conda-smithy 3.6.5, and conda-forge-pinning 2019.12.18
+
+commit 178e4f6796ebd48b7eff79de52fc497e42f6b039
+Author: Ray Donnelly <mingw.android@gmail.com>
+Date:   Mon Dec 30 07:47:08 2019 +0100
+
+    3.8 update, adds CondaEcosystemModifyDllSearchPath patch
+    
+    Without this, Python 3.8.1 on Windows is pretty badly broken (it
+    could not import sqlite for example, or any other modules that
+    needed DLLs found in Library/bin).
+    
+    We could have looked into fixing the new patch (which is really just
+    a cut-down, less functional version of an old patch), but that comes
+    with various other disadvantages due to missing (and now documented)
+    things that the CondaEcosystemModifyDllSearchPath patch does; mainly
+    the `CONDA_DLL_SEARCH_MODIFICATION_` family of env vars. Without that
+    feature, users with 3rd party buggy software like Amplitube would
+    suffer import failure when importing an MKL-based numpy (there are many
+    other instances of this exact class of problem too). The original patch
+    also caches its inputs to avoid calling the Win32 kernel (an expensive
+    context switch) when nothing has changed.
+    
+    This does change the parameters to LoadLibraryEx when a module is
+    imported, whereas the newer patch does not, still, we simply must change
+    those parameters if we want to have control of our DLL search paths and
+    should lobby for upstream to revert this back to how it was. I expect it
+    breaks countless 3rd party extension modules that have been relying on
+    PATH lookup to work for DLLs for the last 20 years.
+    
+    Also adds a load of build-time tests around this breakage so we catch
+    this problem if it happens again in the future.
+    
+    Note: I suspect there is more wrong with Python 3.8 on Windows to do
+    with threading and startup. I cannot get LIEF to import correctly.
+
+commit 953fb3776eb99b6da446349024ab192d2c4be666
+Merge: f93b3f2 ab612bc
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Fri Nov 22 12:57:40 2019 -0600
+
+    Merge pull request #277 from isuruf/linker
+    
+    Stop vendoring binutils linker
+
+commit ab612bcbdb728858d9c29510316606c2f39e3064
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Fri Nov 22 01:29:41 2019 -0600
+
+    ld_impl doesn't work with aarch64
+
+commit 33ccc893221fdca8d09153189bca442ce3909c4f
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Nov 21 23:09:54 2019 -0600
+
+    Fix win
+
+commit 5e40d3cf05ff49c27ba623c01c548f3799cf33ed
+Merge: be21d57 f93b3f2
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Nov 21 22:52:54 2019 -0600
+
+    Merge branch 'master' into linker
+
+commit f93b3f2f8f5b4ec241e57bcea949aae9cd30fdd6
+Merge: b6257e2 10da85a
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Thu Nov 21 22:49:55 2019 -0600
+
+    Merge pull request #286 from duncanmmacleod/patch-py_compile
+    
+    Patch around bpo-38731
+
+commit 10da85a224db758a5a277fc389ed82b46d0a50d2
+Author: Duncan Macleod <duncan.macleod@ligo.org>
+Date:   Mon Nov 11 14:46:29 2019 +0000
+
+    MNT: Re-rendered with conda-build 3.18.9, conda-smithy 3.6.2, and conda-forge-pinning 2019.11.01
+
+commit 24bd47bc4fb7d02a4e552fd74e03de408c8c3814
+Author: Duncan Macleod <duncan.macleod@ligo.org>
+Date:   Mon Nov 11 14:44:27 2019 +0000
+
+    patch bpo-38731
+
+commit b6257e221c05715abf20c211fc158242d5d135bc
+Merge: cc9e163 72ad13b
+Author: Filipe <ocefpaf@gmail.com>
+Date:   Wed Nov 6 20:05:46 2019 -0300
+
+    Merge pull request #283 from jjhelmus/jjh_minor_fixes
+    
+    Various minor fixes
+
+commit 72ad13bad5abe392f0213067e0ae693edcf04aa2
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Wed Nov 6 14:00:26 2019 -0600
+
+    requirements -> requires
+
+commit 39aa122efb39fcd9aa65fd2ea2aa1cb8418de267
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Wed Nov 6 13:54:34 2019 -0600
+
+    bump build_number
+
+commit aec6d52fccac161caf8b1924261d3b6b4d612feb
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Wed Nov 6 13:54:07 2019 -0600
+
+    require ripgrep for tests on linux64 and osx
+
+commit bd32c26b5814e0f5e72ac4232cd558a1420b8d42
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Wed Nov 6 13:52:57 2019 -0600
+
+    ABIFLAG -> ABIFLAGS
+
+commit b11a76252d09e96efc0fc66c3a9f10bccd9a989d
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Wed Nov 6 13:48:34 2019 -0600
+
+    remove lib2to3 once
+    
+    lib2to3 is removed twice in bld.bat, delete the second occurances as it
+    is unnecessary
+
+commit cc9e163812eaf3cc5232e54b695c085ffdd9257f
+Merge: 594aec7 da38d9e
+Author: Filipe <ocefpaf@gmail.com>
+Date:   Sun Nov 3 20:18:19 2019 -0500
+
+    Merge pull request #282 from chrisburr/fix-281
+    
+    Use ranlib from environment variable if set
+
+commit da38d9e6bd8b3e9c5bc837a879f71d4781df3ce8
+Author: Chris Burr <christopher.burr@cern.ch>
+Date:   Mon Nov 4 11:13:13 2019 +1030
+
+    Use ranlib from environment variable if set
+
+commit 594aec70406d6a2dd306be9df403397c2ad86b65
+Merge: ba7048a d5ed2a2
+Author: Filipe <ocefpaf@gmail.com>
+Date:   Sat Nov 2 13:53:39 2019 -0300
+
+    Merge pull request #279 from mariusvniekerk/python38-win
+    
+    Windows rework patches.
+
+commit d5ed2a27e12f6357f2aab4f3aef97779577bf5e1
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Sat Nov 2 09:59:12 2019 -0500
+
+    bump build number
+
+commit bc9c07549c7594cd7e1f5736df43cac2ce5d7d73
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Sat Nov 2 09:26:13 2019 -0500
+
+    Windows rework patches.
+    
+    This rearranges some portions of the patches to ensure that the DLL search
+    path modifications are performed early enough.
+
+commit ba7048ac2f3a03d0a1ce991eb5335dda59d3785b
+Merge: 474bab5 38542b0
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Thu Oct 31 20:48:11 2019 -0400
+
+    python v3.8.0 (#274)
+    
+    python v3.8.0
+    
+    Co-authored-by: Jonathan J. Helmus <jjhelmus@gmail.com>
+    Co-authored-by: Marius van Niekerk <marius.v.niekerk@gmail.com>
+
+commit 38542b0b3ed85521f5e560951fd1967d25ad811e
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Thu Oct 31 19:29:29 2019 -0400
+
+    Update .drone.yml
+
+commit 00c040b8bd516d66b5b96a6738ca37d3bc2923df
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Thu Oct 31 19:28:47 2019 -0400
+
+    Update .drone.yml
+
+commit 53e88383dc3bbe60193c377ede47716db8f4d5a4
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Thu Oct 31 19:23:18 2019 -0400
+
+    Update .drone.yml
+
+commit bb8f985553bb4f3938a80cbf06032544bb88c4a4
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Thu Oct 31 17:48:51 2019 -0500
+
+    Revert "try VS2015 with PGO"
+    
+    This reverts commit 0c529aaf4b675ef6320dc42510a43d9f12cc1130.
+
+commit 9f5ad4df695d790a14f33fd15fbeb762dcf1d6fc
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Thu Oct 31 17:48:50 2019 -0500
+
+    Revert "more VS2015 changes"
+    
+    This reverts commit c7cab0c45107835282d7c5705d26a57d7929cf5b.
+
+commit 2d73933e21a7d52765f835c286e1450f4e49ae94
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Thu Oct 31 17:48:50 2019 -0500
+
+    Revert "one more VS2015 changes"
+    
+    This reverts commit 320aea52041796aeb1c7eea73aceb140c9b125a2.
+
+commit 139b423d51bdbb12e8dc03167784e09811e9d1cc
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Thu Oct 31 17:48:47 2019 -0500
+
+    Revert "PGO revert selectors are very hard for versions"
+    
+    This reverts commit 85c8d3ba4f3b585cfe72ed8afcd1b37de752c560.
+
+commit 85c8d3ba4f3b585cfe72ed8afcd1b37de752c560
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Thu Oct 31 18:35:51 2019 -0400
+
+    PGO revert selectors are very hard for versions
+
+commit 320aea52041796aeb1c7eea73aceb140c9b125a2
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Thu Oct 31 17:30:53 2019 -0500
+
+    one more VS2015 changes
+
+commit c7cab0c45107835282d7c5705d26a57d7929cf5b
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Thu Oct 31 17:25:55 2019 -0500
+
+    more VS2015 changes
+
+commit 0c529aaf4b675ef6320dc42510a43d9f12cc1130
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Thu Oct 31 17:21:02 2019 -0500
+
+    try VS2015 with PGO
+
+commit 0ca84399ffbef0119c57a0db45c7fa3af4a4d9b3
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Thu Oct 31 17:38:53 2019 -0400
+
+    sysconfig_data
+
+commit 33391337db19ee39819b890f59ed0e964c17ae0d
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Thu Oct 31 16:31:42 2019 -0500
+
+    CRLF line endings in 0021 patch
+
+commit 137dc491b87b862596d9679821e3b24f57a92ea3
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Thu Oct 31 16:30:55 2019 -0500
+
+    fixup _sysconfigdata_osx files for ABI and version
+
+commit 28ee2fdf52223b42af488e51c3d529274fa72bc8
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Thu Oct 31 17:24:11 2019 -0400
+
+    fix patch
+
+commit fda95e86e2ff3572c8ded716ce10570743597491
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Thu Oct 31 16:13:03 2019 -0500
+
+    CRLF line endings in 0021 patch
+
+commit 1cd1ede7dc237a4992483a72f997a1e411009363
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Thu Oct 31 15:53:50 2019 -0500
+
+    use @ABIFLAGS@ in _sysconfigdata_linux.py
+
+commit d1f4dd7dc28c96c1e6c06d55f7cf35fcf97d733c
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Thu Oct 31 16:49:48 2019 -0400
+
+    Switch to a patch instead of a hack
+
+commit d45837e0e7c914207e902e068ee79af186e45322
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Thu Oct 31 16:37:43 2019 -0400
+
+    remove errant m
+
+commit cb11c5133e7f0c250813e605f95595fc10126a72
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Thu Oct 31 16:25:46 2019 -0400
+
+    Clean up _sysconfigdatae_linux.py
+
+commit c166dc00119e841ca163f0dd9dda30bc52a2d89e
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Thu Oct 31 16:16:13 2019 -0400
+
+    Hacky patch to copy some openssl dlls around. V3
+
+commit 54b670a7b5fd4ca44276c98585ba7840af563de8
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Thu Oct 31 16:14:29 2019 -0400
+
+    Hacky patch to copy some openssl dlls around. V3
+
+commit a28dd06c8ed225b50b34f53e878a34ef122c6dff
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Thu Oct 31 15:59:09 2019 -0400
+
+    Hacky patch to copy some openssl dlls around
+
+commit 4cf64ff507b6d301360d52d5215a8d156c7da95a
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Thu Oct 31 15:25:26 2019 -0400
+
+    Hacky patch to copy some openssl dlls around
+
+commit 32d407a19a06630b2b8f606a8020996f8f037b1a
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Thu Oct 31 14:08:47 2019 -0400
+
+    See if windows builds without PGO
+
+commit 8413f9bf8954345ffc1e982ea0163140a40e7315
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Thu Oct 31 13:00:48 2019 -0400
+
+    Add missing @ to aarch64 sysconfigdata
+
+commit 13b994cce19df70dacc1997b88a9028cff5633bd
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Thu Oct 31 10:59:45 2019 -0400
+
+    Made test error more apparant
+
+commit 756210992cde8ce5c387da2f4bdbf21256851714
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Thu Oct 31 08:11:06 2019 -0400
+
+    Update meta.yaml
+
+commit 0b5d722e3fd04b16620850021a83061f42c4d73e
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Thu Oct 31 00:00:32 2019 -0400
+
+    Try to get windows going
+
+commit dc327fc63ca82bdb26bfd1b24c5e62edb393b28e
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Wed Oct 30 23:28:27 2019 -0400
+
+    Rerendered recipe and move win to vs2017
+
+commit 308f72f8fbfd2e4f69813e03398d70d076b04b3b
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Wed Oct 23 17:25:28 2019 -0500
+
+    explicitly set config setting for macOS
+
+commit 996fcdcf8441e94fb7c90a928d31ec3348d78e4e
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Wed Oct 30 13:00:44 2019 -0500
+
+    add DLL search path patch for windows
+    
+    add 0020-add-conda-paths-to-DLL-search-path-on-windows.patch
+    which makes the necessary modification to the DLL search path on Windows
+    so that the conda directories are searched. Update other patches.
+    Patch 0019 needs to be combined with 0020, for the time being it is
+    skipped.
+
+commit be21d57b65aee3e0a6f50dd1e896efd8ad18cded
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Sat Oct 26 21:01:07 2019 +0000
+
+    Stop vendoring binutils linker
+
+commit 45d32030fa3f8bd1e1148b9a9b0e6e029eee76aa
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Wed Oct 16 09:13:28 2019 -0500
+
+    re-add explicit tests for openssl 1.1.1
+
+commit 028d0162375361019a05d4ac2c3d5bc41c5ca9cf
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Oct 15 14:35:21 2019 -0500
+
+    add llvm-tools as build dep on osx
+
+commit 1cdf0df5e7c51db779d13b5570687e6cb542e32f
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Oct 15 14:17:10 2019 -0500
+
+    remove additional metions of 'm' ABI'
+
+commit 4f52d11b10bf65519747106af8c4d8c7a4812c2d
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Oct 15 12:47:12 2019 -0500
+
+    add back in compiler_compat
+
+commit 98fd6f1a7a76ac5737aa12fc55e82b60d41eba0e
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Oct 15 12:22:16 2019 -0500
+
+    remove toolchain logic in build.sh
+
+commit 1d70cca6cf3d370ea3d2c26cdd6970a69df73384
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Oct 15 12:17:37 2019 -0500
+
+    use _sysconfigdata logic from AnacondaRecipes
+    
+    Replace templates in _sysconfigdata files to avoid needing to manually
+    update these files for each Python release or TK version change.
+
+commit fb1b94505099b32fa90e3f2d4fcc58cb5aa2cf39
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Oct 15 12:06:11 2019 -0500
+
+    Remove 'm' from ABI tag
+    
+    The default abi flag is now blank since builds with and without pymalloc
+    are ABI compatible.
+
+commit a994728147ed5f9edaa62916cabe5c1716c05925
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Oct 15 12:05:10 2019 -0500
+
+    add QUICK_BUILD options in build.sh
+
+commit 1bef782d5f2e7d2343413e3bdfb5ddcdfa8bb517
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Oct 15 12:02:56 2019 -0500
+
+    loosen version checks of tk and openssl in tests
+
+commit 871f54d2ce91ce4ef42adad6c1b3a0f463f4c69e
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Oct 15 12:02:16 2019 -0500
+
+    include libffi on windows
+
+commit 2b7eb74d272b40836568dc3e29c5a00ba2212970
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Oct 15 12:00:33 2019 -0500
+
+    update bld.bat for 3.8.0
+    
+    Change 37 to 38.
+    pyvenv.py has been removed, use python -m venv
+    Copy venvlauncher.exe and venvwlauncher.exe
+
+commit d42035132e52f3072c6025a046f4c2f88243bb9c
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Oct 15 11:59:27 2019 -0500
+
+    allow links to python3.x
+
+commit 6a52cd349439a20d148340c7271625ad196e95d4
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Oct 15 11:58:58 2019 -0500
+
+    bzip2 is statically linked
+
+commit 3acb0edf2fa8623f05a44b5dea6b2c05858b7897
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Oct 15 11:58:16 2019 -0500
+
+    require ncurses on osx
+
+commit 0ea7a132e418ee35331c6c83b6f93524be7e6f5d
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Oct 15 11:57:38 2019 -0500
+
+    add tests for sysconfig contents
+
+commit 4383eced65bf7cce1ef02c2a020543fe69f08c71
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Oct 15 11:56:58 2019 -0500
+
+    add venv tests on windows
+
+commit 706e5b9d60b7849f91f52e56eec16b80d6d67a61
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Oct 15 11:56:10 2019 -0500
+
+    remove stale tests
+
+commit 3d390b2b84390c370ff49a38a4a3d9f9ffbe1356
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Oct 15 11:55:20 2019 -0500
+
+    remove commented build requirements
+
+commit f904df7b95a9d5151c37df9bba3d4152e7fec740
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Oct 15 11:51:37 2019 -0500
+
+    update patch set for 3.8.0
+    
+    Remove:
+        * 0003-Win32-distutils-Also-look-for-executable.bat.patch (not needed)
+        * gh12445.patch (ununsed)
+    Rebase all other patches
+
+commit 7da7eca7d9af9acd7e8764652668bf544a25ac36
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Oct 15 11:46:40 2019 -0500
+
+    remove usused base_version jinja variable
+
+commit e7f86c2492314d93080f9a905e9d7c3d11de9bc5
+Author: regro-cf-autotick-bot <circleci@cf-graph.regro.github.com>
+Date:   Mon Oct 14 18:16:58 2019 +0000
+
+    MNT: Re-rendered with conda-build 3.18.10, conda-smithy 3.6.0, and conda-forge-pinning 2019.10.11
+
+commit 196d36f87dfaa1970d9b3aa09ee5c314c415ef8a
+Author: regro-cf-autotick-bot <circleci@cf-graph.regro.github.com>
+Date:   Mon Oct 14 18:16:22 2019 +0000
+
+    updated v3.8.0
+
+commit 474bab52c7fad6871d78d8290942c0fc27f812d2
+Author: conda-forge-admin <pelson.pub+conda-forge@gmail.com>
+Date:   Wed Oct 2 16:52:55 2019 -0500
+
+    [ci skip] ***NO_CI*** Keep using appveyor.
+    
+    See https://github.com/conda-forge/conda-forge.github.io/issues/857
+
+commit f59ca749b8aa171ebaffc2f97ca2563ff2b5b8ac
+Merge: 4c0fdaf 4f6e86d
+Author: Anthony Scopatz <scopatz@gmail.com>
+Date:   Mon Jul 1 17:07:29 2019 -0400
+
+    Merge pull request #262 from regro-cf-autotick-bot/rebuildreadline-8.00
+    
+    Rebuild for readline-8.0
+
+commit 4f6e86d8fef59ce88d41280be880c69eb6a40132
+Author: regro-cf-autotick-bot <circleci@cf-graph.regro.github.com>
+Date:   Mon Jul 1 18:30:13 2019 +0000
+
+    MNT: Re-rendered with conda-build 3.18.6, conda-smithy 3.4.0, and conda-forge-pinning 2019.07.01
+
+commit 16ac3a798ea801672f7fccb0da266d11867150df
+Author: regro-cf-autotick-bot <circleci@cf-graph.regro.github.com>
+Date:   Mon Jul 1 18:29:57 2019 +0000
+
+    bump build number
+
+commit 4c0fdaf2eef379803aa6ad27deda82760ec72ea6
+Merge: 1133758 cfb355d
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Wed Mar 27 17:14:43 2019 -0500
+
+    Merge pull request #253 from regro-cf-autotick-bot/3.7.3
+    
+    python v3.7.3
+
+commit cfb355d2df4cda761bc18acea5da7095dd7f1850
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Wed Mar 27 15:17:58 2019 -0500
+
+    set tcltk version to 8.6.9.0 in bld.bat
+
+commit 0b3ed0366a98768d4037839abf36474eb755a287
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Wed Mar 27 13:56:10 2019 -0500
+
+    set base version to 3.7.3
+
+commit 248dff909035cce3cc6e0d844bb2e1ac4ad5d380
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Wed Mar 27 13:55:52 2019 -0500
+
+    set tcl sources to 8.6.9.0
+
+commit 9eea625ffe6974b7024c0ccd1d4f7dec3654b5b5
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Wed Mar 27 11:56:30 2019 -0500
+
+    Drop gh12445.patch
+    
+    Patch is un-needed as change was merged upstream, see python/cpython#12445
+
+commit 6ee3f3a01fb157df61bd5e03013cc4849c03ce9b
+Author: regro-cf-autotick-bot <circleci@cf-graph.regro.github.com>
+Date:   Mon Mar 25 22:26:40 2019 +0000
+
+    MNT: Re-rendered with conda-build 3.17.8, conda-smithy 3.3.2, and conda-forge-pinning 2019.03.17
+
+commit 40fbebb64f2be759d1706d70cbdabefec5b74eda
+Author: regro-cf-autotick-bot <circleci@cf-graph.regro.github.com>
+Date:   Mon Mar 25 22:26:23 2019 +0000
+
+    updated v3.7.3
+
+commit 113375803a37ebce381e729057b23b29d6a4800b
+Merge: 6464dd4 29d6eab
+Author: Filipe <ocefpaf@gmail.com>
+Date:   Tue Mar 19 21:49:43 2019 -0300
+
+    Merge pull request #252 from ocefpaf/v3.7.2
+    
+    V3.7.2
+
+commit 6464dd4ffd628f19a467b58f921dd37c381815c8
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Tue Mar 19 18:20:48 2019 -0500
+
+    [skip ci] [ci skip] Add @mingwandroid
+
+commit 29d6eab53df6df908333af8a339edb687ca49692
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Tue Mar 19 13:26:21 2019 -0500
+
+    Patch only for win
+    
+    Line ending issues for non-win
+
+commit aef7ceac8fa15249b96b4d247e21078d540dd104
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Tue Mar 19 12:53:14 2019 -0500
+
+    Fix windows SDK registry key name
+
+commit e197c91b2dd564c5eb82644f714af76bef880117
+Author: Filipe Fernandes <ocefpaf@gmail.com>
+Date:   Thu Mar 14 10:46:38 2019 -0300
+
+    set base version
+
+commit 6b89eb55077f5be41d02d4755eb58a1dfd652acc
+Author: Filipe Fernandes <ocefpaf@gmail.com>
+Date:   Thu Mar 14 10:34:32 2019 -0300
+
+    MNT: Re-rendered with conda-build 3.17.8, conda-smithy 3.2.14, and conda-forge-pinning 2019.03.04
+
+commit d5481d4a641c25089c2b68316750f67ca89b8668
+Author: Filipe Fernandes <ocefpaf@gmail.com>
+Date:   Thu Mar 14 10:34:30 2019 -0300
+
+    update meta.yaml to relflect openssl and sqlite
+
+commit b1ebfb3eceb319167f646fcf8f76b1da26ea3fa9
+Author: Filipe Fernandes <ocefpaf@gmail.com>
+Date:   Thu Mar 14 09:58:50 2019 -0300
+
+    openssl and sqlite from bld.bat
+
+commit 0196aa74094df747453e55e610ca70cc641f2103
+Author: Filipe Fernandes <ocefpaf@gmail.com>
+Date:   Thu Mar 14 09:36:40 2019 -0300
+
+    don't use patch 0020
+
+commit beb49420842a7aa5b4eb6b145c0ffce16392303a
+Author: Filipe Fernandes <ocefpaf@gmail.com>
+Date:   Thu Mar 14 09:25:49 2019 -0300
+
+    sync with AR
+
+commit 9bb6ced7ec335a77db55bb91c1b0f80f2a053a4d
+Merge: 769066a e72f813
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Wed Mar 13 07:13:29 2019 -0500
+
+    Merge pull request #251 from dopplershift/update-sysconfig
+    
+    Fix OSX deployment target in sysconfig
+
+commit e72f8139dd5efa28c49234d1c6c2066238c3e311
+Author: Ryan May <rmay@ucar.edu>
+Date:   Mon Mar 11 18:39:16 2019 -0600
+
+    Fix OSX deployment target in sysconfig
+    
+    Needs to reflect what's actually being used to build python, which for
+    conda-forge is (currently) 10.9.
+
+commit 769066aaafa2fb7b2f83e8052b94f368745f9cda
+Merge: 1baf24b 6a4a3b8
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Mon Feb 25 22:32:10 2019 -0500
+
+    Merge pull request #245 from regro-cf-autotick-bot/rebuildopenssl
+    
+    Rebuild for OpenSSL
+
+commit 6a4a3b847defdd47b052e312e3dbf6313f381d6b
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Mon Feb 25 21:41:00 2019 -0500
+
+    Update meta.yaml
+
+commit 24aff218a9c8d9cdeef423dbbf1bda14ceb15c8d
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Mon Feb 25 19:07:45 2019 -0500
+
+    Update meta.yaml
+
+commit 563f1783508382e9e9b147fce8d4809d5162fb15
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Mon Feb 25 18:35:03 2019 -0500
+
+    Update run_test.py
+
+commit ccbd4121757ceafb645b5d7ed97fe6f23b26c73d
+Author: regro-cf-autotick-bot <circleci@cf-graph.regro.github.com>
+Date:   Mon Feb 25 19:55:33 2019 +0000
+
+    MNT: Re-rendered with conda-build 3.15.1, conda-smithy 3.2.14, and conda-forge-pinning 2019.02.24
+
+commit ed5d0ac60cd7f5a9e0777166c3787ce33e22212d
+Author: regro-cf-autotick-bot <circleci@cf-graph.regro.github.com>
+Date:   Mon Feb 25 19:55:21 2019 +0000
+
+    bump build number
+
+commit 1baf24b23aa02a94f10be9904b8f3b00d0a844f4
+Merge: 3fa9be6 27b07aa
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Sun Feb 17 19:43:41 2019 -0500
+
+    Merge pull request #234 from regro-cf-autotick-bot/rebuild
+    
+    Arch Migrator
+
+commit 27b07aa3c36416c3e9d69b9158846e7fcbe0dc64
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Sun Feb 17 18:17:41 2019 -0500
+
+    Update build.sh
+
+commit 46655360208ce4c5b0b430f97fc4adadd93e9241
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Sun Feb 17 17:46:50 2019 -0500
+
+    Update azure-pipelines-win.yml
+
+commit 114903ae6ebb9a18e3aa3ebb34b0752059d5ac11
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Sun Feb 17 17:40:01 2019 -0500
+
+    Update azure-pipelines-win.yml
+
+commit 74d781c2c83d2cf78fc3e5529d5962acc660c80e
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Sun Feb 17 17:01:12 2019 -0500
+
+    Update build.sh
+
+commit 47c043c5e7a0adf59c4ec74d0a322075f9e1399c
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Sun Feb 17 08:53:58 2019 -0500
+
+    Create _sysconfigdata_aarch64_conda_cos7_linux_gnu.py
+
+commit 7f67ca49a47668a49c8fc4e779d568c25f19e32d
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Sat Feb 16 18:57:56 2019 -0500
+
+    Update azure-pipelines-linux.yml
+
+commit 37411bd7baa796664dabd5d9d295ec18ad036ee8
+Author: conda-forge-admin <pelson.pub+conda-forge@gmail.com>
+Date:   Sat Feb 16 23:57:07 2019 +0000
+
+    MNT: Re-rendered with conda-build 3.17.8, conda-smithy 3.2.13, and conda-forge-pinning 2019.02.15
+
+commit f01dff283a728bcf4db2cce3314776def23b08a1
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Sat Feb 16 18:55:31 2019 -0500
+
+    Create yum_requirements.txt
+
+commit 565f383877579de3a97bfef8a85fa2125a3d9769
+Author: regro-cf-autotick-bot <circleci@cf-graph.regro.github.com>
+Date:   Fri Feb 15 01:17:25 2019 +0000
+
+    MNT: Re-rendered with conda-build 3.15.1, conda-smithy 3.2.13, and conda-forge-pinning 2019.02.11
+
+commit cd0482932c253d404d9504ed3a69a536db8531dc
+Author: regro-cf-autotick-bot <circleci@cf-graph.regro.github.com>
+Date:   Fri Feb 15 01:17:13 2019 +0000
+
+    bump build number
+
+commit b2dd3472e9cf767bbf3bd4911ea27334e6877b0f
+Author: conda-forge-admin <pelson.pub+conda-forge@gmail.com>
+Date:   Thu Jan 31 15:43:21 2019 +0000
+
+    MNT: Re-rendered with conda-build 3.17.8, conda-smithy 3.2.12, and conda-forge-pinning 2019.01.29
+
+commit 253b9bcd8b7a4d5dd82caa4a5e75af8b26c9dcf7
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Tue Jan 29 23:01:58 2019 -0500
+
+    add PY_ARCH for aarch64
+
+commit b2374b9934dde07caa374cda2d4ffb7c518da07c
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Tue Jan 29 21:31:42 2019 -0500
+
+    disable pgo for aarch64 and ppc64le
+
+commit 12dfc2b9e34173210992f4ec74b879ca0051ad38
+Author: regro-cf-autotick-bot <circleci@cf-graph.regro.github.com>
+Date:   Tue Jan 29 05:55:27 2019 +0000
+
+    MNT: Re-rendered with conda-build 3.17.8, conda-smithy 3.2.10, and conda-forge-pinning 2019.01.21
+
+commit 73193226d863850bca8ac61dcac5e5e0e6991e1c
+Author: regro-cf-autotick-bot <circleci@cf-graph.regro.github.com>
+Date:   Tue Jan 29 05:55:14 2019 +0000
+
+    bump build number
+
+commit 3fa9be6edd6bac1722d1e55d5db2d7caf83d439d
+Merge: 7c64b4f 5974bce
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Tue Nov 13 11:24:00 2018 -0600
+
+    Merge pull request #225 from ocefpaf/3.7.1
+    
+    update to 3.7.1
+
+commit 5974bce7aaa72dd2a9d6e4777f1159af11558737
+Author: Filipe Fernandes <ocefpaf@gmail.com>
+Date:   Tue Nov 13 13:09:46 2018 -0200
+
+    update to 3.7.1
+
+commit 7c64b4fd80f2219362b7c53f299d661725f9946d
+Merge: 78d08b6 a13439c
+Author: Anthony Scopatz <scopatz@gmail.com>
+Date:   Mon Nov 12 14:30:04 2018 -0500
+
+    Merge pull request #217 from jakirkham-feedstocks/readd_toolchain
+    
+    Rebuild with toolchain 2.2.2
+
+commit a13439c67405bd1550fcb0d4add72c657db9e79e
+Author: John Kirkham <kirkhamj@janelia.hhmi.org>
+Date:   Sat Oct 13 16:34:40 2018 -0400
+
+    Rebuild with toolchain 2.2.2
+    
+    There was an issue with the `toolchain`; where, on a newer macOS
+    version, it may not pickup the right SDK. For example, the macOS 10.9
+    SDK was not being picked up on CircleCI, which runs on a newer version
+    of macOS. Turns out that setting `MACOSX_DEPLOYMENT_TARGET` is not
+    sufficient in these cases and one needs to specify the macOS SDK
+    location as well.
+    
+    As of `toolchain` 2.2.2, the lazy symbol binding issue has been fixed
+    thanks to the addition of `-isysroot` compiler flag, which specifies the
+    location of the macos SDK we intend to use. Combined with the facts that
+    we specify what minimum macOS version we target and we provide the macOS
+    SDK, this is enough for the build to use that macOS SDK and not pick up
+    these symbols, which do not appear until later macOS versions.
+
+commit 0b9fee4a18301fd95e8b8ca4de1b477903cfc98e
+Author: John Kirkham <kirkhamj@janelia.hhmi.org>
+Date:   Sat Oct 13 16:34:23 2018 -0400
+
+    MNT: Re-rendered with conda-smithy 3.1.12 and pinning 2018.10.11
+
+commit 78d08b683da487109c59f98ce37c22ac63daa3b9
+Merge: 05f7ee9 905e203
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Wed Oct 10 07:46:59 2018 -0400
+
+    Merge pull request #207 from AnacondaRecipes/cf-3.7-sync
+    
+    Fix find_library when on linux when no objdump present
+
+commit 905e2037edec13f7178e20dcfce04bb76199e039
+Author: Ray Donnelly <mingw.android@gmail.com>
+Date:   Tue Oct 9 17:03:58 2018 +0100
+
+    Fix find_library when on linux when no objdump present
+
+commit 05f7ee9223fd7a123f21319175fefa41b3bc9053
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Tue Oct 9 08:20:10 2018 -0400
+
+    Revert "Merge pull request #206 from mariusvniekerk/3.7-binutils"
+    
+    This reverts commit b1648841f11261ee0a2b5b541fa0f8e7fb1196b3, reversing
+    changes made to d9e6b05617ef08ada90fe0f61ec9aa54e0ab2866.
+
+commit b1648841f11261ee0a2b5b541fa0f8e7fb1196b3
+Merge: d9e6b05 83f515a
+Author: Filipe <ocefpaf@gmail.com>
+Date:   Tue Oct 9 09:07:11 2018 -0300
+
+    Merge pull request #206 from mariusvniekerk/3.7-binutils
+    
+    3.7 binutils toolchain python
+
+commit 83f515aa9e5f25cf64543c77872b5d121b031d93
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Mon Oct 8 22:38:08 2018 -0400
+
+    [skip appveyor] build number bump
+
+commit 40018c526595353e9bbae7923b06a64d77daede1
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Mon Oct 8 22:36:32 2018 -0400
+
+    [skip appveyor] remove the patch that makes binutils needed for toolchain built python
+
+commit d9e6b05617ef08ada90fe0f61ec9aa54e0ab2866
+Merge: 5df9526 22ee5ee
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Sun Sep 30 10:27:26 2018 -0400
+
+    Merge pull request #200 from scopatz/lto2
+    
+    lto-partition fix, again
+
+commit 22ee5eec8eb03b9951104043868da319fd43558e
+Author: Anthony Scopatz <scopatz@gmail.com>
+Date:   Fri Sep 28 15:56:41 2018 -0400
+
+    trigger rebuild
+
+commit b2203e6a2b967fa4c082673dc218319cce002c7d
+Author: Anthony Scopatz <scopatz@gmail.com>
+Date:   Fri Sep 28 15:31:18 2018 -0400
+
+    remove exta globs
+
+commit 587fb6a26b6ef7d8894360f15e5846996ec4fabe
+Author: Anthony Scopatz <scopatz@gmail.com>
+Date:   Fri Sep 28 14:56:13 2018 -0400
+
+    replacement strings
+
+commit 1f995901d8950e9bc116a45b03d6bfcf22c8aa63
+Author: Anthony Scopatz <scopatz@gmail.com>
+Date:   Fri Sep 28 11:18:58 2018 -0400
+
+    check linux rather than gcc
+
+commit c1347834401313a6acc41f159c5aadffe742a16a
+Author: Anthony Scopatz <scopatz@gmail.com>
+Date:   Thu Sep 27 16:29:05 2018 -0400
+
+    try to fix tests
+
+commit 3dd4026e1968a977161f2ae471fe1b7ebc210b1d
+Author: Anthony Scopatz <scopatz@gmail.com>
+Date:   Thu Sep 27 11:29:01 2018 -0400
+
+    lto-partition fix, again
+
+commit 5df95262a22949df49941653243a3c8be8f67e02
+Merge: 2c047ad 8ab579b
+Author: Filipe <ocefpaf@gmail.com>
+Date:   Thu Sep 27 09:39:54 2018 -0300
+
+    Merge pull request #199 from scopatz/lto-partition
+    
+    Don't -flto-partition=none for toolchain
+
+commit 8ab579b26d90590781e0d05c41f19b6ed0961420
+Author: Anthony Scopatz <scopatz@gmail.com>
+Date:   Wed Sep 26 16:49:25 2018 -0400
+
+    bump build number
+
+commit 6e35a906b65ffa0bb3d604a78b3e08e339fe567b
+Author: Anthony Scopatz <scopatz@gmail.com>
+Date:   Tue Sep 25 16:37:08 2018 -0400
+
+    Don't -flto-partition=none for toolchain, causes downstream compile issues
+
+commit 2c047ada214ccb1392a19ccfc188a28667c8dc9a
+Merge: b7e0099 de16258
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Sat Sep 22 17:35:18 2018 -0500
+
+    Merge pull request #194 from regro-cf-autotick-bot/rebuild
+    
+    Rebuild for Python 3.7, GCC 7, R 3.5.1, openBLAS 0.3.2
+
+commit de16258d543dbe5766de550f095307a364ac4f0a
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Sat Sep 22 15:07:59 2018 -0400
+
+    Update meta.yaml
+
+commit 025920e683d884ab3b9d45d882f09d7175296856
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Sat Sep 22 10:36:10 2018 -0500
+
+    apply winsdk.patch
+
+commit e7d74d7bc3c5506e4d35a4925637df1b0bd3195b
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Sat Sep 22 10:45:57 2018 -0400
+
+    Update meta.yaml
+
+commit 63ff48545ab96b1a56400834c6f5c318d9eec4f6
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Sat Sep 22 10:34:24 2018 -0400
+
+    Try using a lower (10.0.14393) default version for windows10 sdk
+
+commit cef2251e871c7b32baa8fc58252abee8131ac1a2
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Thu Sep 20 07:06:18 2018 -0500
+
+    use HOST to determine sysconfig modifications
+    
+    Test for a non-null HOST environment variable to determine if sysconfig
+    modificiation must be done.  These modification are not needed when system
+    compilers are used.
+
+commit b220d50e96bbbfd06584cfe5fa4967621fe408c2
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Thu Sep 20 07:04:10 2018 -0500
+
+    use target_platform rather than host
+    
+    Use the target_platform environment variable rather than HOST to perform
+    platform dependent logic in the build script.  HOST is still used for logic
+    that depends on cross compiling or the presence of non-system compilers.
+
+commit ce614739fbed12d6c0e60fdccaf6d734a94e6f3e
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Thu Sep 20 06:55:13 2018 -0500
+
+    Do not change Windows SDKs
+
+commit adc4168d66198911d55abbf564727a8612a91da5
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Wed Sep 19 17:59:49 2018 -0500
+
+    Revert "HOST=BUILD is not set"
+    
+    This reverts commit fa24adb91e84ebb337631349b0398aca4daa14d5.
+
+commit fa24adb91e84ebb337631349b0398aca4daa14d5
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Wed Sep 19 17:18:26 2018 -0500
+
+    HOST=BUILD is not set
+
+commit 668d8916b5e27da59890bd83f13be0fddd625857
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Wed Sep 19 17:17:08 2018 -0500
+
+    skip sysconfig fixes when using system compilers
+    
+    Do not apply sysconfig fixes when using the system compilers (toolchain).
+
+commit da91269684fdfb92df866229fd3a8ed481fd0384
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Wed Sep 19 17:16:06 2018 -0500
+
+    use CONDA_FORGE variable for brand_python
+
+commit f4e94bfb045eca3c5e19886f26da0aaca9a5fe7a
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Wed Sep 19 15:29:52 2018 -0400
+
+    Update meta.yaml
+
+commit afad16be4e8f1f70e93f84d5bc93c77723835a96
+Author: Filipe Fernandes <ocefpaf@gmail.com>
+Date:   Sat Sep 15 12:35:05 2018 -0300
+
+    try CircleCI for OS X
+
+commit 8986608b4b961c8da253fb72124775d2a1d05ea2
+Author: Filipe Fernandes <ocefpaf@gmail.com>
+Date:   Fri Sep 14 15:45:36 2018 -0300
+
+    sync bld.bat and run_test.py
+
+commit d5b0329bda73682adc5106eceb93faba21d4b444
+Author: Filipe Fernandes <ocefpaf@gmail.com>
+Date:   Fri Sep 14 15:44:31 2018 -0300
+
+    add replace-word-pairs.py
+
+commit b521c3c008797c2717dc29c5101a615535d3a2da
+Author: Filipe Fernandes <ocefpaf@gmail.com>
+Date:   Fri Sep 14 14:45:36 2018 -0300
+
+    AR patched and build.sh
+
+commit d4e95a8e13d01f32b32109cc0a4b014ea4ed2960
+Author: regro-cf-autotick-bot <circleci@cf-graph.regro.github.com>
+Date:   Fri Sep 14 13:12:55 2018 +0000
+
+    MNT: Re-rendered with conda-smithy 3.1.12 and pinning 2018.09.11
+
+commit eb16cdd9ce8b4d079e0c457ff0b5af0be960f33c
+Author: regro-cf-autotick-bot <circleci@cf-graph.regro.github.com>
+Date:   Fri Sep 14 13:12:45 2018 +0000
+
+    bump build number
+
+commit b7e00996f6e2e4f2f05bde022f26ce96aba04c51
+Merge: 576821d abc787a
+Author: Filipe <ocefpaf@gmail.com>
+Date:   Mon Aug 27 12:16:30 2018 -0500
+
+    Merge pull request #193 from ocefpaf/rerender
+    
+    Re-render
+
+commit abc787a0a04c9dee21fd0d73c448ebe6063d30e5
+Author: Filipe Fernandes <ocefpaf@gmail.com>
+Date:   Mon Aug 27 12:29:18 2018 -0300
+
+    MNT: Re-rendered with conda-smithy 3.1.12 and pinning 2018.08.21
+
+commit 5078dd80945aaf976030e8a6942920803a2d2b7b
+Author: Filipe Fernandes <ocefpaf@gmail.com>
+Date:   Mon Aug 27 12:29:17 2018 -0300
+
+    bump
+
+commit 576821dc17bd47ad0819d4fd60ce69a27bc27f42
+Author: Travis CI User <travis@example.org>
+Date:   Sat Aug 4 17:21:19 2018 +0000
+
+    [ci skip] [skip ci] Update anaconda token
+
+commit b2d80231123beffc6195381bf590df6100599456
+Merge: 8d74320 61e19a6
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Fri Jul 13 17:59:17 2018 -0500
+
+    Merge pull request #183 from jschueller/370
+    
+    Go to 3.7!
+
+commit 61e19a625eda42b6017f6efe2f59364257bb3d19
+Author: Marius van Niekerk <marius.v.niekerk@gmail.com>
+Date:   Fri Jul 13 15:30:01 2018 -0500
+
+    Changed tk copy pieces for windows
+
+commit 99923e179bdf65e7f21b1e4890d459dc74b30cc1
+Author: conda-forge-admin <pelson.pub+conda-forge@gmail.com>
+Date:   Sun Jul 1 11:55:37 2018 +0000
+
+    MNT: Re-rendered with conda-smithy 3.1.6 and pinning 2018.06.29
+
+commit 0174f18e0aad4928b0e22a07663d6828f55dbd83
+Author: Julien Schueller <schueller@phimeca.com>
+Date:   Sun Jul 1 13:54:49 2018 +0200
+
+    Fix openssl sha
+
+commit d7fa05ed871f69aa6b379c4fa07cc5223a352470
+Author: Julien Schueller <schueller@phimeca.com>
+Date:   Sun Jul 1 13:26:39 2018 +0200
+
+    List external dependencies in meta.yaml
+
+commit 985032a89e8c48f2849dcb79284f5bbee3e73926
+Author: Julien Schueller <schueller@phimeca.com>
+Date:   Sun Jul 1 09:18:33 2018 +0200
+
+    Use gcc on osx
+
+commit 55777d5ad45524fa0af3ca931a4fdc49e5424cdc
+Author: Julien Schueller <schueller@phimeca.com>
+Date:   Sun Jul 1 08:57:10 2018 +0200
+
+    Compile with gcc on osx
+
+commit 53309125410cef6c29393b05a401ff915232eed5
+Author: Julien Schueller <schueller@phimeca.com>
+Date:   Fri Jun 29 09:10:34 2018 +0200
+
+    Go to 3.7!
+
+commit 8d7432061d50586e94d7396e8958a523e891a049
+Merge: d5b0387 0c797ca
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Fri Apr 6 08:35:59 2018 -0500
+
+    Merge pull request #178 from minrk/ensurepip
+    
+    restore ensurepip
+
+commit 0c797ca255d4482abe72a6ddd8f87ff4f1bfac24
+Author: Min RK <benjaminrk@gmail.com>
+Date:   Fri Apr 6 09:54:04 2018 +0200
+
+    keep --with-ensurepip=no
+
+commit 21bb24e409f182b6f39242412399548398ce1a67
+Author: Min RK <benjaminrk@gmail.com>
+Date:   Thu Apr 5 12:56:15 2018 +0200
+
+    restore ensurepip
+    
+    removing ensurepip prevents `python -m venv` from working
+    
+    matches behavior of defaults channel Python
+
+commit d5b03879b2d6065a17c04903aef90d5fb400c2b7
+Merge: 2dd73e6 7e776b8
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Fri Mar 30 09:43:01 2018 -0500
+
+    Merge pull request #174 from jakirkham-feedstocks/use_our_nasm
+    
+    Use our build of nasm
+
+commit 7e776b8a24e12a9d4f48551ec77e1c4d02c7cddb
+Author: John Kirkham <kirkhamj@janelia.hhmi.org>
+Date:   Fri Mar 30 02:12:40 2018 -0400
+
+    Use our build of nasm
+    
+    Instead of downloading the binary for `nasm` from CPython. Just use our
+    build of it.
+
+commit 2dd73e64eefd13d17540766cd9ab85973903b9a8
+Merge: 6a9423e 5d3c788
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Thu Mar 29 17:57:37 2018 -0500
+
+    Merge pull request #172 from regro-cf-autotick-bot/3.6.5
+    
+    python v3.6.5
+
+commit 5d3c788a979d4693a8aa475ba949b93dd258cfa1
+Author: Travis CI User <travis@example.org>
+Date:   Wed Mar 28 22:51:27 2018 +0000
+
+    updated v3.6.5
+
+commit 6a9423e5948bb2dffab790b732776a45d1cc71f3
+Merge: 1988619 82b3885
+Author: Filipe <ocefpaf@gmail.com>
+Date:   Sun Dec 24 08:08:29 2017 -0200
+
+    Merge pull request #167 from isuruf/winsdk
+    
+    Try a fix for winsdk error
+
+commit 82b3885c2d8cd1b63e862878a90579291c4c47ab
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Sun Dec 24 10:03:38 2017 +0530
+
+    Update bld.bat
+
+commit 74945c2b7f29a209f7c0cbfbfaa8fad8a82f7296
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Sat Dec 23 23:05:59 2017 +0530
+
+    Fix patch
+
+commit 8957275a542fb466baccd87e9cd766f33cc9404a
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Sat Dec 23 22:55:04 2017 +0530
+
+    Update patch
+
+commit 0b980e8e8642a61ed7152008fbbc8ef75b24ff3e
+Author: Isuru Fernando <isuruf@gmail.com>
+Date:   Sat Dec 23 22:42:43 2017 +0530
+
+    Try a fix for winsdk error
+
+commit 19886191ea166ab6497cdef6b459d27416758a36
+Merge: 766e9e5 bd1b8b6
+Author: Filipe <ocefpaf@gmail.com>
+Date:   Sat Dec 23 14:28:06 2017 -0200
+
+    Merge pull request #165 from ocefpaf/update_to_3.6.4
+    
+    update to 3.6.4
+
+commit bd1b8b6202cddef6c82846ed10341d2f599025a4
+Author: Filipe Fernandes <ocefpaf@gmail.com>
+Date:   Sat Dec 23 11:45:20 2017 -0200
+
+    rerender
+
+commit 2299cc0dc356d86c305010c369049336fda6e1df
+Author: Filipe Fernandes <ocefpaf@gmail.com>
+Date:   Fri Dec 22 18:39:19 2017 -0200
+
+    update to 3.6.4
+
+commit 766e9e5d7ffdf433941b26b6bc5dec8434f0e3f0
+Merge: 07801e8 21f7f7c
+Author: jakirkham <jakirkham@gmail.com>
+Date:   Sat Dec 9 11:15:11 2017 -0500
+
+    Merge pull request #159 from tacaswell/backport_ctypes_search_fix
+    
+    Fix find_library so that it looks in sys.prefix/lib first
+
+commit 21f7f7cbe564531e34e8c7d0e47112eeb6c59113
+Author: John Kirkham <kirkhamj@janelia.hhmi.org>
+Date:   Fri Dec 8 23:30:33 2017 -0500
+
+    Fix spacing between source/patch sections
+
+commit dfbf264687faef652c6bddb8a3a03eb7bb1f25ce
+Author: John Kirkham <kirkhamj@janelia.hhmi.org>
+Date:   Fri Dec 8 23:27:54 2017 -0500
+
+    Bump build number to 4
+
+commit a204601908cfcc2eed032f2a97e62ea8d0ca1df4
+Merge: 2a3f855 07801e8
+Author: John Kirkham <kirkhamj@janelia.hhmi.org>
+Date:   Fri Dec 8 23:27:15 2017 -0500
+
+    Merge branch 'master' into 'backport_ctypes_search_fix'
+
+commit 07801e8672ada98fcc3163c850cbe2e63f545a72
+Merge: c2fe3e8 7ab4805
+Author: jakirkham <jakirkham@gmail.com>
+Date:   Fri Dec 8 23:25:22 2017 -0500
+
+    Merge pull request #162 from jakirkham-feedstocks/fix_tk_86
+    
+    Fix Tcl/Tk to 8.6
+
+commit 7ab48058fcf0ad3f93b3278dd83c2eced5d396da
+Author: John Kirkham <kirkhamj@janelia.hhmi.org>
+Date:   Thu Dec 7 17:30:16 2017 -0500
+
+    Bump build number to 3
+    
+    Need a rebuild after fixing the Tk/Tcl linking arguments' versions.
+
+commit fce2bcef45ce5a10cd37c1894d95de24ba5aada2
+Author: John Kirkham <kirkhamj@janelia.hhmi.org>
+Date:   Thu Dec 7 17:28:18 2017 -0500
+
+    Fix Tk/Tcl linking arguments to use 8.6
+
+commit 2a3f855b7831e95f3dfdfb8ba5077901a498737d
+Merge: caeccbd c2fe3e8
+Author: Filipe <ocefpaf@gmail.com>
+Date:   Thu Dec 7 18:23:42 2017 -0200
+
+    Merge branch 'master' into backport_ctypes_search_fix
+
+commit caeccbdd4984bc6d75669a321dd4266903032eaf
+Merge: 82dfb50 c2fe3e8
+Author: Filipe <ocefpaf@gmail.com>
+Date:   Thu Dec 7 18:23:12 2017 -0200
+
+    Merge branch 'master' into backport_ctypes_search_fix
+
+commit 82dfb5095f63ea43bce5ff2655afe994f2b8f614
+Author: Filipe <ocefpaf@gmail.com>
+Date:   Thu Dec 7 18:21:45 2017 -0200
+
+    bump build number again
+
+commit c2fe3e8753fa50e30b4a27c7735dfd6c0a1dd08a
+Merge: e75b783 43e2c4a
+Author: Filipe <ocefpaf@gmail.com>
+Date:   Thu Dec 7 18:12:59 2017 -0200
+
+    Merge pull request #158 from ocefpaf/update_pins
+    
+    update pins
+
+commit 56ff62a2aae5d405514a5df280cc9c06441c8813
+Author: Ray Donnelly <mingw.android@gmail.com>
+Date:   Tue Dec 5 23:09:14 2017 +0000
+
+    Fix find_library so that it looks in sys.prefix/lib first
+    
+    Conflicts:
+            recipe/meta.yaml
+               The meta.yaml files have significantly
+               diverged (AnacondaRecipes includes many more patches +
+               differently handles extra down loads) + bulid number
+               differences
+
+commit 43e2c4a6cbe14c070366e5d71d7ff5ff0e05bbd9
+Author: Filipe Fernandes <ocefpaf@gmail.com>
+Date:   Thu Dec 7 12:38:17 2017 -0200
+
+    update pins
+
+commit e75b783a0f14e66354dd0742acbce832fbe299c7
+Merge: 1ede688 bbfdce1
+Author: Filipe <ocefpaf@gmail.com>
+Date:   Sat Nov 4 08:07:50 2017 -0200
+
+    Merge pull request #153 from ocefpaf/pin_zlib_1.2.11
+    
+    pin zlib 1.2.11
+
+commit bbfdce1865c3f360ea27bc7bd1a121b3235c54e0
+Author: Filipe Fernandes <ocefpaf@gmail.com>
+Date:   Fri Nov 3 15:43:23 2017 -0200
+
+    pin zlib 1.2.11
+
+commit 1ede688e6cc7f4c6a03f807155dc5e7311b4a38d
+Merge: 26b9992 c260919
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Thu Oct 5 08:58:39 2017 -0500
+
+    Merge pull request #150 from ocefpaf/update_to-3.6.3
+    
+    update to 3.6.3
+
+commit c260919264a967beb2764ed7f45847d068964130
+Author: Filipe Fernandes <ocefpaf@gmail.com>
+Date:   Wed Oct 4 16:24:11 2017 -0300
+
+    rerender
+
+commit d68082888882818a630f2cd35b72f65c519c0982
+Author: Filipe Fernandes <ocefpaf@gmail.com>
+Date:   Wed Oct 4 16:21:50 2017 -0300
+
+    update to 3.6.3
+
+commit 26b99923a7caa8abaab588af350e345ec34199e4
+Author: Travis-CI on github.com/conda-forge/staged-recipes <conda-forge@googlegroups.com>
+Date:   Sat Aug 26 19:41:33 2017 +0000
+
+    [ci skip] [skip ci] Update anaconda token
+
+commit a54e43d7f39c4633e4c399f2c325846149c52cc9
+Merge: 90ad760 75f8fe2
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Sun Jul 23 17:55:47 2017 -0500
+
+    Merge pull request #148 from ocefpaf/update_to-3.6.2
+    
+    update to 3.6.2
+
+commit 75f8fe21d841f3291b358c3b641fbb159f8de112
+Merge: 0ae8b94 f72e61a
+Author: Filipe <ocefpaf@gmail.com>
+Date:   Sun Jul 23 19:40:46 2017 -0300
+
+    Merge pull request #1 from jjhelmus/win_external
+    
+    download and extract external deps in bld.bat
+
+commit f72e61a0d457db7e061723c85f2e64ac533c059e
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Sun Jul 23 17:07:32 2017 -0500
+
+    download and extract external deps in bld.bat
+    
+    Download and unpack external windows dependencies in bld.bat script
+    rather than depending on the logic in build.bat to perform this
+    function.
+
+commit 0ae8b9425ee2c7ee5f194f15d886840d779d5707
+Author: Filipe Fernandes <ocefpaf@gmail.com>
+Date:   Wed Jul 19 09:21:19 2017 -0300
+
+    update to 3.6.2
+
+commit 90ad760dedbd193c2e55672a860d331bad4fe433
+Merge: 1b1f700 a6aff87
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Tue May 23 09:12:33 2017 -0500
+
+    Merge pull request #145 from mingwandroid/master
+    
+    Fix ABI breakage (issue29943)
+
+commit a6aff876649266f7be79e7896b77075fec252d81
+Author: Ray Donnelly <mingw.android@gmail.com>
+Date:   Sun May 14 23:58:11 2017 +0100
+
+    Fix ABI breakage (issue29943)
+
+commit 1b1f700238de74ed4c6b3e7821a501bb9a5f083a
+Merge: b6a4164 710695e
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Thu May 11 12:38:18 2017 -0500
+
+    Merge pull request #143 from mingwandroid/master
+    
+    Fixes for Windows GCC interop needed by RPy2 and (potentially) CVXOPT
+
+commit 710695e89174ff691e7588931f9973c857658ed7
+Author: Ray Donnelly <mingw.android@gmail.com>
+Date:   Thu May 11 15:31:42 2017 +0100
+
+    Fix PEP0384 : Also copy python3.dll
+    
+    https://www.python.org/dev/peps/pep-0384/ states:
+    
+    "
+    Linkage
+    
+    On Windows, applications shall link with python3.dll; an import
+    library python3.lib will be available.  This DLL will re-direct
+    all of its API functions through / export linker options to the
+    full interpreter DLL, i.e. python3y.dll.
+    "
+
+commit 374932661b6c664b24a0116d0a92d1dfa20cf877
+Author: Ray Donnelly <mingw.android@gmail.com>
+Date:   Wed May 10 19:34:50 2017 +0100
+
+    Fixes for Windows GCC interop needed by RPy2 and (potentially) CVXOPT
+
+commit b6a41640ebe20da7892fadddcbd3f3d1c5bfbd77
+Merge: 8c5552f 36100eb
+Author: jakirkham <jakirkham@gmail.com>
+Date:   Tue May 2 18:05:14 2017 -0400
+
+    Merge pull request #138 from jjhelmus/bzip_fix
+    
+    Apply bzip2 shared library fix and rerender recipe
+
+commit 36100ebce57eff057508eae8b7be04e34eecf66f
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue May 2 10:54:28 2017 -0500
+
+    Use explicit paths in bld.bat
+    
+    Do not use the PYTHON or STDLIB_DIR variables in bld.bat as they do not yet
+    exist when building python.
+
+commit c01b7091dd34e133eaea660c7639e8e8696b268d
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Sun Apr 30 15:06:39 2017 -0500
+
+    MNT: Re-rendered with conda-smithy 2.3.0
+
+commit 775cd6834c6be6d1082704c2ee649e44ef8e6fd3
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Sun Apr 30 15:02:07 2017 -0500
+
+    Delete bzip2 shared library during build
+    
+    Python should be build with a static bzip2 library so that conda can properly
+    update packages including bzip2.  Ensure this by removing any bzip2 shared
+    library in the build environment.
+    
+    Bump the build number.
+
+commit f06ef496de4612523b9e1d9820c1854905e86192
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Sun Apr 30 15:01:22 2017 -0500
+
+    Relax openssl version check in run_test.py
+
+commit 8c5552f3addf9ee20851da9917fde08c9afad298
+Merge: 6ce8595 69cc177
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Thu Mar 23 16:01:58 2017 -0500
+
+    Merge pull request #130 from ocefpaf/update_to_3.6.1
+    
+    Update to 3.6.1
+
+commit 69cc1775116262ed26a51c66051239d3959982ff
+Author: ocefpaf <ocefpaf@gmail.com>
+Date:   Thu Mar 23 15:20:55 2017 -0300
+
+    rerender with auto
+
+commit 6a8e1f00c3f9f3c0e11b51f39bd870457e2ae747
+Author: ocefpaf <ocefpaf@gmail.com>
+Date:   Wed Mar 22 10:14:52 2017 -0300
+
+    Update to 3.6.1
+
+commit 6ce859585456a495bb9737181297eb74a0332c77
+Merge: 1b4bb84 272e877
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Thu Feb 23 08:30:04 2017 -0600
+
+    Merge pull request #122 from conda-forge-admin/feedstock_rerender_master
+    
+    MNT: Re-render the feedstock [ci skip]
+
+commit 272e87729e8fff0a28850c7b05067d00bedb03e0
+Author: conda-forge-admin <pelson.pub+conda-forge@gmail.com>
+Date:   Wed Feb 22 01:40:21 2017 +0000
+
+    MNT: Updated the feedstock for conda-smithy version 2.1.0.
+
+commit 1b4bb846d016b8bc955d2bcbd810d5fa3dc1c4ee
+Merge: dfd6661 3231be6
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Thu Feb 9 08:33:21 2017 -0600
+
+    Merge pull request #114 from jakirkham/keep_test_support_3.6
+    
+    Keep test support (Python 3.6)
+
+commit 3231be6c0ffe9e766bd3b67a53e6782594f78326
+Author: John Kirkham <kirkhamj@janelia.hhmi.org>
+Date:   Tue Feb 7 12:09:32 2017 -0500
+
+    Bump build number to 2.
+
+commit 1b653e6aea4da2cd0b6b323b24aa60a4852c3966
+Author: John Kirkham <kirkhamj@janelia.hhmi.org>
+Date:   Tue Feb 7 11:49:09 2017 -0500
+
+    Verify `test.support` is present
+
+commit 456e49c883a37165116543adbdafb76081a713ae
+Author: John Kirkham <kirkhamj@janelia.hhmi.org>
+Date:   Tue Feb 7 10:47:43 2017 -0500
+
+    Keep `test.support`
+    
+    Some packages expect to be able to use `test.support` with their test
+    suites. So instead of removing this with the rest of `test`, keep it
+    around.
+
+commit 76b1bc035ce5477c0e81c6c2880d0c721104c625
+Author: John Kirkham <kirkhamj@janelia.hhmi.org>
+Date:   Tue Feb 7 10:46:53 2017 -0500
+
+    Explain test and ensurepip removal separately
+
+commit dfd666168691fe38041948094193ab3dc9d9d73a
+Merge: d7e3de4 2bcb559
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Fri Jan 13 17:14:04 2017 -0600
+
+    Merge pull request #107 from ocefpaf/refactor_build_sh
+    
+    Refactor build sh
+
+commit 2bcb5598c6dd2287a37dc495dcc8e4efb6cf6a35
+Author: ocefpaf <ocefpaf@gmail.com>
+Date:   Fri Jan 13 12:58:37 2017 -0300
+
+    add enable-loadable-sqlite-extensions
+
+commit 0b4df8aaad7ae33d037759dc5a9a2784ccaf7b83
+Author: ocefpaf <ocefpaf@gmail.com>
+Date:   Wed Jan 11 13:46:19 2017 -0300
+
+    re-factor build.sh
+
+commit dfbc5f6f9750a7542e1f97616e2aa2077a8753b1
+Author: ocefpaf <ocefpaf@gmail.com>
+Date:   Wed Jan 11 13:46:11 2017 -0300
+
+    add maintainer and fix indentation
+
+commit d7e3de48e7859f129aed4dc6e62f7f4fb81ecb1e
+Merge: 3c42b2d 7dd9600
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Wed Jan 11 18:03:04 2017 -0600
+
+    Merge pull request #101 from jjhelmus/3.6.0final
+    
+    Python 3.6.0
+
+commit 7dd96003d52158066ea4e4b2bb1002fb761e2c61
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Jan 10 21:19:19 2017 -0600
+
+    Remove test data and ensurepip in Windows build
+
+commit 32747322513a6a8a46655139c9243ef9c8e16b1d
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Sun Dec 25 13:09:18 2016 -0600
+
+    Do not use conda-build 2.x on OS X
+
+commit b836e982dffb8a6caf81fa28b31c74041480e5e9
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Sun Dec 25 13:08:32 2016 -0600
+
+    Remove skip_compile_pyc section
+
+commit 2509fab0f60d49578d67f18895e36c9d52e84c12
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Sat Dec 24 22:17:41 2016 -0600
+
+    Revert "enable-loadable-sqlite-extensions tag added"
+    
+    This reverts commit 9c3e54ae93446bf1c5a01c232bf84dcacbe5533f.
+
+commit 131845b899fa3e2edc0e31396d7057a9a0c72668
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Sat Dec 24 22:17:26 2016 -0600
+
+    Revert "Update run_test.py"
+    
+    This reverts commit a93f274c77399efa8f31a5c165bf59c4089d3760.
+
+commit 5095bef0dabada0648936d0cbbb0e32f9ba275b3
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Sat Dec 24 21:58:29 2016 -0600
+
+    Use conda-build 2.x on Windows
+
+commit c67f204bc92d0c81ea1f88ad183d4d9dff607e70
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Sat Dec 24 21:57:38 2016 -0600
+
+    Use System Python for add Python branding
+
+commit 0e917d8309a9c57d8b52145dbf9114a151f8bc63
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Sat Dec 24 21:50:38 2016 -0600
+
+    Skip compiling test .py files
+
+commit ed4a8e8a54e2bb83737eadd5f1d5db973772ae6a
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Sat Dec 24 21:50:13 2016 -0600
+
+    Remove test data to save space
+
+commit dbde4a200815b2c104ead464f0179b158f3bae24
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Sat Dec 24 21:41:55 2016 -0600
+
+    Bump FD_SETSIZE on Windows
+    
+    Adapted from work by pitrou in pull request #87
+
+commit a93f274c77399efa8f31a5c165bf59c4089d3760
+Author: Ivan <ivan.ogasawara@gmail.com>
+Date:   Fri Dec 16 15:40:10 2016 -0200
+
+    Update run_test.py
+
+commit 9c3e54ae93446bf1c5a01c232bf84dcacbe5533f
+Author: Ivan <ivan.ogasawara@gmail.com>
+Date:   Fri Dec 16 14:25:03 2016 -0200
+
+    enable-loadable-sqlite-extensions tag added
+
+commit 771dfad0bd2ec114ffcdcbb653d73615e0e5d2f3
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Sat Dec 24 17:39:41 2016 -0600
+
+    Build long prefix package using conda-build 2.x
+
+commit 82d1bfad0234542ca4cb5a708d564bce3fcc57c1
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Sat Dec 24 17:38:29 2016 -0600
+
+    MNT: Re-rendered with conda-smithy 1.7.0
+
+commit f08b407c7e6ec3f17472c809e804548d17db3f53
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Sat Dec 24 17:37:23 2016 -0600
+
+    Update recipe to 3.6.0
+
+commit 3c42b2dc754eaec31af74a5797293002900dd71e
+Merge: 6d9cefb 0c9d69f
+Author: jakirkham <jakirkham@gmail.com>
+Date:   Sat Nov 26 20:14:00 2016 -0500
+
+    Merge pull request #91 from conda-forge-admin/feedstock_rerender_master
+    
+    MNT: Re-render the feedstock [ci skip]
+
+commit 0c9d69f662923d2074728237a03484216b732933
+Author: conda-forge-admin <pelson.pub+conda-forge@gmail.com>
+Date:   Thu Nov 24 01:35:32 2016 +0000
+
+    MNT: Updated the feedstock for conda-smithy version 1.5.3.
+
+commit 6d9cefb5c6e632fb8119b9ca1d10cfedae558ddd
+Merge: 3987824 1ca5cb5
+Author: jakirkham <jakirkham@gmail.com>
+Date:   Fri Oct 7 01:08:15 2016 -0400
+
+    Merge pull request #77 from jakirkham/re-render_master_1.3.2
+    
+    MNT: Re-rendered with conda-smithy 1.3.2 [ci skip]
+
+commit 1ca5cb543102ddd38912060e1066479a42619f74
+Author: John Kirkham <kirkhamj@janelia.hhmi.org>
+Date:   Thu Oct 6 11:12:46 2016 -0400
+
+    MNT: Re-rendered with conda-smithy 1.3.2
+
+commit 398782428829045693fbef4f381115b24b2d92dc
+Merge: ef6fe0f 3144dfb
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Thu Sep 8 09:19:42 2016 -0500
+
+    Merge pull request #67 from bjlittle/python-branding
+    
+    Enable branding environment variable inheritance.
+
+commit 3144dfb4ea34379e1e8c9165510c383e437d02be
+Author: Bill Little <bill.james.little@gmail.com>
+Date:   Tue Sep 6 10:19:52 2016 +0100
+
+    Enable branding environment variable inheritance.
+
+commit ef6fe0f7719ce4b973d406938f0cedab5cc4e67b
+Merge: 1754a48 b258306
+Author: Mike Sarahan <msarahan@gmail.com>
+Date:   Mon Jul 25 20:29:20 2016 -0500
+
+    Merge pull request #51 from jjhelmus/py35_fixup
+    
+    Various Python 3.5 fixes
+
+commit b258306f2270cd7f261dac9e31d913bd6810709f
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Sat Jul 23 09:28:14 2016 -0500
+
+    Rerender feedstock
+
+commit 34b36f94b67dab13b5bf92c02cc49fadb0525eab
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Sat Jul 23 09:25:35 2016 -0500
+
+    Update win-library_bin.patch
+    
+    Make a new version of win-library_bin.patch from Python sources
+
+commit 6c97f4ffdaf9405731e94f8be2b67b74bd9f9c65
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Sat Jul 23 08:24:07 2016 -0500
+
+    Adjust no_link files in recipe
+    
+    section now matches that in ContinuumIO/anaconda-recipes
+
+commit 6a2cd6ae2bd573a1fe71b5903e395700b7e1ecf6
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Sat Jul 23 08:22:41 2016 -0500
+
+    Apply patch to adjust osx ld flags
+    
+    patch sourced from ContinuumIO/anaconda-recipe
+
+commit 08a78e515232f74d7aba3dedfdde12a14d2801cc
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Sat Jul 23 08:21:42 2016 -0500
+
+    Apply patch to adjust executable finding on win
+    
+    patch sourced from ContinuumIO/anaconda-recipes
+
+commit 4baf08dceea6c58d1c583ec98d9105cf3e551f67
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Sat Jul 23 08:19:49 2016 -0500
+
+    Apply patch to include Library/bin in path on win
+    
+    patch file sourced from ContinuumIO/anaconda-recipes
+
+commit 31da547d1e8c56bdbd315b79e162a2a5a945d0cb
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Sat Jul 23 08:15:04 2016 -0500
+
+    Add vs2015_runtime as run requirement
+    
+    closes #47
+
+commit 1754a48c327a4c200f25cdda138e2d436fa1e30f
+Merge: bbc8ed6 a8828d3
+Author: Phil Elson <pelson.pub@gmail.com>
+Date:   Thu Jul 7 13:48:01 2016 +0100
+
+    Merge pull request #38 from jjhelmus/xz52
+    
+    Update xz pinning to 5.2.*
+
+commit a8828d354a56d78daaaa8d7bcbe02645b0277ab9
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Jul 5 11:21:16 2016 -0500
+
+    Update sqlite pinnings to 3.13.*
+
+commit 344487d7d8606f4702eefb7b6113f2dba4312a65
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Jul 5 10:16:04 2016 -0500
+
+    Update xz pinning to 5.2.*
+
+commit bbc8ed6f1a3d8d641f9c2d887afbcb81d5ff2a61
+Merge: 7c1f079 459b8fc
+Author: Phil Elson <pelson.pub@gmail.com>
+Date:   Thu Jun 30 18:11:52 2016 +0100
+
+    Merge pull request #26 from jjhelmus/py352
+    
+    Python 3.5.2
+
+commit 459b8fcf912bd04aa670e168ddb41f28d31421a0
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Thu Jun 30 07:58:52 2016 -0500
+
+    Use current pinnings for sqlite and xz
+
+commit 0ef31827cccb63ce68d78547b1d2df37cdb5c833
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Wed Jun 29 07:30:00 2016 -0500
+
+    Python 3.5.2
+    
+    Update recipe to Python 3.5.2, resetting the build number to 0
+    
+    Pinnings were reformatted and the sqlite and xz pins were updated to reflect
+    the upcoming changes to conda-forge's recommendations.
+
+commit 7c1f079d76ffe8a770cb5eb9c61626e1e8c27e74
+Merge: 0dc44dc 58e558a
+Author: Jonathan J. Helmus <jjhelmus@gmail.com>
+Date:   Wed Jun 29 06:46:49 2016 -0500
+
+    Merge pull request #25 from jjhelmus/osx_fixes
+    
+    Various OS X related improvements
+
+commit 58e558afc09a1185c4ba48f18c7d48d277fd733a
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Jun 28 10:22:10 2016 -0500
+
+    Unify build number
+
+commit 0554418d1de5e669c056e62a61ece805b065b943
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Mon Jun 27 18:09:21 2016 -0500
+
+    Use Tcl/Tk provided by conda on OS X
+    
+    closes #13
+
+commit 767468895678f35300d7afcf85d78b20a2c1b3b7
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Mon Jun 27 18:00:46 2016 -0500
+
+    OS X extensions do not require fixing
+    
+    Set the rpath during compilation so that the compiler extension modules are
+    importable immediately.
+    
+    closes #9
+
+commit f5e6a2a9549bf16f479514c789a270beea7bdca0
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Mon Jun 27 17:43:26 2016 -0500
+
+    Apply no framework search patch on OS X
+    
+    No not include the system Python packages path from the module search path.
+    
+    closes #15
+
+commit c5828a97ea37886a7ef426217bb6b4acc8f3e1d3
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Mon Jun 27 17:40:15 2016 -0500
+
+    Use sha256 not md5
+
+commit 0dc44dca3fe93998bfd8a04666e47acd0168a59f
+Merge: 27f32c8 0ea6d1f
+Author: Mike Sarahan <msarahan@gmail.com>
+Date:   Wed Jun 15 12:52:37 2016 -0500
+
+    Merge pull request #20 from jjhelmus/rerender_win
+    
+    Rerender the feedstock
+
+commit 0ea6d1f7ce9a1578bdbba982617e19195ec8ee9f
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Jun 14 17:41:29 2016 -0500
+
+    Change order of showing and adding conda channels
+
+commit 77bdedb607c00fa2bf486acfb8a5f265e66c6788
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Jun 14 15:51:12 2016 -0500
+
+    Add --yes
+
+commit 7a89a5b254a97a75d296535893116751f5db1e0e
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Jun 14 15:46:45 2016 -0500
+
+    Pin conda in .travis.yml
+
+commit 0b81a9d988cb1a8b84aa64fcdc98647f00935a55
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Jun 14 15:17:11 2016 -0500
+
+    Quote AppVeyor matrix options
+
+commit 2b32678b0f88b7db7bc28ceb4c3165074d2d0f40
+Author: Jonathan Helmus <jjhelmus@gmail.com>
+Date:   Tue Jun 14 14:56:03 2016 -0500
+
+    Rerender the feedstock
+
+commit 27f32c83253a023b556964b2f0b11eb5f3847ef8
+Author: Travis-CI on github.com/conda-forge/staged-recipes <conda-forge@googlegroups.com>
+Date:   Fri May 20 05:19:33 2016 +0000
+
+    Re-render the feedstock after CI registration.
+
+commit 8d195915e717ee4b0ed641e093f0a0267bc53f9f
+Author: Travis-CI on github.com/conda-forge/staged-recipes <conda-forge@googlegroups.com>
+Date:   Fri May 20 05:18:42 2016 +0000
+
+    Initial commit of the python feedstock.

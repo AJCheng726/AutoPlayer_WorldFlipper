@@ -1,0 +1,62 @@
+{
+  "build": "py39haa95532_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "constrains": [],
+  "depends": [
+    "python >=3.9,<3.10.0a0",
+    "win_inet_pton"
+  ],
+  "extracted_package_dir": "C:\\Users\\Administrator\\Documents\\Python Scripts\\auto_player\\toolkits\\Python\\pkgs\\pysocks-1.7.1-py39haa95532_0",
+  "features": "",
+  "files": [
+    "Lib/site-packages/PySocks-1.7.1.dist-info/INSTALLER",
+    "Lib/site-packages/PySocks-1.7.1.dist-info/LICENSE",
+    "Lib/site-packages/PySocks-1.7.1.dist-info/METADATA",
+    "Lib/site-packages/PySocks-1.7.1.dist-info/RECORD",
+    "Lib/site-packages/PySocks-1.7.1.dist-info/REQUESTED",
+    "Lib/site-packages/PySocks-1.7.1.dist-info/WHEEL",
+    "Lib/site-packages/PySocks-1.7.1.dist-info/direct_url.json",
+    "Lib/site-packages/PySocks-1.7.1.dist-info/top_level.txt",
+    "Lib/site-packages/__pycache__/socks.cpython-39.pyc",
+    "Lib/site-packages/__pycache__/sockshandler.cpython-39.pyc",
+    "Lib/site-packages/socks.py",
+    "Lib/site-packages/sockshandler.py",
+    "Lib/site-packages/wheel/__pycache__/__init__.cpython-39.pyc",
+    "Lib/site-packages/wheel/__pycache__/bdist_wheel.cpython-39.pyc",
+    "Lib/site-packages/wheel/__pycache__/macosx_libfile.cpython-39.pyc",
+    "Lib/site-packages/wheel/__pycache__/metadata.cpython-39.pyc",
+    "Lib/site-packages/wheel/__pycache__/pkginfo.cpython-39.pyc",
+    "Lib/site-packages/wheel/__pycache__/util.cpython-39.pyc",
+    "Lib/site-packages/wheel/__pycache__/wheelfile.cpython-39.pyc",
+    "Lib/site-packages/wheel/cli/__pycache__/__init__.cpython-39.pyc",
+    "Lib/site-packages/wheel/vendored/__pycache__/__init__.cpython-39.pyc",
+    "Lib/site-packages/wheel/vendored/packaging/__pycache__/__init__.cpython-39.pyc",
+    "Lib/site-packages/wheel/vendored/packaging/__pycache__/_typing.cpython-39.pyc",
+    "Lib/site-packages/wheel/vendored/packaging/__pycache__/tags.cpython-39.pyc"
+  ],
+  "fn": "pysocks-1.7.1-py39haa95532_0.conda",
+  "legacy_bz2_md5": "f870859d4dc7a8d82cf3546bd9035f33",
+  "legacy_bz2_size": 54520,
+  "license": "BSD 3-Clause",
+  "license_family": "BSD",
+  "link": {
+    "source": "C:\\Users\\Administrator\\Documents\\Python Scripts\\auto_player\\toolkits\\Python\\pkgs\\pysocks-1.7.1-py39haa95532_0",
+    "type": 1
+  },
+  "md5": "af67559470d14b94c03ec6c73ae2c766",
+  "name": "pysocks",
+  "package_tarball_full_path": "C:\\Users\\Administrator\\Documents\\Python Scripts\\auto_player\\toolkits\\Python\\pkgs\\pysocks-1.7.1-py39haa95532_0.conda",
+  "paths_data": {
+    "paths": [],
+    "paths_version": 1
+  },
+  "requested_spec": "pysocks==1.7.1=py39haa95532_0",
+  "sha256": "411afb9fed7ce927a459f27e39d33862695de7206fd33cac974f92bc2f2a1c15",
+  "size": 56558,
+  "subdir": "win-64",
+  "timestamp": 1605307564142,
+  "track_features": "",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/pysocks-1.7.1-py39haa95532_0.conda",
+  "version": "1.7.1"
+}

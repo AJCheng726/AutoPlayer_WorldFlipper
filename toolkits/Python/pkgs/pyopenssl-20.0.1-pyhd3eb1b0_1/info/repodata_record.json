@@ -1,0 +1,28 @@
+{
+  "build": "pyhd3eb1b0_1",
+  "build_number": 1,
+  "channel": "https://repo.anaconda.com/pkgs/main/noarch",
+  "constrains": [],
+  "depends": [
+    "cryptography >=2.8",
+    "python",
+    "six >=1.5.2"
+  ],
+  "features": "",
+  "fn": "pyopenssl-20.0.1-pyhd3eb1b0_1.conda",
+  "legacy_bz2_md5": "525075d4b015206933ba28ceb5163d63",
+  "legacy_bz2_size": 49074,
+  "license": "Apache 2.0",
+  "license_family": "Apache",
+  "md5": "ac62ddccf2e89f7a35867b2478a278af",
+  "name": "pyopenssl",
+  "noarch": "python",
+  "package_type": "noarch_python",
+  "sha256": "b85bc153d977c4a950e58a767df11b4153d681fcef023233006320731cf1ddc1",
+  "size": 50088,
+  "subdir": "noarch",
+  "timestamp": 1608057995890,
+  "track_features": "",
+  "url": "https://repo.anaconda.com/pkgs/main/noarch/pyopenssl-20.0.1-pyhd3eb1b0_1.conda",
+  "version": "20.0.1"
+}

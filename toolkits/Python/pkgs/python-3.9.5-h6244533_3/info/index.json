@@ -1,0 +1,18 @@
+{
+  "arch": "x86_64",
+  "build": "h6244533_3",
+  "build_number": 3,
+  "depends": [
+    "openssl >=1.1.1k,<1.1.2a",
+    "sqlite >=3.35.4,<4.0a0",
+    "tzdata",
+    "vc >=14.1,<15.0a0",
+    "vs2015_runtime >=14.16.27012,<15.0a0"
+  ],
+  "license": "Python-2.0",
+  "name": "python",
+  "platform": "win",
+  "subdir": "win-64",
+  "timestamp": 1621367760930,
+  "version": "3.9.5"
+}

@@ -1,0 +1,5 @@
+{
+  "channel_targets": "defaults",
+  "c_compiler": "vs2017",
+  "target_platform": "win-64"
+}

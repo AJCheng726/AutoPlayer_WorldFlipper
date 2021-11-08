@@ -1,0 +1,57 @@
+{% set version = "52.0.0" %}
+
+package:
+  name: setuptools
+  version: {{ version }}
+
+source:
+  url: https://github.com/pypa/setuptools/archive/v{{ version }}.tar.gz
+  sha256: ff0c74d1b905a224d647f99c6135eacbec2620219992186b81aa20012bc7f882
+  patches:
+    # Don't create requires.txt with exact pinnings
+    - 0001-Remove-exact-pinning-on-certifi-and-wincertstore.patch
+    # Modify setuptools to fail if used in conda build (encourage people to add all deps in meta.yaml).
+    - 0002-disable-downloads-inside-conda-build.patch
+
+build:
+  skip: true  # [py<35]
+  number: 0
+
+requirements:
+  build:
+    - python                                 # [build_platform != target_platform]
+  host:
+    - python
+    - certifi  >=2016.9.26
+    - wincertstore  >=0.2  # [win]
+  run:
+    - python
+    - certifi  >=2016.9.26
+    - wincertstore  >=0.2  # [win]
+
+test:
+  imports:
+    - setuptools
+    - pkg_resources
+
+about:
+  home: https://github.com/pypa/setuptools
+  license: MIT
+  license_file: LICENSE
+  license_family: MIT
+  summary: Download, build, install, upgrade, and uninstall Python packages
+  description: |
+    Setuptools is a fully-featured, actively-maintained, and stable library
+    designed to facilitate packaging Python projects.
+  doc_url: http://pythonhosted.org/setuptools/
+  dev_url: https://github.com/pypa/setuptools
+  doc_source_url: https://github.com/pypa/setuptools/tree/master/docs
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - jjhelmus
+    - msarahan
+    - ocefpaf
+    - nicoddemus
+    - mingwandroid

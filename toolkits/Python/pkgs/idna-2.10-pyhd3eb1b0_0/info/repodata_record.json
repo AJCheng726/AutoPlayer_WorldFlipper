@@ -1,0 +1,23 @@
+{
+  "build": "pyhd3eb1b0_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/noarch",
+  "constrains": [],
+  "depends": [
+    "python"
+  ],
+  "features": "",
+  "fn": "idna-2.10-pyhd3eb1b0_0.tar.bz2",
+  "license": "BSD Like",
+  "md5": "153ff132f593ea80aae2eea61a629c92",
+  "name": "idna",
+  "noarch": "python",
+  "package_type": "noarch_python",
+  "sha256": "2f4e481054f660769fd766a506f4774a91afa95903cbcfe1ba9da724ca348dc4",
+  "size": 53346,
+  "subdir": "noarch",
+  "timestamp": 1610986112547,
+  "track_features": "",
+  "url": "https://repo.anaconda.com/pkgs/main/noarch/idna-2.10-pyhd3eb1b0_0.tar.bz2",
+  "version": "2.10"
+}

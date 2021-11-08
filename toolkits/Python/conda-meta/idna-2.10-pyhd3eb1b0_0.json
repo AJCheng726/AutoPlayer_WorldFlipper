@@ -1,0 +1,93 @@
+{
+  "build": "pyhd3eb1b0_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/noarch",
+  "constrains": [],
+  "depends": [
+    "python"
+  ],
+  "extracted_package_dir": "C:\\Users\\Administrator\\Documents\\Python Scripts\\auto_player\\toolkits\\Python\\pkgs\\idna-2.10-pyhd3eb1b0_0",
+  "features": "",
+  "files": [
+    "Lib/site-packages/idna-2.10.dist-info/INSTALLER",
+    "Lib/site-packages/idna-2.10.dist-info/LICENSE.rst",
+    "Lib/site-packages/idna-2.10.dist-info/METADATA",
+    "Lib/site-packages/idna-2.10.dist-info/RECORD",
+    "Lib/site-packages/idna-2.10.dist-info/REQUESTED",
+    "Lib/site-packages/idna-2.10.dist-info/WHEEL",
+    "Lib/site-packages/idna-2.10.dist-info/direct_url.json",
+    "Lib/site-packages/idna-2.10.dist-info/top_level.txt",
+    "Lib/site-packages/idna/__init__.py",
+    "Lib/site-packages/idna/codec.py",
+    "Lib/site-packages/idna/compat.py",
+    "Lib/site-packages/idna/core.py",
+    "Lib/site-packages/idna/idnadata.py",
+    "Lib/site-packages/idna/intranges.py",
+    "Lib/site-packages/idna/package_data.py",
+    "Lib/site-packages/idna/uts46data.py",
+    "Lib/site-packages/idna/__pycache__/__init__.cpython-39.pyc",
+    "Lib/site-packages/idna/__pycache__/codec.cpython-39.pyc",
+    "Lib/site-packages/idna/__pycache__/compat.cpython-39.pyc",
+    "Lib/site-packages/idna/__pycache__/core.cpython-39.pyc",
+    "Lib/site-packages/idna/__pycache__/idnadata.cpython-39.pyc",
+    "Lib/site-packages/idna/__pycache__/intranges.cpython-39.pyc",
+    "Lib/site-packages/idna/__pycache__/package_data.cpython-39.pyc",
+    "Lib/site-packages/idna/__pycache__/uts46data.cpython-39.pyc"
+  ],
+  "fn": "idna-2.10-pyhd3eb1b0_0.tar.bz2",
+  "license": "BSD Like",
+  "link": {
+    "source": "C:\\Users\\Administrator\\Documents\\Python Scripts\\auto_player\\toolkits\\Python\\pkgs\\idna-2.10-pyhd3eb1b0_0",
+    "type": 1
+  },
+  "md5": "153ff132f593ea80aae2eea61a629c92",
+  "name": "idna",
+  "noarch": "python",
+  "package_tarball_full_path": "C:\\Users\\Administrator\\Documents\\Python Scripts\\auto_player\\toolkits\\Python\\pkgs\\idna-2.10-pyhd3eb1b0_0.tar.bz2",
+  "package_type": "noarch_python",
+  "paths_data": {
+    "paths": [
+      {
+        "_path": "Lib/site-packages/idna/__pycache__/__init__.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/idna/__pycache__/codec.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/idna/__pycache__/compat.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/idna/__pycache__/core.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/idna/__pycache__/idnadata.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/idna/__pycache__/intranges.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/idna/__pycache__/package_data.cpython-39.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "Lib/site-packages/idna/__pycache__/uts46data.cpython-39.pyc",
+        "path_type": "pyc_file"
+      }
+    ],
+    "paths_version": 1
+  },
+  "requested_spec": "idna==2.10=pyhd3eb1b0_0",
+  "sha256": "2f4e481054f660769fd766a506f4774a91afa95903cbcfe1ba9da724ca348dc4",
+  "size": 53346,
+  "subdir": "noarch",
+  "timestamp": 1610986112547,
+  "track_features": "",
+  "url": "https://repo.anaconda.com/pkgs/main/noarch/idna-2.10-pyhd3eb1b0_0.tar.bz2",
+  "version": "2.10"
+}

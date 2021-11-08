@@ -1,0 +1,20 @@
+{
+  "build": "h5e58377_2",
+  "build_number": 2,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "constrains": [],
+  "depends": [],
+  "features": "",
+  "fn": "vs2015_runtime-14.27.29016-h5e58377_2.conda",
+  "legacy_bz2_md5": "4daaceb6cfc1af6274509081d8018ef1",
+  "legacy_bz2_size": 2316783,
+  "md5": "9e3f8ea1096e174541ac86f5fc73fc3d",
+  "name": "vs2015_runtime",
+  "sha256": "1c1051419804770f513610d2d4fd4db4e7902591b803e9babb3358d16a1e1b2e",
+  "size": 1031188,
+  "subdir": "win-64",
+  "timestamp": 1605602872095,
+  "track_features": "",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/vs2015_runtime-14.27.29016-h5e58377_2.conda",
+  "version": "14.27.29016"
+}

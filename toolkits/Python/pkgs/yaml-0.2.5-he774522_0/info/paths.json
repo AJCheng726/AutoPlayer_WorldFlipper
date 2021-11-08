@@ -1,0 +1,47 @@
+{
+  "paths": [
+    {
+      "_path": "Library/bin/yaml.dll",
+      "path_type": "hardlink",
+      "sha256": "c629f1a8661e068b362fe57088d32bd70674d78b65efe350161970fc04ee15d3",
+      "size_in_bytes": 103936
+    },
+    {
+      "_path": "Library/cmake/yamlConfig.cmake",
+      "path_type": "hardlink",
+      "sha256": "1c33b7ca2f660860dd4193f1af08460affa7ecd307b000bfdfc6f5bbced3d0bc",
+      "size_in_bytes": 983
+    },
+    {
+      "_path": "Library/cmake/yamlConfigVersion.cmake",
+      "path_type": "hardlink",
+      "sha256": "968758ca4f17c575307a834bfc64f2315aa0b63fb75d4f2148540c4bc7b4e0c7",
+      "size_in_bytes": 1419
+    },
+    {
+      "_path": "Library/cmake/yamlTargets-release.cmake",
+      "path_type": "hardlink",
+      "sha256": "c795521565d184ced0f914d995c58dd604bc0accf64c8590c4f8db28575010e5",
+      "size_in_bytes": 836
+    },
+    {
+      "_path": "Library/cmake/yamlTargets.cmake",
+      "path_type": "hardlink",
+      "sha256": "4b62739363c76279e13e69688d2ab2bb49b9f0d0e58beb2c0740ec41cf818318",
+      "size_in_bytes": 3291
+    },
+    {
+      "_path": "Library/include/yaml.h",
+      "path_type": "hardlink",
+      "sha256": "de39c9fc2b2c8584775e6d0dc0f13c8e778ceba47d419cff9d85465ca35d6954",
+      "size_in_bytes": 54439
+    },
+    {
+      "_path": "Library/lib/yaml.lib",
+      "path_type": "hardlink",
+      "sha256": "2107a45852a2e2b7eea1b78b0773eee376e32cdc6d5d4af4d26b6aaa0cc0b2f6",
+      "size_in_bytes": 15316
+    }
+  ],
+  "paths_version": 1
+}

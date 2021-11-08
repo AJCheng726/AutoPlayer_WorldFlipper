@@ -1,0 +1,61 @@
+# This file created by conda-build 3.20.0
+# meta.yaml template originally from:
+# C:\Users\builder\myancy\aggregate\pywin32-feedstock\recipe, last modified Wed Dec  2 12:57:48 2020
+# ------------------------------------------------
+
+package:
+    name: pywin32
+    version: '228'
+source:
+    patches:
+        - 0003-remove-PATH-pth-hack.patch
+        - disable_exchange_modules.patch
+        - ensure-PythonService-mc-before-cpp.diff
+        - fix-formatting.diff
+    sha256: 894cde85c251a3da6d341a711d7259ca11097bfd1b16e10024988790aa5c81b1
+    url: https://github.com/mhammond/pywin32/archive/b228.tar.gz
+build:
+    number: '0'
+    string: py39he774522_0
+requirements:
+    build:
+        - m2-msys2-runtime 2.5.0.17080.65c939c 3
+        - m2-patch 2.7.5 2
+        - msys2-conda-epoch 20160418 1
+        - vs2017_win-64 19.16.27032.1 hb4161e2_3
+        - vswhere 2.7.1 h21ff451_0
+    host:
+        - ca-certificates 2020.10.14 0
+        - certifi 2020.11.8 py39haa95532_0
+        - openssl 1.1.1h he774522_0
+        - pip 20.3 py39haa95532_0
+        - python 3.9.0 h6244533_2
+        - setuptools 50.3.2 py39haa95532_2
+        - sqlite 3.33.0 h2a8f88b_0
+        - tzdata 2020d h14c3975_0
+        - vc 14.1 h0510ff6_4
+        - vs2015_runtime 14.16.27012 hf0eaf9b_3
+        - wheel 0.35.1 pyhd3eb1b0_0
+        - wincertstore 0.2 py39h2bbff1b_0
+        - zlib 1.2.11 h62dcd97_4
+    run:
+        - python >=3.9,<3.10.0a0
+        - vc >=14.1,<15.0a0
+        - vs2015_runtime >=14.16.27012,<15.0a0
+about:
+    description: 'A set of extension modules that provides access to many of the Windows
+        API functions.
+
+        '
+    dev_url: https://github.com/mhammond/pywin32
+    home: https://github.com/mhammond/pywin32
+    license: PSF-2.0
+    license_file: Pythonwin/License.txt
+    summary: Python extensions for Windows
+extra:
+    copy_test_source_files: true
+    final: true
+    recipe-maintainers:
+        - carlodri
+        - mingwandroid
+        - nicoddemus

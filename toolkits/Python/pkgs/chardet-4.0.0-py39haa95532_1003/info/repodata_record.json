@@ -1,0 +1,24 @@
+{
+  "build": "py39haa95532_1003",
+  "build_number": 1003,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "constrains": [],
+  "depends": [
+    "python >=3.9,<3.10.0a0"
+  ],
+  "features": "",
+  "fn": "chardet-4.0.0-py39haa95532_1003.conda",
+  "legacy_bz2_md5": "2b9b77359b78cba1b60ce81311fc8f3c",
+  "legacy_bz2_size": 220959,
+  "license": "LGPL2",
+  "license_family": "GPL",
+  "md5": "63699cefd6299e401c88f40e4a31f29b",
+  "name": "chardet",
+  "sha256": "c705031771842d778586d2c4642364390faed2c195a0d6277c66c85b8bac7fec",
+  "size": 216772,
+  "subdir": "win-64",
+  "timestamp": 1607707107920,
+  "track_features": "",
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/chardet-4.0.0-py39haa95532_1003.conda",
+  "version": "4.0.0"
+}

@@ -1,0 +1,23 @@
+{
+  "paths": [
+    {
+      "_path": "Lib/site-packages/__pycache__/wincertstore.cpython-39.pyc",
+      "path_type": "hardlink",
+      "sha256": "213c7fd44156e76cef4182830be716b90ae658bdbaff95d8622cfe00654d5497",
+      "size_in_bytes": 11127
+    },
+    {
+      "_path": "Lib/site-packages/wincertstore-0.2-py3.9.egg-info",
+      "path_type": "hardlink",
+      "sha256": "be59641c20270fd1bd0dd362080d9f1c33586f91971f9cc5630f0b338f119184",
+      "size_in_bytes": 5788
+    },
+    {
+      "_path": "Lib/site-packages/wincertstore.py",
+      "path_type": "hardlink",
+      "sha256": "9eb1879f68dcdd125eb0ed737ed331f16e335a6a5208ec9f26fd3dd6220cfd08",
+      "size_in_bytes": 11873
+    }
+  ],
+  "paths_version": 1
+}

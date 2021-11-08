@@ -1,0 +1,8 @@
+# These patches need to have unix line endings for the headers and Windows
+# ones for the actual change blocks.
+0001-scintilla_makefiles.patch binary
+0002-ucrt-compatibility-fixes.patch binary
+0003-ucrt-compatibility-fixes-shell.patch binary
+0004-fix-mapi-compile-errors.patch binary
+0005-remove-JOB_OBJECT_RESERVED_LIMIT_VALID_FLAGS.patch binary
+Outlook2010MAPIHeaderFiles/* binary

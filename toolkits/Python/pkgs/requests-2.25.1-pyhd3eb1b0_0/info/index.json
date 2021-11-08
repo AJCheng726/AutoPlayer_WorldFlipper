@@ -1,0 +1,19 @@
+{
+  "arch": null,
+  "build": "pyhd3eb1b0_0",
+  "build_number": 0,
+  "depends": [
+    "certifi >=2017.4.17",
+    "chardet >=3.0.2,<5",
+    "idna >=2.5,<3",
+    "python",
+    "urllib3 >=1.21.1,<1.27"
+  ],
+  "license": "Apache-2.0",
+  "name": "requests",
+  "noarch": "python",
+  "platform": null,
+  "subdir": "noarch",
+  "timestamp": 1608241453837,
+  "version": "2.25.1"
+}

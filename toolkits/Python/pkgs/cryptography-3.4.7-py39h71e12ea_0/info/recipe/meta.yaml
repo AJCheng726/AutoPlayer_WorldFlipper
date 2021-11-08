@@ -1,0 +1,102 @@
+# This file created by conda-build 3.21.4
+# meta.yaml template originally from:
+# C:\ci\containers\00000uveaf0\tmp\build\80754af9\rsync-recipes\cryptography-3.4.7-python_3.9-on-winbuilder, last modified Fri Mar 26 09:06:39 2021
+# ------------------------------------------------
+
+package:
+  name: cryptography
+  version: 3.4.7
+source:
+  sha256: 3d10de8116d25649631977cb37da6cbdd2d6fa0e0281d014a5b7d337255ca713
+  url: https://pypi.io/packages/source/c/cryptography/cryptography-3.4.7.tar.gz
+build:
+  number: '0'
+  script: C:\\ci\\cryptography_1616769504165\\_h_env\\python.exe -m pip install .
+    -vv
+  string: py39h71e12ea_0
+requirements:
+  build:
+    - rust 1.46.0 0
+    - rust_win-64 1.46.0 ha925a31_0
+    - vs2017_win-64 19.16.27032.1 hb4161e2_3
+    - vswhere 2.8.4 haa95532_0
+  host:
+    - ca-certificates 2021.1.19 haa95532_1
+    - certifi 2020.12.5 py39haa95532_0
+    - cffi 1.14.5 py39hcd4344a_0
+    - openssl 1.1.1k h2bbff1b_0
+    - pip 21.0.1 py39haa95532_0
+    - pycparser 2.20 py_2
+    - python 3.9.2 h6244533_0
+    - semantic_version 2.8.5 pyhd3eb1b0_0
+    - setuptools 52.0.0 py39haa95532_0
+    - setuptools-rust 0.12.1 pyhd3eb1b0_0
+    - sqlite 3.35.2 h2bbff1b_0
+    - toml 0.10.2 pyhd3eb1b0_0
+    - tzdata 2020f h52ac0ba_0
+    - vc 14.2 h21ff451_1
+    - vs2015_runtime 14.27.29016 h5e58377_2
+    - wheel 0.36.2 pyhd3eb1b0_0
+    - wincertstore 0.2 py39h2bbff1b_0
+  run:
+    - cffi >=1.12
+    - openssl >=1.1.1k,<1.1.2a
+    - python >=3.9,<3.10.0a0
+    - vc >=14.1,<15.0a0
+    - vs2015_runtime >=14.16.27012,<15.0a0
+test:
+  commands:
+    - pytest
+  imports:
+    - cryptography
+    - cryptography.fernet
+    - cryptography.hazmat
+    - cryptography.hazmat.backends
+    - cryptography.hazmat.backends.openssl
+    - cryptography.hazmat.bindings
+    - cryptography.hazmat.bindings.openssl
+    - cryptography.hazmat.primitives
+    - cryptography.hazmat.primitives.asymmetric
+    - cryptography.hazmat.primitives.ciphers
+    - cryptography.hazmat.primitives.kdf
+    - cryptography.hazmat.primitives.twofactor
+    - cryptography.x509
+  requires:
+    - cryptography-vectors 3.4.7.*
+    - hypothesis
+    - iso8601
+    - pretend
+    - pytest
+    - pytest-subtests
+    - pytz
+  source_files:
+    - tests
+about:
+  description: 'Cryptography is a package which provides cryptographic recipes and
+
+    primitives to Python developers. Our goal is for it to be your
+
+    "cryptographic standard library". It supports Python 2.6-2.7, Python 3.3+,
+
+    and PyPy 2.6+. Cryptography includes both high level recipes, and low level
+
+    interfaces to common cryptographic algorithms such as symmetric ciphers,
+
+    message digests and key derivation functions.
+
+    '
+  dev_url: https://github.com/pyca/cryptography
+  doc_source_url: https://github.com/pyca/cryptography/blob/master/docs/index.rst
+  doc_url: http://cryptography.readthedocs.io/
+  home: https://github.com/pyca/cryptography
+  license: Apache-2.0 AND BSD-3-Clause AND PSF-2.0 AND MIT
+  license_family: BSD
+  license_file: LICENSE
+  summary: Provides cryptographic recipes and primitives to Python developers
+extra:
+  copy_test_source_files: true
+  final: true
+  recipe-maintainers:
+    - chenghlee
+    - jakirkham
+    - ocefpaf

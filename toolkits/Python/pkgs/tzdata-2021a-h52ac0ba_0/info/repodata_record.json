@@ -1,0 +1,23 @@
+{
+  "build": "h52ac0ba_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/noarch",
+  "constrains": [],
+  "depends": [],
+  "features": "",
+  "fn": "tzdata-2021a-h52ac0ba_0.conda",
+  "legacy_bz2_md5": "50004d19422d1020b935226a5a8240b2",
+  "legacy_bz2_size": 121398,
+  "license": "LicenseRef-Public-Domain AND BSD-3-clause",
+  "md5": "d42e4db918af84a470286e4c300604a3",
+  "name": "tzdata",
+  "noarch": "generic",
+  "package_type": "noarch_generic",
+  "sha256": "022bb682798a8e54302de9ed271306523f5c75c2f394b3931e2c3ae03f7da5ed",
+  "size": 110833,
+  "subdir": "noarch",
+  "timestamp": 1623996945083,
+  "track_features": "",
+  "url": "https://repo.anaconda.com/pkgs/main/noarch/tzdata-2021a-h52ac0ba_0.conda",
+  "version": "2021a"
+}

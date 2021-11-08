@@ -1,0 +1,16 @@
+{
+  "arch": null,
+  "build": "pyhd3eb1b0_1",
+  "build_number": 1,
+  "depends": [
+    "python >=2.7"
+  ],
+  "license": "MPL-2.0 AND MIT",
+  "license_family": "MOZILLA",
+  "name": "tqdm",
+  "noarch": "python",
+  "platform": null,
+  "subdir": "noarch",
+  "timestamp": 1625563729162,
+  "version": "4.61.2"
+}

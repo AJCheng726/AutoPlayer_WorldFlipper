@@ -1,0 +1,21 @@
+{
+  "app_entry": "start powershell.exe -ExecutionPolicy ByPass -NoExit -Command  \"& '{CONDA_ROOT_PREFIX}\\\\shell\\\\condabin\\\\conda-hook.ps1' ; conda activate '{CONDA_PREFIX}'\"",
+  "app_type": "desk",
+  "arch": "x86_64",
+  "build": "3",
+  "build_number": 3,
+  "constrains": [
+    "anaconda-navigator >=1.9.8"
+  ],
+  "depends": [
+    "python"
+  ],
+  "license": "BSD",
+  "name": "powershell_shortcut",
+  "platform": "win",
+  "subdir": "win-64",
+  "summary": "Anaconda Powershell Prompt",
+  "timestamp": 1579805605605,
+  "type": "app",
+  "version": "0.0.1"
+}

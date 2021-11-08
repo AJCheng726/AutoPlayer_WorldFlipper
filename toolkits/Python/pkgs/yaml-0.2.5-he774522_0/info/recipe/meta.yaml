@@ -1,0 +1,63 @@
+# This file created by conda-build 3.17.8
+# meta.yaml template originally from:
+# C:\ci\containers\00001hd07ma\tmp\build\80754af9\rsync-recipes\yaml-0.2.5-on-winbuilder, last modified Thu Jun 25 15:12:50 2020
+# ------------------------------------------------
+
+package:
+    name: yaml
+    version: 0.2.5
+source:
+    sha256: fa240dbf262be053f3898006d502d514936c818e422afdcf33921c63bed9bf2e
+    url: https://github.com/yaml/libyaml/archive/0.2.5.tar.gz
+build:
+    number: '0'
+    run_exports:
+        - yaml >=0.2.5,<0.3.0a0
+    string: he774522_0
+requirements:
+    build:
+        - ca-certificates 2020.1.1 0
+        - cmake 3.17.2 h33f27b4_0
+        - ninja 1.9.0 py38h74a9793_0
+        - openssl 1.1.1g he774522_0
+        - python 3.8.3 he1778fa_0
+        - sqlite 3.32.3 h2a8f88b_0
+        - vc 14.1 h0510ff6_4
+        - vs2015_runtime 14.16.27012 hf0eaf9b_2
+        - vs2017_win-64 19.16.27032.1 hb4161e2_2
+        - vswhere 2.7.1 h21ff451_0
+        - zlib 1.2.11 h62dcd97_4
+    host:
+        - vc 14.1 h0510ff6_4
+        - vs2015_runtime 14.16.27012 hf0eaf9b_2
+    run:
+        - vc >=14.1,<15.0a0
+        - vs2015_runtime >=14.16.27012,<15.0a0
+test:
+    commands:
+        - if not exist "%LIBRARY_INC%\\yaml.h" exit 1
+        - if not exist "%LIBRARY_LIB%\\yaml.lib" exit 1
+        - if not exist "%LIBRARY_BIN%\\yaml.dll" exit 1
+about:
+    description: 'YAML is a human friendly data serialization standard for all programming
+
+        languages.
+
+        '
+    dev_url: https://github.com/yaml
+    doc_source_url: https://github.com/yaml/www.yaml.org/tree/master/docs
+    doc_url: http://www.yaml.org/spec/1.2/spec.html
+    home: http://pyyaml.org/wiki/LibYAML
+    license: MIT
+    license_file: License
+    summary: A C library for parsing and emitting YAML
+extra:
+    copy_test_source_files: true
+    final: true
+    recipe-maintainers:
+        - jakirkham
+        - mingwandroid
+        - msarahan
+        - ocefpaf
+        - pelson
+        - seanyen

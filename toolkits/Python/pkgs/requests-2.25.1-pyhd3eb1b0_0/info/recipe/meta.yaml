@@ -1,0 +1,77 @@
+# This file created by conda-build 3.20.5
+# meta.yaml template originally from:
+# /tmp/build/80754af9/combined_recipe, last modified Thu Dec 17 21:43:17 2020
+# ------------------------------------------------
+
+package:
+    name: requests
+    version: 2.25.1
+source:
+    sha256: 27973dd4a904a4f13b263a19c866c13b92a39ed1c964655f025f3f8d3d75b804
+    url: https://pypi.io/packages/source/r/requests/requests-2.25.1.tar.gz
+build:
+    noarch: python
+    number: '0'
+    script: /tmp/build/80754af9/requests_1608241421344/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_place/bin/python
+        -m pip install . -vv
+    string: pyhd3eb1b0_0
+requirements:
+    host:
+        - _libgcc_mutex 0.1 main
+        - ca-certificates 2020.12.8 h06a4308_0
+        - certifi 2020.12.5 py36h06a4308_0
+        - ld_impl_linux-64 2.33.1 h53a641e_7
+        - libedit 3.1.20191231 h14c3975_1
+        - libffi 3.3 he6710b0_2
+        - libgcc-ng 9.1.0 hdf63c60_0
+        - libstdcxx-ng 9.1.0 hdf63c60_0
+        - ncurses 6.2 he6710b0_1
+        - openssl 1.1.1i h27cfd23_0
+        - pip 20.3.3 py36h06a4308_0
+        - python 3.6.12 hcff3b4d_2
+        - readline 8.0 h7b6447c_0
+        - setuptools 51.0.0 py36h06a4308_2
+        - sqlite 3.33.0 h62c20be_0
+        - tk 8.6.10 hbc83047_0
+        - wheel 0.36.2 pyhd3eb1b0_0
+        - xz 5.2.5 h7b6447c_0
+        - zlib 1.2.11 h7b6447c_3
+    run:
+        - certifi >=2017.4.17
+        - chardet >=3.0.2,<5
+        - idna >=2.5,<3
+        - python
+        - urllib3 >=1.21.1,<1.27
+test:
+    commands:
+        - pip check
+    imports:
+        - requests
+    requires:
+        - pip
+about:
+    description: 'Requests is the only Non-GMO HTTP library for Python, safe for human
+
+        consumption.
+
+        '
+    dev_url: https://github.com/psf/requests
+    doc_url: http://docs.python-requests.org/
+    home: http://python-requests.org
+    license: Apache-2.0
+    license_file: LICENSE
+    summary: "Requests is an elegant and simple HTTP library for Python, built with\
+        \ \u2665."
+extra:
+    copy_test_source_files: true
+    final: true
+    recipe-maintainers:
+        - carlodri
+        - jakirkham
+        - kalefranz
+        - mcg1969
+        - mingwandroid
+        - msarahan
+        - ocefpaf
+        - pelson
+        - sigmavirus24

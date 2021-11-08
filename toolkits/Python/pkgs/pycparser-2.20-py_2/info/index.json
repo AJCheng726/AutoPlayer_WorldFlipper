@@ -1,0 +1,15 @@
+{
+  "arch": null,
+  "build": "py_2",
+  "build_number": 2,
+  "depends": [
+    "python"
+  ],
+  "license": "BSD-3-Clause",
+  "name": "pycparser",
+  "noarch": "python",
+  "platform": null,
+  "subdir": "noarch",
+  "timestamp": 1594388539730,
+  "version": "2.20"
+}

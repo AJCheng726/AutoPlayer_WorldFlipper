@@ -1,0 +1,17 @@
+{
+  "arch": "x86_64",
+  "build": "py39haa95532_0",
+  "build_number": 0,
+  "depends": [
+    "certifi >=2016.9.26",
+    "python >=3.9,<3.10.0a0",
+    "wincertstore >=0.2"
+  ],
+  "license": "MIT",
+  "license_family": "MIT",
+  "name": "setuptools",
+  "platform": "win",
+  "subdir": "win-64",
+  "timestamp": 1611587229478,
+  "version": "52.0.0"
+}
