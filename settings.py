@@ -29,7 +29,7 @@ fangzhu_account = "azhecheng"
 wait_outof_room = 0
 
 # 重复刷本设备号
-loop_device = "emulator-5554"
+loop_device = "emulator-5556"
 
 
 
