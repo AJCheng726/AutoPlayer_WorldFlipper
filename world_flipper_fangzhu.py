@@ -39,6 +39,6 @@ def wf_owner(use_device,loop_time = 0):
         player.wait_touch("button_zhaomu", device=use_device, max_wait_time=60)
         player.wait_touch("button_kaishizhaomu", device=use_device, max_wait_time=5)
         count += 1
-        print("[info] {1} 房主已执行{0}次".format(count, datetime.datetime.now()))
+        print("{1} [info] 房主已执行{0}次".format(count, datetime.datetime.now()))
 
 wf_owner(use_device = fangzhu_device)

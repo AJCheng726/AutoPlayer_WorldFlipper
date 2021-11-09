@@ -1,4 +1,3 @@
-# todo：阵亡再进
 import datetime
 import time
 
@@ -30,7 +29,7 @@ def wf_join(use_device,loop_time = 0):
             player.find_touch("button_ok", device=use_device)
             player.find_touch("button_gengxinliebiao", device=use_device)
         count += 1
-        print("[info] {1} 农号已执行{0}次".format(count, datetime.datetime.now()))
+        print("{1} [info] 农号已执行{0}次".format(count, datetime.datetime.now()))
 
 if __name__=='__main__':
     wf_join(use_device = canzhan_device_1)
