@@ -180,6 +180,7 @@ def find_any(target = [], device=None):
             if debug:
                 print("[find_any] 已找到目标 ", tgt)
             return target.index(tgt)
+    print("[find_any] 未找到目标 ", target)
     return -1
 
 
