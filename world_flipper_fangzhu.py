@@ -34,7 +34,7 @@ def wf_owner(use_device,loop_time = 0):
                 time.sleep(wait_outof_room)
 
         print(datetime.datetime.now(),"(stage3) 房主重建房...")
-        player.wait_touch("button_duorenyouxi", device=use_device, max_wait_time=1)
+        player.wait_touch("button_duorenyouxi", device=use_device, max_wait_time=30)
         player.wait_touch("button_shi", device=use_device, max_wait_time=5)
         player.wait_touch("button_zhaomu", device=use_device, max_wait_time=60)
         player.wait_touch("button_kaishizhaomu", device=use_device, max_wait_time=5)
