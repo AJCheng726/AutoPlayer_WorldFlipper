@@ -23,7 +23,7 @@ canzhan_device_2 = "emulator-5560"
 # 建房设备号，如果是雷电64多开，就按多开每次递增2
 fangzhu_device = "emulator-5554"
 # 房主ID用哪个，模拟器原比例截图放到wanted文件夹下，名字填在下面
-fangzhu_account = "azhecheng"
+fangzhu_account = "azhecheng_pickup"
 
 # 房主退出后等待多少秒再重建
 wait_outof_room = 0
