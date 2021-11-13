@@ -1,3 +1,4 @@
+import datetime
 from world_flipper_actions import *
 
 # 选boss建房之后开始，房主退出再重建
@@ -12,6 +13,9 @@ def wf_owner(player,loop_time = 0):
                 build_from_multiplayer(player)
             else: # 房间没人来，自动解散
                 build_from_multiplayer(player)
+            if player.check_restart(restart_time): # 重启游戏
+                time.sleep(5)
+                return
             count += 1
             print("{1} [info] 房主已执行{0}次".format(count, datetime.datetime.now()))
 
@@ -29,10 +33,15 @@ def wf_owner(player,loop_time = 0):
                 build_from_multiplayer(player)
             else: # 房间没人来，自动解散
                 build_from_multiplayer(player)
+            if player.check_restart(restart_time): # 重启游戏
+                time.sleep(5)
+                return
             count += 1
             print("{1} [info] 房主已执行{0}次".format(count, datetime.datetime.now()))
             
     
 if __name__=="__main__":
     player = Autoplayer(use_device=fangzhu_device, adb_path=adb_path,apk_name=wf_apk_name,active_class_name=wf_active_class_name)
-    wf_owner(player)
+    while True:
+        restart_time = Timer().time_restart(datetime.datetime.now())
+        wf_owner(player)

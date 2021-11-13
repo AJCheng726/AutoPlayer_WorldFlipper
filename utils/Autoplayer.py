@@ -1,3 +1,5 @@
+from datetime import datetime
+from datetime import timedelta
 import os
 import random
 import sys
@@ -56,6 +58,13 @@ class Autoplayer:
         else:
             return True
 
+    def check_restart(self,restart_time):
+        for time in restart_time:
+            if datetime.now() > time:
+                print("触发游戏重启时间...游戏重启...")
+                self.stop_app()
+                return True
+        return False
 
     # 截屏并发送到目录./screen, 默认返回cv2读取后的图片
     def screen_shot(self):

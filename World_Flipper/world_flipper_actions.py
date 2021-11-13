@@ -21,6 +21,7 @@ def login(player):
         player.start_app()
         while not player.find("page_main"):
             player.find_touch("button_ok")
+            player.find_touch("button_fangqi2")
             player.touch((device_w * 1 / 2, device_h * 1 / 2))
         return False
 
