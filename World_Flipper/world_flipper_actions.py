@@ -73,8 +73,8 @@ def clear(player):
     print(datetime.datetime.now(),"等待战斗结算...")
     if player.wait("button_jixu", max_wait_time=timeout):
         while not player.find("button_likaifangjian"):
-            player.find_touch("button_jixu")
-            player.touch((device_w * 1 / 2, device_h * 1 / 2))
+            if not player.find_touch("button_jixu"):
+                player.touch((device_w * 1 / 2, device_h * 1 / 2))
         player.wait_touch("button_likaifangjian", max_wait_time=10)
     else:
         print("超过{0}秒，可能阵亡未结算...".format(timeout))
