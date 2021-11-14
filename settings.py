@@ -23,7 +23,7 @@ canzhan_device_2 = "emulator-5560"
 fangzhu_device = "emulator-5556"
 # 房主ID用哪个，模拟器原比例截图放到wanted文件夹下，名字填在下面，按优先级从高到低找房
 fangzhu_account = ["ajcheng_pickup","ajcheng","azhecheng_pickup","azhecheng"]
-# 房间人数最小限制，目前仅支持2
+# 房间人数最小限制，已实现未测试
 limit_player = 2
 # 超时，超过则认为阵亡或房间解散
 timeout = 300
