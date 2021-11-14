@@ -79,9 +79,11 @@ def find_room(player):
     # 找建房号ID=>"ok"和"是"处理双倍\房满的问题=>没找到就更新=>准备完毕
     print(datetime.datetime.now(),"再次寻找房间...")
     while not player.find_touch("button_zhunbeiwanbi"):
+        player.find_touch("button_gengxinliebiao")
+        time.sleep(0.5)
         fangzhu = player.find_any(fangzhu_account)
         if fangzhu > -1:
             player.find_touch(fangzhu_account[fangzhu])
         player.find_touch("button_shi")
         player.find_touch("button_ok")
-        player.find_touch("button_gengxinliebiao")
+
