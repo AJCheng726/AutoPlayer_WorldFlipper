@@ -10,7 +10,7 @@ from utils.Autoplayer import Autoplayer
 from utils.Timer import Timer
 
 def check_game(player):
-    print(datetime.datetime.now(),"检查wf是否启动...")
+    print(Timer().simple_time(),"检查wf是否启动...")
     if player.check_app():
         print("游戏已启动")
         return 1
@@ -30,7 +30,7 @@ def login(player):
         
 
 def build_from_multiplayer(player,change_zhaomu=False):
-    print(datetime.datetime.now(),"房主建房...")
+    print(Timer().simple_time(),"房主建房...")
     player.wait_touch("button_duorenyouxi", max_wait_time=30)
     player.wait_touch("button_shi", max_wait_time=5)
     player.wait_touch("button_zhaomu", max_wait_time=60)
@@ -43,19 +43,19 @@ def build_from_multiplayer(player,change_zhaomu=False):
 
 
 def wait_in_room(player):
-    print(datetime.datetime.now(),"在房间中等待队友...")
+    print(Timer().simple_time(),"在房间中等待队友...")
     timeout_flag = 0
     while not player.find("button_pause"):
-        if not (player.find("box_zhaomuzhong") and limit_player == 3):
+        if not (limit_player == 3 and player.find("box_pipeizhong")):
             player.find_touch("button_tiaozhan")
         if player.find("button_duorenyouxi") or player.find_touch("button_ok"): # 房间解散
-            print(datetime.datetime.now(),"房间解散...准备重建...")
+            print(Timer().simple_time(),"房间解散...准备重建...")
             timeout_flag = 1
             break
     return timeout_flag
 
 def quit_battle(player):
-    print(datetime.datetime.now(),"房主退出战斗中...")
+    print(Timer().simple_time(),"房主退出战斗中...")
     timer = Timer()
     while not player.find("button_duorenyouxi"):
         player.wait_touch("button_pause", max_wait_time=1)
@@ -70,7 +70,7 @@ def quit_battle(player):
 
 def clear(player):
     # 战斗中=>继续（同时处理升级、掉落）=>离开房间
-    print(datetime.datetime.now(),"等待战斗结算...")
+    print(Timer().simple_time(),"等待战斗结算...")
     if player.wait("button_jixu", max_wait_time=timeout):
         while not player.find("button_likaifangjian"):
             if not player.find_touch("button_jixu"):
@@ -82,7 +82,7 @@ def clear(player):
 
 def find_room(player):
     # 找建房号ID=>"ok"和"是"处理双倍\房满的问题=>没找到就更新=>准备完毕
-    print(datetime.datetime.now(),"再次寻找房间...")
+    print(Timer().simple_time(),"再次寻找房间...")
     while not player.find_touch("button_zhunbeiwanbi"):
         player.find_touch("button_gengxinliebiao")
         time.sleep(1)

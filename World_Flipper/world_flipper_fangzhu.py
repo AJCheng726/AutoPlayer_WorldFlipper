@@ -15,7 +15,7 @@ def wf_owner(player,loop_time = 0,count = 0):
                 else: # 房间没人来，自动解散
                     build_from_multiplayer(player)
                 count += 1
-                print("{1} [info] 房主已执行{0}次".format(count, datetime.datetime.now()))
+                print("{1} [info] 房主已执行{0}次".format(count, Timer().simple_time()))
                 continue
             print("脚本异常...即将重启游戏...")
             return count
@@ -40,7 +40,7 @@ def wf_owner(player,loop_time = 0,count = 0):
                     time.sleep(5)
                     return
                 count += 1
-                print("{1} [info] 房主已执行{0}次".format(count, datetime.datetime.now()))
+                print("{1} [info] 房主已执行{0}次".format(count, Timer().simple_time()))
                 continue
             print("脚本异常...即将重启游戏...")
             return count

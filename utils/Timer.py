@@ -22,6 +22,9 @@ class Timer:
             e -= timedelta(days=1)
         return [d,e]
 
+    def simple_time(self):
+        return datetime.now().time().strftime('%H:%M:%S')
+
 if __name__=="__main__":
     import sys
     sys.path.append('./')
@@ -29,3 +32,4 @@ if __name__=="__main__":
 
     timer = Timer()
     print(timer.time_restart(datetime(2021,11,14,3,00,00)))
+    print(Timer().simple_time())

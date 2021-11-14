@@ -10,7 +10,7 @@ def wf_join(player, loop_time=0, count = 0):
                 clear(player)
                 find_room(player)
                 count += 1
-                print("{1} [info] 农号已执行{0}次".format(count, datetime.datetime.now()))
+                print("{1} [info] 农号已执行{0}次".format(count, Timer().simple_time()))
                 continue
             print("超过600秒未执行下一次...即将重启游戏...")
             return count
@@ -24,7 +24,7 @@ def wf_join(player, loop_time=0, count = 0):
                     clear(player)
                     find_room(player)
                     count += 1
-                    print("{1} [info] 农号已执行{0}次".format(count, datetime.datetime.now()))
+                    print("{1} [info] 农号已执行{0}次".format(count, Timer().simple_time()))
                     continue
                 print("超过600秒未执行下一次...即将重启游戏...")
                 return count
