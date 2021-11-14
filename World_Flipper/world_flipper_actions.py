@@ -22,6 +22,13 @@ def check_game(player):
 def login(player):
     print("自动登录游戏...")
     player.start_app()
+    if player.wait("button_zhangmidenglu", max_wait_time=30): # 需要输账号
+        player.find_touch("button_zhangmidenglu")
+        time.sleep(1)
+        player.touch((441,486)) # 下拉
+        time.sleep(1)
+        player.touch((257,561)) # 选第一个账号
+        player.wait_touch("button_denglu")
     while not player.find("page_main"):
         player.find_touch("button_ok")
         player.find_touch("button_fangqi2")

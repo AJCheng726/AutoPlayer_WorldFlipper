@@ -1,9 +1,8 @@
-from datetime import datetime
-from datetime import timedelta
 import os
 import random
 import sys
 import time
+from datetime import datetime, timedelta
 from winsound import Beep
 
 import cv2
@@ -306,7 +305,7 @@ class Autoplayer:
 
 
 if __name__ == "__main__":
-    player1 = Autoplayer(use_device="emulator-5556",adb_path=adb_path,apk_name=wf_apk_name,active_class_name=wf_active_class_name)
+    player1 = Autoplayer(use_device="emulator-5554",adb_path=adb_path,apk_name=wf_apk_name,active_class_name=wf_active_class_name)
     # player1.stop_app()
     # player1.start_app()
     # print(player1.check_app())
