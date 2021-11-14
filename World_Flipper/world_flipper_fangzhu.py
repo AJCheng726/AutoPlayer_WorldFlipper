@@ -21,7 +21,7 @@ def wf_owner(player,loop_time = 0,count = 0):
             return count
 
     else: # 从启动游戏开始执行
-        with eventlet.Timeout(timeout,False):
+        with eventlet.Timeout(600,False):
             login(player)
             player.touch((465,809)) # 领主战
             player.wait_touch("button_pickup") # pickup

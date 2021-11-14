@@ -15,19 +15,19 @@ def wf_join(player, loop_time=0, count = 0):
             print("超过600秒未执行下一次...即将重启游戏...")
             return count
     else:  # 从游戏启动开始执行
-        with eventlet.Timeout(timeout,False):
+        with eventlet.Timeout(600,False):
             login(player)
             player.touch((465, 809))  # 领主战
             find_room(player)
-            while count < loop_time or loop_time == 0: # 600秒还没执行下一次就重启
-                with eventlet.Timeout(600,False):
-                    clear(player)
-                    find_room(player)
-                    count += 1
-                    print("{1} [info] 农号已执行{0}次".format(count, Timer().simple_time()))
-                    continue
-                print("超过600秒未执行下一次...即将重启游戏...")
-                return count
+        while count < loop_time or loop_time == 0: # 600秒还没执行下一次就重启
+            with eventlet.Timeout(600,False):
+                clear(player)
+                find_room(player)
+                count += 1
+                print("{1} [info] 农号已执行{0}次".format(count, Timer().simple_time()))
+                continue
+            print("超过600秒未执行下一次...即将重启游戏...")
+            return count
     return count
 
 
