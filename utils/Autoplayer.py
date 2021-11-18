@@ -306,8 +306,12 @@ class Autoplayer:
 
 if __name__ == "__main__":
     player1 = Autoplayer(use_device="emulator-5554",adb_path=adb_path,apk_name=wf_apk_name,active_class_name=wf_active_class_name)
+    player2 = Autoplayer(use_device="emulator-5556",adb_path=adb_path,apk_name=wf_apk_name,active_class_name=wf_active_class_name)
     # player1.stop_app()
     # player1.start_app()
     # print(player1.check_app())
     player1.screen_shot()
+    player2.screen_shot()
+    # player1.wait_touch("raid_event1")
+
 

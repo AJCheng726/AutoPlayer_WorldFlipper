@@ -3,7 +3,7 @@ import eventlet
 eventlet.monkey_patch()
 
 # 选boss建房之后开始，房主退出再重建
-def wf_owner(player,loop_time = 0,count = 0):
+def wf_owner(player,loop_time = 0,count = 0, event_mode = 0):
     print("[info] 使用设备{0}开始建房...".format(player.use_device))
     if check_game(player): # 从房间内等人开始执行
         while count < loop_time or loop_time == 0:
@@ -17,16 +17,21 @@ def wf_owner(player,loop_time = 0,count = 0):
                 count += 1
                 print("{1} [info] 房主已执行{0}次".format(count, Timer().simple_time()))
                 continue
-            print("超过600秒未执行下一次...即将重启游戏...")
+            print("超过{0}秒未执行下一次...即将重启游戏...".format(timeout))
             return count
 
     else: # 从启动游戏开始执行
         with eventlet.Timeout(600,False):
             login(player)
             player.touch((465,809)) # 领主战
-            player.wait_touch("button_pickup") # pickup
-            time.sleep(2)
-            player.touch((366,348)) # 选第一个难度
+            if not event_mode:
+                player.wait_touch("button_pickup") # pickup
+                time.sleep(2)
+                player.touch((366,348)) # 选第一个难度
+            else:
+                time.sleep(3)
+                player.touch((81,239)) # 活动
+                player.wait_touch(event_screenshot)
             build_from_multiplayer(player,change_zhaomu=True)
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(timeout,False):
@@ -39,7 +44,7 @@ def wf_owner(player,loop_time = 0,count = 0):
                 count += 1
                 print("{1} [info] 房主已执行{0}次".format(count, Timer().simple_time()))
                 continue
-            print("超过600秒未执行下一次...即将重启游戏...")
+            print("超过{0}秒未执行下一次...即将重启游戏...".format(timeout))
             return count
             
     
@@ -48,6 +53,6 @@ if __name__=="__main__":
     count = 0
     while True:
         restart_time = Timer().time_restart(datetime.datetime.now())
-        count = wf_owner(player,count)
+        count = wf_owner(player,count,event_mode=event_mode)
         player.stop_app()
         time.sleep(3)
