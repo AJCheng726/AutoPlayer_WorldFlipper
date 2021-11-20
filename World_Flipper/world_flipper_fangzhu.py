@@ -30,8 +30,10 @@ def wf_owner(player,loop_time = 0,count = 0, event_mode = 0):
                 player.touch((366,348)) # 选第一个难度
             else:
                 time.sleep(3)
-                player.touch((81,239)) # 活动
-                player.wait_touch(event_screenshot)
+                player.wait_touch("button_event") # 活动
+                while not player.find("button_duorenyouxi"):
+                    player.find_touch(event_screenshot)
+                    player.find_touch("button_ok")
             build_from_multiplayer(player,change_zhaomu=True)
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(timeout,False):

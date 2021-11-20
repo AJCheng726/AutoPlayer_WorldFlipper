@@ -6,7 +6,7 @@ def wf_join(player, loop_time=0, count = 0,event_mode = 0):
     print("[wf_join] 使用设备{0}农BOSS, 搜索房主{1}".format(player.use_device, fangzhu_account))
     if check_game(player):  # 从战斗中开始执行
         while count < loop_time or loop_time == 0:
-            with eventlet.Timeout(timeout,False): # 600秒还没执行下一次就重启
+            with eventlet.Timeout(timeout,False): # timeout秒还没执行下一次就重启
                 clear(player)
                 find_room(player)
                 count += 1
@@ -20,9 +20,9 @@ def wf_join(player, loop_time=0, count = 0,event_mode = 0):
             player.touch((465, 809))  # 领主战
             if event_mode:
                 time.sleep(3)
-                player.touch((81,239)) # 活动
+                player.wait_touch("button_event") # 活动
             find_room(player)
-        while count < loop_time or loop_time == 0: # 600秒还没执行下一次就重启
+        while count < loop_time or loop_time == 0:
             with eventlet.Timeout(timeout,False):
                 clear(player)
                 find_room(player)
