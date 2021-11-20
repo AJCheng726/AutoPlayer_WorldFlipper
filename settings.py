@@ -28,12 +28,15 @@ limit_player = 2
 # 超时，超过则认为阵亡或房间解散
 timeout = 600
 battle_timeout = 300
+# ===活动模式====
+event_mode = 0
+event_screenshot = "raid_event1"
+# ===日常模式====
+raid_choose = "raid_dashe"
 # ===单机连战===
 # 单人连战设备号
 loop_device = "emulator-5554"
-# ===活动模式====
-event_mode = 1
-event_screenshot = "raid_event1"
+
 
 
 

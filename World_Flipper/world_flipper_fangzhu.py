@@ -31,7 +31,7 @@ def wf_owner(player,loop_time = 0,count = 0, event_mode = 0):
             else:
                 time.sleep(3)
                 player.wait_touch("button_event") # 活动
-                while not player.find("button_duorenyouxi"):
+                while not player.find(raid_choose):
                     player.find_touch(event_screenshot)
                     player.find_touch("button_ok")
             build_from_multiplayer(player,change_zhaomu=True)
@@ -55,6 +55,6 @@ if __name__=="__main__":
     count = 0
     while True:
         restart_time = Timer().time_restart(datetime.datetime.now())
-        count = wf_owner(player,count,event_mode=event_mode)
+        count = wf_owner(player,count=count,event_mode=event_mode)
         player.stop_app()
         time.sleep(3)
