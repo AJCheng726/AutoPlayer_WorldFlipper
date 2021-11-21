@@ -33,6 +33,7 @@ def login(player):
         player.find_touch("button_ok")
         player.find_touch("button_fangqi2")
         player.find_touch("button_guanbi")
+        player.find_touch("tips_denglujiangli")
         player.touch((device_w * 1 / 2, device_h * 1 / 4))
         
 

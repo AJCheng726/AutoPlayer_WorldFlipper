@@ -4,7 +4,10 @@ eventlet.monkey_patch()
 
 # 选boss建房之后开始，房主退出再重建
 def wf_owner(player,loop_time = 0,count = 0, event_mode = 0):
-    print("[info] 使用设备{0}开始建房...".format(player.use_device))
+    if event_mode:
+        print("[info] 活动模式，使用设备{0}开始建{1}房...".format(player.use_device,event_screenshot))
+    else:
+        print("[info] 日常模式，使用设备{0}开始建{1}房...".format(player.use_device,raid_choose))
     if check_game(player): # 从房间内等人开始执行
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(timeout,False):
@@ -24,14 +27,14 @@ def wf_owner(player,loop_time = 0,count = 0, event_mode = 0):
         with eventlet.Timeout(600,False):
             login(player)
             player.touch((465,809)) # 领主战
-            if not event_mode:
-                player.wait_touch("button_pickup") # pickup
+            if not event_mode: # 日常模式
+                player.wait_touch(raid_choose)
                 time.sleep(2)
                 player.touch((366,348)) # 选第一个难度
-            else:
+            else: # 活动模式
                 time.sleep(3)
                 player.wait_touch("button_event") # 活动
-                while not player.find(raid_choose):
+                while not player.find("button_duorenyouxi"):
                     player.find_touch(event_screenshot)
                     player.find_touch("button_ok")
             build_from_multiplayer(player,change_zhaomu=True)
