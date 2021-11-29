@@ -43,7 +43,7 @@ if __name__ == "__main__":
     )
     count = 0
     while True:
-        restart_time = Timer().time_restart(datetime.datetime.now())
+        # restart_time = Timer().time_restart(datetime.datetime.now())
         count = wf_join(player,count,event_mode=event_mode)
         player.stop_app()
         time.sleep(3)
