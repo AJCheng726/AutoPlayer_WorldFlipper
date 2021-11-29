@@ -7,8 +7,12 @@ from typing import Text
 sys.path.append("./utils/")
 sys.path.append("./")
 
+import eventlet
 from settings import *
 
+from world_flipper_actions import *
+from world_flipper_fangzhu import *
+eventlet.monkey_patch()
 
 class AutoPlayer_WF(tk.Tk):
     def __init__(self):
@@ -68,6 +72,8 @@ class AutoPlayer_WF(tk.Tk):
         self.save_button = tk.Button(config_tab, text="保存", command=self.save_config)
         self.save_button.grid(row=7)
 
+        # 房主1
+        self.fangzhu_button = tk.Button(fangzhu_tab,text='建房',command=self.fangzhu).pack(fill=tk.X,expand=1)
         self.notebook.add(config_tab, text="全局设置")
         self.notebook.add(fangzhu_tab, text="房主")
         self.notebook.add(canzhan1_tab, text="参战1")
@@ -80,6 +86,15 @@ class AutoPlayer_WF(tk.Tk):
 
     def save_config(self, target_language="it", text=None):
         pass
+    
+    def fangzhu(self):
+        player = Autoplayer(use_device=fangzhu_device, adb_path=adb_path,apk_name=wf_apk_name,active_class_name=wf_active_class_name)
+        count = 0
+        while True:
+            restart_time = Timer().time_restart(datetime.datetime.now())
+            count = wf_owner(player,count=count,event_mode=event_mode)
+            player.stop_app()
+            time.sleep(3)
 
 
 if __name__ == "__main__":
