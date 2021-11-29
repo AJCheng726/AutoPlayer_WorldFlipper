@@ -74,6 +74,7 @@ class AutoPlayer_WF(tk.Tk):
 
         # 房主1
         self.fangzhu_button = tk.Button(fangzhu_tab,text='建房',command=self.fangzhu).pack(fill=tk.X,expand=1)
+        
         self.notebook.add(config_tab, text="全局设置")
         self.notebook.add(fangzhu_tab, text="房主")
         self.notebook.add(canzhan1_tab, text="参战1")
