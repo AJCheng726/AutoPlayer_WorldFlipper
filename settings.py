@@ -17,17 +17,17 @@ adb_path = "toolkits\\ADB\\adb.exe"
 wf_apk_name,wf_active_class_name = 'com.leiting.wf','air.com.leiting.wf.AppEntry'
 # ===单开/双开/三开刷共斗===
 # 蹭房设备号，如果是雷电64单开就填emulator-5554
-canzhan_device_1 = "emulator-5556"
-canzhan_device_2 = "emulator-5560"
+canzhan_device_1 = "emulator-5554"
+canzhan_device_2 = "emulator-5556"
 # 建房设备号，如果是雷电64多开，就按多开每次递增2
-fangzhu_device = "emulator-5554"
+fangzhu_device = "emulator-5556"
 # 房主ID用哪个，模拟器原比例截图放到wanted文件夹下，名字填在下面，按优先级从高到低找房
 fangzhu_account = ["icon_chufaqianpickup","icon_chufaqian"]
 # 房间人数最小限制，已实现未测试
 limit_player = 2
 # 超时，超过则认为阵亡或房间解散
 timeout = 600
-battle_timeout = 300
+battle_timeout = 420
 # ===活动模式====
 event_mode = 0
 event_screenshot = "raid_event1"
