@@ -3,6 +3,8 @@ import sys
 import threading
 import tkinter as tk
 import tkinter.ttk as ttk
+from concurrent.futures import ThreadPoolExecutor
+from threading import Thread
 from tkinter import Widget
 from tkinter import messagebox as msg
 from tkinter.ttk import Notebook
@@ -22,52 +24,6 @@ from world_flipper_fangzhu import *
 
 
 eventlet.monkey_patch()
-
-
-# class MyThread(threading.Thread):
-#     def __init__(self, func, *args):
-#         super().__init__()
-
-#         self.func = func
-#         self.args = args
-
-#         self.setDaemon(True)
-#         self.start()  # 在这里开始
-
-#     def run(self):
-#         self.func(*self.args)
-
-class JianFangThread(threading.Thread):
-    def __init__(self):
-        super().__init__()
-        self.setDaemon(True)
-        # self.start()  # 在这里开始
-
-    def run(self):
-        config = configparser.ConfigParser()
-        config.read("./config.ini")
-        player = Autoplayer(
-            use_device=config["WF"]["fangzhu_device"],
-            adb_path=config["GENERAL"]["adb_path"],
-            apk_name=config["WF"]["wf_apk_name"],
-            active_class_name=config["WF"]["wf_active_class_name"],
-            debug=config["GENERAL"].getint("Debug"),
-            accuracy=config["GENERAL"].getfloat("accuracy"),
-            screenshot_blank=config["GENERAL"].getfloat("screenshot_blank"),
-            wanted_path=config["GENERAL"]["wanted_path"],
-        )
-        count = 0
-        while True:
-            # restart_time = Timer().time_restart(datetime.datetime.now())
-            count = wf_owner(
-                player,
-                config,
-                count=count,
-                event_mode=config["RAID"].getint("event_mode"),
-            )
-            player.stop_app()
-            time.sleep(3)
-
 
 class AutoPlayer_WF(tk.Tk):
     def __init__(self):
@@ -171,13 +127,9 @@ class AutoPlayer_WF(tk.Tk):
         self.fangzhu_account_entry.insert(0, fangzhu_account)
         self.fangzhu_account_entry.grid(row=2, column=1)
 
-        # self.fangzhu_button = tk.Button(
-        #     fangzhu_tab, text="GO!", command=lambda :MyThread(self.jianfang, ).run()
-        # ).grid(row=3, column=0)
         self.fangzhu_button = tk.Button(
-            fangzhu_tab, text="GO!", command=lambda: self.jianfang()
+            fangzhu_tab, text="GO!", command=lambda: self.click_fangzhu()
         ).grid(row=3, column=0)
-        # text=tk.ScrolledText(fangzhu_tab,font=('微软雅黑',10),fg='blue')
 
         self.notebook.add(config_tab, text="全局设置")
         self.notebook.add(fangzhu_tab, text="房主")
@@ -204,38 +156,42 @@ class AutoPlayer_WF(tk.Tk):
         with open("./config.ini", "w") as configfile:
             config.write(configfile)
 
-    # def jianfang(self):
-    #     config = configparser.ConfigParser()
-    #     config.read("./config.ini")
-    #     player = Autoplayer(
-    #         use_device=config["WF"]["fangzhu_device"],
-    #         adb_path=config["GENERAL"]["adb_path"],
-    #         apk_name=config["WF"]["wf_apk_name"],
-    #         active_class_name=config["WF"]["wf_active_class_name"],
-    #         debug=config["GENERAL"].getint("Debug"),
-    #         accuracy=config["GENERAL"].getfloat("accuracy"),
-    #         screenshot_blank=config["GENERAL"].getfloat("screenshot_blank"),
-    #         wanted_path=config["GENERAL"]["wanted_path"],
-    #     )
-    #     count = 0
-    #     while True:
-    #         # restart_time = Timer().time_restart(datetime.datetime.now())
-    #         count = wf_owner(
-    #             player,
-    #             config,
-    #             count=count,
-    #             event_mode=config["RAID"].getint("event_mode"),
-    #         )
-    #         player.stop_app()
-    #         time.sleep(3)
-
     def jianfang(self):
-        self.jt = JianFangThread()
-        self.jt.start()
+        config = configparser.ConfigParser()
+        config.read("./config.ini")
+        player = Autoplayer(
+            use_device=config["WF"]["fangzhu_device"],
+            adb_path=config["GENERAL"]["adb_path"],
+            apk_name=config["WF"]["wf_apk_name"],
+            active_class_name=config["WF"]["wf_active_class_name"],
+            debug=config["GENERAL"].getint("Debug"),
+            accuracy=config["GENERAL"].getfloat("accuracy"),
+            screenshot_blank=config["GENERAL"].getfloat("screenshot_blank"),
+            wanted_path=config["GENERAL"]["wanted_path"],
+        )
+        count = 0
+        while True:
+            # restart_time = Timer().time_restart(datetime.datetime.now())
+            count = wf_owner(
+                player,
+                config,
+                count=count,
+                event_mode=config["RAID"].getint("event_mode"),
+            )
+            player.stop_app()
+            time.sleep(3)
+
+    def click_fangzhu(self):
+        pool = thread_pool.submit(self.jianfang)
+        print_pool = thread_pool.submit(print(),pool.result())
+        
+
         
 
 
 if __name__ == "__main__":
+    thread_pool = ThreadPoolExecutor()
+
     debug = config["GENERAL"].getint("debug")
     accuracy = config["GENERAL"].getfloat("accuracy")
     wanted_path = config["GENERAL"]["wanted_path"]
@@ -249,4 +205,5 @@ if __name__ == "__main__":
     fangzhu_account = config["WF"]["fangzhu_account"]
 
     AutoPlayer_wf = AutoPlayer_WF()
-    AutoPlayer_wf.mainloop()
+    ui_thread = thread_pool.submit(AutoPlayer_wf.mainloop())
+    
