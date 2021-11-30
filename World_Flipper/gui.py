@@ -8,7 +8,8 @@ sys.path.append("./utils/")
 sys.path.append("./")
 
 import eventlet
-from settings import *
+import configparser
+# from settings import *
 
 from world_flipper_actions import *
 from world_flipper_fangzhu import *
@@ -85,19 +86,27 @@ class AutoPlayer_WF(tk.Tk):
     def init_config(self):
         pass
 
-    def save_config(self, target_language="it", text=None):
-        pass
+    def save_config(self):
+        config['GENERAL']['debug'] = self.debug_entry.get()
+        config['GENERAL']['accuracy'] = self.acc_entry.get()
+        config['GENERAL']['wanted_path'] = self.wanted_path_entry.get()
+        config['GENERAL']['device_w'] = self.device_w_entry.get()
+        config['GENERAL']['device_h'] = self.device_h_entry.get()
+        config['GENERAL']['screenshot_blank'] = self.screenshot_blank_entry.get()
+        config['GENERAL']['adb_path'] = self.adb_path_entry.get()
+        with open('./config.ini','w') as configfile:
+            config.write(configfile)
     
     def fangzhu(self):
-        player = Autoplayer(use_device=fangzhu_device, adb_path=adb_path,apk_name=wf_apk_name,active_class_name=wf_active_class_name)
-        count = 0
-        while True:
-            restart_time = Timer().time_restart(datetime.datetime.now())
-            count = wf_owner(player,count=count,event_mode=event_mode)
-            player.stop_app()
-            time.sleep(3)
+        pass
 
 
 if __name__ == "__main__":
+    debug = config['GENERAL'].getint('debug')
+    accuracy = config['GENERAL'].getfloat('accuracy')
+    wanted_path = config['GENERAL']['wanted_path']
+    screenshot_blank = config['GENERAL'].getfloat('screenshot_blank')
+    adb_path = config['GENERAL']['adb_path']
+
     AutoPlayer_wf = AutoPlayer_WF()
     AutoPlayer_wf.mainloop()
