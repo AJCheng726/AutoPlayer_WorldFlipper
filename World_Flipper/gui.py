@@ -20,7 +20,7 @@ class AutoPlayer_WF(tk.Tk):
         super().__init__()
 
         self.title("Auto Player WORLD FLIPPER")
-        self.geometry("300x300")
+        self.geometry("250x350")
 
         self.notebook = Notebook(self)
 
@@ -70,11 +70,31 @@ class AutoPlayer_WF(tk.Tk):
         self.adb_path_entry.grid(row=6, column=1)
         self.adb_path_entry.insert(0, adb_path)
 
+        self.event_mode_label = tk.Label(config_tab, text = '活动模式').grid(row=7,column=0)
+        self.event_mode_entry = tk.Entry(config_tab, bg="green", fg="black")
+        self.event_mode_entry.insert(0,event_mode)
+        self.event_mode_entry.grid(row=7,column=1)
+        
+        self.event_screenshot_label = tk.Label(config_tab, text = '活动图标\n(开启活动模式)').grid(row=8,column=0)
+        self.event_screenshot_entry = tk.Entry(config_tab, bg="green", fg="black")
+        self.event_screenshot_entry.insert(0,event_screenshot)
+        self.event_screenshot_entry.grid(row=8,column=1)
+
+        self.raid_choose_label = tk.Label(config_tab, text = '日常图标\n(关闭活动模式)').grid(row=9,column=0)
+        self.raid_choose_entry = tk.Entry(config_tab, bg="green", fg="black")
+        self.raid_choose_entry.insert(0,raid_choose)
+        self.raid_choose_entry.grid(row=9,column=1)
+        
         self.save_button = tk.Button(config_tab, text="保存", command=self.save_config)
-        self.save_button.grid(row=7)
+        self.save_button.grid(row=10)
 
         # 房主1
-        self.fangzhu_button = tk.Button(fangzhu_tab,text='建房',command=self.fangzhu).pack(fill=tk.X,expand=1)
+        self.fangzhu_device_label = tk.Label(fangzhu_tab,text='房主设备').grid(row=0,column=0)
+        self.fangzhu_device_entry = tk.Entry(fangzhu_tab, bg="white", fg="black")
+        self.fangzhu_device_entry.grid(row=0,column=1)
+        self.limit_player_label = tk.Label(fangzhu_tab,text='最小玩家数').grid(row=1,column=0)
+        # self.fangzhu_button = tk.Button(fangzhu_tab,text='建房',command=self.fangzhu).pack(fill=tk.X,expand=1)
+
         
         self.notebook.add(config_tab, text="全局设置")
         self.notebook.add(fangzhu_tab, text="房主")
@@ -107,6 +127,9 @@ if __name__ == "__main__":
     wanted_path = config['GENERAL']['wanted_path']
     screenshot_blank = config['GENERAL'].getfloat('screenshot_blank')
     adb_path = config['GENERAL']['adb_path']
+    event_mode = config['RAID']['event_mode']
+    event_screenshot = config['RAID']['event_screenshot']
+    raid_choose = config['RAID']['raid_choose']
 
     AutoPlayer_wf = AutoPlayer_WF()
     AutoPlayer_wf.mainloop()
