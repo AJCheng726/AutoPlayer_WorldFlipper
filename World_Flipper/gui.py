@@ -42,46 +42,46 @@ class AutoPlayer_WF(tk.Tk):
         )
         self.adb_path_label = tk.Label(config_tab, text="ADB路径").grid(row=6, column=0)
 
-        self.debug_entry = tk.Entry(config_tab, bg="white", fg="black")
+        self.debug_entry = tk.Entry(config_tab, bg="grey", fg="black")
         self.debug_entry.grid(row=0, column=1)
         self.debug_entry.insert(0, debug)
 
-        self.acc_entry = tk.Entry(config_tab, bg="white", fg="black")
+        self.acc_entry = tk.Entry(config_tab, bg="grey", fg="black")
         self.acc_entry.grid(row=1, column=1)
         self.acc_entry.insert(0, accuracy)
 
-        self.wanted_path_entry = tk.Entry(config_tab, bg="white", fg="black")
+        self.wanted_path_entry = tk.Entry(config_tab, bg="grey", fg="black")
         self.wanted_path_entry.grid(row=2, column=1)
         self.wanted_path_entry.insert(0, wanted_path)
 
-        self.device_w_entry = tk.Entry(config_tab, bg="white", fg="black")
+        self.device_w_entry = tk.Entry(config_tab, bg="grey", fg="black")
         self.device_w_entry.grid(row=3, column=1)
         self.device_w_entry.insert(0, device_w)
 
-        self.device_h_entry = tk.Entry(config_tab, bg="white", fg="black")
+        self.device_h_entry = tk.Entry(config_tab, bg="grey", fg="black")
         self.device_h_entry.grid(row=4, column=1)
         self.device_h_entry.insert(0, device_h)
 
-        self.screenshot_blank_entry = tk.Entry(config_tab, bg="white", fg="black")
+        self.screenshot_blank_entry = tk.Entry(config_tab, bg="grey", fg="black")
         self.screenshot_blank_entry.grid(row=5, column=1)
         self.screenshot_blank_entry.insert(0, screenshot_blank)
 
-        self.adb_path_entry = tk.Entry(config_tab, bg="white", fg="black")
+        self.adb_path_entry = tk.Entry(config_tab, bg="grey", fg="black")
         self.adb_path_entry.grid(row=6, column=1)
         self.adb_path_entry.insert(0, adb_path)
 
         self.event_mode_label = tk.Label(config_tab, text = '活动模式').grid(row=7,column=0)
-        self.event_mode_entry = tk.Entry(config_tab, bg="green", fg="black")
+        self.event_mode_entry = tk.Entry(config_tab, bg="white", fg="black")
         self.event_mode_entry.insert(0,event_mode)
         self.event_mode_entry.grid(row=7,column=1)
         
         self.event_screenshot_label = tk.Label(config_tab, text = '活动图标\n(开启活动模式)').grid(row=8,column=0)
-        self.event_screenshot_entry = tk.Entry(config_tab, bg="green", fg="black")
+        self.event_screenshot_entry = tk.Entry(config_tab, bg="white", fg="black")
         self.event_screenshot_entry.insert(0,event_screenshot)
         self.event_screenshot_entry.grid(row=8,column=1)
 
         self.raid_choose_label = tk.Label(config_tab, text = '日常图标\n(关闭活动模式)').grid(row=9,column=0)
-        self.raid_choose_entry = tk.Entry(config_tab, bg="green", fg="black")
+        self.raid_choose_entry = tk.Entry(config_tab, bg="white", fg="black")
         self.raid_choose_entry.insert(0,raid_choose)
         self.raid_choose_entry.grid(row=9,column=1)
         
