@@ -127,6 +127,8 @@ class Autoplayer:
             file_path = path + "/" + file
             a = [cv2.imread(file_path), treshold, name]
             imgs[name] = a
+        if self.debug:
+            print("从{0}加载图片{1}".format(path,len(file_list)))
 
         return imgs
 
@@ -318,12 +320,23 @@ class Autoplayer:
 
 if __name__ == "__main__":
     from settings import *
+    import configparser
+
+    config = configparser.ConfigParser()
+    # config.sections()
+    config.read("./config.ini")
+    # print(config['GENERAL']['Debug'])
+    config['RAID']['event_screenshot'] = "raid_event2"
+    config['WF']['fangzhu_account'] = "icon_chufaqianpickup,icon_chufaqian"
+    print("修改后的参数",config['RAID']['event_screenshot'])
+    with open('example.ini', 'w') as configfile:
+        config.write(configfile)
 
     player1 = Autoplayer(
         use_device="emulator-5554",
-        adb_path=adb_path,
-        apk_name=wf_apk_name,
-        active_class_name=wf_active_class_name,
+        adb_path=config['GENERAL']['adb_path'],
+        apk_name=config['WF']['wf_apk_name'],
+        active_class_name=config['WF']['wf_active_class_name'],
     )
     player2 = Autoplayer(
         use_device="emulator-5556",
@@ -331,6 +344,7 @@ if __name__ == "__main__":
         apk_name=wf_apk_name,
         active_class_name=wf_active_class_name,
     )
+
     # player1.stop_app()
     # player1.start_app()
     # print(player1.check_app())

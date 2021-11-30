@@ -1,5 +1,6 @@
 from world_flipper_actions import *
 import eventlet
+import configparser
 eventlet.monkey_patch()
 
 # 选boss建房之后开始，房主退出再重建
@@ -54,10 +55,24 @@ def wf_owner(player,loop_time = 0,count = 0, event_mode = 0):
             
     
 if __name__=="__main__":
-    player = Autoplayer(use_device=fangzhu_device, adb_path=adb_path,apk_name=wf_apk_name,active_class_name=wf_active_class_name)
+    config = configparser.ConfigParser()
+    config.read("./config.ini")
+    event_screenshot = config['RAID']['event_screenshot']
+    raid_choose = config['RAID']['raid_choose']
+    timeout = config['WF'].getint('timeout')
+    player = Autoplayer(
+        use_device=config['WF']['fangzhu_device'],
+        adb_path=config['GENERAL']['adb_path'],
+        apk_name=config['WF']['wf_apk_name'],
+        active_class_name=config['WF']['wf_active_class_name'],
+        debug=config['GENERAL'].getint('Debug'),        
+        accuracy=config['GENERAL'].getfloat('accuracy'),
+        screenshot_blank=config['GENERAL'].getfloat('screenshot_blank'),
+        wanted_path=config['GENERAL']['wanted_path'],
+    )
     count = 0
     while True:
         # restart_time = Timer().time_restart(datetime.datetime.now())
-        count = wf_owner(player,count=count,event_mode=event_mode)
+        count = wf_owner(player, count=count, event_mode=config['RAID'].getint('event_mode'))
         player.stop_app()
         time.sleep(3)
