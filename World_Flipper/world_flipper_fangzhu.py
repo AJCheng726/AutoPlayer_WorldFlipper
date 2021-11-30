@@ -4,7 +4,11 @@ import configparser
 eventlet.monkey_patch()
 
 # 选boss建房之后开始，房主退出再重建
-def wf_owner(player,loop_time = 0,count = 0, event_mode = 0):
+def wf_owner(player,config,loop_time = 0,count = 0, event_mode = 0):
+    event_screenshot = config['RAID']['event_screenshot']
+    raid_choose = config['RAID']['raid_choose']
+    timeout = config['WF'].getint('timeout')
+
     if event_mode:
         print("[info] 活动模式，使用设备{0}开始建{1}房...".format(player.use_device,event_screenshot))
     else:
@@ -57,9 +61,7 @@ def wf_owner(player,loop_time = 0,count = 0, event_mode = 0):
 if __name__=="__main__":
     config = configparser.ConfigParser()
     config.read("./config.ini")
-    event_screenshot = config['RAID']['event_screenshot']
-    raid_choose = config['RAID']['raid_choose']
-    timeout = config['WF'].getint('timeout')
+
     player = Autoplayer(
         use_device=config['WF']['fangzhu_device'],
         adb_path=config['GENERAL']['adb_path'],
@@ -73,6 +75,6 @@ if __name__=="__main__":
     count = 0
     while True:
         # restart_time = Timer().time_restart(datetime.datetime.now())
-        count = wf_owner(player, count=count, event_mode=config['RAID'].getint('event_mode'))
+        count = wf_owner(player, config,count=count, event_mode=config['RAID'].getint('event_mode'))
         player.stop_app()
         time.sleep(3)
