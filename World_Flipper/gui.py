@@ -1,6 +1,8 @@
 import sys
 import tkinter as tk
-from tkinter import messagebox as msg
+import threading
+import queue
+from tkinter import Widget, messagebox as msg
 from tkinter.ttk import Notebook
 from typing import Text
 
@@ -14,6 +16,14 @@ import configparser
 from world_flipper_actions import *
 from world_flipper_fangzhu import *
 eventlet.monkey_patch()
+
+class ThreadedTask(threading.Thread):
+    def __init__(self, queue):
+        super().__init__()
+        self.queue = queue
+    def run(self):
+        time.sleep(5)  # Simulate long running process
+        self.queue.put("Task finished")
 
 class AutoPlayer_WF(tk.Tk):
     def __init__(self):
@@ -85,15 +95,27 @@ class AutoPlayer_WF(tk.Tk):
         self.raid_choose_entry.insert(0,raid_choose)
         self.raid_choose_entry.grid(row=9,column=1)
         
-        self.save_button = tk.Button(config_tab, text="保存", command=self.save_config)
-        self.save_button.grid(row=10)
+        self.info_Label = tk.Label(config_tab, text="※不建议修改灰色部分").grid(row=10,column=1)
+        self.save_button = tk.Button(config_tab, text="保存", command=self.save_config, width=10)
+        self.save_button.grid(row=10,column=0)
 
         # 房主1
         self.fangzhu_device_label = tk.Label(fangzhu_tab,text='房主设备').grid(row=0,column=0)
         self.fangzhu_device_entry = tk.Entry(fangzhu_tab, bg="white", fg="black")
+        self.fangzhu_device_entry.insert(0,fangzhu_device)
         self.fangzhu_device_entry.grid(row=0,column=1)
+
         self.limit_player_label = tk.Label(fangzhu_tab,text='最小玩家数').grid(row=1,column=0)
-        # self.fangzhu_button = tk.Button(fangzhu_tab,text='建房',command=self.fangzhu).pack(fill=tk.X,expand=1)
+        self.limit_player_entry = tk.Entry(fangzhu_tab, bg="white", fg="black")
+        self.limit_player_entry.insert(0,limit_player)
+        self.limit_player_entry.grid(row=1,column=1)
+
+        self.fangzhu_account_label = tk.Label(fangzhu_tab,text='房主截图').grid(row=2,column=0)
+        self.fangzhu_account_entry = tk.Entry(fangzhu_tab, bg="white", fg="black")
+        self.fangzhu_account_entry.insert(0,fangzhu_account)
+        self.fangzhu_account_entry.grid(row=2,column=1)
+
+        self.fangzhu_button = tk.Button(fangzhu_tab,text='GO!',command=time.sleep(3)).grid(row=3,column=0)
 
         
         self.notebook.add(config_tab, text="全局设置")
@@ -103,9 +125,6 @@ class AutoPlayer_WF(tk.Tk):
 
         self.notebook.pack(fill=tk.BOTH, expand=1)
 
-    def init_config(self):
-        pass
-
     def save_config(self):
         config['GENERAL']['debug'] = self.debug_entry.get()
         config['GENERAL']['accuracy'] = self.acc_entry.get()
@@ -114,11 +133,15 @@ class AutoPlayer_WF(tk.Tk):
         config['GENERAL']['device_h'] = self.device_h_entry.get()
         config['GENERAL']['screenshot_blank'] = self.screenshot_blank_entry.get()
         config['GENERAL']['adb_path'] = self.adb_path_entry.get()
+        config['RAID']['event_mode'] = self.event_mode_entry.get()
+        config['RAID']['event_screenshot'] = self.event_screenshot_entry.get()
+        config['RAID']['raid_choose'] = self.raid_choose_entry.get()
+        config['WF']['fangzhu_device'] = self.fangzhu_device_entry.get()
+        config['WF']['limit_player'] = self.limit_player_entry.get()
+        config['WF']['fangzhu_account'] = self.fangzhu_account_entry.get()
+
         with open('./config.ini','w') as configfile:
             config.write(configfile)
-    
-    def fangzhu(self):
-        pass
 
 
 if __name__ == "__main__":
@@ -130,6 +153,9 @@ if __name__ == "__main__":
     event_mode = config['RAID']['event_mode']
     event_screenshot = config['RAID']['event_screenshot']
     raid_choose = config['RAID']['raid_choose']
+    fangzhu_device = config['WF']['fangzhu_device']
+    limit_player = config["WF"].getint("limit_player")
+    fangzhu_account = config["WF"]["fangzhu_account"]
 
     AutoPlayer_wf = AutoPlayer_WF()
     AutoPlayer_wf.mainloop()
