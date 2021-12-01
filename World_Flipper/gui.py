@@ -184,7 +184,7 @@ class AutoPlayer_WF(tk.Tk):
     def refreshText(self):
         fangzhu_output = self.proc_fangzhu.stdout
         
-        for line in iter(fangzhu_output.readline,b''):
+        for line in iter(fangzhu_output.readline(1),b''):
             print (line)
             # self.fangzhu_shell.insert(tk.INSERT, line)
         # self.fangzhu_shell.delete(0.0,tk.END)
