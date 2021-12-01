@@ -1,10 +1,7 @@
-import queue
+import subprocess
 import sys
-import threading
 import tkinter as tk
 import tkinter.ttk as ttk
-from tkinter import Widget
-from tkinter import messagebox as msg
 from tkinter.ttk import Notebook
 from typing import Text
 
@@ -24,58 +21,13 @@ from world_flipper_fangzhu import *
 eventlet.monkey_patch()
 
 
-# class MyThread(threading.Thread):
-#     def __init__(self, func, *args):
-#         super().__init__()
-
-#         self.func = func
-#         self.args = args
-
-#         self.setDaemon(True)
-#         self.start()  # 在这里开始
-
-#     def run(self):
-#         self.func(*self.args)
-
-class JianFangThread(threading.Thread):
-    def __init__(self):
-        super().__init__()
-        self.setDaemon(True)
-        # self.start()  # 在这里开始
-
-    def run(self):
-        config = configparser.ConfigParser()
-        config.read("./config.ini")
-        player = Autoplayer(
-            use_device=config["WF"]["fangzhu_device"],
-            adb_path=config["GENERAL"]["adb_path"],
-            apk_name=config["WF"]["wf_apk_name"],
-            active_class_name=config["WF"]["wf_active_class_name"],
-            debug=config["GENERAL"].getint("Debug"),
-            accuracy=config["GENERAL"].getfloat("accuracy"),
-            screenshot_blank=config["GENERAL"].getfloat("screenshot_blank"),
-            wanted_path=config["GENERAL"]["wanted_path"],
-        )
-        count = 0
-        while True:
-            # restart_time = Timer().time_restart(datetime.datetime.now())
-            count = wf_owner(
-                player,
-                config,
-                count=count,
-                event_mode=config["RAID"].getint("event_mode"),
-            )
-            player.stop_app()
-            time.sleep(3)
-
-
 class AutoPlayer_WF(tk.Tk):
     def __init__(self):
         super().__init__()
 
         self.title("Auto Player WORLD FLIPPER")
-        self.geometry("250x350")
-
+        self.geometry("240x350")
+        self.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.notebook = Notebook(self)
 
         config_tab = tk.Frame(self.notebook)
@@ -171,13 +123,16 @@ class AutoPlayer_WF(tk.Tk):
         self.fangzhu_account_entry.insert(0, fangzhu_account)
         self.fangzhu_account_entry.grid(row=2, column=1)
 
-        # self.fangzhu_button = tk.Button(
-        #     fangzhu_tab, text="GO!", command=lambda :MyThread(self.jianfang, ).run()
-        # ).grid(row=3, column=0)
-        self.fangzhu_button = tk.Button(
-            fangzhu_tab, text="GO!", command=lambda: self.jianfang()
+        self.fangzhu_go_button = tk.Button(
+            fangzhu_tab, text="GO!", command=lambda: self.fangzhu_go()
         ).grid(row=3, column=0)
-        # text=tk.ScrolledText(fangzhu_tab,font=('微软雅黑',10),fg='blue')
+        self.fangzhu_stop_button = tk.Button(
+            fangzhu_tab, text="STOP!", command=lambda: self.fangzhu_stop()
+        ).grid(row=3, column=1)
+        self.fangzhu_scrollbar = ttk.Scrollbar(fangzhu_tab,orient=tk.VERTICAL)
+        self.fangzhu_shell = tk.Text(fangzhu_tab, width=30, height=16, yscrollcommand=self.fangzhu_scrollbar.set)
+        self.fangzhu_scrollbar.grid(row=4, column=3,sticky="nse")
+        self.fangzhu_shell.grid(row = 4,columnspan=2)
 
         self.notebook.add(config_tab, text="全局设置")
         self.notebook.add(fangzhu_tab, text="房主")
@@ -204,35 +159,34 @@ class AutoPlayer_WF(tk.Tk):
         with open("./config.ini", "w") as configfile:
             config.write(configfile)
 
-    # def jianfang(self):
-    #     config = configparser.ConfigParser()
-    #     config.read("./config.ini")
-    #     player = Autoplayer(
-    #         use_device=config["WF"]["fangzhu_device"],
-    #         adb_path=config["GENERAL"]["adb_path"],
-    #         apk_name=config["WF"]["wf_apk_name"],
-    #         active_class_name=config["WF"]["wf_active_class_name"],
-    #         debug=config["GENERAL"].getint("Debug"),
-    #         accuracy=config["GENERAL"].getfloat("accuracy"),
-    #         screenshot_blank=config["GENERAL"].getfloat("screenshot_blank"),
-    #         wanted_path=config["GENERAL"]["wanted_path"],
-    #     )
-    #     count = 0
-    #     while True:
-    #         # restart_time = Timer().time_restart(datetime.datetime.now())
-    #         count = wf_owner(
-    #             player,
-    #             config,
-    #             count=count,
-    #             event_mode=config["RAID"].getint("event_mode"),
-    #         )
-    #         player.stop_app()
-    #         time.sleep(3)
+    def fangzhu_go(self):
+        self.proc_fangzhu = subprocess.Popen(
+            "python World_Flipper\\world_flipper_fangzhu.py",
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE
+        )
+        self.refreshText()
 
-    def jianfang(self):
-        self.jt = JianFangThread()
-        self.jt.start()
-        
+    def fangzhu_stop(self):
+        self.proc_fangzhu.kill()
+        print("[GUI]关闭房主子进程")
+
+    def refreshText(self):
+        # fangzhu_output = self.proc_fangzhu.stdout
+        output, errors = self.proc_fangzhu.communicate()
+        # self.fangzhu_shell.delete(0.0,tk.END)
+        self.fangzhu_shell.insert(tk.INSERT, output)
+        self.fangzhu_shell.update()
+        self.after(500, self.refreshText)
+
+    def on_closing(self):
+        try:
+            self.proc_fangzhu.kill()
+            print("[GUI]退出时关闭所有子线程")
+        except:
+            print("[GUI]所有子线程已关闭")
+        self.destroy()
 
 
 if __name__ == "__main__":
