@@ -1,9 +1,11 @@
 import subprocess
 import sys
+from threading import Thread
 import tkinter as tk
 import tkinter.ttk as ttk
 from tkinter.ttk import Notebook
 from typing import Text
+from queue import Queue
 
 sys.path.append("./utils/")
 sys.path.append("./")
@@ -29,6 +31,8 @@ class AutoPlayer_WF(tk.Tk):
         self.geometry("240x350")
         self.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.notebook = Notebook(self)
+
+        # self.q = Queue(maxsize=1024)
 
         config_tab = tk.Frame(self.notebook)
         fangzhu_tab = tk.Frame(self.notebook)
@@ -164,20 +168,28 @@ class AutoPlayer_WF(tk.Tk):
             "python World_Flipper\\world_flipper_fangzhu.py",
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE
+            stderr=subprocess.PIPE,
+            bufsize=2,
+            encoding='utf-8'
         )
         self.refreshText()
+        # t = Thread(target=self.refreshText, args=[self.q])
+        # t.daemon = True
+        # t.start()
 
     def fangzhu_stop(self):
         self.proc_fangzhu.kill()
         print("[GUI]关闭房主子进程")
 
     def refreshText(self):
-        # fangzhu_output = self.proc_fangzhu.stdout
-        output, errors = self.proc_fangzhu.communicate()
+        fangzhu_output = self.proc_fangzhu.stdout
+        
+        for line in iter(fangzhu_output.readline,b''):
+            print (line)
+            # self.fangzhu_shell.insert(tk.INSERT, line)
         # self.fangzhu_shell.delete(0.0,tk.END)
-        self.fangzhu_shell.insert(tk.INSERT, output)
         self.fangzhu_shell.update()
+        self.fangzhu_shell.see(tk.END)
         self.after(500, self.refreshText)
 
     def on_closing(self):
