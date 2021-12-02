@@ -1,23 +1,24 @@
+import configparser
 import subprocess
-import sys
+# import sys
 import tkinter as tk
 import tkinter.ttk as ttk
-from queue import Queue
-from threading import Thread
+# from queue import Queue
+# from threading import Thread
 from tkinter.ttk import Notebook
-from typing import Text
 
-sys.path.append("./utils/")
-sys.path.append("./")
+# from typing import Text
 
-import configparser
+# sys.path.append("./utils/")
+# sys.path.append("./")
 
-import eventlet
 
-from world_flipper_actions import *
-from world_flipper_fangzhu import *
+# import eventlet
 
-eventlet.monkey_patch()
+# from world_flipper_actions import *
+# from world_flipper_fangzhu import *
+
+# eventlet.monkey_patch()
 
 
 class AutoPlayer_WF(tk.Tk):
@@ -244,10 +245,6 @@ class AutoPlayer_WF(tk.Tk):
         self.proc_fangzhu = subprocess.Popen(
             "python World_Flipper\\world_flipper_fangzhu.py"
         )
-        # self.refreshText()
-        # t = Thread(target=self.refreshText, args=[self.q])
-        # t.daemon = True
-        # t.start()
 
     def canzhan1_go(self):
         self.save_config()
@@ -277,7 +274,7 @@ class AutoPlayer_WF(tk.Tk):
     
     def canzhan2_stop(self):
         self.proc_canzhan2.kill()
-        print("[GUI]关闭房参战1子进程")
+        print("[GUI]关闭房参战2子进程")
 
     def loop_stop(self):
         self.proc_loop.kill()
@@ -320,11 +317,16 @@ class AutoPlayer_WF(tk.Tk):
 
 
 if __name__ == "__main__":
+    config = configparser.ConfigParser()
+    config.read("./config.ini")
+    
     debug = config["GENERAL"].getint("debug")
     accuracy = config["GENERAL"].getfloat("accuracy")
     wanted_path = config["GENERAL"]["wanted_path"]
     screenshot_blank = config["GENERAL"].getfloat("screenshot_blank")
     adb_path = config["GENERAL"]["adb_path"]
+    device_w = config["GENERAL"].getint("device_w")
+    device_h = config["GENERAL"].getint("device_h")
 
     fangzhu_device = config["WF"]["fangzhu_device"]
     limit_player = config["WF"].getint("limit_player")
@@ -332,7 +334,7 @@ if __name__ == "__main__":
     canzhan1_device = config["WF"]["canzhan_device_1"]
     canzhan2_device = config["WF"]["canzhan_device_2"]
     loop_device = config["WF"]["loop_device"]
-
+    
     event_mode = config["RAID"]["event_mode"]
     event_screenshot = config["RAID"]["event_screenshot"]
     raid_choose = config["RAID"]["raid_choose"]
