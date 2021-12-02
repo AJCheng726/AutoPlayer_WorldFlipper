@@ -1,11 +1,11 @@
 import subprocess
 import sys
-from threading import Thread
 import tkinter as tk
 import tkinter.ttk as ttk
+from queue import Queue
+from threading import Thread
 from tkinter.ttk import Notebook
 from typing import Text
-from queue import Queue
 
 sys.path.append("./utils/")
 sys.path.append("./")
@@ -38,6 +38,7 @@ class AutoPlayer_WF(tk.Tk):
         fangzhu_tab = tk.Frame(self.notebook)
         canzhan1_tab = tk.Frame(self.notebook)
         canzhan2_tab = tk.Frame(self.notebook)
+        loop_tab = tk.Frame(self.notebook)
 
         # 全局设置
         self.debug_label = tk.Label(config_tab, text="Debug设置").grid(row=0, column=0)
@@ -105,7 +106,7 @@ class AutoPlayer_WF(tk.Tk):
         )
         self.save_button.grid(row=10, column=0)
 
-        # 房主1
+        # 房主
         self.fangzhu_device_label = tk.Label(fangzhu_tab, text="房主设备").grid(
             row=0, column=0
         )
@@ -120,28 +121,52 @@ class AutoPlayer_WF(tk.Tk):
         self.limit_player_entry.insert(0, limit_player)
         self.limit_player_entry.grid(row=1, column=1)
 
-        self.fangzhu_account_label = tk.Label(fangzhu_tab, text="房主截图").grid(
-            row=2, column=0
-        )
-        self.fangzhu_account_entry = tk.Entry(fangzhu_tab, bg="white", fg="black")
-        self.fangzhu_account_entry.insert(0, fangzhu_account)
-        self.fangzhu_account_entry.grid(row=2, column=1)
-
         self.fangzhu_go_button = tk.Button(
             fangzhu_tab, text="GO!", command=lambda: self.fangzhu_go()
         ).grid(row=3, column=0)
         self.fangzhu_stop_button = tk.Button(
             fangzhu_tab, text="STOP!", command=lambda: self.fangzhu_stop()
         ).grid(row=3, column=1)
-        self.fangzhu_scrollbar = ttk.Scrollbar(fangzhu_tab,orient=tk.VERTICAL)
-        self.fangzhu_shell = tk.Text(fangzhu_tab, width=30, height=16, yscrollcommand=self.fangzhu_scrollbar.set)
-        self.fangzhu_scrollbar.grid(row=4, column=3,sticky="nse")
-        self.fangzhu_shell.grid(row = 4,columnspan=2)
+        self.fangzhu_scrollbar = ttk.Scrollbar(fangzhu_tab, orient=tk.VERTICAL)
+        self.fangzhu_shell = tk.Text(
+            fangzhu_tab, width=30, height=18, yscrollcommand=self.fangzhu_scrollbar.set
+        )
+        self.fangzhu_scrollbar.grid(row=4, column=3, sticky="nse")
+        self.fangzhu_shell.grid(row=4, columnspan=2)
+
+        # 参战1
+        self.canzhan1_device_label = tk.Label(canzhan1_tab, text="参战1设备").grid(
+            row=0, column=0
+        )
+        self.canzhan1_device_entry = tk.Entry(canzhan1_tab, bg="white", fg="black")
+        self.canzhan1_device_entry.insert(0, canzhan1_device)
+        self.canzhan1_device_entry.grid(row=0, column=1)
+
+        self.fangzhu_account_label = tk.Label(canzhan1_tab, text="房主截图").grid(
+            row=2, column=0
+        )
+        self.fangzhu_account_entry = tk.Entry(canzhan1_tab, bg="white", fg="black")
+        self.fangzhu_account_entry.insert(0, fangzhu_account)
+        self.fangzhu_account_entry.grid(row=2, column=1)
+
+        self.canzhan1_go_button = tk.Button(
+            canzhan1_tab, text="GO!", command=lambda: self.canzhan1_go()
+        ).grid(row=3, column=0)
+        self.canzhan1_stop_button = tk.Button(
+            canzhan1_tab, text="STOP!", command=lambda: self.canzhan1_stop()
+        ).grid(row=3, column=1)
+        self.canzhan1_scrollbar = ttk.Scrollbar(canzhan1_tab, orient=tk.VERTICAL)
+        self.canzhan1_shell = tk.Text(
+            canzhan1_tab, width=30, height=18, yscrollcommand=self.fangzhu_scrollbar.set
+        )
+        self.canzhan1_scrollbar.grid(row=4, column=3, sticky="nse")
+        self.canzhan1_shell.grid(row=4, columnspan=2)
 
         self.notebook.add(config_tab, text="全局设置")
         self.notebook.add(fangzhu_tab, text="房主")
         self.notebook.add(canzhan1_tab, text="参战1")
         self.notebook.add(canzhan2_tab, text="参战2")
+        self.notebook.add(loop_tab, text="单人连战")
 
         self.notebook.pack(fill=tk.BOTH, expand=1)
 
@@ -159,6 +184,7 @@ class AutoPlayer_WF(tk.Tk):
         config["WF"]["fangzhu_device"] = self.fangzhu_device_entry.get()
         config["WF"]["limit_player"] = self.limit_player_entry.get()
         config["WF"]["fangzhu_account"] = self.fangzhu_account_entry.get()
+        config["WF"]["canzhan1_device"] = self.canzhan1_device_entry.get()
 
         with open("./config.ini", "w") as configfile:
             config.write(configfile)
@@ -170,22 +196,36 @@ class AutoPlayer_WF(tk.Tk):
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             bufsize=2,
-            encoding='utf-8'
+            encoding="utf-8",
         )
-        self.refreshText()
+        # self.refreshText()
         # t = Thread(target=self.refreshText, args=[self.q])
         # t.daemon = True
         # t.start()
+
+    def canzhan1_go(self):
+        self.proc_canzhan1 = subprocess.Popen(
+            "python World_Flipper\\world_flipper_canzhan1.py",
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            bufsize=2,
+            encoding="utf-8",
+        )
 
     def fangzhu_stop(self):
         self.proc_fangzhu.kill()
         print("[GUI]关闭房主子进程")
 
+    def canzhan1_stop(self):
+        self.proc_canzhan1.kill()
+        print("[GUI]关闭房参战1子进程")
+
     def refreshText(self):
         fangzhu_output = self.proc_fangzhu.stdout
-        
-        for line in iter(fangzhu_output.readline(1),b''):
-            print (line)
+
+        for line in iter(fangzhu_output.readline(1), b""):
+            print(line)
             # self.fangzhu_shell.insert(tk.INSERT, line)
         # self.fangzhu_shell.delete(0.0,tk.END)
         self.fangzhu_shell.update()
@@ -195,6 +235,7 @@ class AutoPlayer_WF(tk.Tk):
     def on_closing(self):
         try:
             self.proc_fangzhu.kill()
+            self.proc_canzhan1.kill()
             print("[GUI]退出时关闭所有子线程")
         except:
             print("[GUI]所有子线程已关闭")
@@ -207,12 +248,15 @@ if __name__ == "__main__":
     wanted_path = config["GENERAL"]["wanted_path"]
     screenshot_blank = config["GENERAL"].getfloat("screenshot_blank")
     adb_path = config["GENERAL"]["adb_path"]
-    event_mode = config["RAID"]["event_mode"]
-    event_screenshot = config["RAID"]["event_screenshot"]
-    raid_choose = config["RAID"]["raid_choose"]
+
     fangzhu_device = config["WF"]["fangzhu_device"]
     limit_player = config["WF"].getint("limit_player")
     fangzhu_account = config["WF"]["fangzhu_account"]
+    canzhan1_device = config["WF"]["canzhan_device_1"]
+
+    event_mode = config["RAID"]["event_mode"]
+    event_screenshot = config["RAID"]["event_screenshot"]
+    raid_choose = config["RAID"]["raid_choose"]
 
     AutoPlayer_wf = AutoPlayer_WF()
     AutoPlayer_wf.mainloop()
