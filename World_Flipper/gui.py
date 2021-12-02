@@ -159,12 +159,12 @@ class AutoPlayer_WF(tk.Tk):
         self.canzhan1_scrollbar.grid(row=4, column=3, sticky="nse")
         self.canzhan1_shell.grid(row=4, columnspan=2)
 
-        # 参战1
+        # 参战2
         self.canzhan2_device_label = tk.Label(canzhan2_tab, text="参战2设备").grid(
             row=0, column=0
         )
         self.canzhan2_device_entry = tk.Entry(canzhan2_tab, bg="white", fg="black")
-        self.canzhan2_device_entry.insert(0, canzhan1_device)
+        self.canzhan2_device_entry.insert(0, canzhan2_device)
         self.canzhan2_device_entry.grid(row=0, column=1)
 
         self.fangzhu_account_label = tk.Label(canzhan2_tab, text="房主截图").grid(
@@ -188,24 +188,28 @@ class AutoPlayer_WF(tk.Tk):
         self.canzhan2_shell.grid(row=4, columnspan=2)
 
         # 单人连战
-        self.loop_device_label = tk.Label(loop_tab, text="单人连战设备").grid(
+        self.loop_device_label = tk.Label(loop_tab, text="连战设备").grid(
             row=0, column=0
         )
         self.loop_device_entry = tk.Entry(loop_tab, bg="white", fg="black")
         self.loop_device_entry.insert(0, loop_device)
         self.loop_device_entry.grid(row=0, column=1)
+
+        self.space_label = tk.Label(loop_tab, text= " ").grid(row=1,column=0)
+
         self.loop_go_button = tk.Button(
             loop_tab, text="GO!", command=lambda: self.loop_go()
-        ).grid(row=3, column=0)
+        ).grid(row=2, column=0)
         self.loop_stop_button = tk.Button(
             loop_tab, text="STOP!", command=lambda: self.loop_stop()
-        ).grid(row=3, column=1)
+        ).grid(row=2, column=1)
+
         self.loop_scrollbar = ttk.Scrollbar(loop_tab, orient=tk.VERTICAL)
         self.loop_shell = tk.Text(
             loop_tab, width=30, height=18, yscrollcommand=self.loop_scrollbar.set
         )
-        self.loop_scrollbar.grid(row=4, column=3, sticky="nse")
-        self.loop_shell.grid(row=4, columnspan=2)
+        self.loop_scrollbar.grid(row=3, column=3, sticky="nse")
+        self.loop_shell.grid(row=3, columnspan=2)
 
         self.notebook.add(config_tab, text="全局设置")
         self.notebook.add(fangzhu_tab, text="房主")
@@ -229,19 +233,16 @@ class AutoPlayer_WF(tk.Tk):
         config["WF"]["fangzhu_device"] = self.fangzhu_device_entry.get()
         config["WF"]["limit_player"] = self.limit_player_entry.get()
         config["WF"]["fangzhu_account"] = self.fangzhu_account_entry.get()
-        config["WF"]["canzhan1_device"] = self.canzhan1_device_entry.get()
+        config["WF"]["canzhan_device_1"] = self.canzhan1_device_entry.get()
+        config["WF"]["canzhan_device_2"] = self.canzhan2_device_entry.get()
 
         with open("./config.ini", "w") as configfile:
             config.write(configfile)
 
     def fangzhu_go(self):
+        self.save_config()
         self.proc_fangzhu = subprocess.Popen(
-            "python World_Flipper\\world_flipper_fangzhu.py",
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            bufsize=2,
-            encoding="utf-8",
+            "python World_Flipper\\world_flipper_fangzhu.py"
         )
         # self.refreshText()
         # t = Thread(target=self.refreshText, args=[self.q])
@@ -249,33 +250,21 @@ class AutoPlayer_WF(tk.Tk):
         # t.start()
 
     def canzhan1_go(self):
+        self.save_config()
         self.proc_canzhan1 = subprocess.Popen(
-            "python World_Flipper\\world_flipper_canzhan1.py",
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            bufsize=2,
-            encoding="utf-8",
+            "python World_Flipper\\world_flipper_canzhan1.py"
         )
     
     def canzhan2_go(self):
+        self.save_config()
         self.proc_canzhan2 = subprocess.Popen(
-            "python World_Flipper\\world_flipper_canzhan2.py",
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            bufsize=2,
-            encoding="utf-8",
+            "python World_Flipper\\world_flipper_canzhan2.py"
         )
 
     def loop_go(self):
+        self.save_config()
         self.proc_loop = subprocess.Popen(
-            "python World_Flipper\\world_flipper_loop.py",
-            # stdin=subprocess.PIPE,
-            # stdout=subprocess.PIPE,
-            # stderr=subprocess.PIPE,
-            # bufsize=2,
-            # encoding="utf-8",
+            "python World_Flipper\\world_flipper_loop.py"
         )
 
     def fangzhu_stop(self):
@@ -341,6 +330,7 @@ if __name__ == "__main__":
     limit_player = config["WF"].getint("limit_player")
     fangzhu_account = config["WF"]["fangzhu_account"]
     canzhan1_device = config["WF"]["canzhan_device_1"]
+    canzhan2_device = config["WF"]["canzhan_device_2"]
     loop_device = config["WF"]["loop_device"]
 
     event_mode = config["RAID"]["event_mode"]

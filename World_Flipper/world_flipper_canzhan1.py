@@ -7,7 +7,7 @@ from world_flipper_actions import *
 eventlet.monkey_patch()
 
 
-def wf_join(player, loop_time=0, count=0, event_mode=0, timeout = 600):
+def wf_join(player, loop_time=0, count=0, event_mode=0, timeout=600):
     print("[wf_join] 使用设备{0}农BOSS, 搜索房主{1}".format(player.use_device, fangzhu_account))
     if check_game(player):  # 从战斗中开始执行
         while count < loop_time or loop_time == 0:
@@ -15,7 +15,11 @@ def wf_join(player, loop_time=0, count=0, event_mode=0, timeout = 600):
                 clear(player)
                 find_room(player)
                 count += 1
-                print("{1} [info] 农号已执行{0}次".format(count, Timer().simple_time()))
+                print(
+                    "{1} [info] {2} 农号已执行{0}次".format(
+                        count, Timer().simple_time(), player.use_device
+                    )
+                )
                 continue
             print("超过{0}秒未执行下一次...即将重启游戏...".format(timeout))
             return count
@@ -32,7 +36,11 @@ def wf_join(player, loop_time=0, count=0, event_mode=0, timeout = 600):
                 clear(player)
                 find_room(player)
                 count += 1
-                print("{1} [info] 农号已执行{0}次".format(count, Timer().simple_time()))
+                print(
+                    "{1} [info] {2} 农号已执行{0}次".format(
+                        count, Timer().simple_time(), player.use_device
+                    )
+                )
                 continue
             print("超过{0}秒未执行下一次...即将重启游戏...".format(timeout))
             return count
@@ -59,7 +67,10 @@ if __name__ == "__main__":
     while True:
         # restart_time = Timer().time_restart(datetime.datetime.now())
         count = wf_join(
-            player, count=count, event_mode=config["RAID"].getint("event_mode"), timeout=config["WF"].getint("timeout")
+            player,
+            count=count,
+            event_mode=config["RAID"].getint("event_mode"),
+            timeout=config["WF"].getint("timeout"),
         )
         player.stop_app()
         time.sleep(3)
