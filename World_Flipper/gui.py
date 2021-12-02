@@ -1,8 +1,10 @@
 import configparser
 import subprocess
+
 # import sys
 import tkinter as tk
 import tkinter.ttk as ttk
+
 # from queue import Queue
 # from threading import Thread
 from tkinter.ttk import Notebook
@@ -155,7 +157,10 @@ class AutoPlayer_WF(tk.Tk):
         ).grid(row=3, column=1)
         self.canzhan1_scrollbar = ttk.Scrollbar(canzhan1_tab, orient=tk.VERTICAL)
         self.canzhan1_shell = tk.Text(
-            canzhan1_tab, width=30, height=18, yscrollcommand=self.canzhan1_scrollbar.set
+            canzhan1_tab,
+            width=30,
+            height=18,
+            yscrollcommand=self.canzhan1_scrollbar.set,
         )
         self.canzhan1_scrollbar.grid(row=4, column=3, sticky="nse")
         self.canzhan1_shell.grid(row=4, columnspan=2)
@@ -183,20 +188,21 @@ class AutoPlayer_WF(tk.Tk):
         ).grid(row=3, column=1)
         self.canzhan2_scrollbar = ttk.Scrollbar(canzhan2_tab, orient=tk.VERTICAL)
         self.canzhan2_shell = tk.Text(
-            canzhan2_tab, width=30, height=18, yscrollcommand=self.canzhan2_scrollbar.set
+            canzhan2_tab,
+            width=30,
+            height=18,
+            yscrollcommand=self.canzhan2_scrollbar.set,
         )
         self.canzhan2_scrollbar.grid(row=4, column=3, sticky="nse")
         self.canzhan2_shell.grid(row=4, columnspan=2)
 
         # 单人连战
-        self.loop_device_label = tk.Label(loop_tab, text="连战设备").grid(
-            row=0, column=0
-        )
+        self.loop_device_label = tk.Label(loop_tab, text="连战设备").grid(row=0, column=0)
         self.loop_device_entry = tk.Entry(loop_tab, bg="white", fg="black")
         self.loop_device_entry.insert(0, loop_device)
         self.loop_device_entry.grid(row=0, column=1)
 
-        self.space_label = tk.Label(loop_tab, text= " ").grid(row=1,column=0)
+        self.space_label = tk.Label(loop_tab, text=" ").grid(row=1, column=0)
 
         self.loop_go_button = tk.Button(
             loop_tab, text="GO!", command=lambda: self.loop_go()
@@ -251,18 +257,20 @@ class AutoPlayer_WF(tk.Tk):
         self.proc_canzhan1 = subprocess.Popen(
             "python World_Flipper\\world_flipper_canzhan1.py"
         )
-    
+
     def canzhan2_go(self):
         self.save_config()
         self.proc_canzhan2 = subprocess.Popen(
-            "python World_Flipper\\world_flipper_canzhan2.py"
+            "python World_Flipper\\world_flipper_canzhan2.py",
+            # shell=False,
+            # stdout=subprocess.PIPE,
+            # stderr=subprocess.STDOUT,
+            # encoding="GBK",
         )
 
     def loop_go(self):
         self.save_config()
-        self.proc_loop = subprocess.Popen(
-            "python World_Flipper\\world_flipper_loop.py"
-        )
+        self.proc_loop = subprocess.Popen("python World_Flipper\\world_flipper_loop.py")
 
     def fangzhu_stop(self):
         self.proc_fangzhu.kill()
@@ -271,7 +279,7 @@ class AutoPlayer_WF(tk.Tk):
     def canzhan1_stop(self):
         self.proc_canzhan1.kill()
         print("[GUI]关闭房参战1子进程")
-    
+
     def canzhan2_stop(self):
         self.proc_canzhan2.kill()
         print("[GUI]关闭房参战2子进程")
@@ -280,7 +288,7 @@ class AutoPlayer_WF(tk.Tk):
         self.proc_loop.kill()
         print("[GUI]关闭房单人连战子进程")
 
-    def refreshText(self):
+    def refreshText(self, p, text):
         fangzhu_output = self.proc_fangzhu.stdout
 
         for line in iter(fangzhu_output.readline(1), b""):
@@ -319,7 +327,7 @@ class AutoPlayer_WF(tk.Tk):
 if __name__ == "__main__":
     config = configparser.ConfigParser()
     config.read("./config.ini")
-    
+
     debug = config["GENERAL"].getint("debug")
     accuracy = config["GENERAL"].getfloat("accuracy")
     wanted_path = config["GENERAL"]["wanted_path"]
@@ -334,7 +342,7 @@ if __name__ == "__main__":
     canzhan1_device = config["WF"]["canzhan_device_1"]
     canzhan2_device = config["WF"]["canzhan_device_2"]
     loop_device = config["WF"]["loop_device"]
-    
+
     event_mode = config["RAID"]["event_mode"]
     event_screenshot = config["RAID"]["event_screenshot"]
     raid_choose = config["RAID"]["raid_choose"]
