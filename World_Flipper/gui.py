@@ -154,7 +154,7 @@ class AutoPlayer_WF(tk.Tk):
         ).grid(row=3, column=1)
         self.canzhan1_scrollbar = ttk.Scrollbar(canzhan1_tab, orient=tk.VERTICAL)
         self.canzhan1_shell = tk.Text(
-            canzhan1_tab, width=30, height=18, yscrollcommand=self.fangzhu_scrollbar.set
+            canzhan1_tab, width=30, height=18, yscrollcommand=self.canzhan1_scrollbar.set
         )
         self.canzhan1_scrollbar.grid(row=4, column=3, sticky="nse")
         self.canzhan1_shell.grid(row=4, columnspan=2)
@@ -182,10 +182,30 @@ class AutoPlayer_WF(tk.Tk):
         ).grid(row=3, column=1)
         self.canzhan2_scrollbar = ttk.Scrollbar(canzhan2_tab, orient=tk.VERTICAL)
         self.canzhan2_shell = tk.Text(
-            canzhan2_tab, width=30, height=18, yscrollcommand=self.fangzhu_scrollbar.set
+            canzhan2_tab, width=30, height=18, yscrollcommand=self.canzhan2_scrollbar.set
         )
         self.canzhan2_scrollbar.grid(row=4, column=3, sticky="nse")
         self.canzhan2_shell.grid(row=4, columnspan=2)
+
+        # 单人连战
+        self.loop_device_label = tk.Label(loop_tab, text="单人连战设备").grid(
+            row=0, column=0
+        )
+        self.loop_device_entry = tk.Entry(loop_tab, bg="white", fg="black")
+        self.loop_device_entry.insert(0, loop_device)
+        self.loop_device_entry.grid(row=0, column=1)
+        self.loop_go_button = tk.Button(
+            loop_tab, text="GO!", command=lambda: self.loop_go()
+        ).grid(row=3, column=0)
+        self.loop_stop_button = tk.Button(
+            loop_tab, text="STOP!", command=lambda: self.loop_stop()
+        ).grid(row=3, column=1)
+        self.loop_scrollbar = ttk.Scrollbar(loop_tab, orient=tk.VERTICAL)
+        self.loop_shell = tk.Text(
+            loop_tab, width=30, height=18, yscrollcommand=self.loop_scrollbar.set
+        )
+        self.loop_scrollbar.grid(row=4, column=3, sticky="nse")
+        self.loop_shell.grid(row=4, columnspan=2)
 
         self.notebook.add(config_tab, text="全局设置")
         self.notebook.add(fangzhu_tab, text="房主")
@@ -248,6 +268,16 @@ class AutoPlayer_WF(tk.Tk):
             encoding="utf-8",
         )
 
+    def loop_go(self):
+        self.proc_loop = subprocess.Popen(
+            "python World_Flipper\\world_flipper_loop.py",
+            # stdin=subprocess.PIPE,
+            # stdout=subprocess.PIPE,
+            # stderr=subprocess.PIPE,
+            # bufsize=2,
+            # encoding="utf-8",
+        )
+
     def fangzhu_stop(self):
         self.proc_fangzhu.kill()
         print("[GUI]关闭房主子进程")
@@ -259,6 +289,10 @@ class AutoPlayer_WF(tk.Tk):
     def canzhan2_stop(self):
         self.proc_canzhan2.kill()
         print("[GUI]关闭房参战1子进程")
+
+    def loop_stop(self):
+        self.proc_loop.kill()
+        print("[GUI]关闭房单人连战子进程")
 
     def refreshText(self):
         fangzhu_output = self.proc_fangzhu.stdout
@@ -307,6 +341,7 @@ if __name__ == "__main__":
     limit_player = config["WF"].getint("limit_player")
     fangzhu_account = config["WF"]["fangzhu_account"]
     canzhan1_device = config["WF"]["canzhan_device_1"]
+    loop_device = config["WF"]["loop_device"]
 
     event_mode = config["RAID"]["event_mode"]
     event_screenshot = config["RAID"]["event_screenshot"]
