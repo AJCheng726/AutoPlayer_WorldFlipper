@@ -17,9 +17,6 @@ import eventlet
 from world_flipper_actions import *
 from world_flipper_fangzhu import *
 
-# from settings import *
-
-
 eventlet.monkey_patch()
 
 
@@ -162,6 +159,34 @@ class AutoPlayer_WF(tk.Tk):
         self.canzhan1_scrollbar.grid(row=4, column=3, sticky="nse")
         self.canzhan1_shell.grid(row=4, columnspan=2)
 
+        # 参战1
+        self.canzhan2_device_label = tk.Label(canzhan2_tab, text="参战2设备").grid(
+            row=0, column=0
+        )
+        self.canzhan2_device_entry = tk.Entry(canzhan2_tab, bg="white", fg="black")
+        self.canzhan2_device_entry.insert(0, canzhan1_device)
+        self.canzhan2_device_entry.grid(row=0, column=1)
+
+        self.fangzhu_account_label = tk.Label(canzhan2_tab, text="房主截图").grid(
+            row=2, column=0
+        )
+        self.attention_label = tk.Label(canzhan2_tab, text="※复用参战1中的设置").grid(
+            row=2, column=1, sticky=tk.W
+        )
+
+        self.canzhan2_go_button = tk.Button(
+            canzhan2_tab, text="GO!", command=lambda: self.canzhan2_go()
+        ).grid(row=3, column=0)
+        self.canzhan2_stop_button = tk.Button(
+            canzhan2_tab, text="STOP!", command=lambda: self.canzhan2_stop()
+        ).grid(row=3, column=1)
+        self.canzhan2_scrollbar = ttk.Scrollbar(canzhan2_tab, orient=tk.VERTICAL)
+        self.canzhan2_shell = tk.Text(
+            canzhan2_tab, width=30, height=18, yscrollcommand=self.fangzhu_scrollbar.set
+        )
+        self.canzhan2_scrollbar.grid(row=4, column=3, sticky="nse")
+        self.canzhan2_shell.grid(row=4, columnspan=2)
+
         self.notebook.add(config_tab, text="全局设置")
         self.notebook.add(fangzhu_tab, text="房主")
         self.notebook.add(canzhan1_tab, text="参战1")
@@ -212,6 +237,16 @@ class AutoPlayer_WF(tk.Tk):
             bufsize=2,
             encoding="utf-8",
         )
+    
+    def canzhan2_go(self):
+        self.proc_canzhan2 = subprocess.Popen(
+            "python World_Flipper\\world_flipper_canzhan2.py",
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            bufsize=2,
+            encoding="utf-8",
+        )
 
     def fangzhu_stop(self):
         self.proc_fangzhu.kill()
@@ -219,6 +254,10 @@ class AutoPlayer_WF(tk.Tk):
 
     def canzhan1_stop(self):
         self.proc_canzhan1.kill()
+        print("[GUI]关闭房参战1子进程")
+    
+    def canzhan2_stop(self):
+        self.proc_canzhan2.kill()
         print("[GUI]关闭房参战1子进程")
 
     def refreshText(self):
@@ -233,12 +272,27 @@ class AutoPlayer_WF(tk.Tk):
         self.after(500, self.refreshText)
 
     def on_closing(self):
+        print("[GUI]退出时关闭所有子线程")
         try:
             self.proc_fangzhu.kill()
-            self.proc_canzhan1.kill()
-            print("[GUI]退出时关闭所有子线程")
+            print("[GUI]房主子线程已关闭")
         except:
-            print("[GUI]所有子线程已关闭")
+            print("[GUI]房主子线程未启动")
+        try:
+            self.proc_canzhan1.kill()
+            print("[GUI]参战1子线程已关闭")
+        except:
+            print("[GUI]参战1子线程未启动")
+        try:
+            self.proc_canzhan2.kill()
+            print("[GUI]参战2子线程已关闭")
+        except:
+            print("[GUI]参战2子线程未启动")
+        try:
+            self.proc_loop.kill()
+            print("[GUI]单人连战子线程已关闭")
+        except:
+            print("[GUI]单人连战子线程未启动")
         self.destroy()
 
 
