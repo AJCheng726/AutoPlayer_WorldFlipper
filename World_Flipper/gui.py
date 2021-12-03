@@ -147,8 +147,8 @@ class AutoPlayer_WF(tk.Tk):
         self.ring_raid_choose_entry.insert(0, ring_raid_choose)
         self.ring_raid_choose_entry.grid(row=11,column=1)
 
-        tk.Button(danren_tab,text="GO!",width=7).grid(row=12,column=1,sticky=tk.W,padx=5)
-        tk.Button(danren_tab,text="STOP!",width=7).grid(row=12,column=1,sticky=tk.E,padx=5)
+        tk.Button(danren_tab,text="GO!",width=7, command=lambda: self.ring_go()).grid(row=12,column=1,sticky=tk.W,padx=5)
+        tk.Button(danren_tab,text="STOP!",width=7, command=lambda: self.ring_stop()).grid(row=12,column=1,sticky=tk.E,padx=5)
 
         self.notebook.add(config_tab, text="全局设置")
         self.notebook.add(fangzhu_tab, text="房主")
@@ -231,6 +231,7 @@ class AutoPlayer_WF(tk.Tk):
     def ring_stop(self):
         self.save_config()
         self.proc_ring.kill()
+        print("[GUI]关闭蹭铃铛子进程")
 
     def refreshText(self, p, text):
         fangzhu_output = self.proc_fangzhu.stdout
@@ -267,6 +268,7 @@ class AutoPlayer_WF(tk.Tk):
             print("[GUI]单人连战子线程未启动")
         try:
             self.proc_ring.kill()
+            print("[GUI]蹭铃铛子线程已关闭")
         except:
             print("[GUI]蹭铃铛子线程未启动")
         self.destroy()
