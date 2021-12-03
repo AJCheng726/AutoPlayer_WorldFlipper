@@ -319,7 +319,7 @@ class Autoplayer:
 
 
 if __name__ == "__main__":
-    from settings import *
+    # from settings import *
     import configparser
 
     config = configparser.ConfigParser()
@@ -340,9 +340,9 @@ if __name__ == "__main__":
     )
     player2 = Autoplayer(
         use_device="emulator-5556",
-        adb_path=adb_path,
-        apk_name=wf_apk_name,
-        active_class_name=wf_active_class_name,
+        adb_path="toolkits\\ADB\\adb.exe",
+        apk_name="com.leiting.wf",
+        active_class_name="air.com.leiting.wf.AppEntry",
     )
 
     # player1.stop_app()

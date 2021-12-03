@@ -114,3 +114,19 @@ def find_room(player):
             player.find_touch(fangzhu_account[fangzhu])
         player.find_touch("button_shi")
         player.find_touch("button_ok")
+
+def wait_ring(player, raid):
+    # 等要打的铃铛
+    print(Timer().simple_time(), player.use_device, "等{0}铃铛...".format(raid))
+    while not player.find("button_canjia"):
+        player.find_touch("button_lingdang")
+    if player.wait(raid, max_wait_time=2):
+        player.find_touch("button_canjia")
+    else: # 铃铛不是要打的boss
+        player.find_touch("button_bucanjia")
+        return 0
+    if player.wait_touch("button_zhunbeiwanbi", max_wait_time = 5):
+        return 1
+    else:
+        player.find_touch("button_ok")
+        return 0

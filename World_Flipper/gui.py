@@ -139,11 +139,16 @@ class AutoPlayer_WF(tk.Tk):
 
         tk.Label(danren_tab, text="蹭铃铛设备").grid(row=10,column=0)
         self.lingdang_device_entry = tk.Entry(danren_tab)
-        self.lingdang_device_entry.insert(0, "还没做呢 先放这")
+        self.lingdang_device_entry.insert(0, ring_device)
         self.lingdang_device_entry.grid(row=10,column=1)
 
-        tk.Button(danren_tab,text="GO!",width=7).grid(row=11,column=1,sticky=tk.W,padx=5)
-        tk.Button(danren_tab,text="STOP!",width=7).grid(row=11,column=1,sticky=tk.E,padx=5)
+        tk.Label(danren_tab, text="蹭铃铛本").grid(row=11,column=0)
+        self.ring_raid_choose_entry = tk.Entry(danren_tab)
+        self.ring_raid_choose_entry.insert(0, ring_raid_choose)
+        self.ring_raid_choose_entry.grid(row=11,column=1)
+
+        tk.Button(danren_tab,text="GO!",width=7).grid(row=12,column=1,sticky=tk.W,padx=5)
+        tk.Button(danren_tab,text="STOP!",width=7).grid(row=12,column=1,sticky=tk.E,padx=5)
 
         self.notebook.add(config_tab, text="全局设置")
         self.notebook.add(fangzhu_tab, text="房主")
@@ -163,6 +168,7 @@ class AutoPlayer_WF(tk.Tk):
         config["RAID"]["event_mode"] = self.event_mode_entry.get()
         config["RAID"]["event_screenshot"] = self.event_screenshot_entry.get()
         config["RAID"]["raid_choose"] = self.raid_choose_entry.get()
+        config["RAID"]["ring_raid_choose"] = self.ring_raid_choose_entry.get()
         config["WF"]["fangzhu_device"] = self.fangzhu_device_entry.get()
         config["WF"]["limit_player"] = self.limit_player_entry.get()
         config["WF"]["fangzhu_account"] = self.fangzhu_account_entry.get()
@@ -171,6 +177,7 @@ class AutoPlayer_WF(tk.Tk):
         config["WF"]["timeout"] = self.timeout_entry.get()
         config["WF"]["battle_timeout"] = self.battle_timeout_entry.get()
         config["WF"]["loop_device"] = self.loop_device_entry.get()
+        config["WF"]["ring_raid_choose"] = self.ring_raid_choose_entry.get()
 
         with open("./config.ini", "w") as configfile:
             config.write(configfile)
@@ -201,6 +208,10 @@ class AutoPlayer_WF(tk.Tk):
         self.save_config()
         self.proc_loop = subprocess.Popen("python World_Flipper\\world_flipper_loop.py")
 
+    def ring_go(self):
+        self.save_config()
+        self.proc_ring = subprocess.Popen("python World_Flipper\\world_flipper_ring.py")
+
     def fangzhu_stop(self):
         self.proc_fangzhu.kill()
         print("[GUI]关闭房主子进程")
@@ -216,6 +227,10 @@ class AutoPlayer_WF(tk.Tk):
     def loop_stop(self):
         self.proc_loop.kill()
         print("[GUI]关闭房单人连战子进程")
+    
+    def ring_stop(self):
+        self.save_config()
+        self.proc_ring.kill()
 
     def refreshText(self, p, text):
         fangzhu_output = self.proc_fangzhu.stdout
@@ -250,6 +265,10 @@ class AutoPlayer_WF(tk.Tk):
             print("[GUI]单人连战子线程已关闭")
         except:
             print("[GUI]单人连战子线程未启动")
+        try:
+            self.proc_ring.kill()
+        except:
+            print("[GUI]蹭铃铛子线程未启动")
         self.destroy()
 
 
@@ -271,12 +290,14 @@ if __name__ == "__main__":
     canzhan1_device = config["WF"]["canzhan_device_1"]
     canzhan2_device = config["WF"]["canzhan_device_2"]
     loop_device = config["WF"]["loop_device"]
+    ring_device = config["WF"]["ring_device"]
     timeout = config["WF"].getint("timeout")
     battle_timeout = config["WF"].getint("battle_timeout")
 
     event_mode = config["RAID"]["event_mode"]
     event_screenshot = config["RAID"]["event_screenshot"]
     raid_choose = config["RAID"]["raid_choose"]
+    ring_raid_choose = config["RAID"]["ring_raid_choose"]
 
     AutoPlayer_wf = AutoPlayer_WF()
     AutoPlayer_wf.mainloop()
