@@ -199,6 +199,7 @@ class AutoPlayer_WF(tk.Tk):
         config["WF"]["canzhan_device_2"] = self.canzhan2_device_entry.get()
         config["WF"]["timeout"] = self.timeout_entry.get()
         config["WF"]["battle_timeout"] = self.battle_timeout_entry.get()
+        config["WF"]["loop_device"] = self.loop_device_entry.get()
 
         with open("./config.ini", "w") as configfile:
             config.write(configfile)
