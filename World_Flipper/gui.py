@@ -17,19 +17,17 @@ class AutoPlayer_WF(tk.Tk):
         config_tab = tk.Frame(self.notebook)
         fangzhu_tab = tk.Frame(self.notebook)
         canzhan_tab = tk.Frame(self.notebook)
-        loop_tab = tk.Frame(self.notebook)
+        danren_tab = tk.Frame(self.notebook)
 
         # 全局设置
-        self.debug_label = tk.Label(config_tab, text="Debug设置").grid(row=0, column=0)
-        self.acc_label = tk.Label(config_tab, text="图片匹配精度").grid(row=1, column=0)
+        tk.Label(config_tab, text="Debug设置").grid(row=0, column=0)
+        tk.Label(config_tab, text="图片匹配精度").grid(row=1, column=0)
         # self.wanted_path_label = tk.Label(config_tab, text="目标图片地址").grid(
         #     row=2, column=0
         # )
         # self.device_w_label = tk.Label(config_tab, text="设备宽").grid(row=3, column=0)
         # self.device_h_label = tk.Label(config_tab, text="设备高").grid(row=4, column=0)
-        self.screenshot_blank_label = tk.Label(config_tab, text="截图间隔").grid(
-            row=5, column=0
-        )
+        tk.Label(config_tab, text="截图间隔").grid(row=5, column=0)
         # self.adb_path_label = tk.Label(config_tab, text="ADB路径").grid(row=6, column=0)
 
         self.debug_entry = tk.Entry(config_tab, bg="grey", fg="black")
@@ -60,57 +58,42 @@ class AutoPlayer_WF(tk.Tk):
         # self.adb_path_entry.grid(row=6, column=1)
         # self.adb_path_entry.insert(0, adb_path)
 
-        self.event_mode_label = tk.Label(config_tab, text="活动模式").grid(row=7, column=0)
+        tk.Label(config_tab, text="活动模式").grid(row=7, column=0)
         self.event_mode_entry = tk.Entry(config_tab, bg="white", fg="black")
         self.event_mode_entry.insert(0, event_mode)
         self.event_mode_entry.grid(row=7, column=1)
 
-        self.event_screenshot_label = tk.Label(config_tab, text="活动图标\n(开启活动模式)").grid(
-            row=8, column=0
-        )
+        tk.Label(config_tab, text="活动图标\n(开启活动模式)").grid(row=8, column=0)
         self.event_screenshot_entry = tk.Entry(config_tab, bg="white", fg="black")
         self.event_screenshot_entry.insert(0, event_screenshot)
         self.event_screenshot_entry.grid(row=8, column=1)
 
-        self.raid_choose_label = tk.Label(config_tab, text="日常图标\n(关闭活动模式)").grid(
-            row=9, column=0
-        )
+        tk.Label(config_tab, text="日常图标\n(关闭活动模式)").grid(row=9, column=0)
         self.raid_choose_entry = tk.Entry(config_tab, bg="white", fg="black")
         self.raid_choose_entry.insert(0, raid_choose)
         self.raid_choose_entry.grid(row=9, column=1)
 
-        self.info_Label = tk.Label(config_tab, text="※不建议修改灰色部分").grid(row=10, column=1)
-        self.save_button = tk.Button(
-            config_tab, text="保存", command=self.save_config, width=10
-        )
-        self.save_button.grid(row=10, column=0)
+        tk.Label(config_tab, text="※不建议修改灰色部分").grid(row=10, column=1)
+        tk.Button(config_tab, text="保存", command=self.save_config, width=10).grid(row=10, column=0)
 
         # 房主
-        self.limit_player_label = tk.Label(fangzhu_tab, text="最小玩家数").grid(
-            row=0, column=0
-        )
+        tk.Label(fangzhu_tab, text="最小玩家数").grid(row=0, column=0)
         self.limit_player_entry = tk.Entry(fangzhu_tab, bg="white", fg="black")
         self.limit_player_entry.insert(0, limit_player)
         self.limit_player_entry.grid(row=0, column=1)
 
-        self.fangzhu_device_label = tk.Label(fangzhu_tab, text="房主设备").grid(
-            row=1, column=0
-        )
+        tk.Label(fangzhu_tab, text="房主设备").grid(row=1, column=0)
         self.fangzhu_device_entry = tk.Entry(fangzhu_tab, bg="white", fg="black")
         self.fangzhu_device_entry.insert(0, fangzhu_device)
         self.fangzhu_device_entry.grid(row=1, column=1)
 
-        timeout_label = tk.Label(fangzhu_tab, text="超时重启(秒)").grid(row=2, column=0)
+        tk.Label(fangzhu_tab, text="超时重启(秒)").grid(row=2, column=0)
         self.timeout_entry = tk.Entry(fangzhu_tab)
         self.timeout_entry.insert(0, timeout)
         self.timeout_entry.grid(row=2, column=1)
 
-        self.fangzhu_go_button = tk.Button(
-            fangzhu_tab, text="GO!", width=7, command=lambda: self.fangzhu_go()
-        ).grid(row=3, column=1, sticky=tk.W, padx=5)
-        self.fangzhu_stop_button = tk.Button(
-            fangzhu_tab, text="STOP!", width=7, command=lambda: self.fangzhu_stop()
-        ).grid(row=3, column=1, sticky=tk.E, padx=5)
+        tk.Button(fangzhu_tab, text="GO!", width=7, command=lambda: self.fangzhu_go()).grid(row=3, column=1, sticky=tk.W, padx=5)
+        tk.Button(fangzhu_tab, text="STOP!", width=7, command=lambda: self.fangzhu_stop()).grid(row=3, column=1, sticky=tk.E, padx=5)
         # self.fangzhu_scrollbar = ttk.Scrollbar(fangzhu_tab, orient=tk.VERTICAL)
         # self.fangzhu_shell = tk.Text(
         #     fangzhu_tab, width=30, height=18, yscrollcommand=self.fangzhu_scrollbar.set
@@ -119,65 +102,53 @@ class AutoPlayer_WF(tk.Tk):
         # self.fangzhu_shell.grid(row=4, columnspan=2)
 
         # 参战
-        self.fangzhu_account_label = tk.Label(canzhan_tab, text="房主截图").grid(
-            row=0, column=0
-        )
+        tk.Label(canzhan_tab, text="房主截图").grid(row=0, column=0)
         self.fangzhu_account_entry = tk.Entry(canzhan_tab, bg="white", fg="black")
         self.fangzhu_account_entry.insert(0, fangzhu_account)
         self.fangzhu_account_entry.grid(row=0, column=1)
 
-        battle_timeout_label = tk.Label(canzhan_tab, text="战斗超时(秒)").grid(
-            row=1, column=0
-        )
+        tk.Label(canzhan_tab, text="战斗超时(秒)").grid(row=1, column=0)
         self.battle_timeout_entry = tk.Entry(canzhan_tab)
         self.battle_timeout_entry.insert(0, battle_timeout)
         self.battle_timeout_entry.grid(row=1, column=1)
 
-        self.canzhan1_device_label = tk.Label(canzhan_tab, text="参战1设备").grid(
-            row=10, column=0
-        )
+        tk.Label(canzhan_tab, text="参战1设备").grid(row=10, column=0)
         self.canzhan1_device_entry = tk.Entry(canzhan_tab, bg="white", fg="black")
         self.canzhan1_device_entry.insert(0, canzhan1_device)
         self.canzhan1_device_entry.grid(row=10, column=1)
 
-        self.canzhan1_go_button = tk.Button(
-            canzhan_tab, text="GO!", width=7, command=lambda: self.canzhan1_go()
-        ).grid(row=11, column=1, sticky=tk.W, padx=5)
-        self.canzhan1_stop_button = tk.Button(
-            canzhan_tab, text="STOP!", width=7, command=lambda: self.canzhan1_stop()
-        ).grid(row=11, column=1, sticky=tk.E, padx=5)
+        tk.Button(canzhan_tab, text="GO!", width=7, command=lambda: self.canzhan1_go()).grid(row=11, column=1, sticky=tk.W, padx=5)
+        tk.Button(canzhan_tab, text="STOP!", width=7, command=lambda: self.canzhan1_stop()).grid(row=11, column=1, sticky=tk.E, padx=5)
 
-        self.canzhan2_device_label = tk.Label(canzhan_tab, text="参战2设备").grid(
-            row=20, column=0
-        )
+        tk.Label(canzhan_tab, text="参战2设备").grid(row=20, column=0)
         self.canzhan2_device_entry = tk.Entry(canzhan_tab, bg="white", fg="black")
         self.canzhan2_device_entry.insert(0, canzhan2_device)
         self.canzhan2_device_entry.grid(row=20, column=1)
 
-        self.canzhan2_go_button = tk.Button(
-            canzhan_tab, text="GO!", width=7, command=lambda: self.canzhan2_go()
-        ).grid(row=21, column=1, sticky=tk.W, padx=5)
-        self.canzhan2_stop_button = tk.Button(
-            canzhan_tab, text="STOP!", width=7, command=lambda: self.canzhan2_stop()
-        ).grid(row=21, column=1, sticky=tk.E, padx=5)
+        tk.Button(canzhan_tab, text="GO!", width=7, command=lambda: self.canzhan2_go()).grid(row=21, column=1, sticky=tk.W, padx=5)
+        tk.Button(canzhan_tab, text="STOP!", width=7, command=lambda: self.canzhan2_stop()).grid(row=21, column=1, sticky=tk.E, padx=5)
 
-        # 单人连战
-        self.loop_device_label = tk.Label(loop_tab, text="连战设备").grid(row=0, column=0)
-        self.loop_device_entry = tk.Entry(loop_tab, bg="white", fg="black")
+        # 单人
+        tk.Label(danren_tab, text="连战设备").grid(row=0, column=0)
+        self.loop_device_entry = tk.Entry(danren_tab, bg="white", fg="black")
         self.loop_device_entry.insert(0, loop_device)
         self.loop_device_entry.grid(row=0, column=1)
 
-        self.loop_go_button = tk.Button(
-            loop_tab, text="GO!", width=7, command=lambda: self.loop_go()
-        ).grid(row=5, column=1, sticky=tk.W, padx=5)
-        self.loop_stop_button = tk.Button(
-            loop_tab, text="STOP!", width=7, command=lambda: self.loop_stop()
-        ).grid(row=5, column=1, sticky=tk.E, padx=5)
+        tk.Button(danren_tab, text="GO!", width=7, command=lambda: self.loop_go()).grid(row=5, column=1, sticky=tk.W, padx=5)
+        tk.Button(danren_tab, text="STOP!", width=7, command=lambda: self.loop_stop()).grid(row=5, column=1, sticky=tk.E, padx=5)
+
+        tk.Label(danren_tab, text="蹭铃铛设备").grid(row=10,column=0)
+        self.lingdang_device_entry = tk.Entry(danren_tab)
+        self.lingdang_device_entry.insert(0, "还没做呢 先放这")
+        self.lingdang_device_entry.grid(row=10,column=1)
+
+        tk.Button(danren_tab,text="GO!",width=7).grid(row=11,column=1,sticky=tk.W,padx=5)
+        tk.Button(danren_tab,text="STOP!",width=7).grid(row=11,column=1,sticky=tk.E,padx=5)
 
         self.notebook.add(config_tab, text="全局设置")
         self.notebook.add(fangzhu_tab, text="房主")
         self.notebook.add(canzhan_tab, text="参战")
-        self.notebook.add(loop_tab, text="单人连战")
+        self.notebook.add(danren_tab, text="单人")
 
         self.notebook.pack(fill=tk.BOTH, expand=1)
 
