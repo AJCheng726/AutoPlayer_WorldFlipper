@@ -9,6 +9,7 @@ def wf_owner(player, config, loop_time=0, count=0, event_mode=0):
     event_screenshot = config["RAID"]["event_screenshot"]
     raid_choose = config["RAID"]["raid_choose"]
     timeout = config["WF"].getint("timeout")
+    allow_stranger = config["WF"].getint("allow_stranger")
 
     if event_mode:
         print(
@@ -49,7 +50,7 @@ def wf_owner(player, config, loop_time=0, count=0, event_mode=0):
                 while not player.find("button_duorenyouxi"):
                     player.find_touch(event_screenshot)
                     player.find_touch("button_ok")
-            build_from_multiplayer(player, change_zhaomu=True)
+            build_from_multiplayer(player, change_zhaomu=(not allow_stranger))
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(timeout, False):
                 timeout_flag = wait_in_room(player)

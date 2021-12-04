@@ -63,12 +63,12 @@ class AutoPlayer_WF(tk.Tk):
         self.event_mode_entry.insert(0, event_mode)
         self.event_mode_entry.grid(row=7, column=1)
 
-        tk.Label(config_tab, text="活动图标\n(开启活动模式)").grid(row=8, column=0)
+        tk.Label(config_tab, text="活动目标\n(开启活动模式)").grid(row=8, column=0)
         self.event_screenshot_entry = tk.Entry(config_tab, bg="white", fg="black")
         self.event_screenshot_entry.insert(0, event_screenshot)
         self.event_screenshot_entry.grid(row=8, column=1)
 
-        tk.Label(config_tab, text="日常图标\n(关闭活动模式)").grid(row=9, column=0)
+        tk.Label(config_tab, text="日常目标\n(关闭活动模式)").grid(row=9, column=0)
         self.raid_choose_entry = tk.Entry(config_tab, bg="white", fg="black")
         self.raid_choose_entry.insert(0, raid_choose)
         self.raid_choose_entry.grid(row=9, column=1)
@@ -92,8 +92,13 @@ class AutoPlayer_WF(tk.Tk):
         self.timeout_entry.insert(0, timeout)
         self.timeout_entry.grid(row=2, column=1)
 
-        tk.Button(fangzhu_tab, text="GO!", width=7, command=lambda: self.fangzhu_go()).grid(row=3, column=1, sticky=tk.W, padx=5)
-        tk.Button(fangzhu_tab, text="STOP!", width=7, command=lambda: self.fangzhu_stop()).grid(row=3, column=1, sticky=tk.E, padx=5)
+        tk.Label(fangzhu_tab, text="随机招募").grid(row=3, column=0)
+        self.allow_stranger_entry = tk.Entry(fangzhu_tab)
+        self.allow_stranger_entry.insert(0, allow_stranger)
+        self.allow_stranger_entry.grid(row=3,column=1)
+
+        tk.Button(fangzhu_tab, text="GO!", width=7, command=lambda: self.fangzhu_go()).grid(row=4, column=1, sticky=tk.W, padx=5)
+        tk.Button(fangzhu_tab, text="STOP!", width=7, command=lambda: self.fangzhu_stop()).grid(row=4, column=1, sticky=tk.E, padx=5)
         # self.fangzhu_scrollbar = ttk.Scrollbar(fangzhu_tab, orient=tk.VERTICAL)
         # self.fangzhu_shell = tk.Text(
         #     fangzhu_tab, width=30, height=18, yscrollcommand=self.fangzhu_scrollbar.set
@@ -142,7 +147,7 @@ class AutoPlayer_WF(tk.Tk):
         self.lingdang_device_entry.insert(0, ring_device)
         self.lingdang_device_entry.grid(row=10,column=1)
 
-        tk.Label(danren_tab, text="蹭铃铛本").grid(row=11,column=0)
+        tk.Label(danren_tab, text="蹭铃铛目标").grid(row=11,column=0)
         self.ring_raid_choose_entry = tk.Entry(danren_tab)
         self.ring_raid_choose_entry.insert(0, ring_raid_choose)
         self.ring_raid_choose_entry.grid(row=11,column=1)
@@ -177,7 +182,7 @@ class AutoPlayer_WF(tk.Tk):
         config["WF"]["timeout"] = self.timeout_entry.get()
         config["WF"]["battle_timeout"] = self.battle_timeout_entry.get()
         config["WF"]["loop_device"] = self.loop_device_entry.get()
-        config["WF"]["ring_raid_choose"] = self.ring_raid_choose_entry.get()
+        config["WF"]["allow_stranger"] = self.allow_stranger_entry.get()
 
         with open("./config.ini", "w") as configfile:
             config.write(configfile)
@@ -295,6 +300,7 @@ if __name__ == "__main__":
     ring_device = config["WF"]["ring_device"]
     timeout = config["WF"].getint("timeout")
     battle_timeout = config["WF"].getint("battle_timeout")
+    allow_stranger = config["WF"].getint("allow_stranger")
 
     event_mode = config["RAID"]["event_mode"]
     event_screenshot = config["RAID"]["event_screenshot"]
