@@ -269,24 +269,39 @@ class AutoPlayer_WF(tk.Tk):
         self.proc_ring = subprocess.Popen("python World_Flipper\\world_flipper_ring.py")
 
     def fangzhu_stop(self):
-        self.proc_fangzhu.kill()
-        print("[GUI]关闭房主子进程")
+        try:
+            self.proc_fangzhu.kill()
+            print("[GUI]房主子线程已关闭")
+        except:
+            print("[GUI]房主子线程未启动")
 
     def canzhan1_stop(self):
-        self.proc_canzhan1.kill()
-        print("[GUI]关闭房参战1子进程")
+        try:
+            self.proc_canzhan1.kill()
+            print("[GUI]参战1子线程已关闭")
+        except:
+            print("[GUI]参战1子线程未启动")
 
     def canzhan2_stop(self):
-        self.proc_canzhan2.kill()
-        print("[GUI]关闭房参战2子进程")
+        try:
+            self.proc_canzhan2.kill()
+            print("[GUI]参战2子线程已关闭")
+        except:
+            print("[GUI]参战2子线程未启动")
 
     def loop_stop(self):
-        self.proc_loop.kill()
-        print("[GUI]关闭房单人连战子进程")
+        try:
+            self.proc_loop.kill()
+            print("[GUI]单人连战子线程已关闭")
+        except:
+            print("[GUI]单人连战子线程未启动")
 
     def ring_stop(self):
-        self.proc_ring.kill()
-        print("[GUI]关闭蹭铃铛子进程")
+        try:
+            self.proc_ring.kill()
+            print("[GUI]蹭铃铛子线程已关闭")
+        except:
+            print("[GUI]蹭铃铛子线程未启动")
 
     def refreshText(self, p, text):
         fangzhu_output = self.proc_fangzhu.stdout
@@ -323,32 +338,12 @@ class AutoPlayer_WF(tk.Tk):
             print("[GUI]蹭铃铛子线程未启动")
 
     def kill_process(self):
-        print("[GUI]退出时关闭所有子线程")
-        try:
-            self.proc_fangzhu.kill()
-            print("[GUI]房主子线程已关闭")
-        except:
-            print("[GUI]房主子线程未启动")
-        try:
-            self.proc_canzhan1.kill()
-            print("[GUI]参战1子线程已关闭")
-        except:
-            print("[GUI]参战1子线程未启动")
-        try:
-            self.proc_canzhan2.kill()
-            print("[GUI]参战2子线程已关闭")
-        except:
-            print("[GUI]参战2子线程未启动")
-        try:
-            self.proc_loop.kill()
-            print("[GUI]单人连战子线程已关闭")
-        except:
-            print("[GUI]单人连战子线程未启动")
-        try:
-            self.proc_ring.kill()
-            print("[GUI]蹭铃铛子线程已关闭")
-        except:
-            print("[GUI]蹭铃铛子线程未启动")
+        print("[GUI]关闭所有子线程")
+        self.fangzhu_stop()
+        self.canzhan1_stop()
+        self.canzhan2_stop()
+        self.loop_stop()
+        self.ring_stop()
 
     def set_autoshutdown(self):
         subprocess.Popen("shutdown -s -t " + self.auto_shutdown_entry.get())
