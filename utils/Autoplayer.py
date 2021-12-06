@@ -141,7 +141,7 @@ class Autoplayer:
             location = numpy.where(result >= treshold)
         except:
             raise Exception(
-                "定位图像出错，请确认以下信息...使用设备：",
+                "定位图像出错，确认以下信息...使用设备：",
                 self.use_device,
                 "且目标文件夹下存在图像：",
                 c_name,
