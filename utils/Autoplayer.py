@@ -128,7 +128,7 @@ class Autoplayer:
             a = [cv2.imread(file_path), treshold, name]
             imgs[name] = a
         if self.debug:
-            print("从{0}加载图片{1}".format(path,len(file_list)))
+            print("从{0}加载图片{1}".format(path, len(file_list)))
 
         return imgs
 
@@ -136,8 +136,16 @@ class Autoplayer:
     def locate(self, screen, wanted, show=0):
         loc_pos = []
         wanted, treshold, c_name = wanted
-        result = cv2.matchTemplate(screen, wanted, cv2.TM_CCOEFF_NORMED)
-        location = numpy.where(result >= treshold)
+        try:
+            result = cv2.matchTemplate(screen, wanted, cv2.TM_CCOEFF_NORMED)
+            location = numpy.where(result >= treshold)
+        except:
+            raise Exception(
+                "定位图像出错，请确认以下信息...使用设备：",
+                self.use_device,
+                "且目标文件夹下存在图像：",
+                c_name,
+            )
 
         h, w = wanted.shape[:-1]
 
@@ -326,17 +334,17 @@ if __name__ == "__main__":
     # config.sections()
     config.read("./config.ini")
     # print(config['GENERAL']['Debug'])
-    config['RAID']['event_screenshot'] = "raid_event2"
-    config['WF']['fangzhu_account'] = "icon_chufaqianpickup,icon_chufaqian"
-    print("修改后的参数",config['RAID']['event_screenshot'])
-    with open('example.ini', 'w') as configfile:
+    config["RAID"]["event_screenshot"] = "raid_event2"
+    config["WF"]["fangzhu_account"] = "icon_chufaqianpickup,icon_chufaqian"
+    print("修改后的参数", config["RAID"]["event_screenshot"])
+    with open("example.ini", "w") as configfile:
         config.write(configfile)
 
     player1 = Autoplayer(
         use_device="emulator-5554",
-        adb_path=config['GENERAL']['adb_path'],
-        apk_name=config['WF']['wf_apk_name'],
-        active_class_name=config['WF']['wf_active_class_name'],
+        adb_path=config["GENERAL"]["adb_path"],
+        apk_name=config["WF"]["wf_apk_name"],
+        active_class_name=config["WF"]["wf_active_class_name"],
     )
     player2 = Autoplayer(
         use_device="emulator-5556",

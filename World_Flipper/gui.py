@@ -234,6 +234,7 @@ class AutoPlayer_WF(tk.Tk):
         config["WF"]["battle_timeout"] = self.battle_timeout_entry.get()
         config["WF"]["loop_device"] = self.loop_device_entry.get()
         config["WF"]["allow_stranger"] = self.allow_stranger_entry.get()
+        config["WF"]["ring_device"] = self.lingdang_device_entry.get()
 
         with open("./config.ini", "w") as configfile:
             config.write(configfile)
@@ -271,37 +272,37 @@ class AutoPlayer_WF(tk.Tk):
     def fangzhu_stop(self):
         try:
             self.proc_fangzhu.kill()
-            print("[GUI]房主子线程已关闭")
+            print("[GUI]房主子进程已关闭")
         except:
-            print("[GUI]房主子线程未启动")
+            print("[GUI]房主子进程未启动")
 
     def canzhan1_stop(self):
         try:
             self.proc_canzhan1.kill()
-            print("[GUI]参战1子线程已关闭")
+            print("[GUI]参战1子进程已关闭")
         except:
-            print("[GUI]参战1子线程未启动")
+            print("[GUI]参战1子进程未启动")
 
     def canzhan2_stop(self):
         try:
             self.proc_canzhan2.kill()
-            print("[GUI]参战2子线程已关闭")
+            print("[GUI]参战2子进程已关闭")
         except:
-            print("[GUI]参战2子线程未启动")
+            print("[GUI]参战2子进程未启动")
 
     def loop_stop(self):
         try:
             self.proc_loop.kill()
-            print("[GUI]单人连战子线程已关闭")
+            print("[GUI]单人连战子进程已关闭")
         except:
-            print("[GUI]单人连战子线程未启动")
+            print("[GUI]单人连战子进程未启动")
 
     def ring_stop(self):
         try:
             self.proc_ring.kill()
-            print("[GUI]蹭铃铛子线程已关闭")
+            print("[GUI]蹭铃铛子进程已关闭")
         except:
-            print("[GUI]蹭铃铛子线程未启动")
+            print("[GUI]蹭铃铛子进程未启动")
 
     def refreshText(self, p, text):
         fangzhu_output = self.proc_fangzhu.stdout
@@ -315,30 +316,30 @@ class AutoPlayer_WF(tk.Tk):
         self.after(500, self.refreshText)
 
     def check_process(self):
-        print("[GUI]查询所有子线程")
+        print("[GUI]查询所有子进程")
         try:
-            print("[GUI]房主子线程", self.proc_fangzhu.poll())
+            print("[GUI]房主子进程", self.proc_fangzhu.poll())
         except:
-            print("[GUI]房主子线程未启动")
+            print("[GUI]房主子进程未启动")
         try:
-            print("[GUI]参战1子线程", self.proc_canzhan1.poll())
+            print("[GUI]参战1子进程", self.proc_canzhan1.poll())
         except:
-            print("[GUI]参战1子线程未启动")
+            print("[GUI]参战1子进程未启动")
         try:
-            print("[GUI]参战2子线程", self.proc_canzhan2.poll())
+            print("[GUI]参战2子进程", self.proc_canzhan2.poll())
         except:
-            print("[GUI]参战2子线程未启动")
+            print("[GUI]参战2子进程未启动")
         try:
-            print("[GUI]单人连战子线程", self.proc_loop.poll())
+            print("[GUI]单人连战子进程", self.proc_loop.poll())
         except:
-            print("[GUI]单人连战子线程未启动")
+            print("[GUI]单人连战子进程未启动")
         try:
-            print("[GUI]蹭铃铛子线程", self.proc_ring.poll())
+            print("[GUI]蹭铃铛子进程", self.proc_ring.poll())
         except:
-            print("[GUI]蹭铃铛子线程未启动")
+            print("[GUI]蹭铃铛子进程未启动")
 
     def kill_process(self):
-        print("[GUI]关闭所有子线程")
+        print("[GUI]关闭所有子进程")
         self.fangzhu_stop()
         self.canzhan1_stop()
         self.canzhan2_stop()
