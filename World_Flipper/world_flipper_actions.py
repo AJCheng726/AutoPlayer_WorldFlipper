@@ -48,6 +48,16 @@ def login(player):
         player.find_touch("tips_denglujiangli")
         player.touch((device_w * 1 / 2, device_h * 1 / 4))
 
+def find_raid(player, raid_choose, difficult=0):
+    not_in_view = ["raid_fire"] # 所选本不在第一页，需要下滑找
+    if raid_choose in not_in_view:
+        while not player.wait(raid_choose,3):
+            player.down_swipe()
+    player.wait_touch(raid_choose)
+    if difficult==0:
+        time.sleep(2)
+        player.touch((366, 348))  # 选第一个难度
+
 
 def build_from_multiplayer(player, change_zhaomu=False):
     print(Timer().simple_time(), player.use_device, "房主建房...")

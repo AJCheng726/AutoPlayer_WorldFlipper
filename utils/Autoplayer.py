@@ -24,6 +24,8 @@ class Autoplayer:
         accuracy=0.75,
         screenshot_blank=0.5,
         wanted_path="./wanted",
+        device_w=540,
+        device_h=960,
     ) -> None:
         self.use_device = use_device
         self.adb_path = adb_path
@@ -33,6 +35,8 @@ class Autoplayer:
         self.accuracy = accuracy
         self.screenshot_blank = screenshot_blank
         self.wanted_path = wanted_path
+        self.device_w = device_w
+        self.device_h = device_h
 
         self.imgs = self.load_imgs()
         self.adb_test()
@@ -107,6 +111,17 @@ class Autoplayer:
         )
         os.popen(a)
 
+    def down_swipe(self):
+        a = "{0} -s {1} shell input swipe {2} {3} {4} {5}".format(
+            self.adb_path,
+            self.use_device,
+            (1 / 2) * self.device_w,
+            (700 / 960) * self.device_h,
+            (1 / 2) * self.device_w,
+            (500 / 960) * self.device_h,
+        )
+        os.popen(a)
+
     # 蜂鸣报警器，参数n为鸣叫次数，可用于提醒出错或任务完成
     def alarm(self, n=3):
         frequency = 1500
@@ -141,10 +156,7 @@ class Autoplayer:
             location = numpy.where(result >= treshold)
         except:
             raise Exception(
-                "定位图像出错，确认以下信息...使用设备：",
-                self.use_device,
-                "且目标文件夹下存在图像：",
-                c_name,
+                "定位图像出错，确认以下信息...使用设备：", self.use_device, "且目标文件夹下存在图像：", c_name,
             )
 
         h, w = wanted.shape[:-1]

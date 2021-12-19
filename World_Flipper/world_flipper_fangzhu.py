@@ -41,9 +41,7 @@ def wf_owner(player, config, loop_time=0, count=0, event_mode=0):
             login(player)
             player.touch((465, 809))  # 领主战
             if not event_mode:  # 日常模式
-                player.wait_touch(raid_choose)
-                time.sleep(2)
-                player.touch((366, 348))  # 选第一个难度
+                find_raid(player, raid_choose, difficult=0)
             else:  # 活动模式
                 time.sleep(3)
                 player.wait_touch("button_event")  # 活动
