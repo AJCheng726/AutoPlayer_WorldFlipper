@@ -50,7 +50,7 @@ def login(player):
 
 def find_raid(player, raid_choose, difficult=0):
     print(Timer().simple_time(), player.use_device, "寻找raid:"+raid_choose)
-    not_in_view = ["raid_fire"] # 所选本不在第一页，需要下滑找
+    not_in_view = ["raid_fire","raid_wind"] # 所选本不在第一页，需要下滑找
     if raid_choose in not_in_view:
         while not player.wait(raid_choose,3):
             player.down_swipe()
