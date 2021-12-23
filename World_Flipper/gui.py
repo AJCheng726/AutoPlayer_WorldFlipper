@@ -1,3 +1,5 @@
+import os
+import time
 import configparser
 import subprocess
 import tkinter as tk
@@ -203,6 +205,9 @@ class AutoPlayer_WF(tk.Tk):
         tk.Button(
             gongju_tab, text="查询所有设备", width=12, command=lambda: self.check_devices()
         ).grid(row=12, columnspan=2, sticky=tk.W, padx=5,pady=2)
+        tk.Button(
+            gongju_tab, text="所有设备截图", width=12, command=lambda: self.devices_screenshot()
+        ).grid(row=12, columnspan=2, sticky=tk.E, padx=5,pady=2)
 
         # notebook
         self.notebook.add(config_tab, text="全局设置")
@@ -348,6 +353,20 @@ class AutoPlayer_WF(tk.Tk):
 
     def check_devices(self):
         subprocess.Popen("{0} devices".format(adb_path))
+    
+    def devices_screenshot(self):
+        for d in list(set([fangzhu_device,canzhan1_device,canzhan2_device,loop_device,ring_device])):
+            subprocess.Popen("{0}".format(adb_path))
+            a = "{2} -s {0} shell screencap -p sdcard/screen_{1}.jpg".format(
+                d, d, adb_path
+            )
+            b = "{2} -s {0} pull sdcard/screen_{1}.jpg ./screen".format(
+                d, d, adb_path
+            )
+            for row in [a, b]:
+                raw_content = os.popen(row).read()
+                time.sleep(0.2)
+            print("[GUI]已对设备{0}截图".format(d))
 
     def set_autoshutdown(self):
         subprocess.Popen("shutdown -s -t " + self.auto_shutdown_entry.get())
