@@ -346,11 +346,11 @@ if __name__ == "__main__":
     # config.sections()
     config.read("./config.ini")
     # print(config['GENERAL']['Debug'])
-    config["RAID"]["event_screenshot"] = "raid_event2"
-    config["WF"]["fangzhu_account"] = "icon_chufaqianpickup,icon_chufaqian"
-    print("修改后的参数", config["RAID"]["event_screenshot"])
-    with open("example.ini", "w") as configfile:
-        config.write(configfile)
+    # config["RAID"]["event_screenshot"] = "raid_event2"
+    # config["WF"]["fangzhu_account"] = "icon_chufaqianpickup,icon_chufaqian"
+    # print("修改后的参数", config["RAID"]["event_screenshot"])
+    # with open("example.ini", "w") as configfile:
+    #     config.write(configfile)
 
     player1 = Autoplayer(
         use_device="emulator-5554",
