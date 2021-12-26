@@ -93,8 +93,8 @@ def quit_battle(player):
         player.wait_touch("button_pause", max_wait_time=1)
         player.wait_touch("button_fangqi", max_wait_time=1)
         player.wait_touch("button_shi", max_wait_time=1)
-        if timer.get_duration() > 60:
-            print("60秒没发现[多人游戏]，应为误结算...结算后重建房...")
+        if timer.get_duration() > 120:
+            print("120秒没发现[多人游戏]，应为误结算...结算后重建房...")
             player.wait_touch("button_jixu")
             player.wait_touch("button_jixu")
             return False
