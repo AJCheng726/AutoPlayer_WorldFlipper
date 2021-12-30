@@ -54,6 +54,7 @@ def check_ui(player):
         "button_duorenyouxi",
         "button_duihuandaoju",
         "button_zhaomu",
+        "button_pause"
     ]  # 注意顺序，可能同时包含多个特征
     flag = player.find_any(ui_pages)
 
@@ -81,6 +82,9 @@ def check_ui(player):
     elif flag == 6:
         print("[6]发现招募按钮，当前处于房间内页面")
         return 6
+    elif flag == 7:
+        print("[7]发现暂停按钮，当前处于战斗中")
+        return 7
 
 
 def login(player):
@@ -120,6 +124,7 @@ def goto_main(player):
     # 检查是否前往成功
     if player.wait("button_gonggao", max_wait_time=5):
         print("已处于主城")
+        return
     else:
         print("前往失败,重启游戏...")
         restart_game(player)
