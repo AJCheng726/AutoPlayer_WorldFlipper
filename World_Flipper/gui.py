@@ -356,7 +356,6 @@ class AutoPlayer_WF(tk.Tk):
     
     def devices_screenshot(self):
         for d in list(set([fangzhu_device,canzhan1_device,canzhan2_device,loop_device,ring_device])):
-            subprocess.Popen("{0}".format(adb_path))
             a = "{2} -s {0} shell screencap -p sdcard/screen_{1}.jpg".format(
                 d, d, adb_path
             )
@@ -365,7 +364,7 @@ class AutoPlayer_WF(tk.Tk):
             )
             for row in [a, b]:
                 raw_content = os.popen(row).read()
-                time.sleep(0.2)
+                # time.sleep(0.2)
             print("[GUI]已对设备{0}截图".format(d))
 
     def set_autoshutdown(self):
