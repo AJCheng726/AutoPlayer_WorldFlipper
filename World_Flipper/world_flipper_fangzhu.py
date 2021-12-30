@@ -4,6 +4,21 @@ import configparser
 
 eventlet.monkey_patch()
 
+def one_loop(player,count):
+    timeout_flag = wait_in_room(player)
+    if not timeout_flag:
+        quit_battle(player)
+        build_from_multiplayer(player)
+    else:  # 房间没人来，自动解散
+        build_from_multiplayer(player)
+    count += 1
+    print(
+        "{1} [info] {2} 房主已执行{0}次".format(
+            count, Timer().simple_time(), player.use_device
+        )
+    )
+    return count
+
 # 选boss建房之后开始，房主退出再重建
 def wf_owner(player, config, loop_time=0, count=0, event_mode=0):
     event_screenshot = config["RAID"]["event_screenshot"]
@@ -17,22 +32,22 @@ def wf_owner(player, config, loop_time=0, count=0, event_mode=0):
         )
     else:
         print("[info] 日常模式，使用设备{0}开始建{1}房...".format(player.use_device, raid_choose))
-        
-    if check_game(player):  # 从房间内等人开始执行
+
+    if check_game(player):  # 从房间内等人开始执行,正在改为从任何界面开始建房
+        # with eventlet.Timeout(timeout, False):
+        #     player.touch((465, 809))  # 领主战
+        #     if not event_mode:  # 日常模式
+        #         find_raid(player, raid_choose, difficult=0)
+        #     else:  # 活动模式
+        #         time.sleep(3)
+        #         player.wait_touch("button_event")  # 活动
+        #         while not player.find("button_duorenyouxi"):
+        #             player.find_touch(event_screenshot)
+        #             player.find_touch("button_ok")
+        #     build_from_multiplayer(player, change_zhaomu=(not allow_stranger))
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(timeout, False):
-                timeout_flag = wait_in_room(player)
-                if not timeout_flag:
-                    quit_battle(player)
-                    build_from_multiplayer(player)
-                else:  # 房间没人来，自动解散
-                    build_from_multiplayer(player)
-                count += 1
-                print(
-                    "{1} [info] {2} 房主已执行{0}次".format(
-                        count, Timer().simple_time(), player.use_device
-                    )
-                )
+                count = one_loop(player,count)
                 continue
             print("超过{0}秒未执行下一次...即将重启游戏...".format(timeout))
             return count
@@ -50,20 +65,10 @@ def wf_owner(player, config, loop_time=0, count=0, event_mode=0):
                     player.find_touch(event_screenshot)
                     player.find_touch("button_ok")
             build_from_multiplayer(player, change_zhaomu=(not allow_stranger))
+
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(timeout, False):
-                timeout_flag = wait_in_room(player)
-                if not timeout_flag:
-                    quit_battle(player)
-                    build_from_multiplayer(player)
-                else:  # 房间没人来，自动解散
-                    build_from_multiplayer(player)
-                count += 1
-                print(
-                    "{1} [info] {2} 房主已执行{0}次".format(
-                        count, Timer().simple_time(), player.use_device
-                    )
-                )
+                count = one_loop(player,count)
                 continue
             print("超过{0}秒未执行下一次...即将重启游戏...".format(timeout))
             return count
