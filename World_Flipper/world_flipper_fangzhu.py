@@ -17,6 +17,7 @@ def wf_owner(player, config, loop_time=0, count=0, event_mode=0):
         )
     else:
         print("[info] 日常模式，使用设备{0}开始建{1}房...".format(player.use_device, raid_choose))
+        
     if check_game(player):  # 从房间内等人开始执行
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(timeout, False):
