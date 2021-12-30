@@ -22,12 +22,13 @@ def from_main_to_room(player,event_mode):
 
 def wf_join(player, loop_time=0, count=0, event_mode=0, timeout=600):
     print("[wf_join] 使用设备{0}农BOSS, 搜索房主{1}".format(player.use_device, fangzhu_account))
-    with eventlet.Timeout(timeout, False):
-        if check_ui(player) < 6: # 处于房间外
-            goto_main(player)
-            from_main_to_room(player,event_mode)
+
 
     if check_game(player):  # 从战斗中开始执行
+        with eventlet.Timeout(timeout, False):
+            if check_ui(player) < 6: # 处于房间外
+                goto_main(player)
+                from_main_to_room(player,event_mode)
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(timeout, False):  # timeout秒还没执行下一次就重启
                 count = from_battle_to_prepare(player,count)
