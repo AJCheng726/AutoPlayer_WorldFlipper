@@ -31,6 +31,14 @@ def check_game(player):
         return 0
 
 
+def check_ui(player):
+    print("检查当前所在页面...")
+    ui_pages = [""]
+    flag = player.find_any(ui_pages)
+    if flag == -1:
+        print("没有找到任何特征，无法确定当前所在页面...")
+
+
 def login(player):
     print("自动登录游戏...")
     player.start_app()
@@ -48,15 +56,16 @@ def login(player):
         player.find_touch("tips_denglujiangli")
         player.touch((device_w * 1 / 2, device_h * 1 / 4))
 
+
 def find_raid(player, raid_choose, difficult=0):
-    print(Timer().simple_time(), player.use_device, "寻找raid:"+raid_choose)
-    not_in_view = ["raid_fire","raid_wind"] # 所选本不在第一页，需要下滑找
-    player.wait("button_gengxinliebiao") # 确认进入raid选择界面
+    print(Timer().simple_time(), player.use_device, "寻找raid:" + raid_choose)
+    not_in_view = ["raid_fire", "raid_wind"]  # 所选本不在第一页，需要下滑找
+    player.wait("button_gengxinliebiao")  # 确认进入raid选择界面
     if raid_choose in not_in_view:
-        while not player.wait(raid_choose,3):
+        while not player.wait(raid_choose, 3):
             player.down_swipe()
     player.wait_touch(raid_choose)
-    if difficult==0:
+    if difficult == 0:
         time.sleep(2)
         player.touch((366, 348))  # 选第一个难度
 
@@ -127,6 +136,7 @@ def find_room(player):
         player.find_touch("button_shi")
         player.find_touch("button_ok")
 
+
 def wait_ring(player, raid):
     # 等要打的铃铛
     print(Timer().simple_time(), player.use_device, "等{0}铃铛...".format(raid))
@@ -134,11 +144,30 @@ def wait_ring(player, raid):
         player.find_touch("button_lingdang")
     if player.wait(raid, max_wait_time=5):
         player.find_touch("button_canjia")
-    else: # 铃铛不是要打的boss
+    else:  # 铃铛不是要打的boss
         player.find_touch("button_bucanjia")
         return 0
-    if player.wait_touch("button_zhunbeiwanbi", max_wait_time = 5):
+    if player.wait_touch("button_zhunbeiwanbi", max_wait_time=5):
         return 1
     else:
         player.find_touch("button_ok")
         return 0
+
+
+if __name__ == "__main__":
+    config = configparser.ConfigParser()
+    config.read("./config.ini")
+
+    player = Autoplayer(
+        use_device=config["WF"]["fangzhu_device"],
+        adb_path=config["GENERAL"]["adb_path"],
+        apk_name=config["WF"]["wf_apk_name"],
+        active_class_name=config["WF"]["wf_active_class_name"],
+        debug=config["GENERAL"].getint("Debug"),
+        accuracy=config["GENERAL"].getfloat("accuracy"),
+        screenshot_blank=config["GENERAL"].getfloat("screenshot_blank"),
+        wanted_path=config["GENERAL"]["wanted_path"],
+    )
+    
+    player.screen_shot()
+    check_ui(player)
