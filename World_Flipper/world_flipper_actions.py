@@ -53,7 +53,8 @@ def check_ui(player):
         "page_huodong",
         "button_duorenyouxi",
         "button_duihuandaoju",
-    ]
+        "button_zhaomu"
+    ] # 注意顺序，可能同时包含多个特征
     flag = player.find_any(ui_pages)
 
     if flag == -1:
@@ -77,6 +78,9 @@ def check_ui(player):
     elif flag == 5:
         print("[5]发现兑换道具按钮，当前处于选择难度页面")
         return 5
+    elif flag == 6:
+        print("[6]发现招募按钮，当前处于房间内页面")
+        return 6
 
 
 def login(player):
@@ -102,24 +106,34 @@ def goto_main(player):
     flag = check_ui(player)
     if flag == 1:
         print("已处于主城")
-    else:
-        print("尝试跳转到主城...")
+        return
+    elif flag == 6:
+        print("处于房间内，放弃任务...")
+        player.find_touch("button_fanhui")
+        player.wait_touch("button_jiesan",max_wait_time=2)
+        time.sleep(2)
         player.touch([135, 919])
-        if player.wait("button_gonggao", max_wait_time=5):
+    else:
+        print("尝试前往主城...")
+        player.touch([135, 919])
+
+    # 检查是否前往成功   
+    if player.wait("button_gonggao", max_wait_time=5):
+        print("已处于主城")
+    else:
+        print("前往失败,重启游戏...")
+        restart_game(player)
+        login(player)
+        if check_ui(player) == 1:
             print("已处于主城")
+            return
         else:
-            print("前往失败,重启游戏...")
-            restart_game(player)
-            login(player)
-            if check_ui(player) == 1:
-                print("已处于主城")
-            else:
-                raise Exception("跳转主城失败，截图并汇报开发者此错误")
+            raise Exception("跳转主城失败，截图并汇报开发者此错误")
 
 
 def find_raid(player, raid_choose, difficult=0):
     print(Timer().simple_time(), player.use_device, "寻找raid:" + raid_choose)
-    not_in_view = ["raid_fire", "raid_wind"]  # 所选本不在第一页，需要下滑找
+    not_in_view = ["raid_fire", "raid_wind","raid_water","raid_maotouying"]  # 所选本不在第一页，需要下滑找
     player.wait("button_gengxinliebiao")  # 确认进入raid选择界面
     if raid_choose in not_in_view:
         while not player.wait(raid_choose, 3):

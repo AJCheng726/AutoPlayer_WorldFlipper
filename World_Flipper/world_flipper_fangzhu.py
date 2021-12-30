@@ -37,7 +37,7 @@ def wf_owner(player, config, loop_time=0, count=0, event_mode=0):
             return count
 
     else:  # 从启动游戏开始执行
-        with eventlet.Timeout(600, False):
+        with eventlet.Timeout(timeout, False):
             login(player)
             player.touch((465, 809))  # 领主战
             if not event_mode:  # 日常模式
