@@ -46,7 +46,15 @@ def restart_game(player):
 
 def check_ui(player):
     print(Timer().simple_time(), player.use_device, "检查当前所在页面...")
-    ui_pages = ["button_caidan", "button_gonggao", "button_gengxinliebiao", "page_huodong", "button_duorenyouxi", "button_duihuandaoju", "button_zhaomu"]  # 注意顺序，可能同时包含多个特征
+    ui_pages = [
+        "button_caidan",
+        "button_gonggao",
+        "button_gengxinliebiao",
+        "page_huodong",
+        "button_duorenyouxi",
+        "button_duihuandaoju",
+        "button_zhaomu",
+    ]  # 注意顺序，可能同时包含多个特征
     flag = player.find_any(ui_pages)
 
     if flag == -1:

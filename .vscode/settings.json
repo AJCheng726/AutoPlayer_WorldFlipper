@@ -2,6 +2,6 @@
     "python.formatting.provider": "black",
     "python.formatting.blackArgs": [
         "--line-length",
-        "200"
+        "130"
     ],
 }
