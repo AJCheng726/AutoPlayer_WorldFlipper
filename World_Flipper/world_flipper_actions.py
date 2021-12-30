@@ -24,23 +24,63 @@ fangzhu_account = config["WF"]["fangzhu_account"].split(",")
 def check_game(player):
     print(Timer().simple_time(), player.use_device, "检查wf是否启动...")
     if player.check_app():
-        print(Timer().simple_time(), player.use_device, "游戏已启动")
+        print("游戏已启动")
         return 1
     else:
-        print(Timer().simple_time(), player.use_device, "游戏未启动...")
+        print("游戏未启动...")
         return 0
 
 
+def restart_game(player):
+    print(Timer().simple_time(), player.use_device, "重启游戏...")
+    if player.check_app():
+        print("游戏已启动")
+        player.stop_app()
+        time.sleep(3)
+        player.start_app()
+    else:
+        print("游戏未启动...")
+        player.start_app()
+    return
+
+
 def check_ui(player):
-    print("检查当前所在页面...")
-    ui_pages = [""]
+    print(Timer().simple_time(), player.use_device, "检查当前所在页面...")
+    ui_pages = [
+        "button_caidan",
+        "button_gonggao",
+        "button_gengxinliebiao",
+        "page_huodong",
+        "button_duorenyouxi",
+        "button_duihuandaoju",
+    ]
     flag = player.find_any(ui_pages)
+
     if flag == -1:
         print("没有找到任何特征，无法确定当前所在页面...")
+        return -1
+    elif flag == 0:
+        print("[0]当前处于登录界面")
+        return 0
+    elif flag == 1:
+        print("[1]当前处于主城")
+        return 1
+    elif flag == 2:
+        print("[2]发现更新列表按钮，当前处于领主战或共斗活动页面")
+        return 2
+    elif flag == 3:
+        print("[3]发现小黑对话，当前处于活动页面")
+        return 3
+    elif flag == 4:
+        print("[4]发现多人游戏，当前处于建房选择页面")
+        return 4
+    elif flag == 5:
+        print("[5]发现兑换道具按钮，当前处于选择难度页面")
+        return 5
 
 
 def login(player):
-    print("自动登录游戏...")
+    print(Timer().simple_time(), player.use_device,"自动登录游戏...")
     player.start_app()
     if player.wait("button_zhangmidenglu", max_wait_time=30):  # 需要输账号
         player.find_touch("button_zhangmidenglu")
@@ -55,6 +95,26 @@ def login(player):
         player.find_touch("button_guanbi")
         player.find_touch("tips_denglujiangli")
         player.touch((device_w * 1 / 2, device_h * 1 / 4))
+
+
+def goto_main(player):
+    print(Timer().simple_time(), player.use_device,"前往主城...")
+    flag = check_ui(player)
+    if flag == 1:
+        print("已处于主城")
+    else:
+        print("尝试跳转到主城...")
+        player.touch([135, 919])
+        if player.wait("button_gonggao", max_wait_time=5):
+            print("已处于主城")
+        else:
+            print("前往失败,重启游戏...")
+            restart_game(player)
+            login(player)
+            if check_ui(player) == 1:
+                print("已处于主城")
+            else:
+                raise Exception("跳转主城失败，截图并汇报开发者此错误")
 
 
 def find_raid(player, raid_choose, difficult=0):
@@ -168,6 +228,7 @@ if __name__ == "__main__":
         screenshot_blank=config["GENERAL"].getfloat("screenshot_blank"),
         wanted_path=config["GENERAL"]["wanted_path"],
     )
-    
+
     player.screen_shot()
-    check_ui(player)
+    # check_ui(player)
+    goto_main(player)
