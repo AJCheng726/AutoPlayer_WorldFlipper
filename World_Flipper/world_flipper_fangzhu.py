@@ -47,7 +47,7 @@ def wf_owner(player, config, loop_time=0, count=0, event_mode=0):
     announcement(event_mode, event_screenshot, raid_choose, player)
 
     if check_game(player):  # 游戏已启动
-        with eventlet.Timeout(timeout, False):
+        with eventlet.Timeout(120, False):
             if check_ui(player) < 6: # 处于房间外
                 goto_main(player)
                 from_main_to_room(event_mode,raid_choose,event_screenshot,allow_stranger,player)
@@ -59,7 +59,7 @@ def wf_owner(player, config, loop_time=0, count=0, event_mode=0):
             return count
 
     else:  # 从启动游戏开始执行
-        with eventlet.Timeout(timeout, False):
+        with eventlet.Timeout(120, False):
             login(player)
             from_main_to_room(event_mode, raid_choose, event_screenshot, allow_stranger, player)
         while count < loop_time or loop_time == 0:

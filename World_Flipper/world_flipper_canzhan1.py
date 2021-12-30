@@ -25,7 +25,7 @@ def wf_join(player, loop_time=0, count=0, event_mode=0, timeout=600):
 
 
     if check_game(player):  # 从战斗中开始执行
-        with eventlet.Timeout(timeout, False):
+        with eventlet.Timeout(120, False):
             if check_ui(player) < 6: # 处于房间外
                 goto_main(player)
                 from_main_to_room(player,event_mode)
@@ -37,7 +37,7 @@ def wf_join(player, loop_time=0, count=0, event_mode=0, timeout=600):
             return count
 
     else:  # 从游戏启动开始执行
-        with eventlet.Timeout(timeout, False):
+        with eventlet.Timeout(120, False):
             login(player)
             from_main_to_room(player,event_mode)
 
