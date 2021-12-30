@@ -46,15 +46,7 @@ def restart_game(player):
 
 def check_ui(player):
     print(Timer().simple_time(), player.use_device, "检查当前所在页面...")
-    ui_pages = [
-        "button_caidan",
-        "button_gonggao",
-        "button_gengxinliebiao",
-        "page_huodong",
-        "button_duorenyouxi",
-        "button_duihuandaoju",
-        "button_zhaomu"
-    ] # 注意顺序，可能同时包含多个特征
+    ui_pages = ["button_caidan", "button_gonggao", "button_gengxinliebiao", "page_huodong", "button_duorenyouxi", "button_duihuandaoju", "button_zhaomu"]  # 注意顺序，可能同时包含多个特征
     flag = player.find_any(ui_pages)
 
     if flag == -1:
@@ -84,7 +76,7 @@ def check_ui(player):
 
 
 def login(player):
-    print(Timer().simple_time(), player.use_device,"自动登录游戏...")
+    print(Timer().simple_time(), player.use_device, "自动登录游戏...")
     player.start_app()
     if player.wait("button_zhangmidenglu", max_wait_time=30):  # 需要输账号
         player.find_touch("button_zhangmidenglu")
@@ -102,7 +94,7 @@ def login(player):
 
 
 def goto_main(player):
-    print(Timer().simple_time(), player.use_device,"前往主城...")
+    print(Timer().simple_time(), player.use_device, "前往主城...")
     flag = check_ui(player)
     if flag == 1:
         print("已处于主城")
@@ -110,14 +102,14 @@ def goto_main(player):
     elif flag == 6:
         print("处于房间内，放弃任务...")
         player.find_touch("button_fanhui")
-        player.wait_touch("button_jiesan",max_wait_time=2)
+        player.wait_touch("button_jiesan", max_wait_time=2)
         time.sleep(2)
         player.touch([135, 919])
     else:
         print("尝试前往主城...")
         player.touch([135, 919])
 
-    # 检查是否前往成功   
+    # 检查是否前往成功
     if player.wait("button_gonggao", max_wait_time=5):
         print("已处于主城")
     else:
@@ -133,7 +125,7 @@ def goto_main(player):
 
 def find_raid(player, raid_choose, difficult=0):
     print(Timer().simple_time(), player.use_device, "寻找raid:" + raid_choose)
-    not_in_view = ["raid_fire", "raid_wind","raid_water","raid_maotouying"]  # 所选本不在第一页，需要下滑找
+    not_in_view = ["raid_fire", "raid_wind", "raid_water", "raid_maotouying"]  # 所选本不在第一页，需要下滑找
     player.wait("button_gengxinliebiao")  # 确认进入raid选择界面
     if raid_choose in not_in_view:
         while not player.wait(raid_choose, 3):
