@@ -138,22 +138,22 @@ def goto_main(player):
 
 def find_raid(player, raid_choose, difficult=0):
     print(Timer().simple_time(), player.use_device, "寻找raid:" + raid_choose)
-    not_in_view = [
-        "raid_dashe",
-        "raid_light",
-        "raid_jiqiren",
-        "raid_thunder",
-        "raid_dark",
-        "raid_water",
-        "raid_zhangyu",
-        "raid_fire",
-        "raid_wind",
-        "raid_maotouying",
-    ]  # 所有副本没有在第一页都会下滑去找
+    # not_in_view = [
+    #     "raid_dashe",
+    #     "raid_light",
+    #     "raid_jiqiren",
+    #     "raid_thunder",
+    #     "raid_dark",
+    #     "raid_water",
+    #     "raid_zhangyu",
+    #     "raid_fire",
+    #     "raid_wind",
+    #     "raid_maotouying",
+    # ]  # 所有副本没有在第一页都会下滑去找
     player.wait("button_gengxinliebiao")  # 确认进入raid选择界面
-    if raid_choose in not_in_view:
-        while not player.wait(raid_choose, 3):
-            player.down_swipe()
+    # if raid_choose in not_in_view:
+    while not player.wait(raid_choose, 3):
+        player.down_swipe()
     player.wait_touch(raid_choose)
     if difficult == 0:
         time.sleep(2)
