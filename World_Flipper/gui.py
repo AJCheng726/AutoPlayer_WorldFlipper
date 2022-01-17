@@ -73,12 +73,12 @@ class AutoPlayer_WF(tk.Tk):
         self.timeout_entry.insert(0, timeout)
         self.timeout_entry.grid(row=6, column=1)
 
-        tk.Label(config_tab, text="😏 ApWF version 1.8.1").grid(row=10, column=1)
+        tk.Label(config_tab, text="😏 ApWF version 1.9.1").grid(row=10, column=1)
         ttk.Button(config_tab, text="SAVE", command=self.save_config, width=5).grid(row=10, column=0, pady=2)
 
         tk.Label(config_tab, text="搜盘子").grid(row=11, column=0)
         self.search_entry = tk.Entry(config_tab)
-        self.search_entry.insert(0,"摩天楼")
+        self.search_entry.insert(0, "摩天楼")
         self.search_entry.grid(row=11, column=1)
 
         ttk.Button(
@@ -89,7 +89,10 @@ class AutoPlayer_WF(tk.Tk):
         ).grid(row=12, columnspan=2, sticky=tk.W, padx=60, pady=5)
         ttk.Button(
             config_tab, text="WIKI", bootstyle=DANGER, command=lambda: self.open_WIKI(self.search_entry.get()), width=4
-        ).grid(row=12, column=1, sticky=tk.W, padx=40, pady=5)
+        ).grid(row=12, column=1, sticky=tk.W, padx=38, pady=5)
+        ttk.Button(config_tab, text="P站", bootstyle=DARK, command=lambda: self.open_PIXIV(self.search_entry.get()), width=4).grid(
+            row=12, column=1, sticky=tk.E, pady=5
+        )
 
         # 房主
         tk.Label(fangzhu_tab, text="房主设备").grid(row=0, column=0)
@@ -430,7 +433,8 @@ class AutoPlayer_WF(tk.Tk):
 
     def open_WIKI(self, search):
         webbrowser.open("http://sjtswy.gamer.cc/search?word={0}&type=0".format(search), new=0)
-
+    def open_PIXIV(self, search):
+        webbrowser.open("http://pixiv.com/search?={0}".format(search), new=0)
 
 if __name__ == "__main__":
     config = configparser.ConfigParser()
