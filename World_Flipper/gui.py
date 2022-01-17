@@ -130,16 +130,12 @@ class AutoPlayer_WF(tk.Tk):
         self.raid_choose_entry.insert(0, raid_choose)
         self.raid_choose_entry.grid(row=7, column=1)
 
-        ttk.Button(fangzhu_tab, text="GO!", bootstyle="success", width=5, command=lambda: self.fangzhu_go()).grid(row=99, column=1, sticky=tk.W, padx=5)
+        ttk.Button(fangzhu_tab, text="GO!", bootstyle="success", width=5, command=lambda: self.fangzhu_go()).grid(
+            row=99, column=1, sticky=tk.W, padx=5
+        )
         ttk.Button(fangzhu_tab, text="STOP!", width=5, command=lambda: self.fangzhu_stop()).grid(
             row=99, column=1, sticky=tk.E, padx=5
         )
-        # self.fangzhu_scrollbar = ttk.Scrollbar(fangzhu_tab, orient=tk.VERTICAL)
-        # self.fangzhu_shell = tk.Text(
-        #     fangzhu_tab, width=30, height=18, yscrollcommand=self.fangzhu_scrollbar.set
-        # )
-        # self.fangzhu_scrollbar.grid(row=4, column=3, sticky="nse")
-        # self.fangzhu_shell.grid(row=4, columnspan=2)
 
         # 参战
         tk.Label(canzhan_tab, text="房主截图").grid(row=0, column=0)
@@ -194,7 +190,7 @@ class AutoPlayer_WF(tk.Tk):
         self.loop2_device_entry.insert(0, loop_device_2)
         self.loop2_device_entry.grid(row=2, column=1)
 
-        ttk.Button(danren_tab, text="GO!", bootstyle="success",width=5, command=lambda: self.loop2_go()).grid(
+        ttk.Button(danren_tab, text="GO!", bootstyle="success", width=5, command=lambda: self.loop2_go()).grid(
             row=3, column=1, sticky=tk.W, padx=5, pady=3
         )
         ttk.Button(danren_tab, text="STOP!", width=5, command=lambda: self.loop2_stop()).grid(
@@ -224,24 +220,28 @@ class AutoPlayer_WF(tk.Tk):
         self.auto_shutdown_entry.insert(0, "3600")
         self.auto_shutdown_entry.grid(row=0, column=1)
 
-        ttk.Button(gongju_tab, text="SET!", bootstyle="info",width=4, command=lambda: self.set_autoshutdown()).grid(
+        ttk.Button(gongju_tab, text="SET!", bootstyle="info", width=4, command=lambda: self.set_autoshutdown()).grid(
             row=1, column=1, sticky=tk.W, padx=5, pady=5
         )
-        ttk.Button(gongju_tab, text="CANCEL!", bootstyle="secondary",width=8, command=lambda: self.cancel_autoshutdown(),).grid(
-            row=1, column=1, sticky=tk.E, padx=5, pady=5
-        )
+        ttk.Button(
+            gongju_tab,
+            text="CANCEL!",
+            bootstyle="secondary",
+            width=8,
+            command=lambda: self.cancel_autoshutdown(),
+        ).grid(row=1, column=1, sticky=tk.E, padx=5, pady=5)
 
         tk.Button(gongju_tab, text="查询子进程状态", width=13, command=lambda: self.check_process()).grid(
-            row=11, columnspan=2, sticky=tk.W, padx=5, pady=5
+            row=11, columnspan=2, sticky=tk.W, padx=5, pady=2
         )
         tk.Button(gongju_tab, text="关闭所有子进程", width=13, command=lambda: self.kill_process()).grid(
-            row=11, columnspan=2, sticky=tk.E, padx=5, pady=5
+            row=11, columnspan=2, sticky=tk.E, padx=5, pady=2
         )
         tk.Button(gongju_tab, text="查询所有设备", width=13, command=lambda: self.check_devices()).grid(
-            row=12, columnspan=2, sticky=tk.W, padx=5, pady=5
+            row=12, columnspan=2, sticky=tk.W, padx=5, pady=2
         )
         tk.Button(gongju_tab, text="所有设备截图", width=13, command=lambda: self.devices_screenshot()).grid(
-            row=12, columnspan=2, sticky=tk.E, padx=5, pady=5
+            row=12, columnspan=2, sticky=tk.E, padx=5, pady=2
         )
 
         # notebook
@@ -293,10 +293,6 @@ class AutoPlayer_WF(tk.Tk):
         self.save_config()
         self.proc_canzhan2 = subprocess.Popen(
             "python World_Flipper\\world_flipper_canzhan2.py",
-            # shell=False,
-            # stdout=subprocess.PIPE,
-            # stderr=subprocess.STDOUT,
-            # encoding="GBK",
         )
 
     def loop_go(self):
@@ -358,8 +354,6 @@ class AutoPlayer_WF(tk.Tk):
 
         for line in iter(fangzhu_output.readline(1), b""):
             print(line)
-            # self.fangzhu_shell.insert(tk.INSERT, line)
-        # self.fangzhu_shell.delete(0.0,tk.END)
         self.fangzhu_shell.update()
         self.fangzhu_shell.see(tk.END)
         self.after(500, self.refreshText)
