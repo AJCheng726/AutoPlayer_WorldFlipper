@@ -5,11 +5,11 @@ import configparser
 eventlet.monkey_patch()
 
 
-def announcement(event_mode, event_screenshot, raid_choose, player):
+def announcement(event_mode, event_screenshot, raid_choose, player, raid_rank):
     if event_mode:
-        print("[info] 活动模式，使用设备{0}开始建{1}房...".format(player.use_device, event_screenshot))
+        print("[info] 活动模式，{0}建{1}房{2}难度...".format(player.use_device, event_screenshot, raid_rank))
     else:
-        print("[info] 日常模式，使用设备{0}开始建{1}房...".format(player.use_device, raid_choose))
+        print("[info] 日常模式，{0}建{1}房{2}难度...".format(player.use_device, raid_choose, raid_rank))
 
 
 def one_loop(player, count):
@@ -24,10 +24,10 @@ def one_loop(player, count):
     return count
 
 
-def from_main_to_room(event_mode, raid_choose, event_screenshot, allow_stranger, player,raid_rank):
+def from_main_to_room(event_mode, raid_choose, event_screenshot, allow_stranger, player, raid_rank):
     player.touch((465, 809))  # 领主战
     if not event_mode:  # 日常模式
-        find_raid(player, raid_choose, difficult=raid_rank)
+        find_raid(player, raid_choose, raid_rank=raid_rank)
     else:  # 活动模式
         time.sleep(3)
         player.wait_touch("button_event")  # 活动
@@ -39,19 +39,20 @@ def from_main_to_room(event_mode, raid_choose, event_screenshot, allow_stranger,
 
 # 选boss建房之后开始，房主退出再重建
 def wf_owner(player, config, loop_time=0, count=0, event_mode=0):
-    event_screenshot = config["RAID"]["event_screenshot"]
-    raid_choose = config["RAID"]["raid_choose"]
     timeout = config["WF"].getint("timeout")
     allow_stranger = config["WF"].getint("allow_stranger")
-    raid_rank = config["WF"].getint("raid_rank")
 
-    announcement(event_mode, event_screenshot, raid_choose, player)
+    event_screenshot = config["RAID"]["event_screenshot"]
+    raid_choose = config["RAID"]["raid_choose"]
+    raid_rank = config["RAID"].getint("raid_rank")
+
+    announcement(event_mode, event_screenshot, raid_choose, player, raid_rank)
 
     if check_game(player):  # 游戏已启动
         with eventlet.Timeout(120, False):
-            if check_ui(player) < 6: # 处于房间外
+            if check_ui(player) < 6:  # 处于房间外
                 goto_main(player)
-                from_main_to_room(event_mode,raid_choose,event_screenshot,allow_stranger,player,raid_rank)
+                from_main_to_room(event_mode, raid_choose, event_screenshot, allow_stranger, player, raid_rank)
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(timeout, False):
                 count = one_loop(player, count)
@@ -62,7 +63,7 @@ def wf_owner(player, config, loop_time=0, count=0, event_mode=0):
     else:  # 从启动游戏开始执行
         with eventlet.Timeout(120, False):
             login(player)
-            from_main_to_room(event_mode, raid_choose, event_screenshot, allow_stranger, player,raid_rank)
+            from_main_to_room(event_mode, raid_choose, event_screenshot, allow_stranger, player, raid_rank)
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(timeout, False):
                 count = one_loop(player, count)

@@ -136,15 +136,15 @@ def goto_main(player):
             raise Exception("跳转主城失败，截图并汇报开发者此错误")
 
 
-def find_raid(player, raid_choose, difficult=1):
+def find_raid(player, raid_choose, raid_rank=1):
     print(Timer().simple_time(), player.use_device, "寻找raid:" + raid_choose)
     player.wait("button_gengxinliebiao")  # 确认进入raid选择界面
     while not player.wait(raid_choose, 3):
         player.down_swipe()
     player.wait_touch(raid_choose)
-    if difficult == 1:  # 选第一个难度
-        time.sleep(2)
-        player.touch((366, 348))  
+    rank_pos = [None, (366, 350), (366, 450), (366, 560), (366, 670), (366, 780)]
+    time.sleep(2)
+    player.touch(rank_pos[raid_rank])  # 按难度点击相应位置
 
 
 def build_from_multiplayer(player, change_zhaomu=False):

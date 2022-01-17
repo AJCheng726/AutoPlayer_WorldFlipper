@@ -231,6 +231,7 @@ class AutoPlayer_WF(tk.Tk):
         config["RAID"]["event_screenshot"] = self.event_screenshot_entry.get()
         config["RAID"]["raid_choose"] = self.raid_choose_entry.get()
         config["RAID"]["ring_raid_choose"] = self.ring_raid_choose_entry.get()
+        config["RAID"]["raid_rank"] = self.raid_rank_entry.get()
         config["WF"]["fangzhu_device"] = self.fangzhu_device_entry.get()
         config["WF"]["limit_player"] = self.limit_player_entry.get()
         config["WF"]["fangzhu_account"] = self.fangzhu_account_entry.get()
