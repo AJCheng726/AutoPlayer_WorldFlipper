@@ -1,10 +1,16 @@
+from distutils import command
 import os
 import time
 import configparser
 import subprocess
 import tkinter as tk
 import ttkbootstrap as ttk
+import ctypes
+import webbrowser
 from tkinter.ttk import Notebook
+from ttkbootstrap.constants import *
+
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("ApWF_GUI")
 
 
 class AutoPlayer_WF(tk.Tk):
@@ -16,11 +22,11 @@ class AutoPlayer_WF(tk.Tk):
         self.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.notebook = Notebook(self)
 
-        config_tab = tk.Frame(self.notebook)
-        fangzhu_tab = tk.Frame(self.notebook)
-        canzhan_tab = tk.Frame(self.notebook)
-        danren_tab = tk.Frame(self.notebook)
-        gongju_tab = tk.Frame(self.notebook)
+        config_tab = ttk.Frame(self.notebook)
+        fangzhu_tab = ttk.Frame(self.notebook)
+        canzhan_tab = ttk.Frame(self.notebook)
+        danren_tab = ttk.Frame(self.notebook)
+        gongju_tab = ttk.Frame(self.notebook)
 
         # 全局设置
         tk.Label(config_tab, text="Debug设置").grid(row=0, column=0)
@@ -33,31 +39,31 @@ class AutoPlayer_WF(tk.Tk):
         tk.Label(config_tab, text="截图间隔").grid(row=5, column=0)
         # self.adb_path_label = tk.Label(config_tab, text="ADB路径").grid(row=6, column=0)
 
-        self.debug_entry = tk.Entry(config_tab, bg="grey", fg="black")
+        self.debug_entry = tk.Entry(config_tab)
         self.debug_entry.grid(row=0, column=1)
         self.debug_entry.insert(0, debug)
 
-        self.acc_entry = tk.Entry(config_tab, bg="grey", fg="black")
+        self.acc_entry = tk.Entry(config_tab)
         self.acc_entry.grid(row=1, column=1)
         self.acc_entry.insert(0, accuracy)
 
-        # self.wanted_path_entry = tk.Entry(config_tab, bg="grey", fg="black")
+        # self.wanted_path_entry = tk.Entry(config_tab)
         # self.wanted_path_entry.grid(row=2, column=1)
         # self.wanted_path_entry.insert(0, wanted_path)
 
-        # self.device_w_entry = tk.Entry(config_tab, bg="grey", fg="black")
+        # self.device_w_entry = tk.Entry(config_tab)
         # self.device_w_entry.grid(row=3, column=1)
         # self.device_w_entry.insert(0, device_w)
 
-        # self.device_h_entry = tk.Entry(config_tab, bg="grey", fg="black")
+        # self.device_h_entry = tk.Entry(config_tab)
         # self.device_h_entry.grid(row=4, column=1)
         # self.device_h_entry.insert(0, device_h)
 
-        self.screenshot_blank_entry = tk.Entry(config_tab, bg="grey", fg="black")
+        self.screenshot_blank_entry = tk.Entry(config_tab)
         self.screenshot_blank_entry.grid(row=5, column=1)
         self.screenshot_blank_entry.insert(0, screenshot_blank)
 
-        # self.adb_path_entry = tk.Entry(config_tab, bg="grey", fg="black")
+        # self.adb_path_entry = tk.Entry(config_tab)
         # self.adb_path_entry.grid(row=6, column=1)
         # self.adb_path_entry.insert(0, adb_path)
 
@@ -67,41 +73,51 @@ class AutoPlayer_WF(tk.Tk):
         self.timeout_entry.grid(row=6, column=1)
 
         tk.Label(config_tab, text="😏 ApWF version 1.7.3").grid(row=10, column=1)
-        tk.Button(config_tab, text="SAVE ALL", command=self.save_config, width=10).grid(row=10, column=0, pady=2)
+        ttk.Button(config_tab, text="SAVE", command=self.save_config, width=5).grid(row=10, column=0, pady=2)
+
+        ttk.Button(config_tab, text="NGA", bootstyle=SUCCESS, command=self.open_NGA, width=4).grid(
+            row=11, columnspan=2, sticky=tk.W, padx=2, pady=5
+        )
+        ttk.Button(config_tab, text="B站", bootstyle=PRIMARY, command=self.open_BLBL, width=4).grid(
+            row=11, columnspan=2, sticky=tk.W, padx=60, pady=5
+        )
+        ttk.Button(config_tab, text="WIKI", bootstyle=DANGER, command=self.open_WIKI, width=4).grid(
+            row=11, column=1, sticky=tk.W, padx=40, pady=5
+        )
 
         # 房主
         tk.Label(fangzhu_tab, text="房主设备").grid(row=0, column=0)
-        self.fangzhu_device_entry = tk.Entry(fangzhu_tab, bg="white", fg="black")
+        self.fangzhu_device_entry = tk.Entry(fangzhu_tab)
         self.fangzhu_device_entry.insert(0, fangzhu_device)
         self.fangzhu_device_entry.grid(row=0, column=1)
 
         tk.Label(fangzhu_tab, text="最小玩家数").grid(row=1, column=0)
-        self.limit_player_entry = tk.Entry(fangzhu_tab, bg="white", fg="black", width=5)
+        self.limit_player_entry = tk.Entry(fangzhu_tab, width=5)
         self.limit_player_entry.insert(0, limit_player)
         self.limit_player_entry.grid(row=1, column=1, sticky=tk.W)
 
         tk.Label(fangzhu_tab, text="随机招募").grid(row=1, column=1, sticky=tk.E, padx=40)
-        self.allow_stranger_entry = tk.Entry(fangzhu_tab, bg="white", fg="black", width=5)
+        self.allow_stranger_entry = tk.Entry(fangzhu_tab, width=5)
         self.allow_stranger_entry.insert(0, allow_stranger)
         self.allow_stranger_entry.grid(row=1, column=1, sticky=tk.E)
 
         tk.Label(fangzhu_tab, text="活动模式").grid(row=4, column=0)
-        self.event_mode_entry = tk.Entry(fangzhu_tab, bg="white", fg="black", width=5)
+        self.event_mode_entry = tk.Entry(fangzhu_tab, width=5)
         self.event_mode_entry.insert(0, event_mode)
         self.event_mode_entry.grid(row=4, column=1, sticky=tk.W)
 
         tk.Label(fangzhu_tab, text="Raid难度").grid(row=4, column=1, sticky=tk.E, padx=40)
-        self.raid_rank_entry = tk.Entry(fangzhu_tab, bg="white", fg="black", width=5)
+        self.raid_rank_entry = tk.Entry(fangzhu_tab, width=5)
         self.raid_rank_entry.insert(0, raid_rank)
         self.raid_rank_entry.grid(row=4, column=1, sticky=tk.E)
 
         tk.Label(fangzhu_tab, text="活动目标\n(开启活动模式)").grid(row=6, column=0)
-        self.event_screenshot_entry = tk.Entry(fangzhu_tab, bg="white", fg="black")
+        self.event_screenshot_entry = tk.Entry(fangzhu_tab)
         self.event_screenshot_entry.insert(0, event_screenshot)
         self.event_screenshot_entry.grid(row=6, column=1)
 
         tk.Label(fangzhu_tab, text="日常目标\n(关闭活动模式)").grid(row=7, column=0)
-        self.raid_choose_entry = tk.Entry(fangzhu_tab, bg="white", fg="black")
+        self.raid_choose_entry = tk.Entry(fangzhu_tab)
         self.raid_choose_entry.insert(0, raid_choose)
         self.raid_choose_entry.grid(row=7, column=1)
 
@@ -118,7 +134,7 @@ class AutoPlayer_WF(tk.Tk):
 
         # 参战
         tk.Label(canzhan_tab, text="房主截图").grid(row=0, column=0)
-        self.fangzhu_account_entry = tk.Entry(canzhan_tab, bg="white", fg="black")
+        self.fangzhu_account_entry = tk.Entry(canzhan_tab)
         self.fangzhu_account_entry.insert(0, fangzhu_account)
         self.fangzhu_account_entry.grid(row=0, column=1)
 
@@ -128,52 +144,52 @@ class AutoPlayer_WF(tk.Tk):
         self.battle_timeout_entry.grid(row=1, column=1)
 
         tk.Label(canzhan_tab, text="参战1设备").grid(row=10, column=0)
-        self.canzhan1_device_entry = tk.Entry(canzhan_tab, bg="white", fg="black")
+        self.canzhan1_device_entry = tk.Entry(canzhan_tab)
         self.canzhan1_device_entry.insert(0, canzhan1_device)
         self.canzhan1_device_entry.grid(row=10, column=1)
 
         tk.Button(canzhan_tab, text="GO!", width=7, command=lambda: self.canzhan1_go()).grid(
-            row=11, column=1, sticky=tk.W, padx=5, pady=2
+            row=11, column=1, sticky=tk.W, padx=5, pady=5
         )
         tk.Button(canzhan_tab, text="STOP!", width=7, command=lambda: self.canzhan1_stop()).grid(
-            row=11, column=1, sticky=tk.E, padx=5, pady=2
+            row=11, column=1, sticky=tk.E, padx=5, pady=5
         )
 
         tk.Label(canzhan_tab, text="参战2设备").grid(row=20, column=0)
-        self.canzhan2_device_entry = tk.Entry(canzhan_tab, bg="white", fg="black")
+        self.canzhan2_device_entry = tk.Entry(canzhan_tab)
         self.canzhan2_device_entry.insert(0, canzhan2_device)
         self.canzhan2_device_entry.grid(row=20, column=1)
 
         tk.Button(canzhan_tab, text="GO!", width=7, command=lambda: self.canzhan2_go()).grid(
-            row=21, column=1, sticky=tk.W, padx=5, pady=2
+            row=21, column=1, sticky=tk.W, padx=5, pady=5
         )
         tk.Button(canzhan_tab, text="STOP!", width=7, command=lambda: self.canzhan2_stop()).grid(
-            row=21, column=1, sticky=tk.E, padx=5, pady=2
+            row=21, column=1, sticky=tk.E, padx=5, pady=5
         )
 
         # 单人
         tk.Label(danren_tab, text="连战设备").grid(row=0, column=0)
-        self.loop_device_entry = tk.Entry(danren_tab, bg="white", fg="black")
+        self.loop_device_entry = tk.Entry(danren_tab)
         self.loop_device_entry.insert(0, loop_device)
         self.loop_device_entry.grid(row=0, column=1)
 
         tk.Button(danren_tab, text="GO!", width=7, command=lambda: self.loop_go()).grid(
-            row=1, column=1, sticky=tk.W, padx=5, pady=2
+            row=1, column=1, sticky=tk.W, padx=5, pady=3
         )
         tk.Button(danren_tab, text="STOP!", width=7, command=lambda: self.loop_stop()).grid(
-            row=1, column=1, sticky=tk.E, padx=5, pady=2
+            row=1, column=1, sticky=tk.E, padx=5, pady=3
         )
 
         tk.Label(danren_tab, text="连战设备2").grid(row=2, column=0)
-        self.loop2_device_entry = tk.Entry(danren_tab, bg="white", fg="black")
+        self.loop2_device_entry = tk.Entry(danren_tab)
         self.loop2_device_entry.insert(0, loop_device_2)
         self.loop2_device_entry.grid(row=2, column=1)
 
         tk.Button(danren_tab, text="GO!", width=7, command=lambda: self.loop2_go()).grid(
-            row=3, column=1, sticky=tk.W, padx=5, pady=2
+            row=3, column=1, sticky=tk.W, padx=5, pady=3
         )
         tk.Button(danren_tab, text="STOP!", width=7, command=lambda: self.loop2_stop()).grid(
-            row=3, column=1, sticky=tk.E, padx=5, pady=2
+            row=3, column=1, sticky=tk.E, padx=5, pady=3
         )
 
         tk.Label(danren_tab, text="蹭铃铛设备").grid(row=10, column=0)
@@ -187,10 +203,10 @@ class AutoPlayer_WF(tk.Tk):
         self.ring_raid_choose_entry.grid(row=11, column=1)
 
         tk.Button(danren_tab, text="GO!", width=7, command=lambda: self.ring_go()).grid(
-            row=12, column=1, sticky=tk.W, padx=5, pady=2
+            row=12, column=1, sticky=tk.W, padx=5, pady=3
         )
         tk.Button(danren_tab, text="STOP!", width=7, command=lambda: self.ring_stop()).grid(
-            row=12, column=1, sticky=tk.E, padx=5, pady=2
+            row=12, column=1, sticky=tk.E, padx=5, pady=3
         )
 
         # 工具箱
@@ -200,26 +216,26 @@ class AutoPlayer_WF(tk.Tk):
         self.auto_shutdown_entry.grid(row=0, column=1)
 
         tk.Button(gongju_tab, text="SET!", width=7, command=lambda: self.set_autoshutdown()).grid(
-            row=1, column=1, sticky=tk.W, padx=5, pady=2
+            row=1, column=1, sticky=tk.W, padx=5, pady=5
         )
         tk.Button(
             gongju_tab,
             text="CANCEL!",
             width=7,
             command=lambda: self.cancel_autoshutdown(),
-        ).grid(row=1, column=1, sticky=tk.E, padx=5, pady=2)
+        ).grid(row=1, column=1, sticky=tk.E, padx=5, pady=5)
 
         tk.Button(gongju_tab, text="查询子进程状态", width=12, command=lambda: self.check_process()).grid(
-            row=11, columnspan=2, sticky=tk.W, padx=5, pady=2
+            row=11, columnspan=2, sticky=tk.W, padx=5, pady=5
         )
         tk.Button(gongju_tab, text="关闭所有子进程", width=12, command=lambda: self.kill_process()).grid(
-            row=11, columnspan=2, sticky=tk.E, padx=5, pady=2
+            row=11, columnspan=2, sticky=tk.E, padx=5, pady=5
         )
         tk.Button(gongju_tab, text="查询所有设备", width=12, command=lambda: self.check_devices()).grid(
-            row=12, columnspan=2, sticky=tk.W, padx=5, pady=2
+            row=12, columnspan=2, sticky=tk.W, padx=5, pady=5
         )
         tk.Button(gongju_tab, text="所有设备截图", width=12, command=lambda: self.devices_screenshot()).grid(
-            row=12, columnspan=2, sticky=tk.E, padx=5, pady=2
+            row=12, columnspan=2, sticky=tk.E, padx=5, pady=5
         )
 
         # notebook
@@ -400,6 +416,14 @@ class AutoPlayer_WF(tk.Tk):
         self.kill_process()
         self.destroy()
 
+    def open_NGA(self):
+        webbrowser.open("http://www.baidu.com", new=0)
+
+    def open_BLBL(self):
+        webbrowser.open("http://www.bilibili.com", new=0)
+
+    def open_WIKI(self):
+        webbrowser.open("http://www.wiki.com", new=0)
 
 if __name__ == "__main__":
     config = configparser.ConfigParser()
