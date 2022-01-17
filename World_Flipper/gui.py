@@ -61,20 +61,10 @@ class AutoPlayer_WF(tk.Tk):
         # self.adb_path_entry.grid(row=6, column=1)
         # self.adb_path_entry.insert(0, adb_path)
 
-        tk.Label(config_tab, text="活动模式").grid(row=7, column=0)
-        self.event_mode_entry = tk.Entry(config_tab, bg="white", fg="black")
-        self.event_mode_entry.insert(0, event_mode)
-        self.event_mode_entry.grid(row=7, column=1)
-
-        tk.Label(config_tab, text="活动目标\n(开启活动模式)").grid(row=8, column=0)
-        self.event_screenshot_entry = tk.Entry(config_tab, bg="white", fg="black")
-        self.event_screenshot_entry.insert(0, event_screenshot)
-        self.event_screenshot_entry.grid(row=8, column=1)
-
-        tk.Label(config_tab, text="日常目标\n(关闭活动模式)").grid(row=9, column=0)
-        self.raid_choose_entry = tk.Entry(config_tab, bg="white", fg="black")
-        self.raid_choose_entry.insert(0, raid_choose)
-        self.raid_choose_entry.grid(row=9, column=1)
+        tk.Label(config_tab, text="超时重启(秒)").grid(row=6, column=0)
+        self.timeout_entry = tk.Entry(config_tab)
+        self.timeout_entry.insert(0, timeout)
+        self.timeout_entry.grid(row=6, column=1)
 
         tk.Label(config_tab, text="※不建议修改灰色部分").grid(row=10, column=1)
         tk.Button(config_tab, text="保存", command=self.save_config, width=10).grid(
@@ -92,22 +82,32 @@ class AutoPlayer_WF(tk.Tk):
         self.fangzhu_device_entry.insert(0, fangzhu_device)
         self.fangzhu_device_entry.grid(row=1, column=1)
 
-        tk.Label(fangzhu_tab, text="超时重启(秒)").grid(row=2, column=0)
-        self.timeout_entry = tk.Entry(fangzhu_tab)
-        self.timeout_entry.insert(0, timeout)
-        self.timeout_entry.grid(row=2, column=1)
-
         tk.Label(fangzhu_tab, text="随机招募").grid(row=3, column=0)
         self.allow_stranger_entry = tk.Entry(fangzhu_tab)
         self.allow_stranger_entry.insert(0, allow_stranger)
         self.allow_stranger_entry.grid(row=3, column=1)
 
+        tk.Label(fangzhu_tab, text="活动模式").grid(row=4, column=0)
+        self.event_mode_entry = tk.Entry(fangzhu_tab, bg="white", fg="black")
+        self.event_mode_entry.insert(0, event_mode)
+        self.event_mode_entry.grid(row=4, column=1)
+
+        tk.Label(fangzhu_tab, text="活动目标\n(开启活动模式)").grid(row=5, column=0)
+        self.event_screenshot_entry = tk.Entry(fangzhu_tab, bg="white", fg="black")
+        self.event_screenshot_entry.insert(0, event_screenshot)
+        self.event_screenshot_entry.grid(row=5, column=1)
+
+        tk.Label(fangzhu_tab, text="日常目标\n(关闭活动模式)").grid(row=6, column=0)
+        self.raid_choose_entry = tk.Entry(fangzhu_tab, bg="white", fg="black")
+        self.raid_choose_entry.insert(0, raid_choose)
+        self.raid_choose_entry.grid(row=6, column=1)
+
         tk.Button(
             fangzhu_tab, text="GO!", width=7, command=lambda: self.fangzhu_go()
-        ).grid(row=4, column=1, sticky=tk.W, padx=5)
+        ).grid(row=99, column=1, sticky=tk.W, padx=5)
         tk.Button(
             fangzhu_tab, text="STOP!", width=7, command=lambda: self.fangzhu_stop()
-        ).grid(row=4, column=1, sticky=tk.E, padx=5)
+        ).grid(row=99, column=1, sticky=tk.E, padx=5)
         # self.fangzhu_scrollbar = ttk.Scrollbar(fangzhu_tab, orient=tk.VERTICAL)
         # self.fangzhu_shell = tk.Text(
         #     fangzhu_tab, width=30, height=18, yscrollcommand=self.fangzhu_scrollbar.set
