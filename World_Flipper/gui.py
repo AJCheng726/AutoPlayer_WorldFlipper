@@ -20,6 +20,7 @@ class AutoPlayer_WF(tk.Tk):
         self.iconbitmap("./wanted/cover.ico")
         self.title("Auto Player WORLD FLIPPER")
         self.geometry("240x235")
+        # self.attributes("-toolwindow", 3)
         self.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.notebook = Notebook(self)
 
