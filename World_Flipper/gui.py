@@ -12,7 +12,7 @@ class AutoPlayer_WF(tk.Tk):
         super().__init__()
 
         self.title("Auto Player WORLD FLIPPER")
-        self.geometry("240x240")
+        self.geometry("240x220")
         self.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.notebook = Notebook(self)
 
@@ -67,47 +67,48 @@ class AutoPlayer_WF(tk.Tk):
         self.timeout_entry.grid(row=6, column=1)
 
         tk.Label(config_tab, text="※不建议修改灰色部分").grid(row=10, column=1)
-        tk.Button(config_tab, text="保存", command=self.save_config, width=10).grid(
-            row=10, column=0
-        )
+        tk.Button(config_tab, text="保存", command=self.save_config, width=10).grid(row=10, column=0)
 
         # 房主
-        tk.Label(fangzhu_tab, text="最小玩家数").grid(row=0, column=0)
-        self.limit_player_entry = tk.Entry(fangzhu_tab, bg="white", fg="black")
-        self.limit_player_entry.insert(0, limit_player)
-        self.limit_player_entry.grid(row=0, column=1)
-
-        tk.Label(fangzhu_tab, text="房主设备").grid(row=1, column=0)
+        tk.Label(fangzhu_tab, text="房主设备").grid(row=0, column=0)
         self.fangzhu_device_entry = tk.Entry(fangzhu_tab, bg="white", fg="black")
         self.fangzhu_device_entry.insert(0, fangzhu_device)
-        self.fangzhu_device_entry.grid(row=1, column=1)
+        self.fangzhu_device_entry.grid(row=0, column=1)
 
-        tk.Label(fangzhu_tab, text="随机招募").grid(row=3, column=0)
-        self.allow_stranger_entry = tk.Entry(fangzhu_tab)
+        tk.Label(fangzhu_tab, text="最小玩家数").grid(row=1, column=0)
+        self.limit_player_entry = tk.Entry(fangzhu_tab, bg="white", fg="black",width=5)
+        self.limit_player_entry.insert(0, limit_player)
+        self.limit_player_entry.grid(row=1, column=1,sticky=tk.W)
+
+        tk.Label(fangzhu_tab, text="随机招募").grid(row=1, column=1,sticky=tk.E,padx=40)
+        self.allow_stranger_entry = tk.Entry(fangzhu_tab, bg="white", fg="black",width=5)
         self.allow_stranger_entry.insert(0, allow_stranger)
-        self.allow_stranger_entry.grid(row=3, column=1)
+        self.allow_stranger_entry.grid(row=1, column=1,sticky=tk.E)
 
         tk.Label(fangzhu_tab, text="活动模式").grid(row=4, column=0)
-        self.event_mode_entry = tk.Entry(fangzhu_tab, bg="white", fg="black")
+        self.event_mode_entry = tk.Entry(fangzhu_tab, bg="white", fg="black",width=5)
         self.event_mode_entry.insert(0, event_mode)
-        self.event_mode_entry.grid(row=4, column=1)
+        self.event_mode_entry.grid(row=4, column=1,sticky=tk.W)
 
-        tk.Label(fangzhu_tab, text="活动目标\n(开启活动模式)").grid(row=5, column=0)
+        tk.Label(fangzhu_tab, text="Raid难度").grid(row=4, column=1,sticky=tk.E,padx=40)
+        self.raid_rank_entry = tk.Entry(fangzhu_tab, bg="white", fg="black",width=5)
+        self.raid_rank_entry.insert(0, raid_rank)
+        self.raid_rank_entry.grid(row=4, column=1,sticky=tk.E)
+
+        tk.Label(fangzhu_tab, text="活动目标\n(开启活动模式)").grid(row=6, column=0)
         self.event_screenshot_entry = tk.Entry(fangzhu_tab, bg="white", fg="black")
         self.event_screenshot_entry.insert(0, event_screenshot)
-        self.event_screenshot_entry.grid(row=5, column=1)
+        self.event_screenshot_entry.grid(row=6, column=1)
 
-        tk.Label(fangzhu_tab, text="日常目标\n(关闭活动模式)").grid(row=6, column=0)
+        tk.Label(fangzhu_tab, text="日常目标\n(关闭活动模式)").grid(row=7, column=0)
         self.raid_choose_entry = tk.Entry(fangzhu_tab, bg="white", fg="black")
         self.raid_choose_entry.insert(0, raid_choose)
-        self.raid_choose_entry.grid(row=6, column=1)
+        self.raid_choose_entry.grid(row=7, column=1)
 
-        tk.Button(
-            fangzhu_tab, text="GO!", width=7, command=lambda: self.fangzhu_go()
-        ).grid(row=99, column=1, sticky=tk.W, padx=5)
-        tk.Button(
-            fangzhu_tab, text="STOP!", width=7, command=lambda: self.fangzhu_stop()
-        ).grid(row=99, column=1, sticky=tk.E, padx=5)
+        tk.Button(fangzhu_tab, text="GO!", width=7, command=lambda: self.fangzhu_go()).grid(row=99, column=1, sticky=tk.W, padx=5)
+        tk.Button(fangzhu_tab, text="STOP!", width=7, command=lambda: self.fangzhu_stop()).grid(
+            row=99, column=1, sticky=tk.E, padx=5
+        )
         # self.fangzhu_scrollbar = ttk.Scrollbar(fangzhu_tab, orient=tk.VERTICAL)
         # self.fangzhu_shell = tk.Text(
         #     fangzhu_tab, width=30, height=18, yscrollcommand=self.fangzhu_scrollbar.set
@@ -131,24 +132,24 @@ class AutoPlayer_WF(tk.Tk):
         self.canzhan1_device_entry.insert(0, canzhan1_device)
         self.canzhan1_device_entry.grid(row=10, column=1)
 
-        tk.Button(
-            canzhan_tab, text="GO!", width=7, command=lambda: self.canzhan1_go()
-        ).grid(row=11, column=1, sticky=tk.W, padx=5)
-        tk.Button(
-            canzhan_tab, text="STOP!", width=7, command=lambda: self.canzhan1_stop()
-        ).grid(row=11, column=1, sticky=tk.E, padx=5)
+        tk.Button(canzhan_tab, text="GO!", width=7, command=lambda: self.canzhan1_go()).grid(
+            row=11, column=1, sticky=tk.W, padx=5
+        )
+        tk.Button(canzhan_tab, text="STOP!", width=7, command=lambda: self.canzhan1_stop()).grid(
+            row=11, column=1, sticky=tk.E, padx=5
+        )
 
         tk.Label(canzhan_tab, text="参战2设备").grid(row=20, column=0)
         self.canzhan2_device_entry = tk.Entry(canzhan_tab, bg="white", fg="black")
         self.canzhan2_device_entry.insert(0, canzhan2_device)
         self.canzhan2_device_entry.grid(row=20, column=1)
 
-        tk.Button(
-            canzhan_tab, text="GO!", width=7, command=lambda: self.canzhan2_go()
-        ).grid(row=21, column=1, sticky=tk.W, padx=5)
-        tk.Button(
-            canzhan_tab, text="STOP!", width=7, command=lambda: self.canzhan2_stop()
-        ).grid(row=21, column=1, sticky=tk.E, padx=5)
+        tk.Button(canzhan_tab, text="GO!", width=7, command=lambda: self.canzhan2_go()).grid(
+            row=21, column=1, sticky=tk.W, padx=5
+        )
+        tk.Button(canzhan_tab, text="STOP!", width=7, command=lambda: self.canzhan2_stop()).grid(
+            row=21, column=1, sticky=tk.E, padx=5
+        )
 
         # 单人
         tk.Label(danren_tab, text="连战设备").grid(row=0, column=0)
@@ -156,12 +157,16 @@ class AutoPlayer_WF(tk.Tk):
         self.loop_device_entry.insert(0, loop_device)
         self.loop_device_entry.grid(row=0, column=1)
 
-        tk.Button(danren_tab, text="GO!", width=7, command=lambda: self.loop_go()).grid(
-            row=5, column=1, sticky=tk.W, padx=5
-        )
-        tk.Button(
-            danren_tab, text="STOP!", width=7, command=lambda: self.loop_stop()
-        ).grid(row=5, column=1, sticky=tk.E, padx=5)
+        tk.Button(danren_tab, text="GO!", width=7, command=lambda: self.loop_go()).grid(row=1, column=1, sticky=tk.W, padx=5)
+        tk.Button(danren_tab, text="STOP!", width=7, command=lambda: self.loop_stop()).grid(row=1, column=1, sticky=tk.E, padx=5)
+
+        tk.Label(danren_tab, text="连战设备2").grid(row=2, column=0)
+        self.loop2_device_entry = tk.Entry(danren_tab, bg="white", fg="black")
+        self.loop2_device_entry.insert(0, loop_device_2)
+        self.loop2_device_entry.grid(row=2, column=1)
+
+        tk.Button(danren_tab, text="GO!", width=7, command=lambda: self.loop2_go()).grid(row=3, column=1, sticky=tk.W, padx=5)
+        tk.Button(danren_tab, text="STOP!", width=7, command=lambda: self.loop2_stop()).grid(row=3, column=1, sticky=tk.E, padx=5)
 
         tk.Label(danren_tab, text="蹭铃铛设备").grid(row=10, column=0)
         self.lingdang_device_entry = tk.Entry(danren_tab)
@@ -173,12 +178,8 @@ class AutoPlayer_WF(tk.Tk):
         self.ring_raid_choose_entry.insert(0, ring_raid_choose)
         self.ring_raid_choose_entry.grid(row=11, column=1)
 
-        tk.Button(danren_tab, text="GO!", width=7, command=lambda: self.ring_go()).grid(
-            row=12, column=1, sticky=tk.W, padx=5
-        )
-        tk.Button(
-            danren_tab, text="STOP!", width=7, command=lambda: self.ring_stop()
-        ).grid(row=12, column=1, sticky=tk.E, padx=5)
+        tk.Button(danren_tab, text="GO!", width=7, command=lambda: self.ring_go()).grid(row=12, column=1, sticky=tk.W, padx=5)
+        tk.Button(danren_tab, text="STOP!", width=7, command=lambda: self.ring_stop()).grid(row=12, column=1, sticky=tk.E, padx=5)
 
         # 工具箱
         tk.Label(gongju_tab, text="关机倒计时").grid(row=0, column=0)
@@ -186,9 +187,9 @@ class AutoPlayer_WF(tk.Tk):
         self.auto_shutdown_entry.insert(0, "3600")
         self.auto_shutdown_entry.grid(row=0, column=1)
 
-        tk.Button(
-            gongju_tab, text="SET!", width=7, command=lambda: self.set_autoshutdown()
-        ).grid(row=1, column=1, sticky=tk.W, padx=5)
+        tk.Button(gongju_tab, text="SET!", width=7, command=lambda: self.set_autoshutdown()).grid(
+            row=1, column=1, sticky=tk.W, padx=5
+        )
         tk.Button(
             gongju_tab,
             text="CANCEL!",
@@ -196,18 +197,18 @@ class AutoPlayer_WF(tk.Tk):
             command=lambda: self.cancel_autoshutdown(),
         ).grid(row=1, column=1, sticky=tk.E, padx=5)
 
-        tk.Button(
-            gongju_tab, text="查询子进程状态", width=12, command=lambda: self.check_process()
-        ).grid(row=11, columnspan=2, sticky=tk.W, padx=5,pady=2)
-        tk.Button(
-            gongju_tab, text="关闭所有子进程", width=12, command=lambda: self.kill_process()
-        ).grid(row=11, columnspan=2, sticky=tk.E, padx=5,pady=2)        
-        tk.Button(
-            gongju_tab, text="查询所有设备", width=12, command=lambda: self.check_devices()
-        ).grid(row=12, columnspan=2, sticky=tk.W, padx=5,pady=2)
-        tk.Button(
-            gongju_tab, text="所有设备截图", width=12, command=lambda: self.devices_screenshot()
-        ).grid(row=12, columnspan=2, sticky=tk.E, padx=5,pady=2)
+        tk.Button(gongju_tab, text="查询子进程状态", width=12, command=lambda: self.check_process()).grid(
+            row=11, columnspan=2, sticky=tk.W, padx=5, pady=2
+        )
+        tk.Button(gongju_tab, text="关闭所有子进程", width=12, command=lambda: self.kill_process()).grid(
+            row=11, columnspan=2, sticky=tk.E, padx=5, pady=2
+        )
+        tk.Button(gongju_tab, text="查询所有设备", width=12, command=lambda: self.check_devices()).grid(
+            row=12, columnspan=2, sticky=tk.W, padx=5, pady=2
+        )
+        tk.Button(gongju_tab, text="所有设备截图", width=12, command=lambda: self.devices_screenshot()).grid(
+            row=12, columnspan=2, sticky=tk.E, padx=5, pady=2
+        )
 
         # notebook
         self.notebook.add(config_tab, text="全局设置")
@@ -238,6 +239,7 @@ class AutoPlayer_WF(tk.Tk):
         config["WF"]["timeout"] = self.timeout_entry.get()
         config["WF"]["battle_timeout"] = self.battle_timeout_entry.get()
         config["WF"]["loop_device"] = self.loop_device_entry.get()
+        config["WF"]["loop_device_2"] = self.loop2_device_entry.get()
         config["WF"]["allow_stranger"] = self.allow_stranger_entry.get()
         config["WF"]["ring_device"] = self.lingdang_device_entry.get()
 
@@ -246,15 +248,11 @@ class AutoPlayer_WF(tk.Tk):
 
     def fangzhu_go(self):
         self.save_config()
-        self.proc_fangzhu = subprocess.Popen(
-            "python World_Flipper\\world_flipper_fangzhu.py"
-        )
+        self.proc_fangzhu = subprocess.Popen("python World_Flipper\\world_flipper_fangzhu.py")
 
     def canzhan1_go(self):
         self.save_config()
-        self.proc_canzhan1 = subprocess.Popen(
-            "python World_Flipper\\world_flipper_canzhan1.py"
-        )
+        self.proc_canzhan1 = subprocess.Popen("python World_Flipper\\world_flipper_canzhan1.py")
 
     def canzhan2_go(self):
         self.save_config()
@@ -269,6 +267,10 @@ class AutoPlayer_WF(tk.Tk):
     def loop_go(self):
         self.save_config()
         self.proc_loop = subprocess.Popen("python World_Flipper\\world_flipper_loop.py")
+
+    def loop2_go(self):
+        self.save_config()
+        self.proc_loop2 = subprocess.Popen("python World_Flipper\\world_flipper_loop_2.py")
 
     def ring_go(self):
         self.save_config()
@@ -301,6 +303,13 @@ class AutoPlayer_WF(tk.Tk):
             print("[GUI]单人连战子进程已关闭")
         except:
             print("[GUI]单人连战子进程未启动")
+
+    def loop2_stop(self):
+        try:
+            self.proc_loop2.kill()
+            print("[GUI]单人连战2子进程已关闭")
+        except:
+            print("[GUI]单人连战2子进程未启动")
 
     def ring_stop(self):
         try:
@@ -339,6 +348,10 @@ class AutoPlayer_WF(tk.Tk):
         except:
             print("[GUI]单人连战子进程未启动")
         try:
+            print("[GUI]单人连战2子进程", self.proc_loop2.poll())
+        except:
+            print("[GUI]单人连战2子进程未启动")
+        try:
             print("[GUI]蹭铃铛子进程", self.proc_ring.poll())
         except:
             print("[GUI]蹭铃铛子进程未启动")
@@ -349,19 +362,16 @@ class AutoPlayer_WF(tk.Tk):
         self.canzhan1_stop()
         self.canzhan2_stop()
         self.loop_stop()
+        self.loop2_stop()
         self.ring_stop()
 
     def check_devices(self):
         subprocess.Popen("{0} devices".format(adb_path))
-    
+
     def devices_screenshot(self):
-        for d in list(set([fangzhu_device,canzhan1_device,canzhan2_device,loop_device,ring_device])):
-            a = "{2} -s {0} shell screencap -p sdcard/screen_{1}.jpg".format(
-                d, d, adb_path
-            )
-            b = "{2} -s {0} pull sdcard/screen_{1}.jpg ./screen".format(
-                d, d, adb_path
-            )
+        for d in list(set([fangzhu_device, canzhan1_device, canzhan2_device, loop_device, ring_device])):
+            a = "{2} -s {0} shell screencap -p sdcard/screen_{1}.jpg".format(d, d, adb_path)
+            b = "{2} -s {0} pull sdcard/screen_{1}.jpg ./screen".format(d, d, adb_path)
             for row in [a, b]:
                 raw_content = os.popen(row).read()
                 # time.sleep(0.2)
@@ -396,12 +406,14 @@ if __name__ == "__main__":
     canzhan1_device = config["WF"]["canzhan_device_1"]
     canzhan2_device = config["WF"]["canzhan_device_2"]
     loop_device = config["WF"]["loop_device"]
+    loop_device_2 = config["WF"]["loop_device_2"]
     ring_device = config["WF"]["ring_device"]
     timeout = config["WF"].getint("timeout")
     battle_timeout = config["WF"].getint("battle_timeout")
     allow_stranger = config["WF"].getint("allow_stranger")
 
     event_mode = config["RAID"]["event_mode"]
+    raid_rank = config["RAID"]["raid_rank"]
     event_screenshot = config["RAID"]["event_screenshot"]
     raid_choose = config["RAID"]["raid_choose"]
     ring_raid_choose = config["RAID"]["ring_raid_choose"]
