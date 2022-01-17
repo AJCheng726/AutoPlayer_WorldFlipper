@@ -434,7 +434,7 @@ class AutoPlayer_WF(tk.Tk):
     def open_WIKI(self, search):
         webbrowser.open("http://sjtswy.gamer.cc/search?word={0}&type=0".format(search), new=0)
     def open_PIXIV(self, search):
-        webbrowser.open("http://pixiv.com/search?={0}".format(search), new=0)
+        webbrowser.open("https://www.pixiv.net/tags/{0}/artworks?s_mode=s_tag".format(search), new=0)
 
 if __name__ == "__main__":
     config = configparser.ConfigParser()
