@@ -1,5 +1,6 @@
 from distutils import command
 import os
+from re import search
 import time
 import configparser
 import subprocess
@@ -18,7 +19,7 @@ class AutoPlayer_WF(tk.Tk):
         super().__init__()
         self.iconbitmap("./wanted/cover.ico")
         self.title("Auto Player WORLD FLIPPER")
-        self.geometry("240x220")
+        self.geometry("240x230")
         self.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.notebook = Notebook(self)
 
@@ -28,7 +29,7 @@ class AutoPlayer_WF(tk.Tk):
         danren_tab = ttk.Frame(self.notebook)
         gongju_tab = ttk.Frame(self.notebook)
 
-        # 全局设置
+        # 主页
         tk.Label(config_tab, text="Debug设置").grid(row=0, column=0)
         tk.Label(config_tab, text="图片匹配精度").grid(row=1, column=0)
         # self.wanted_path_label = tk.Label(config_tab, text="目标图片地址").grid(
@@ -75,15 +76,20 @@ class AutoPlayer_WF(tk.Tk):
         tk.Label(config_tab, text="😏 ApWF version 1.8.1").grid(row=10, column=1)
         ttk.Button(config_tab, text="SAVE", command=self.save_config, width=5).grid(row=10, column=0, pady=2)
 
-        ttk.Button(config_tab, text="NGA", bootstyle=SUCCESS, command=self.open_NGA, width=4).grid(
-            row=11, columnspan=2, sticky=tk.W, padx=2, pady=5
-        )
-        ttk.Button(config_tab, text="B站", bootstyle=PRIMARY, command=self.open_BLBL, width=4).grid(
-            row=11, columnspan=2, sticky=tk.W, padx=60, pady=5
-        )
-        ttk.Button(config_tab, text="WIKI", bootstyle=DANGER, command=self.open_WIKI, width=4).grid(
-            row=11, column=1, sticky=tk.W, padx=40, pady=5
-        )
+        tk.Label(config_tab, text="搜盘子").grid(row=11, column=0)
+        self.search_entry = tk.Entry(config_tab)
+        self.search_entry.insert(0,"摩天楼")
+        self.search_entry.grid(row=11, column=1)
+
+        ttk.Button(
+            config_tab, text="NGA", bootstyle=SUCCESS, command=lambda: self.open_NGA(self.search_entry.get()), width=4
+        ).grid(row=12, columnspan=2, sticky=tk.W, padx=2, pady=5)
+        ttk.Button(
+            config_tab, text="B站", bootstyle=PRIMARY, command=lambda: self.open_BLBL(self.search_entry.get()), width=4
+        ).grid(row=12, columnspan=2, sticky=tk.W, padx=60, pady=5)
+        ttk.Button(
+            config_tab, text="WIKI", bootstyle=DANGER, command=lambda: self.open_WIKI(self.search_entry.get()), width=4
+        ).grid(row=12, column=1, sticky=tk.W, padx=40, pady=5)
 
         # 房主
         tk.Label(fangzhu_tab, text="房主设备").grid(row=0, column=0)
@@ -239,7 +245,7 @@ class AutoPlayer_WF(tk.Tk):
         )
 
         # notebook
-        self.notebook.add(config_tab, text="全局设置")
+        self.notebook.add(config_tab, text="主页")
         self.notebook.add(fangzhu_tab, text="房主")
         self.notebook.add(canzhan_tab, text="参战")
         self.notebook.add(danren_tab, text="单人")
@@ -416,14 +422,15 @@ class AutoPlayer_WF(tk.Tk):
         self.kill_process()
         self.destroy()
 
-    def open_NGA(self):
-        webbrowser.open("http://www.baidu.com", new=0)
+    def open_NGA(self, search):
+        webbrowser.open("https://bbs.nga.cn/thread.php?key={0}&fid=693".format(search), new=0)
 
-    def open_BLBL(self):
-        webbrowser.open("http://www.bilibili.com", new=0)
+    def open_BLBL(self, search):
+        webbrowser.open("https://bilibili.com/search?keyword=世界弹射物语 {0}".format(search), new=0)
 
-    def open_WIKI(self):
-        webbrowser.open("http://www.wiki.com", new=0)
+    def open_WIKI(self, search):
+        webbrowser.open("http://sjtswy.gamer.cc/search?word={0}&type=0".format(search), new=0)
+
 
 if __name__ == "__main__":
     config = configparser.ConfigParser()
