@@ -19,7 +19,7 @@ class AutoPlayer_WF(tk.Tk):
         super().__init__()
         self.iconbitmap("./wanted/cover.ico")
         self.title("Auto Player WORLD FLIPPER")
-        self.geometry("240x230")
+        self.geometry("240x235")
         self.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.notebook = Notebook(self)
 
@@ -130,8 +130,8 @@ class AutoPlayer_WF(tk.Tk):
         self.raid_choose_entry.insert(0, raid_choose)
         self.raid_choose_entry.grid(row=7, column=1)
 
-        tk.Button(fangzhu_tab, text="GO!", width=7, command=lambda: self.fangzhu_go()).grid(row=99, column=1, sticky=tk.W, padx=5)
-        tk.Button(fangzhu_tab, text="STOP!", width=7, command=lambda: self.fangzhu_stop()).grid(
+        ttk.Button(fangzhu_tab, text="GO!", bootstyle="success", width=5, command=lambda: self.fangzhu_go()).grid(row=99, column=1, sticky=tk.W, padx=5)
+        ttk.Button(fangzhu_tab, text="STOP!", width=5, command=lambda: self.fangzhu_stop()).grid(
             row=99, column=1, sticky=tk.E, padx=5
         )
         # self.fangzhu_scrollbar = ttk.Scrollbar(fangzhu_tab, orient=tk.VERTICAL)
@@ -157,10 +157,10 @@ class AutoPlayer_WF(tk.Tk):
         self.canzhan1_device_entry.insert(0, canzhan1_device)
         self.canzhan1_device_entry.grid(row=10, column=1)
 
-        tk.Button(canzhan_tab, text="GO!", width=7, command=lambda: self.canzhan1_go()).grid(
+        ttk.Button(canzhan_tab, text="GO!", bootstyle="success", width=5, command=lambda: self.canzhan1_go()).grid(
             row=11, column=1, sticky=tk.W, padx=5, pady=5
         )
-        tk.Button(canzhan_tab, text="STOP!", width=7, command=lambda: self.canzhan1_stop()).grid(
+        ttk.Button(canzhan_tab, text="STOP!", width=5, command=lambda: self.canzhan1_stop()).grid(
             row=11, column=1, sticky=tk.E, padx=5, pady=5
         )
 
@@ -169,10 +169,10 @@ class AutoPlayer_WF(tk.Tk):
         self.canzhan2_device_entry.insert(0, canzhan2_device)
         self.canzhan2_device_entry.grid(row=20, column=1)
 
-        tk.Button(canzhan_tab, text="GO!", width=7, command=lambda: self.canzhan2_go()).grid(
+        ttk.Button(canzhan_tab, text="GO!", bootstyle="success", width=5, command=lambda: self.canzhan2_go()).grid(
             row=21, column=1, sticky=tk.W, padx=5, pady=5
         )
-        tk.Button(canzhan_tab, text="STOP!", width=7, command=lambda: self.canzhan2_stop()).grid(
+        ttk.Button(canzhan_tab, text="STOP!", width=5, command=lambda: self.canzhan2_stop()).grid(
             row=21, column=1, sticky=tk.E, padx=5, pady=5
         )
 
@@ -182,10 +182,10 @@ class AutoPlayer_WF(tk.Tk):
         self.loop_device_entry.insert(0, loop_device)
         self.loop_device_entry.grid(row=0, column=1)
 
-        tk.Button(danren_tab, text="GO!", width=7, command=lambda: self.loop_go()).grid(
+        ttk.Button(danren_tab, text="GO!", bootstyle="success", width=5, command=lambda: self.loop_go()).grid(
             row=1, column=1, sticky=tk.W, padx=5, pady=3
         )
-        tk.Button(danren_tab, text="STOP!", width=7, command=lambda: self.loop_stop()).grid(
+        ttk.Button(danren_tab, text="STOP!", width=5, command=lambda: self.loop_stop()).grid(
             row=1, column=1, sticky=tk.E, padx=5, pady=3
         )
 
@@ -194,10 +194,10 @@ class AutoPlayer_WF(tk.Tk):
         self.loop2_device_entry.insert(0, loop_device_2)
         self.loop2_device_entry.grid(row=2, column=1)
 
-        tk.Button(danren_tab, text="GO!", width=7, command=lambda: self.loop2_go()).grid(
+        ttk.Button(danren_tab, text="GO!", bootstyle="success",width=5, command=lambda: self.loop2_go()).grid(
             row=3, column=1, sticky=tk.W, padx=5, pady=3
         )
-        tk.Button(danren_tab, text="STOP!", width=7, command=lambda: self.loop2_stop()).grid(
+        ttk.Button(danren_tab, text="STOP!", width=5, command=lambda: self.loop2_stop()).grid(
             row=3, column=1, sticky=tk.E, padx=5, pady=3
         )
 
@@ -211,10 +211,10 @@ class AutoPlayer_WF(tk.Tk):
         self.ring_raid_choose_entry.insert(0, ring_raid_choose)
         self.ring_raid_choose_entry.grid(row=11, column=1)
 
-        tk.Button(danren_tab, text="GO!", width=7, command=lambda: self.ring_go()).grid(
+        ttk.Button(danren_tab, text="GO!", bootstyle="success", width=5, command=lambda: self.ring_go()).grid(
             row=12, column=1, sticky=tk.W, padx=5, pady=3
         )
-        tk.Button(danren_tab, text="STOP!", width=7, command=lambda: self.ring_stop()).grid(
+        ttk.Button(danren_tab, text="STOP!", width=5, command=lambda: self.ring_stop()).grid(
             row=12, column=1, sticky=tk.E, padx=5, pady=3
         )
 
@@ -224,26 +224,23 @@ class AutoPlayer_WF(tk.Tk):
         self.auto_shutdown_entry.insert(0, "3600")
         self.auto_shutdown_entry.grid(row=0, column=1)
 
-        tk.Button(gongju_tab, text="SET!", width=7, command=lambda: self.set_autoshutdown()).grid(
+        ttk.Button(gongju_tab, text="SET!", bootstyle="info",width=4, command=lambda: self.set_autoshutdown()).grid(
             row=1, column=1, sticky=tk.W, padx=5, pady=5
         )
-        tk.Button(
-            gongju_tab,
-            text="CANCEL!",
-            width=7,
-            command=lambda: self.cancel_autoshutdown(),
-        ).grid(row=1, column=1, sticky=tk.E, padx=5, pady=5)
+        ttk.Button(gongju_tab, text="CANCEL!", bootstyle="secondary",width=8, command=lambda: self.cancel_autoshutdown(),).grid(
+            row=1, column=1, sticky=tk.E, padx=5, pady=5
+        )
 
-        tk.Button(gongju_tab, text="查询子进程状态", width=12, command=lambda: self.check_process()).grid(
+        tk.Button(gongju_tab, text="查询子进程状态", width=13, command=lambda: self.check_process()).grid(
             row=11, columnspan=2, sticky=tk.W, padx=5, pady=5
         )
-        tk.Button(gongju_tab, text="关闭所有子进程", width=12, command=lambda: self.kill_process()).grid(
+        tk.Button(gongju_tab, text="关闭所有子进程", width=13, command=lambda: self.kill_process()).grid(
             row=11, columnspan=2, sticky=tk.E, padx=5, pady=5
         )
-        tk.Button(gongju_tab, text="查询所有设备", width=12, command=lambda: self.check_devices()).grid(
+        tk.Button(gongju_tab, text="查询所有设备", width=13, command=lambda: self.check_devices()).grid(
             row=12, columnspan=2, sticky=tk.W, padx=5, pady=5
         )
-        tk.Button(gongju_tab, text="所有设备截图", width=12, command=lambda: self.devices_screenshot()).grid(
+        tk.Button(gongju_tab, text="所有设备截图", width=13, command=lambda: self.devices_screenshot()).grid(
             row=12, columnspan=2, sticky=tk.E, padx=5, pady=5
         )
 
@@ -433,8 +430,10 @@ class AutoPlayer_WF(tk.Tk):
 
     def open_WIKI(self, search):
         webbrowser.open("http://sjtswy.gamer.cc/search?word={0}&type=0".format(search), new=0)
+
     def open_PIXIV(self, search):
         webbrowser.open("https://www.pixiv.net/tags/{0}/artworks?s_mode=s_tag".format(search), new=0)
+
 
 if __name__ == "__main__":
     config = configparser.ConfigParser()
