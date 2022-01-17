@@ -72,7 +72,7 @@ class AutoPlayer_WF(tk.Tk):
         self.timeout_entry.insert(0, timeout)
         self.timeout_entry.grid(row=6, column=1)
 
-        tk.Label(config_tab, text="😏 ApWF version 1.7.3").grid(row=10, column=1)
+        tk.Label(config_tab, text="😏 ApWF version 1.8.1").grid(row=10, column=1)
         ttk.Button(config_tab, text="SAVE", command=self.save_config, width=5).grid(row=10, column=0, pady=2)
 
         ttk.Button(config_tab, text="NGA", bootstyle=SUCCESS, command=self.open_NGA, width=4).grid(
