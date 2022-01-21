@@ -6,30 +6,33 @@ from world_flipper_actions import *
 
 eventlet.monkey_patch()
 
-def from_battle_to_prepare(player,count):
+
+def from_battle_to_prepare(player, count, event_mode):
     clear(player)
-    find_room(player)
+    find_room(player, event_mode)
     count += 1
     print("{1} [info] {2} 农号已执行{0}次".format(count, Timer().simple_time(), player.use_device))
     return count
 
-def from_main_to_room(player,event_mode):
+
+def from_main_to_room(player, event_mode):
     player.touch((465, 809))  # 领主战
     if event_mode:
         time.sleep(3)
         player.wait_touch("button_event")  # 活动
-    find_room(player)
+    find_room(player, event_mode)
+
 
 def wf_join(player, loop_time=0, count=0, event_mode=0, timeout=600):
     print("[wf_join] 使用设备{0}农BOSS, 搜索房主{1}".format(player.use_device, fangzhu_account))
     if check_game(player):  # 从战斗中开始执行
         with eventlet.Timeout(120, False):
-            if check_ui(player) < 6: # 处于房间外
+            if check_ui(player) < 6:  # 处于房间外
                 goto_main(player)
-                from_main_to_room(player,event_mode)
+                from_main_to_room(player, event_mode)
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(timeout, False):  # timeout秒还没执行下一次就重启
-                count = from_battle_to_prepare(player,count)
+                count = from_battle_to_prepare(player, count, event_mode)
                 continue
             print("超过{0}秒未执行下一次...即将重启游戏...".format(timeout))
             return count
@@ -37,11 +40,11 @@ def wf_join(player, loop_time=0, count=0, event_mode=0, timeout=600):
     else:  # 从游戏启动开始执行
         with eventlet.Timeout(120, False):
             login(player)
-            from_main_to_room(player,event_mode)
+            from_main_to_room(player, event_mode)
 
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(timeout, False):
-                count = from_battle_to_prepare(player,count)
+                count = from_battle_to_prepare(player, count, event_mode)
                 continue
             print("超过{0}秒未执行下一次...即将重启游戏...".format(timeout))
             return count
@@ -68,7 +71,10 @@ if __name__ == "__main__":
     while True:
         # restart_time = Timer().time_restart(datetime.datetime.now())
         count = wf_join(
-            player, count=count, event_mode=config["RAID"].getint("event_mode"), timeout=config["WF"].getint("timeout"),
+            player,
+            count=count,
+            event_mode=config["RAID"].getint("event_mode"),
+            timeout=config["WF"].getint("timeout"),
         )
         player.stop_app()
         time.sleep(3)

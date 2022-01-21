@@ -141,7 +141,7 @@ def find_raid(player, raid_choose, raid_rank=1):
     player.wait("button_gengxinliebiao")  # 确认进入raid选择界面
     while not player.wait(raid_choose, 3):
         player.down_swipe()
-    player.wait_touch(raid_choose)
+    player.wait_touch(raid_choose,0.85)
     rank_pos = [None, (366, 350), (366, 450), (366, 560), (366, 670), (366, 780)]
     time.sleep(2)
     player.touch(rank_pos[raid_rank])  # 按难度点击相应位置
@@ -200,7 +200,7 @@ def clear(player):
         player.find_touch("button_ok")
 
 
-def find_room(player):
+def find_room(player, event_mode=0):
     # 找建房号ID=>"ok"和"是"处理双倍\房满的问题=>没找到就更新=>准备完毕
     print(Timer().simple_time(), player.use_device, "再次寻找房间...")
     while not player.find_touch("button_zhunbeiwanbi"):
@@ -209,6 +209,11 @@ def find_room(player):
             player.find_touch(fangzhu_account[fangzhu])
         player.find_touch("button_shi")
         player.find_touch("button_ok")
+        if event_mode == 1:
+            pts = player.find_location("icon_fangjianhaoinput")
+            if pts and (pts[0][1] / device_h) > (730 / 960):  # 列表太靠下，没有显示房间
+                player.down_swipe()
+                time.sleep(2)
         player.find_touch("button_gengxinliebiao")
         time.sleep(1)
 
