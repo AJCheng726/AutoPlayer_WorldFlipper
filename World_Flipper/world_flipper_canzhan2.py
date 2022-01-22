@@ -1,11 +1,11 @@
 from world_flipper_canzhan1 import *
-# from settings import *
 
-if __name__=='__main__':
+if __name__ == "__main__":
     config = configparser.ConfigParser()
     config.read("./config.ini")
     event_screenshot = config["RAID"]["event_screenshot"]
     raid_choose = config["RAID"]["raid_choose"]
+    battle_timeout = config["WF"].getint("battle_timeout")
     timeout = config["WF"].getint("timeout")
     player = Autoplayer(
         use_device=config["WF"]["canzhan_device_2"],
@@ -19,9 +19,12 @@ if __name__=='__main__':
     )
     count = 0
     while True:
-        # restart_time = Timer().time_restart(datetime.datetime.now())
         count = wf_join(
-            player, count=count, event_mode=config["RAID"].getint("event_mode"), timeout=config["WF"].getint("timeout")
+            player,
+            count=count,
+            event_mode=config["RAID"].getint("event_mode"),
+            timeout=config["WF"].getint("timeout"),
+            battle_timeout=battle_timeout,
         )
         player.stop_app()
         time.sleep(3)

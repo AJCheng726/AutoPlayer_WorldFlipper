@@ -90,7 +90,7 @@ def check_ui(player):
 def login(player):
     print(Timer().simple_time(), player.use_device, "自动登录游戏...")
     player.start_app()
-    if player.wait("icon_aldlgin", max_wait_time=30):
+    if player.wait("icon_aldlgin", max_wait_time=60):
         while not player.find("page_main"):
             player.find_touch("button_ok")
             player.find_touch("button_fangqi2")
@@ -98,7 +98,7 @@ def login(player):
             player.find_touch("tips_denglujiangli")
             player.touch((device_w * 1 / 2, device_h * 1 / 4))
     else:
-        if player.wait("button_zhangmidenglu"):  # 需要输账号
+        if player.find("button_zhangmidenglu"):  # 需要输账号
             player.find_touch("button_zhangmidenglu")
             time.sleep(1)
             player.touch((441, 486))  # 下拉

@@ -49,21 +49,29 @@ def wf_owner(player, config, loop_time=0, count=0, event_mode=0):
     announcement(event_mode, event_screenshot, raid_choose, player, raid_rank)
 
     if check_game(player):  # 游戏已启动
-        with eventlet.Timeout(120, False):
-            if check_ui(player) < 6:  # 处于房间外
-                goto_main(player)
-                from_main_to_room(event_mode, raid_choose, event_screenshot, allow_stranger, player, raid_rank)
+        try:
+            with eventlet.Timeout(timeout, True):
+                if check_ui(player) < 6:  # 处于房间外
+                    goto_main(player)
+                    from_main_to_room(event_mode, raid_choose, event_screenshot, allow_stranger, player, raid_rank)
+        except eventlet.timeout.Timeout:
+            print("超过{0}秒未进入房间，即将重启游戏...".format(timeout))
+            return count
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(timeout, False):
                 count = one_loop(player, count)
                 continue
-            print("超过{0}秒未执行下一次...即将重启游戏...".format(timeout))
+            print("超过{0}秒未执行下一次，即将重启游戏...".format(timeout))
             return count
 
     else:  # 从启动游戏开始执行
-        with eventlet.Timeout(120, False):
-            login(player)
-            from_main_to_room(event_mode, raid_choose, event_screenshot, allow_stranger, player, raid_rank)
+        try:
+            with eventlet.Timeout(timeout, True):
+                login(player)
+                from_main_to_room(event_mode, raid_choose, event_screenshot, allow_stranger, player, raid_rank)
+        except eventlet.timeout.Timeout:
+            print("超过{0}秒未进入房间，即将重启游戏...".format(timeout))
+            return count
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(timeout, False):
                 count = one_loop(player, count)
