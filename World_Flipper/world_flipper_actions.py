@@ -90,19 +90,23 @@ def check_ui(player):
 def login(player):
     print(Timer().simple_time(), player.use_device, "自动登录游戏...")
     player.start_app()
-    if player.wait("button_zhangmidenglu", max_wait_time=30):  # 需要输账号
-        player.find_touch("button_zhangmidenglu")
-        time.sleep(1)
-        player.touch((441, 486))  # 下拉
-        time.sleep(1)
-        player.touch((257, 561))  # 选第一个账号
-        player.wait_touch("button_denglu")
-    while not player.find("page_main"):
-        player.find_touch("button_ok")
-        player.find_touch("button_fangqi2")
-        player.find_touch("button_guanbi")
-        player.find_touch("tips_denglujiangli")
-        player.touch((device_w * 1 / 2, device_h * 1 / 4))
+    if player.wait("icon_aldlgin", max_wait_time=30):
+        while not player.find("page_main"):
+            player.find_touch("button_ok")
+            player.find_touch("button_fangqi2")
+            player.find_touch("button_guanbi")
+            player.find_touch("tips_denglujiangli")
+            player.touch((device_w * 1 / 2, device_h * 1 / 4))
+    else:
+        if player.wait("button_zhangmidenglu"):  # 需要输账号
+            player.find_touch("button_zhangmidenglu")
+            time.sleep(1)
+            player.touch((441, 486))  # 下拉
+            time.sleep(1)
+            player.touch((257, 561))  # 选第一个账号
+            player.wait_touch("button_denglu")
+        else:
+            print(Timer().simple_time(), player.use_device, "登录失败，等待重试")
 
 
 def goto_main(player):
@@ -141,7 +145,7 @@ def find_raid(player, raid_choose, raid_rank=1):
     player.wait("button_gengxinliebiao")  # 确认进入raid选择界面
     while not player.wait(raid_choose, 3):
         player.down_swipe()
-    player.wait_touch(raid_choose,0.85)
+    player.wait_touch(raid_choose, 0.85)
     rank_pos = [None, (366, 350), (366, 450), (366, 560), (366, 670), (366, 780)]
     time.sleep(2)
     player.touch(rank_pos[raid_rank])  # 按难度点击相应位置
