@@ -77,7 +77,7 @@ class AutoPlayer_WF(tk.Tk):
         tk.Label(config_tab, text="😏 ApWF version 1.10.0").grid(row=10, column=1)
         ttk.Button(config_tab, text="SAVE", command=self.save_config, width=5).grid(row=10, column=0, pady=2)
 
-        tk.Label(config_tab, text="搜盘se子tu").grid(row=11, column=0)
+        tk.Label(config_tab, text="搜盘子").grid(row=11, column=0)
         self.search_entry = tk.Entry(config_tab)
         self.search_entry.insert(0, "摩天楼")
         self.search_entry.grid(row=11, column=1)
@@ -89,9 +89,9 @@ class AutoPlayer_WF(tk.Tk):
             config_tab, text="B站", bootstyle=PRIMARY, command=lambda: self.open_BLBL(self.search_entry.get()), width=4
         ).grid(row=12, columnspan=2, sticky=tk.W, padx=60, pady=5)
         ttk.Button(
-            config_tab, text="WIKI", bootstyle=DANGER, command=lambda: self.open_WIKI(self.search_entry.get()), width=4
+            config_tab, text="磁场", bootstyle=DANGER, command=lambda: self.open_WIKI(self.search_entry.get()), width=4
         ).grid(row=12, column=1, sticky=tk.W, padx=38, pady=5)
-        ttk.Button(config_tab, text="P站", bootstyle=DARK, command=lambda: self.open_PIXIV(self.search_entry.get()), width=4).grid(
+        ttk.Button(config_tab, text="WIKI", bootstyle=DARK, command=lambda: self.open_wfwiki(self.search_entry.get()), width=4).grid(
             row=12, column=1, sticky=tk.E, pady=5
         )
 
@@ -426,8 +426,8 @@ class AutoPlayer_WF(tk.Tk):
     def open_WIKI(self, search):
         webbrowser.open("http://sjtswy.gamer.cc/search?word={0}&type=0".format(search), new=0)
 
-    def open_PIXIV(self, search):
-        webbrowser.open("https://www.pixiv.net/tags/{0}/artworks?s_mode=s_tag".format(search), new=0)
+    def open_wfwiki(self, search):
+        webbrowser.open("https://www.wfwiki.com/index", new=0)
 
 
 if __name__ == "__main__":
