@@ -1,15 +1,21 @@
-from distutils import command
-import os
-from re import search
-import time
 import configparser
-import subprocess
-import tkinter as tk
-import ttkbootstrap as ttk
 import ctypes
+import os
+import subprocess
+import sys
+import time
+import tkinter as tk
 import webbrowser
+from distutils import command
+from re import search
 from tkinter.ttk import Notebook
+
+import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
+
+sys.path.append("./utils/")
+sys.path.append("./")
+from utils.print_color import *
 
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("ApWF_GUI")
 
@@ -311,83 +317,83 @@ class AutoPlayer_WF(tk.Tk):
     def fangzhu_stop(self):
         try:
             self.proc_fangzhu.kill()
-            print("[GUI]房主子进程已关闭")
+            printYellow("[GUI]房主子进程已关闭")
         except:
-            print("[GUI]房主子进程未启动")
+            printYellow("[GUI]房主子进程未启动")
 
     def canzhan1_stop(self):
         try:
             self.proc_canzhan1.kill()
-            print("[GUI]参战1子进程已关闭")
+            printYellow("[GUI]参战1子进程已关闭")
         except:
-            print("[GUI]参战1子进程未启动")
+            printYellow("[GUI]参战1子进程未启动")
 
     def canzhan2_stop(self):
         try:
             self.proc_canzhan2.kill()
-            print("[GUI]参战2子进程已关闭")
+            printYellow("[GUI]参战2子进程已关闭")
         except:
-            print("[GUI]参战2子进程未启动")
+            printYellow("[GUI]参战2子进程未启动")
 
     def loop_stop(self):
         try:
             self.proc_loop.kill()
-            print("[GUI]单人连战子进程已关闭")
+            printYellow("[GUI]单人连战子进程已关闭")
         except:
-            print("[GUI]单人连战子进程未启动")
+            printYellow("[GUI]单人连战子进程未启动")
 
     def loop2_stop(self):
         try:
             self.proc_loop2.kill()
-            print("[GUI]单人连战2子进程已关闭")
+            printYellow("[GUI]单人连战2子进程已关闭")
         except:
-            print("[GUI]单人连战2子进程未启动")
+            printYellow("[GUI]单人连战2子进程未启动")
 
     def ring_stop(self):
         try:
             self.proc_ring.kill()
-            print("[GUI]蹭铃铛子进程已关闭")
+            printYellow("[GUI]蹭铃铛子进程已关闭")
         except:
-            print("[GUI]蹭铃铛子进程未启动")
+            printYellow("[GUI]蹭铃铛子进程未启动")
 
     def refreshText(self, p, text):
         fangzhu_output = self.proc_fangzhu.stdout
 
         for line in iter(fangzhu_output.readline(1), b""):
-            print(line)
+            printYellow(line)
         self.fangzhu_shell.update()
         self.fangzhu_shell.see(tk.END)
         self.after(500, self.refreshText)
 
     def check_process(self):
-        print("[GUI]查询所有子进程")
+        printYellow("[GUI]查询所有子进程")
         try:
-            print("[GUI]房主子进程", self.proc_fangzhu.poll())
+            printYellow("[GUI]房主子进程{0}".format(self.proc_fangzhu.poll()))
         except:
-            print("[GUI]房主子进程未启动")
+            printYellow("[GUI]房主子进程未启动")
         try:
-            print("[GUI]参战1子进程", self.proc_canzhan1.poll())
+            printYellow("[GUI]参战1子进程{0}".format(self.proc_canzhan1.poll()))
         except:
-            print("[GUI]参战1子进程未启动")
+            printYellow("[GUI]参战1子进程未启动")
         try:
-            print("[GUI]参战2子进程", self.proc_canzhan2.poll())
+            printYellow("[GUI]参战2子进程{0}".format(self.proc_canzhan2.poll()))
         except:
-            print("[GUI]参战2子进程未启动")
+            printYellow("[GUI]参战2子进程未启动")
         try:
-            print("[GUI]单人连战子进程", self.proc_loop.poll())
+            printYellow("[GUI]单人连战子进程{0}".format(self.proc_loop.poll()))
         except:
-            print("[GUI]单人连战子进程未启动")
+            printYellow("[GUI]单人连战子进程未启动")
         try:
-            print("[GUI]单人连战2子进程", self.proc_loop2.poll())
+            printYellow("[GUI]单人连战2子进程{0}".format(self.proc_loop2.poll()))
         except:
-            print("[GUI]单人连战2子进程未启动")
+            printYellow("[GUI]单人连战2子进程未启动")
         try:
-            print("[GUI]蹭铃铛子进程", self.proc_ring.poll())
+            printYellow("[GUI]蹭铃铛子进程{0}".format(self.proc_ring.poll()))
         except:
-            print("[GUI]蹭铃铛子进程未启动")
+            printYellow("[GUI]蹭铃铛子进程未启动")
 
     def kill_process(self):
-        print("[GUI]关闭所有子进程")
+        printYellow("[GUI]关闭所有子进程")
         self.fangzhu_stop()
         self.canzhan1_stop()
         self.canzhan2_stop()
@@ -405,7 +411,7 @@ class AutoPlayer_WF(tk.Tk):
             for row in [a, b]:
                 raw_content = os.popen(row).read()
                 # time.sleep(0.2)
-            print("[GUI]已对设备{0}截图".format(d))
+            printYellow("[GUI]已对设备{0}截图".format(d))
 
     def set_autoshutdown(self):
         subprocess.Popen("shutdown -s -t " + self.auto_shutdown_entry.get())
