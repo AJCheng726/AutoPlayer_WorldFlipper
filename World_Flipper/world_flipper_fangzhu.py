@@ -7,9 +7,9 @@ eventlet.monkey_patch()
 
 def announcement(event_mode, event_screenshot, raid_choose, player, raid_rank):
     if event_mode:
-        print("[info] 活动模式，{0}建{1}房{2}难度...".format(player.use_device, event_screenshot, raid_rank))
+        printSkyBlue("活动模式，{0}建{1}房{2}难度...".format(player.use_device, event_screenshot, raid_rank))
     else:
-        print("[info] 日常模式，{0}建{1}房{2}难度...".format(player.use_device, raid_choose, raid_rank))
+        printSkyBlue("日常模式，{0}建{1}房{2}难度...".format(player.use_device, raid_choose, raid_rank))
 
 
 def one_loop(player, count):
@@ -20,7 +20,7 @@ def one_loop(player, count):
     else:  # 房间没人来，自动解散
         build_from_multiplayer(player)
     count += 1
-    print("{1} [info] {2} 房主已执行{0}次".format(count, Timer().simple_time(), player.use_device))
+    printSkyBlue("{1} {2} 房主已执行{0}次".format(count, Timer().simple_time(), player.use_device))
     return count
 
 
@@ -55,13 +55,13 @@ def wf_owner(player, config, loop_time=0, count=0, event_mode=0):
                     goto_main(player)
                     from_main_to_room(event_mode, raid_choose, event_screenshot, allow_stranger, player, raid_rank)
         except eventlet.timeout.Timeout:
-            print("超过{0}秒未进入房间，即将重启游戏...".format(timeout))
+            printSkyBlue("{0}秒未进入房间，即将重启游戏...".format(timeout))
             return count
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(timeout, False):
                 count = one_loop(player, count)
                 continue
-            print("超过{0}秒未执行下一次，即将重启游戏...".format(timeout))
+            printSkyBlue("{0}秒未执行下一次，即将重启游戏...".format(timeout))
             return count
 
     else:  # 从启动游戏开始执行
@@ -70,13 +70,13 @@ def wf_owner(player, config, loop_time=0, count=0, event_mode=0):
                 login(player)
                 from_main_to_room(event_mode, raid_choose, event_screenshot, allow_stranger, player, raid_rank)
         except eventlet.timeout.Timeout:
-            print("超过{0}秒未进入房间，即将重启游戏...".format(timeout))
+            printSkyBlue("{0}秒未进入房间，即将重启游戏...".format(timeout))
             return count
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(timeout, False):
                 count = one_loop(player, count)
                 continue
-            print("超过{0}秒未执行下一次...即将重启游戏...".format(timeout))
+            printSkyBlue("{0}秒未执行下一次...即将重启游戏...".format(timeout))
             return count
 
 
