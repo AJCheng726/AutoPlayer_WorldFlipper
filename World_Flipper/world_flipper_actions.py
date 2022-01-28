@@ -21,7 +21,7 @@ fangzhu_account = config["WF"]["fangzhu_account"].split(",")
 
 
 def check_game(player):
-    printWhite(Timer().simple_time(), player.use_device, "检查wf是否启动...")
+    printWhite("{0} {1} 检查wf是否启动...".format(Timer().simple_time(),player.use_device))
     if player.check_app():
         printWhite("游戏已启动")
         return 1
@@ -31,7 +31,7 @@ def check_game(player):
 
 
 def restart_game(player):
-    printWhite(Timer().simple_time(), player.use_device, "重启游戏...")
+    printWhite("{0} {1} 重启游戏...".format(Timer().simple_time(),player.use_device))
     if player.check_app():
         printWhite("游戏已启动")
         player.stop_app()
@@ -44,7 +44,7 @@ def restart_game(player):
 
 
 def check_ui(player):
-    printWhite(Timer().simple_time(), player.use_device, "检查当前所在页面...")
+    printWhite("{0} {1} 检查当前所在页面...".format(Timer().simple_time(),player.use_device))
     ui_pages = [
         "button_caidan",
         "button_gonggao",
@@ -87,7 +87,7 @@ def check_ui(player):
 
 
 def login(player):
-    printWhite(Timer().simple_time(), player.use_device, "自动登录游戏...")
+    printWhite("{0} {1} 自动登录游戏...".format(Timer().simple_time(),player.use_device))
     player.start_app()
     if player.wait("icon_aldlgin", max_wait_time=60):
         while not player.find("page_main"):
@@ -105,11 +105,11 @@ def login(player):
             player.touch((257, 561))  # 选第一个账号
             player.wait_touch("button_denglu")
         else:
-            printWhite(Timer().simple_time(), player.use_device, "登录失败，等待重试")
+            printWhite("{0} {1} 登录失败，等待重试...".format(Timer().simple_time(),player.use_device))
 
 
 def goto_main(player):
-    printWhite(Timer().simple_time(), player.use_device, "前往主城...")
+    printWhite("{0} {1} 前往主城...".format(Timer().simple_time(),player.use_device))
     flag = check_ui(player)
     if flag == 1:
         printWhite("已处于主城")
@@ -140,7 +140,7 @@ def goto_main(player):
 
 
 def find_raid(player, raid_choose, raid_rank=1):
-    printWhite(Timer().simple_time(), player.use_device, "寻找raid:" + raid_choose)
+    printWhite("{0} {1} 寻找raid:{2}".format(Timer().simple_time(),player.use_device,raid_choose))
     player.wait("button_gengxinliebiao")  # 确认进入raid选择界面
     while not player.wait(raid_choose, 3):
         player.down_swipe()
@@ -151,7 +151,7 @@ def find_raid(player, raid_choose, raid_rank=1):
 
 
 def build_from_multiplayer(player, change_zhaomu=False):
-    printWhite(Timer().simple_time(), player.use_device, "房主建房...")
+    printWhite("{0} {1} 房主建房...".format(Timer().simple_time(),player.use_device))
     player.wait_touch("button_duorenyouxi", max_wait_time=30)
     player.wait_touch("button_shi", max_wait_time=5)
     player.wait_touch("button_zhaomu", max_wait_time=60)
@@ -164,20 +164,20 @@ def build_from_multiplayer(player, change_zhaomu=False):
 
 
 def wait_in_room(player):
-    printWhite(Timer().simple_time(), player.use_device, "在房间中等待队友...")
+    printWhite("{0} {1} 在房间中等待队友...".format(Timer().simple_time(),player.use_device))
     timeout_flag = 0
     while not player.find("button_pause"):
         if not (limit_player == 3 and player.find("box_pipeizhong")):
             player.find_touch("button_tiaozhan")
         if player.find("button_duorenyouxi") or player.find_touch("button_ok"):  # 房间解散
-            printWhite(Timer().simple_time(), player.use_device, "房间解散...准备重建...")
+            printWhite("{0} {1} 房间解散...准备重建...".format(Timer().simple_time(),player.use_device))
             timeout_flag = 1
             break
     return timeout_flag
 
 
 def quit_battle(player):
-    printWhite(Timer().simple_time(), player.use_device, "房主退出战斗中...")
+    printWhite("{0} {1} 房主退出战斗中...".format(Timer().simple_time(),player.use_device))
     timer = Timer()
     while not player.find("button_duorenyouxi"):
         player.wait_touch("button_pause", max_wait_time=1)
@@ -192,7 +192,7 @@ def quit_battle(player):
 
 def clear(player):
     # 战斗中=>继续（同时处理升级、掉落）=>离开房间
-    printWhite(Timer().simple_time(), player.use_device, "等待战斗结算...")
+    printWhite("{0} {1} 等待战斗结算...".format(Timer().simple_time(),player.use_device))
     if player.wait("button_jixu", max_wait_time=battle_timeout):
         while not player.find("button_likaifangjian"):
             if not player.find_touch("button_jixu"):
@@ -205,7 +205,7 @@ def clear(player):
 
 def find_room(player, event_mode=0):
     # 找建房号ID=>"ok"和"是"处理双倍\房满的问题=>没找到就更新=>准备完毕
-    printWhite(Timer().simple_time(), player.use_device, "再次寻找房间...")
+    printWhite("{0} {1} 再次寻找房间...".format(Timer().simple_time(),player.use_device))
     while not player.find_touch("button_zhunbeiwanbi"):
         fangzhu = player.find_any(fangzhu_account)
         if fangzhu > -1:
@@ -223,7 +223,7 @@ def find_room(player, event_mode=0):
 
 def wait_ring(player, raid):
     # 等要打的铃铛
-    printWhite(Timer().simple_time(), player.use_device, "等{0}铃铛...".format(raid))
+    printWhite("{0} {1} 等{2}铃铛...".format(Timer().simple_time(),player.use_device,raid))
     while not player.find("button_canjia"):
         player.find_touch("button_lingdang")
     if player.wait(raid, max_wait_time=5):

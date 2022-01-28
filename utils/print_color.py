@@ -65,105 +65,105 @@ def resetColor():
 #dark blue
 def printDarkBlue(mess):
     set_cmd_text_color(FOREGROUND_DARKBLUE)
-    sys.stdout.write(mess)
+    print(mess)
     resetColor()
  
 #暗绿色
 #dark green
 def printDarkGreen(mess):
     set_cmd_text_color(FOREGROUND_DARKGREEN)
-    sys.stdout.write(mess)
+    print(mess)
     resetColor()
  
 #暗天蓝色
 #dark sky blue
 def printDarkSkyBlue(mess):
     set_cmd_text_color(FOREGROUND_DARKSKYBLUE)
-    sys.stdout.write(mess)
+    print(mess)
     resetColor()
  
 #暗红色
 #dark red
 def printDarkRed(mess):
     set_cmd_text_color(FOREGROUND_DARKRED)
-    sys.stdout.write(mess)
+    print(mess)
     resetColor()
  
 #暗粉红色
 #dark pink
 def printDarkPink(mess):
     set_cmd_text_color(FOREGROUND_DARKPINK)
-    sys.stdout.write(mess)
+    print(mess)
     resetColor()
  
 #暗黄色
 #dark yellow
 def printDarkYellow(mess):
     set_cmd_text_color(FOREGROUND_DARKYELLOW)
-    sys.stdout.write(mess)
+    print(mess)
     resetColor()
  
 #暗白色
 #dark white
 def printDarkWhite(mess):
     set_cmd_text_color(FOREGROUND_DARKWHITE)
-    sys.stdout.write(mess)
+    print(mess)
     resetColor()
  
 #暗灰色
 #dark gray
 def printDarkGray(mess):
     set_cmd_text_color(FOREGROUND_DARKGRAY)
-    sys.stdout.write(mess)
+    print(mess)
     resetColor()
  
 #蓝色
 #blue
 def printBlue(mess):
     set_cmd_text_color(FOREGROUND_BLUE)
-    sys.stdout.write(mess)
+    print(mess)
     resetColor()
  
 #绿色
 #green
 def printGreen(mess):
     set_cmd_text_color(FOREGROUND_GREEN)
-    sys.stdout.write(mess)
+    print(mess)
     resetColor()
  
 #天蓝色
 #sky blue
 def printSkyBlue(mess):
     set_cmd_text_color(FOREGROUND_SKYBLUE)
-    sys.stdout.write(mess)
+    print(mess)
     resetColor()
  
 #红色
 #red
 def printRed(mess):
     set_cmd_text_color(FOREGROUND_RED)
-    sys.stdout.write(mess)
+    print(mess)
     resetColor()
  
 #粉红色
 #pink
 def printPink(mess):
     set_cmd_text_color(FOREGROUND_PINK)
-    sys.stdout.write(mess)
+    print(mess)
     resetColor()
  
 #黄色
 #yellow
 def printYellow(mess):
     set_cmd_text_color(FOREGROUND_YELLOW)
-    sys.stdout.write(mess)
+    print(mess)
     resetColor()
  
 #白色
 #white
 def printWhite(mess):
     set_cmd_text_color(FOREGROUND_WHITE)
-    sys.stdout.write(mess)
+    print(mess)
     resetColor()
  
 ##################################################
@@ -172,14 +172,14 @@ def printWhite(mess):
 #white bkground and black text
 def printWhiteBlack(mess):
     set_cmd_text_color(FOREGROUND_BLACK | BACKGROUND_WHITE)
-    sys.stdout.write(mess)
+    print(mess)
     resetColor()
  
 #白底黑字
 #white bkground and black text
 def printWhiteBlack_2(mess):
     set_cmd_text_color(0xf0)
-    sys.stdout.write(mess)
+    print(mess)
     resetColor()
  
  
@@ -187,7 +187,7 @@ def printWhiteBlack_2(mess):
 #white bkground and black text
 def printYellowRed(mess):
     set_cmd_text_color(BACKGROUND_YELLOW | FOREGROUND_RED)
-    sys.stdout.write(mess)
+    print(mess)
     resetColor()
  
  
