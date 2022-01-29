@@ -296,14 +296,14 @@ class Autoplayer:
                 print("\r > wait %s ... %ds " % (target, duration), end="")
             if max_wait_time is not None and 0 < max_wait_time < duration:
                 if self.debug:
-                    print(" 超时", flush=True)
+                    print("\n[wait] 超时", flush=True)
                 return False
 
             screen = self.screen_shot()
             pts = self.locate(screen, wanted)
             if pts:
                 if self.debug:
-                    print("[wait] 已找到目标 ", target, pts)
+                    print("\n[wait] 已找到目标 ", target, pts)
                 xx = pts[0]
                 # self.touch(xx)
                 return True
@@ -326,14 +326,14 @@ class Autoplayer:
                 print("\r[wait_touch] wait %s ... %ds " % (target, duration), end="")
             if max_wait_time is not None and 0 < max_wait_time < duration:
                 if self.debug:
-                    print(" 超时", flush=True)
+                    print("\n[wait_touch] 超时", flush=True)
                 return False
 
             screen = self.screen_shot()
             pts = self.locate(screen, wanted)
             if pts:
                 if self.debug:
-                    print("[wait_touch] 已找到目标 ", target)
+                    print("\n[wait_touch] 已找到目标 ", target)
                 xx = pts[0]
                 time.sleep(delay)
                 self.touch(xx)
@@ -353,7 +353,7 @@ class Autoplayer:
                 print("\r > wait %s ... %ds " % (target, duration), end="")
             if max_wait_time is not None and 0 < max_wait_time < duration:
                 if self.debug:
-                    print(" 超时", flush=True)
+                    print("\n[wait_list] 超时", flush=True)
                 return
 
             for target in target_list:
@@ -365,10 +365,20 @@ class Autoplayer:
                 pts = self.locate(screen, wanted)
                 if pts:
                     if self.debug:
-                        print("[wait_list] 已找到目标 ", target, "位置 ", pts[0])
+                        print("\n[wait_list] 已找到目标 ", target, "位置 ", pts[0])
                     xx = pts[0]
                     re = target
                     return target
+
+    def touch_with_checkpoint(self, target, checkpoint_start=None, sleeptime=0.5, checkpoint_end=None):
+        if checkpoint_start != None:
+            self.wait(checkpoint_start)
+        time.sleep(sleeptime)
+        while not self.find(checkpoint_end):
+            self.find_touch(target)
+            time.sleep(sleeptime)
+        time.sleep(sleeptime)
+        return True
 
 
 if __name__ == "__main__":

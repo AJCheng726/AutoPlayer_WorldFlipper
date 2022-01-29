@@ -7,7 +7,7 @@ eventlet.monkey_patch()
 
 def announcement(event_mode, event_screenshot, raid_choose, player, raid_rank):
     if event_mode:
-        printSkyBlue("活动模式，{0}建{1}房{2}难度...".format(player.use_device, event_screenshot, raid_rank))
+        printSkyBlue("活动模式，{0}建{1}房...".format(player.use_device, event_screenshot))
     else:
         printSkyBlue("日常模式，{0}建{1}房{2}难度...".format(player.use_device, raid_choose, raid_rank))
 
@@ -33,7 +33,7 @@ def from_main_to_room(event_mode, raid_choose, event_screenshot, allow_stranger,
         player.wait_touch("button_event")  # 活动
         # player.touch((100,250)) # 活动,不用wait_touch可能会因为加载过长跳过
         while not player.find("button_duorenyouxi"):
-            player.find_touch(event_screenshot)
+            find_raid(player, event_screenshot, raid_rank=0)
             player.find_touch("button_ok")
     build_from_multiplayer(player, change_zhaomu=(not allow_stranger))
 

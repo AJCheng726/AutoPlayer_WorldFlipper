@@ -143,12 +143,14 @@ def goto_main(player):
 def find_raid(player, raid_choose, raid_rank=1):
     printWhite("{0} {1} 寻找raid:{2}".format(Timer().simple_time(),player.use_device,raid_choose))
     player.wait("button_gengxinliebiao")  # 确认进入raid选择界面
-    while not player.wait(raid_choose, 3):
+    time.sleep(2)
+    while not player.wait(raid_choose, 5):
         player.down_swipe()
     player.wait_touch(raid_choose, 0.85)
     rank_pos = [None, (366, 350), (366, 450), (366, 560), (366, 670), (366, 780)]
     time.sleep(2)
-    player.touch(rank_pos[raid_rank])  # 按难度点击相应位置
+    if raid_rank > 0:
+        player.touch(rank_pos[raid_rank])  # 按难度点击相应位置
 
 
 def build_from_multiplayer(player, change_zhaomu=False):
@@ -194,13 +196,15 @@ def quit_battle(player):
     try:    
         with eventlet.Timeout(120, True):
             player.wait("button_pause")
-            player.wait_touch("button_pause")
+            player.touch_with_checkpoint("button_pause",checkpoint_end="button_fangqi", sleeptime=0.1)
             player.wait_touch("button_fangqi")
             player.wait_touch("button_shi")  
             player.wait("button_duorenyouxi")
             return True 
     except eventlet.timeout.Timeout:
         printWhite("120秒没退出战斗，应为误结算...结算后重建房...")
+        if player.find("button_duorenyouxi"):
+            return False
         clear(player)
         return False
 
@@ -264,7 +268,7 @@ if __name__ == "__main__":
         adb_path=config["GENERAL"]["adb_path"],
         apk_name=config["WF"]["wf_apk_name"],
         active_class_name=config["WF"]["wf_active_class_name"],
-        debug=config["GENERAL"].getint("Debug"),
+        debug=1,
         accuracy=config["GENERAL"].getfloat("accuracy"),
         screenshot_blank=config["GENERAL"].getfloat("screenshot_blank"),
         wanted_path=config["GENERAL"]["wanted_path"],
@@ -273,4 +277,5 @@ if __name__ == "__main__":
     player.screen_shot()
     # check_ui(player)
     # goto_main(player)
-    quit_battle(player)
+    # quit_battle(player)
+    find_raid(player,"raid_event4_h",raid_rank=0)
