@@ -282,7 +282,7 @@ class Autoplayer:
     # 出现target返回true，超时返回false
     def wait(self, target, max_wait_time=None,threshold=None):
         if self.debug:
-            print("\r[wait] 等待目标", target, end="")
+            print("[wait] 等待目标", target)
         timer = Timer()
         wanted = self.imgs[target]
         if threshold != None:   # 自定义阈值
@@ -303,7 +303,7 @@ class Autoplayer:
             pts = self.locate(screen, wanted)
             if pts:
                 if self.debug:
-                    print("\r[wait] 已找到目标 ", target, pts)
+                    print("[wait] 已找到目标 ", target, pts)
                 xx = pts[0]
                 # self.touch(xx)
                 return True
@@ -312,7 +312,7 @@ class Autoplayer:
     # 直至出现target再点击，超过max_wait_time则报错
     def wait_touch(self, target, max_wait_time=None, delay=0.5,threshold=None):
         if self.debug:
-            print("[wait_touch] 等待目标", target, end="")
+            print("[wait_touch] 等待目标", target)
         timer = Timer()
         wanted = self.imgs[target]
         if threshold != None:   # 自定义阈值
@@ -333,7 +333,7 @@ class Autoplayer:
             pts = self.locate(screen, wanted)
             if pts:
                 if self.debug:
-                    print("\r[wait_touch] 已找到目标 ", target)
+                    print("[wait_touch] 已找到目标 ", target)
                 xx = pts[0]
                 time.sleep(delay)
                 self.touch(xx)
@@ -345,7 +345,7 @@ class Autoplayer:
         timer = Timer()
         screen = self.screen_shot()
         if self.debug:
-            print("目标列表 ", target_list)
+            print("[wait_list] 目标列表 ", target_list)
         re = None
         while True:
             duration = timer.get_duration()

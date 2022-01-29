@@ -31,6 +31,7 @@ def from_main_to_room(event_mode, raid_choose, event_screenshot, allow_stranger,
     else:  # 活动模式
         time.sleep(3)
         player.wait_touch("button_event")  # 活动
+        # player.touch((100,250)) # 活动,不用wait_touch可能会因为加载过长跳过
         while not player.find("button_duorenyouxi"):
             player.find_touch(event_screenshot)
             player.find_touch("button_ok")
