@@ -80,7 +80,7 @@ class AutoPlayer_WF(tk.Tk):
         self.timeout_entry.insert(0, timeout)
         self.timeout_entry.grid(row=6, column=1)
 
-        tk.Label(config_tab, text="😏 ApWF version 1.10.0").grid(row=10, column=1)
+        tk.Label(config_tab, text="😏 ApWF version 1.12.0").grid(row=10, column=1)
         ttk.Button(config_tab, text="SAVE", command=self.save_config, width=5).grid(row=10, column=0, pady=2)
 
         tk.Label(config_tab, text="搜盘子").grid(row=11, column=0)
