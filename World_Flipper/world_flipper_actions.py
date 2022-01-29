@@ -1,5 +1,6 @@
 import sys
 import time
+import eventlet
 
 sys.path.append("./utils/")
 sys.path.append("./")
@@ -178,16 +179,31 @@ def wait_in_room(player):
 
 def quit_battle(player):
     printWhite("{0} {1} 房主退出战斗中...".format(Timer().simple_time(),player.use_device))
-    timer = Timer()
-    while not player.find("button_duorenyouxi"):
-        player.wait_touch("button_pause", max_wait_time=1)
-        player.wait_touch("button_fangqi", max_wait_time=1)
-        player.wait_touch("button_shi", max_wait_time=1)
-        if timer.get_duration() > 120:
-            printWhite("120秒没发现[多人游戏]，应为误结算...结算后重建房...")
-            clear(player)
-            return False
-    return True
+    # timer = Timer()
+    # while not player.find("button_duorenyouxi"):
+    #     player.wait_touch("button_pause", max_wait_time=1)
+    #     player.wait_touch("button_fangqi", max_wait_time=1)
+    #     player.wait_touch("button_shi", max_wait_time=1)
+    #     if timer.get_duration() > 120:
+    #         printWhite("120秒没发现[多人游戏]，应为误结算...结算后重建房...")
+    #         clear(player)
+    #         return False
+    # return True
+    
+    # 优化了卡顿时退房
+    try:    
+        with eventlet.Timeout(120, True):
+            player.wait("button_pause")
+            player.wait_touch("button_pause")
+            player.wait_touch("button_fangqi")
+            player.wait_touch("button_shi")  
+            player.wait("button_duorenyouxi")
+            return True 
+    except eventlet.timeout.Timeout:
+        printWhite("120秒没退出战斗，应为误结算...结算后重建房...")
+        clear(player)
+        return False
+
 
 
 def clear(player):
@@ -243,7 +259,8 @@ if __name__ == "__main__":
     config.read("./config.ini")
 
     player = Autoplayer(
-        use_device=config["WF"]["fangzhu_device"],
+        # use_device=config["WF"]["fangzhu_device"],
+        use_device="emulator-5556",
         adb_path=config["GENERAL"]["adb_path"],
         apk_name=config["WF"]["wf_apk_name"],
         active_class_name=config["WF"]["wf_active_class_name"],
@@ -255,4 +272,5 @@ if __name__ == "__main__":
 
     player.screen_shot()
     # check_ui(player)
-    goto_main(player)
+    # goto_main(player)
+    quit_battle(player)
