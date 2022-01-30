@@ -52,19 +52,19 @@ class Autoplayer:
     def start_app(self):
         if self.debug:
             print("[start_app] start apk", self.apk_name)
-        cmd = "adb -s {0} shell am start {1}/{2}".format(self.use_device, self.apk_name, self.active_class_name)
+        cmd = "{3} -s {0} shell am start {1}/{2}".format(self.use_device, self.apk_name, self.active_class_name, self.adb_path)
         os.popen(cmd)
 
     def stop_app(self):
         if self.debug:
             print("[stop_app] stop app", self.apk_name)
-        cmd = "adb -s {0} shell am force-stop {1}".format(self.use_device, self.apk_name)
+        cmd = "{2} -s {0} shell am force-stop {1}".format(self.use_device, self.apk_name, self.adb_path)
         os.popen(cmd)
 
     def check_app(self):
         if self.debug:
             print("[check_app] check app", self.apk_name)
-        cmd = "adb -s {0} shell pidof {1}".format(self.use_device, self.apk_name)
+        cmd = "{2} -s {0} shell pidof {1}".format(self.use_device, self.apk_name, self.adb_path)
         raw_content = os.popen(cmd).read()
         if self.debug:
             print("[check_app] check app pid:", raw_content)
@@ -203,12 +203,12 @@ class Autoplayer:
         time.sleep(t)
 
     # 寻找目标 不点击
-    def find(self, target,threshold=None):
+    def find(self, target, threshold=None):
         screen = self.screen_shot()
         if self.debug:
             print("[find] 寻找目标并点击", target)
         wanted = self.imgs[target]
-        if threshold != None:   # 自定义阈值
+        if threshold != None:  # 自定义阈值
             wanted[1] = threshold
         pts = self.locate(screen, wanted)
         if pts:
@@ -227,7 +227,7 @@ class Autoplayer:
         if self.debug:
             print("[find] 寻找目标位置", target)
         wanted = self.imgs[target]
-        if threshold != None:   # 自定义阈值
+        if threshold != None:  # 自定义阈值
             wanted[1] = threshold
         pts = self.locate(screen, wanted)
         if pts:
@@ -257,12 +257,12 @@ class Autoplayer:
         return -1
 
     # 寻找并点击, tap为FALSE则只寻找不点击，返回结果是否找到TURE/FALSE
-    def find_touch(self, target, delay=0.5,threshold=None):
+    def find_touch(self, target, delay=0.5, threshold=None):
         screen = self.screen_shot()
         if self.debug:
             print("[find_touch] 寻找目标并点击", target)
         wanted = self.imgs[target]
-        if threshold != None:   # 自定义阈值
+        if threshold != None:  # 自定义阈值
             wanted[1] = threshold
         size = wanted[0].shape
         h, w, ___ = size
@@ -280,12 +280,12 @@ class Autoplayer:
             return False
 
     # 出现target返回true，超时返回false
-    def wait(self, target, max_wait_time=None,threshold=None):
+    def wait(self, target, max_wait_time=None, threshold=None):
         if self.debug:
             print("[wait] 等待目标", target)
         timer = Timer()
         wanted = self.imgs[target]
-        if threshold != None:   # 自定义阈值
+        if threshold != None:  # 自定义阈值
             wanted[1] = threshold
         size = wanted[0].shape
         h, w, ___ = size
@@ -310,12 +310,12 @@ class Autoplayer:
             time.sleep(self.screenshot_blank)
 
     # 直至出现target再点击，超过max_wait_time则报错
-    def wait_touch(self, target, max_wait_time=None, delay=0.5,threshold=None):
+    def wait_touch(self, target, max_wait_time=None, delay=0.5, threshold=None):
         if self.debug:
             print("[wait_touch] 等待目标", target)
         timer = Timer()
         wanted = self.imgs[target]
-        if threshold != None:   # 自定义阈值
+        if threshold != None:  # 自定义阈值
             wanted[1] = threshold
         size = wanted[0].shape
         h, w, ___ = size
@@ -341,7 +341,7 @@ class Autoplayer:
             time.sleep(self.screenshot_blank)
 
     # 寻找并点击,找到返回目标名，未找到返回NONE
-    def wait_list(self, target_list, max_wait_time=10,threshold=None):
+    def wait_list(self, target_list, max_wait_time=10, threshold=None):
         timer = Timer()
         screen = self.screen_shot()
         if self.debug:
@@ -358,7 +358,7 @@ class Autoplayer:
 
             for target in target_list:
                 wanted = self.imgs[target]
-                if threshold != None:   # 自定义阈值
+                if threshold != None:  # 自定义阈值
                     wanted[1] = threshold
                 size = wanted[0].shape
                 h, w, ___ = size
@@ -395,7 +395,7 @@ if __name__ == "__main__":
         debug=1,
     )
     player1.screen_shot()
-    player1.find_location("raid_event3",0.85)
+    player1.find_location("raid_event3", 0.85)
     # player1.find_touch("raid_event3")
 
     # player2 = Autoplayer(
