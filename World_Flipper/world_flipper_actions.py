@@ -227,18 +227,19 @@ def find_room(player, event_mode=0):
     # 找建房号ID=>"ok"和"是"处理双倍\房满的问题=>没找到就更新=>准备完毕
     printWhite("{0} {1} 再次寻找房间...".format(Timer().simple_time(),player.use_device))
     while not player.find_touch("button_zhunbeiwanbi"):
-        fangzhu = player.find_any(fangzhu_account)
-        if fangzhu > -1:
-            player.find_touch(fangzhu_account[fangzhu])
-        player.find_touch("button_shi")
-        player.find_touch("button_ok")
+        player.wait("icon_fangjianhaoinput",max_wait_time=10)
         if event_mode == 1:
             pts = player.find_location("icon_fangjianhaoinput")
             if pts and (pts[0][1] / device_h) > (730 / 960):  # 列表太靠下，没有显示房间
                 player.down_swipe()
                 time.sleep(2)
+        fangzhu = player.find_any(fangzhu_account)
+        if fangzhu > -1:
+            player.find_touch(fangzhu_account[fangzhu])
+        player.wait_touch("button_shi",max_wait_time=2)
+        player.wait_touch("button_ok",max_wait_time=2)
         player.find_touch("button_gengxinliebiao")
-        time.sleep(1)
+        # time.sleep(1)
 
 
 def wait_ring(player, raid):
