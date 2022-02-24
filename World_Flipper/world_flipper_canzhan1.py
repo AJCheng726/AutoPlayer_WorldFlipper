@@ -8,11 +8,15 @@ eventlet.monkey_patch()
 
 
 def from_battle_to_prepare(player, count, event_mode):
-    clear(player)
-    find_room(player, event_mode)
-    count += 1
-    printGreen("{1} {2} 参战已执行{0}次".format(count, Timer().simple_time(), player.use_device))
-    return count
+    result = clear(player)
+    if result:
+        find_room(player, event_mode)
+        count += 1
+        printGreen("{1} {2} 参战已执行{0}次".format(count, Timer().simple_time(), player.use_device))
+        return count
+    else:
+        printGreen("{1} {2} 结算失败，寻找房间...".format(count, Timer().simple_time(), player.use_device))
+        find_room(player, event_mode)
 
 
 def from_main_to_room(player, event_mode):
@@ -38,7 +42,7 @@ def wf_join(player, loop_time=0, count=0, event_mode=0, timeout=600, battle_time
             with eventlet.Timeout(battle_timeout, False):  # battle_timeout秒还没执行下一次就重启
                 count = from_battle_to_prepare(player, count, event_mode)
                 continue
-            printGreen("{0}秒未执行下一次，即将重启游戏...".format(battle_timeout))
+            printGreen("{0}秒未执行下一次，即将重启游戏...".format(timeout))
             return count
 
     else:  # 从游戏启动开始执行
@@ -54,7 +58,7 @@ def wf_join(player, loop_time=0, count=0, event_mode=0, timeout=600, battle_time
             with eventlet.Timeout(battle_timeout, False):
                 count = from_battle_to_prepare(player, count, event_mode)
                 continue
-            printGreen("{0}秒未执行下一次，即将重启游戏...".format(battle_timeout))
+            printGreen("{0}秒未执行下一次，即将重启游戏...".format(timeout))
             return count
     return count
 
