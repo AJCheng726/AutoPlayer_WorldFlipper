@@ -343,14 +343,12 @@ class Autoplayer:
     # 寻找并点击,找到返回目标名，未找到返回NONE
     def wait_list(self, target_list, max_wait_time=10, threshold=None):
         timer = Timer()
-        screen = self.screen_shot()
         if self.debug:
             print("[wait_list] 目标列表 ", target_list)
         re = None
         while True:
             duration = timer.get_duration()
-            if self.debug:
-                print("\r > wait %s ... %ds " % (target, duration), end="")
+            screen = self.screen_shot()
             if max_wait_time is not None and 0 < max_wait_time < duration:
                 if self.debug:
                     print("\n[wait_list] 超时", flush=True)
