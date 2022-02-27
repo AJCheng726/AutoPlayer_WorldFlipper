@@ -101,6 +101,17 @@ class Autoplayer:
         a = "{3} -s {2} shell input touchscreen tap {0} {1}".format(x, y, self.use_device, self.adb_path)
         os.popen(a)
 
+    def swipe(self, pos1, pos2):
+        a = "{0} -s {1} shell input swipe {2} {3} {4} {5}".format(
+            self.adb_path,
+            self.use_device,
+            pos1[0],
+            pos1[1],
+            pos2[0],
+            pos2[1],
+        )
+        os.popen(a)
+
     def down_swipe(self, x_start=None, y_start=None, x_end=None, y_end=None):
         if x_start == None:
             x_start = (1 / 2) * self.device_w

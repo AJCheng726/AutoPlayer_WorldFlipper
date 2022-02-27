@@ -1,0 +1,70 @@
+from world_flipper_actions import *
+import configparser
+import eventlet
+
+eventlet.monkey_patch()
+
+
+def buy_zhenqipin(player, items_count=8):
+    printSkyBlue("{0} 完成每日任务，清空商店".format(player.use_device))
+    goto_main(player)
+    player.touch([315, 916])  # 前往商店页面
+    player.wait_touch("icon_zhenqipin", delay=1)
+    player.wait("tips_zhenqipin")
+    for i in range(items_count):
+        try:
+            with eventlet.Timeout(10, True):
+                print("{0} 购买第一个珍品".format(player.use_device))
+                player.wait("tips_zhenqipin")
+                player.touch([325, 350])
+                player.wait("button_goumai")
+                player.swipe([340, 530], [400, 530])
+                if player.wait_touch("button_goumai", max_wait_time=5):
+                    time.sleep(2)
+                    continue
+                else:
+                    continue
+        except:
+            printSkyBlue("{0} 购买超时，商店已清空".format(player.use_device))
+            return
+
+
+def maze_repeat(player, maze_choise="maze_fire", repeat=4):
+    printSkyBlue("{0} 开始每日任务，每日迷宫三次".format(player.use_device))
+    goto_main(player)
+    player.touch([93, 842])
+    player.wait_touch(maze_choise)
+    player.wait("button_wanfajieshao")
+    player.touch([261, 349])
+    player.wait_touch("button_shi")
+    for i in range(repeat):
+        player.wait_touch("button_tiaozhan")
+        player.wait_touch("button_jixu")
+        player.wait_touch("button_zaicitiaozhan")
+        printSkyBlue("{0} 完成了1次{1}".format(player.use_device,maze_choise))
+    goto_main(player)
+
+
+def daily_task(player, repeat=4):
+    login(player)
+    buy_zhenqipin(player)
+    maze_repeat(player, maze_choise="maze_fire", repeat=repeat)
+    printSkyBlue("{0} 完成每日任务，返回主城".format(player.use_device))
+
+
+if __name__ == "__main__":
+    config = configparser.ConfigParser()
+    config.read("./config.ini")
+
+    dailytask_device = "emulator-5554"
+    adb_path = config["GENERAL"]["adb_path"]
+    wf_apk_name = config["WF"]["wf_apk_name"]
+    wf_active_class_name = config["WF"]["wf_active_class_name"]
+
+    player = Autoplayer(
+        use_device=dailytask_device,
+        adb_path=adb_path,
+        apk_name=wf_apk_name,
+        active_class_name=wf_active_class_name,
+    )
+    daily_task(player)
