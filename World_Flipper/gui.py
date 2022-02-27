@@ -33,8 +33,9 @@ class AutoPlayer_WF(tk.Tk):
         config_tab = ttk.Frame(self.notebook)
         fangzhu_tab = ttk.Frame(self.notebook)
         canzhan_tab = ttk.Frame(self.notebook)
-        danren_tab = ttk.Frame(self.notebook)
+        meiri_tab = ttk.Frame(self.notebook)
         gongju_tab = ttk.Frame(self.notebook)
+        danren_tab = ttk.Frame(self.notebook)
 
         # 主页
         tk.Label(config_tab, text="Debug设置").grid(row=0, column=0)
@@ -255,8 +256,9 @@ class AutoPlayer_WF(tk.Tk):
         self.notebook.add(config_tab, text="主页")
         self.notebook.add(fangzhu_tab, text="房主")
         self.notebook.add(canzhan_tab, text="参战")
-        self.notebook.add(danren_tab, text="单人")
+        self.notebook.add(meiri_tab, text="每日")
         self.notebook.add(gongju_tab, text="工具箱")
+        self.notebook.add(danren_tab, text="单人")
 
         self.notebook.pack(fill=tk.BOTH, expand=1)
 

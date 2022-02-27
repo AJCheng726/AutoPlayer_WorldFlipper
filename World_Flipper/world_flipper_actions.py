@@ -124,6 +124,8 @@ def goto_main(player):
     else:
         printWhite("尝试前往主城...")
         player.touch([135, 919])
+        time.sleep(2)
+        player.touch([135, 919])
 
     # 检查是否前往成功
     if player.wait("button_gonggao", max_wait_time=5):

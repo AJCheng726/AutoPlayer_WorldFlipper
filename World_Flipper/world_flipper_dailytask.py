@@ -14,7 +14,7 @@ def buy_zhenqipin(player, items_count=8):
     for i in range(items_count):
         try:
             with eventlet.Timeout(10, True):
-                print("{0} 购买第一个珍品".format(player.use_device))
+                print("{0} 购买第1个珍品".format(player.use_device))
                 player.wait("tips_zhenqipin")
                 player.touch([325, 350])
                 player.wait("button_goumai")
@@ -36,7 +36,7 @@ def maze_repeat(player, maze_choise="maze_fire", repeat=4):
     player.wait_touch(maze_choise)
     player.wait("button_wanfajieshao")
     player.touch([261, 349])
-    player.wait_touch("button_shi")
+    player.wait_touch("button_shi",max_wait_time = 5)
     for i in range(repeat):
         player.wait_touch("button_tiaozhan")
         player.wait_touch("button_jixu")
@@ -46,7 +46,8 @@ def maze_repeat(player, maze_choise="maze_fire", repeat=4):
 
 
 def daily_task(player, repeat=4):
-    login(player)
+    if not check_game(player):
+        login(player)
     buy_zhenqipin(player)
     maze_repeat(player, maze_choise="maze_fire", repeat=repeat)
     printSkyBlue("{0} 完成每日任务，返回主城".format(player.use_device))
