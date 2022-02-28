@@ -37,13 +37,13 @@ def wf_join(player, loop_time=0, count=0, event_mode=0, timeout=600, battle_time
                     goto_main(player)
                     from_main_to_room(player, event_mode)
         except eventlet.timeout.Timeout:
-            printRed("{0}秒未进入房间，即将重启游戏...".format(timeout))
+            printRed("{0}流程超时，即将重启游戏...".format(timeout))
             return count
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(battle_timeout, False):  # battle_timeout秒还没执行下一次就重启
                 count = from_battle_to_prepare(player, count, event_mode)
                 continue
-            printRed("{0}秒未执行下一次，即将重启游戏...".format(timeout))
+            printRed("{0}战斗超时，即将重启游戏...".format(battle_timeout))
             return count
 
     else:  # 从游戏启动开始执行
@@ -52,14 +52,14 @@ def wf_join(player, loop_time=0, count=0, event_mode=0, timeout=600, battle_time
                 login(player)
                 from_main_to_room(player, event_mode)
         except eventlet.timeout.Timeout:
-            printRed("{0}秒未进入房间，即将重启游戏...".format(timeout))
+            printRed("{0}流程超时，即将重启游戏...".format(timeout))
             return count
 
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(battle_timeout, False):
                 count = from_battle_to_prepare(player, count, event_mode)
                 continue
-            printRed("{0}秒未执行下一次，即将重启游戏...".format(timeout))
+            printRed("{0}战斗超时，即将重启游戏...".format(battle_timeout))
             return count
     return count
 

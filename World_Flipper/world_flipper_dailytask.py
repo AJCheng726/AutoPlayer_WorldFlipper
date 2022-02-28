@@ -1,3 +1,4 @@
+from cv2 import repeat
 from world_flipper_actions import *
 import configparser
 import eventlet
@@ -6,7 +7,7 @@ eventlet.monkey_patch()
 
 
 def buy_zhenqipin(player, items_count=8):
-    printSkyBlue("{0} 完成每日任务，清空商店".format(player.use_device))
+    printBlue("{0} 完成每日任务，清空商店".format(player.use_device))
     goto_main(player)
     player.touch([315, 916])  # 前往商店页面
     player.wait_touch("icon_zhenqipin", delay=1)
@@ -25,47 +26,48 @@ def buy_zhenqipin(player, items_count=8):
                 else:
                     continue
         except:
-            printSkyBlue("{0} 购买超时，商店已清空".format(player.use_device))
+            printBlue("{0} 购买超时，商店已清空".format(player.use_device))
             return
 
 
 def maze_repeat(player, maze_choise="maze_fire", repeat=4):
-    printSkyBlue("{0} 开始每日任务，每日迷宫三次".format(player.use_device))
+    printBlue("{0} 开始每日任务，打{1}次迷宫".format(player.use_device, repeat))
     goto_main(player)
     player.touch([93, 842])
     player.wait_touch(maze_choise)
     player.wait("button_wanfajieshao")
     player.touch([261, 349])
-    player.wait_touch("button_shi",max_wait_time = 5)
+    player.wait_touch("button_shi", max_wait_time=5)
     for i in range(repeat):
         player.wait_touch("button_tiaozhan")
         player.wait_touch("button_jixu")
         player.wait_touch("button_zaicitiaozhan")
-        printSkyBlue("{0} 完成了1次{1}".format(player.use_device,maze_choise))
+        printBlue("{0} 完成了1次{1}".format(player.use_device, maze_choise))
     goto_main(player)
 
 
-def daily_task(player, repeat=4):
+def daily_task(player, maze_choise="maze_fire", repeat=4):
     if not check_game(player):
         login(player)
     buy_zhenqipin(player)
-    maze_repeat(player, maze_choise="maze_fire", repeat=repeat)
-    printSkyBlue("{0} 完成每日任务，返回主城".format(player.use_device))
+    maze_repeat(player, maze_choise=maze_choise, repeat=repeat)
+    printBlue("{0} 完成每日任务，返回主城".format(player.use_device))
 
 
 if __name__ == "__main__":
     config = configparser.ConfigParser()
     config.read("./config.ini")
 
-    dailytask_device = "emulator-5554"
+    daily_device = config["WF"]["daily_device"]
+    maze_choise = config["RAID"]["daily_maze_choise"]
     adb_path = config["GENERAL"]["adb_path"]
     wf_apk_name = config["WF"]["wf_apk_name"]
     wf_active_class_name = config["WF"]["wf_active_class_name"]
 
     player = Autoplayer(
-        use_device=dailytask_device,
+        use_device=daily_device,
         adb_path=adb_path,
         apk_name=wf_apk_name,
         active_class_name=wf_active_class_name,
     )
-    daily_task(player)
+    daily_task(player, maze_choise=maze_choise, repeat=4)
