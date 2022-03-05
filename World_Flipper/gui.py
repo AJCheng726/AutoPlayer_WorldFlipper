@@ -155,36 +155,35 @@ class AutoPlayer_WF(tk.Tk):
         self.battle_timeout_entry.insert(0, battle_timeout)
         self.battle_timeout_entry.grid(row=1, column=1)
 
-        tk.Label(self.canzhan_tab, text="参战1设备").grid(row=10, column=0)
-        self.canzhan1_device_entry = tk.Entry(self.canzhan_tab, width=10)
+        ttk.Label(self.canzhan_tab, text="参战1设备").grid(row=10, column=0)
+        self.canzhan1_device_entry = ttk.Entry(self.canzhan_tab, width=10)
         self.canzhan1_device_entry.insert(0, canzhan1_device)
         self.canzhan1_device_entry.grid(row=10, column=1, sticky=tk.W)
 
         ttk.Button(self.canzhan_tab, text="GO!", bootstyle="success", width=5, command=lambda: self.canzhan1_go()).grid(
-            row=10, column=1, sticky=tk.E, padx=5, pady=5
+            row=10, column=1, sticky=tk.E, pady=1
         )
 
-        tk.Label(self.canzhan_tab, text="参战2设备").grid(row=20, column=0)
-        self.canzhan2_device_entry = tk.Entry(self.canzhan_tab, width=10)
+        ttk.Label(self.canzhan_tab, text="参战2设备").grid(row=20, column=0)
+        self.canzhan2_device_entry = ttk.Entry(self.canzhan_tab, width=10)
         self.canzhan2_device_entry.insert(0, canzhan2_device)
         self.canzhan2_device_entry.grid(row=20, column=1, sticky=tk.W)
 
         ttk.Button(self.canzhan_tab, text="GO!", bootstyle="success", width=5, command=lambda: self.canzhan2_go()).grid(
-            row=20, column=1, sticky=tk.E, padx=5, pady=5
+            row=20, column=1, sticky=tk.E, pady=1
         )
 
-
         # 单人
-        tk.Label(self.danren_tab, text="连战设备").grid(row=0, column=0)
-        self.loop_device_entry = tk.Entry(self.danren_tab, width=15)
+        ttk.Label(self.danren_tab, text="连战设备").grid(row=0, column=0)
+        self.loop_device_entry = ttk.Entry(self.danren_tab, width=14)
         self.loop_device_entry.insert(0, loop_device)
         self.loop_device_entry.grid(row=0, column=1)
 
         ttk.Button(self.danren_tab, text="GO!", bootstyle="success", width=5, command=lambda: self.loop_go()).grid(
-            row=0, column=2, sticky=tk.W, padx=5, pady=3
+            row=0, column=2, sticky=tk.W, padx=5, pady=1
         )
         # ttk.Button(self.danren_tab, text="STOP!", width=5, command=lambda: self.loop_stop()).grid(
-        #     row=1, column=1, sticky=tk.E, padx=5, pady=3
+        #     row=1, column=1, sticky=tk.E, padx=5, pady=1
         # )
 
         # tk.Label(self.danren_tab, text="连战设备2").grid(row=2, column=0)
@@ -193,19 +192,37 @@ class AutoPlayer_WF(tk.Tk):
         # self.loop2_device_entry.grid(row=2, column=1)
 
         # ttk.Button(self.danren_tab, text="GO!", bootstyle="success", width=5, command=lambda: self.loop2_go()).grid(
-        #     row=3, column=1, sticky=tk.W, padx=5, pady=3
+        #     row=3, column=1, sticky=tk.W, padx=5, pady=1
         # )
         # ttk.Button(self.danren_tab, text="STOP!", width=5, command=lambda: self.loop2_stop()).grid(
-        #     row=3, column=1, sticky=tk.E, padx=5, pady=3
+        #     row=3, column=1, sticky=tk.E, padx=5, pady=1
         # )
 
-        tk.Label(self.danren_tab, text="每日设备").grid(row=10, column=0)
-        self.daily_device_entry = tk.Entry(self.danren_tab, width=15)
+        tk.Label(self.danren_tab, text="每日迷宫").grid(row=8, column=0)
+        self.daily_maze_choise_entry = tk.Entry(self.danren_tab, width=10)
+        self.daily_maze_choise_entry.insert(0, daily_maze_choise)
+        self.daily_maze_choise_entry.grid(row=8, column=1, sticky=tk.W)
+        tk.Label(self.danren_tab, text="编队").grid(row=8, column=1, sticky=tk.E)
+        self.daily_maze_team_entry = tk.Entry(self.danren_tab, width=7)
+        self.daily_maze_team_entry.insert(0, "未实装")
+        self.daily_maze_team_entry.grid(row=8, column=2)
+
+        tk.Label(self.danren_tab, text="每日深层").grid(row=9, column=0)
+        self.daily_deep_choise_entry = tk.Entry(self.danren_tab, width=10)
+        self.daily_deep_choise_entry.insert(0, "未实装")
+        self.daily_deep_choise_entry.grid(row=9, column=1, sticky=tk.W)
+        tk.Label(self.danren_tab, text="编队").grid(row=9, column=1, sticky=tk.E)
+        self.daily_deep_team_entry = tk.Entry(self.danren_tab, width=7)
+        self.daily_deep_team_entry.insert(0, "未实装")
+        self.daily_deep_team_entry.grid(row=9, column=2)
+
+        ttk.Label(self.danren_tab, text="每日设备").grid(row=10, column=0)
+        self.daily_device_entry = ttk.Entry(self.danren_tab, width=14)
         self.daily_device_entry.insert(0, daily_device)
         self.daily_device_entry.grid(row=10, column=1)
 
         ttk.Button(self.danren_tab, text="GO!", bootstyle="success", width=5, command=lambda: self.daily_go()).grid(
-            row=10, column=2, sticky=tk.W, padx=5, pady=3
+            row=10, column=2, sticky=tk.W, padx=5, pady=1
         )
 
         # tk.Label(self.danren_tab, text="蹭铃铛设备").grid(row=10, column=0)
@@ -219,40 +236,33 @@ class AutoPlayer_WF(tk.Tk):
         # self.ring_raid_choose_entry.grid(row=11, column=1)
 
         # ttk.Button(self.danren_tab, text="GO!", bootstyle="success", width=5, command=lambda: self.ring_go()).grid(
-        #     row=12, column=1, sticky=tk.W, padx=5, pady=3
+        #     row=12, column=1, sticky=tk.W, padx=5, pady=1
         # )
         # ttk.Button(self.danren_tab, text="STOP!", width=5, command=lambda: self.ring_stop()).grid(
-        #     row=12, column=1, sticky=tk.E, padx=5, pady=3
+        #     row=12, column=1, sticky=tk.E, padx=5, pady=1
         # )
 
         # 工具箱
-        tk.Label(self.gongju_tab, text="关机倒计时").grid(row=0, column=0)
-        self.auto_shutdown_entry = tk.Entry(self.gongju_tab)
+        ttk.Label(self.gongju_tab, text="关机倒计时").grid(row=0, column=0)
+        self.auto_shutdown_entry = ttk.Entry(self.gongju_tab, width=9)
         self.auto_shutdown_entry.insert(0, "3600")
         self.auto_shutdown_entry.grid(row=0, column=1)
 
-        ttk.Button(self.gongju_tab, text="SET!", bootstyle="info", width=4, command=lambda: self.set_autoshutdown()).grid(
-            row=1, column=1, sticky=tk.W, padx=5, pady=5
+        ttk.Button(self.gongju_tab, text="SET!", bootstyle="info", width=8, command=lambda: self.set_autoshutdown()).grid(
+            row=0, column=2, sticky=tk.E, padx=5, pady=5
         )
-        ttk.Button(
-            self.gongju_tab,
-            text="CANCEL!",
-            bootstyle="secondary",
-            width=8,
-            command=lambda: self.cancel_autoshutdown(),
-        ).grid(row=1, column=1, sticky=tk.E, padx=5, pady=5)
 
         tk.Button(self.gongju_tab, text="查询子进程状态", width=13, command=lambda: self.check_process()).grid(
-            row=11, columnspan=2, sticky=tk.W, padx=5, pady=2
+            row=11, columnspan=3, sticky=tk.W, padx=8, pady=2
         )
         tk.Button(self.gongju_tab, text="关闭所有子进程", width=13, command=lambda: self.kill_process()).grid(
-            row=11, columnspan=2, sticky=tk.E, padx=5, pady=2
+            row=11, columnspan=3, sticky=tk.E, padx=8, pady=2
         )
         tk.Button(self.gongju_tab, text="查询所有设备", width=13, command=lambda: self.check_devices()).grid(
-            row=12, columnspan=2, sticky=tk.W, padx=5, pady=2
+            row=12, columnspan=3, sticky=tk.W, padx=8, pady=2
         )
         tk.Button(self.gongju_tab, text="所有设备截图", width=13, command=lambda: self.devices_screenshot()).grid(
-            row=12, columnspan=2, sticky=tk.E, padx=5, pady=2
+            row=12, columnspan=3, sticky=tk.E, padx=8, pady=2
         )
 
         # notebook
@@ -276,7 +286,7 @@ class AutoPlayer_WF(tk.Tk):
         config["RAID"]["event_screenshot"] = self.event_screenshot_entry.get()
         config["RAID"]["raid_choose"] = self.raid_choose_entry.get()
         # config["RAID"]["ring_raid_choose"] = self.ring_raid_choose_entry.get()
-        config["RAID"]["daily_maze_choise"] = daily_maze_choise
+        config["RAID"]["daily_maze_choise"] = self.daily_maze_choise_entry.get()
         config["RAID"]["raid_rank"] = self.raid_rank_entry.get()
         config["WF"]["fangzhu_device"] = self.fangzhu_device_entry.get()
         config["WF"]["limit_player"] = self.limit_player_entry.get()
@@ -285,7 +295,7 @@ class AutoPlayer_WF(tk.Tk):
         config["WF"]["canzhan_device_2"] = self.canzhan2_device_entry.get()
         config["WF"]["timeout"] = self.timeout_entry.get()
         config["WF"]["battle_timeout"] = self.battle_timeout_entry.get()
-        # config["WF"]["loop_device"] = self.loop_device_entry.get()
+        config["WF"]["loop_device"] = self.loop_device_entry.get()
         # config["WF"]["loop_device_2"] = self.loop2_device_entry.get()
         config["WF"]["allow_stranger"] = self.allow_stranger_entry.get()
         # config["WF"]["ring_device"] = self.lingdang_device_entry.get()
@@ -300,14 +310,14 @@ class AutoPlayer_WF(tk.Tk):
 
     def canzhan1_go(self):
         ttk.Button(self.canzhan_tab, text="STOP!", width=5, command=lambda: self.canzhan1_stop()).grid(
-            row=10, column=1, sticky=tk.E, padx=5, pady=5
+            row=10, column=1, sticky=tk.E, pady=1
         )
         self.save_config()
         self.proc_canzhan1 = subprocess.Popen("python World_Flipper\\world_flipper_canzhan1.py")
 
     def canzhan2_go(self):
         ttk.Button(self.canzhan_tab, text="STOP!", width=5, command=lambda: self.canzhan2_stop()).grid(
-            row=20, column=1, sticky=tk.E, padx=5, pady=5
+            row=20, column=1, sticky=tk.E, pady=1
         )
         self.save_config()
         self.proc_canzhan2 = subprocess.Popen(
@@ -315,6 +325,9 @@ class AutoPlayer_WF(tk.Tk):
         )
 
     def loop_go(self):
+        ttk.Button(self.danren_tab, text="STOP!", width=5, command=lambda: self.loop_stop()).grid(
+            row=0, column=2, sticky=tk.W, padx=5, pady=1
+        )
         self.save_config()
         self.proc_loop = subprocess.Popen("python World_Flipper\\world_flipper_loop.py")
 
@@ -323,8 +336,9 @@ class AutoPlayer_WF(tk.Tk):
         self.proc_loop2 = subprocess.Popen("python World_Flipper\\world_flipper_loop_2.py")
 
     def daily_go(self):
-        # ttk.Button(self.danren_tab, text="STOP!", bootstyle="success", width=5,command=lambda: self.daily_go()).grid(
-        #     row=10, column=2, sticky=tk.W, padx=5, pady=3)
+        ttk.Button(self.danren_tab, text="STOP!", width=5, command=lambda: self.daily_stop()).grid(
+            row=10, column=2, sticky=tk.W, padx=5, pady=1
+        )
         self.save_config()
         self.proc_daily = subprocess.Popen("python World_Flipper\\world_flipper_dailytask.py")
 
@@ -341,7 +355,7 @@ class AutoPlayer_WF(tk.Tk):
 
     def canzhan1_stop(self):
         ttk.Button(self.canzhan_tab, text="GO!", bootstyle="success", width=5, command=lambda: self.canzhan1_go()).grid(
-            row=10, column=1, sticky=tk.E, padx=5, pady=5
+            row=10, column=1, sticky=tk.E, pady=1
         )
         try:
             self.proc_canzhan1.kill()
@@ -351,7 +365,7 @@ class AutoPlayer_WF(tk.Tk):
 
     def canzhan2_stop(self):
         ttk.Button(self.canzhan_tab, text="GO!", bootstyle="success", width=5, command=lambda: self.canzhan2_go()).grid(
-            row=20, column=1, sticky=tk.E, padx=5, pady=5
+            row=20, column=1, sticky=tk.E, pady=1
         )
         try:
             self.proc_canzhan2.kill()
@@ -360,6 +374,9 @@ class AutoPlayer_WF(tk.Tk):
             printYellow("[GUI]参战2子进程未启动")
 
     def loop_stop(self):
+        ttk.Button(self.danren_tab, text="GO!", bootstyle="success", width=5, command=lambda: self.loop_go()).grid(
+            row=0, column=2, sticky=tk.W, padx=5, pady=1
+        )
         try:
             self.proc_loop.kill()
             printYellow("[GUI]单人连战子进程已关闭")
@@ -381,6 +398,9 @@ class AutoPlayer_WF(tk.Tk):
             printYellow("[GUI]蹭铃铛子进程未启动")
 
     def daily_stop(self):
+        ttk.Button(self.danren_tab, text="GO!", bootstyle="success", width=5, command=lambda: self.daily_go()).grid(
+            row=10, column=2, sticky=tk.W, padx=5, pady=1
+        )
         try:
             self.proc_daily.kill()
             printYellow("[GUI]每日任务子进程已关闭")
@@ -446,9 +466,19 @@ class AutoPlayer_WF(tk.Tk):
             printYellow("[GUI]已对设备{0}截图".format(d))
 
     def set_autoshutdown(self):
+        ttk.Button(
+            self.gongju_tab,
+            text="CANCEL!",
+            bootstyle="secondary",
+            width=8,
+            command=lambda: self.cancel_autoshutdown(),
+        ).grid(row=0, column=2, sticky=tk.E, padx=5, pady=5)
         subprocess.Popen("shutdown -s -t " + self.auto_shutdown_entry.get())
 
     def cancel_autoshutdown(self):
+        ttk.Button(self.gongju_tab, text="SET!", bootstyle="info", width=8, command=lambda: self.set_autoshutdown()).grid(
+            row=0, column=2, sticky=tk.E, padx=5, pady=5
+        )
         subprocess.Popen("shutdown -a")
 
     def on_closing(self):

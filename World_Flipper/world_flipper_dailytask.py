@@ -31,12 +31,13 @@ def buy_zhenqipin(player, items_count=8):
 
 
 def maze_repeat(player, maze_choise="maze_fire", repeat=4):
-    printBlue("{0} 开始每日任务，打{1}次迷宫".format(player.use_device, repeat))
+    printBlue("{0} 开始每日任务，打{1}次{2}".format(player.use_device, repeat, maze_choise))
     goto_main(player)
     player.touch([93, 842])
-    player.wait_touch(maze_choise)
-    player.wait("button_wanfajieshao")
-    player.touch([261, 349])
+    # player.wait_touch(maze_choise)
+    find_raid(player, maze_choise, raid_rank=1, enter_boss_raid=0)
+    # player.wait("button_wanfajieshao")
+    # player.touch([261, 349])
     player.wait_touch("button_shi", max_wait_time=5)
     for i in range(repeat):
         player.wait_touch("button_tiaozhan")

@@ -142,9 +142,10 @@ def goto_main(player):
             raise Exception("跳转主城失败，截图并汇报开发者此错误")
 
 
-def find_raid(player, raid_choose, raid_rank=1):
+def find_raid(player, raid_choose, raid_rank=1, enter_boss_raid=1):
     printWhite("{0} {1} 寻找raid:{2}".format(Timer().simple_time(),player.use_device,raid_choose))
-    player.wait("button_gengxinliebiao")  # 确认进入raid选择界面
+    if enter_boss_raid == 1:
+        player.wait("button_gengxinliebiao")  # 确认进入raid选择界面
     time.sleep(2)
     while not player.wait(raid_choose, 5):
         player.down_swipe()
