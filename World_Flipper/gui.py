@@ -264,6 +264,9 @@ class AutoPlayer_WF(tk.Tk):
         tk.Button(self.gongju_tab, text="所有设备截图", width=13, command=lambda: self.devices_screenshot()).grid(
             row=12, columnspan=3, sticky=tk.E, padx=8, pady=2
         )
+        tk.Button(self.gongju_tab, text="房主&参战交换", width=13, command=lambda: self.switch_host()).grid(
+            row=13, columnspan=3, sticky=tk.W, padx=8, pady=2
+        )
 
         # notebook
         self.notebook.add(self.config_tab, text="主页")
@@ -464,6 +467,26 @@ class AutoPlayer_WF(tk.Tk):
                 raw_content = os.popen(row).read()
                 # time.sleep(0.2)
             printYellow("[GUI]已对设备{0}截图".format(d))
+
+    def switch_host(self):
+        printYellow("[GUI]房主与参战进程互换设备")
+        self.fangzhu_stop()
+        self.canzhan1_stop()
+        self.canzhan2_stop()
+        if self.fangzhu_device_entry.get() == self.canzhan1_device_entry.get():
+            fangzhu_device_tmp = self.fangzhu_device_entry.get()
+            canzhan_device_tmp = self.canzhan2_device_entry.get()
+            self.fangzhu_device_entry.delete(0,END)
+            self.fangzhu_device_entry.insert(0, canzhan_device_tmp)
+            self.fangzhu_go()
+            self.canzhan1_go()
+        elif self.fangzhu_device_entry.get() == self.canzhan2_device_entry.get():
+            fangzhu_device_tmp = self.fangzhu_device_entry.get()
+            canzhan_device_tmp = self.canzhan1_device_entry.get()
+            self.fangzhu_device_entry.delete(0,END)
+            self.fangzhu_device_entry.insert(0, canzhan_device_tmp)
+            self.fangzhu_go()
+            self.canzhan2_go()
 
     def set_autoshutdown(self):
         ttk.Button(
