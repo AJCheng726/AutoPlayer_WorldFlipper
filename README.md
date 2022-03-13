@@ -7,7 +7,7 @@
 
 仅支持540x960分辨率，推荐使用雷电模拟器64位，B服理论上支持除了自动登录外的所有功能
 
-第一次使用下载Release版（），包含了脚本所需的Python和ADB环境，后续可增量覆盖toolkits以外的部分
+第一次使用下载Release版（，解压失败的话尝试bandzip），包含了脚本所需的Python和ADB环境，后续可增量覆盖toolkits以外的部分
 
 ## 使用说明
 gui.bat或ApWF.exe启动界面
