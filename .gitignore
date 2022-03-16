@@ -1,6 +1,7 @@
 toolkits/*
 screen/*
 release/
+backup/
 *.zip
 wanted/ajcheng.jpg
 wanted/ajcheng_pickup.png
