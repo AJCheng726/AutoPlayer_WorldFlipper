@@ -1,7 +1,11 @@
-toolkits/
-screen/
+toolkits/*
+screen/*
 release/
 *.zip
+wanted/ajcheng.jpg
+wanted/ajcheng_pickup.png
+wanted/azhecheng.jpg
+wanted/azhecheng_pickup.png
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
