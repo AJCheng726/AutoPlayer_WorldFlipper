@@ -1,1 +1,0 @@
-.\toolkits\Python\python.exe utils\upload.py
