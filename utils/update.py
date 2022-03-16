@@ -17,5 +17,6 @@ try:
     for i in info:
         print(i)
     printGreen("更新成功")
-except:
+except Exception as e:
+    printRed(e)
     printRed("更新失败，尝试前往 https://github.com/AJCheng726/AutoPlayer_WorldFlipper 手动更新")
