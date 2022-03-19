@@ -7,7 +7,7 @@
 
 仅支持540x960分辨率，推荐使用雷电模拟器64位，B服理论上支持除了自动登录外的所有功能
 
-第一次使用下载Release版（解压失败的话尝试bandzip），包含了脚本所需的Python和ADB环境，后续可增量覆盖toolkits以外的部分
+第一次使用（前往 https://github.com/AJCheng726/AutoPlayer_WorldFlipper/releases/ ）下载Release版（解压失败的话尝试bandzip），包含了脚本所需的Python和ADB环境，后续可增量覆盖toolkits以外的部分
 
 有问题可加群，985729887（验证问题答案：540x960），欢迎加好友一起挂共斗
 
@@ -24,7 +24,7 @@ gui.bat或ApWF.exe启动界面
 
 ![image](https://user-images.githubusercontent.com/31361978/158061465-d39b19b7-5821-465a-8a36-c41b194da83a.png)
 
-  2.1 蓝叠模拟器参考 https://www.cnblogs.com/rogunt/p/13047394.html 连接ADB
+&ensp;2.1 蓝叠模拟器参考 https://www.cnblogs.com/rogunt/p/13047394.html 连接ADB
 
 3、在模拟器主页即可点击GO!，随后自动登录游戏开始任务
 
