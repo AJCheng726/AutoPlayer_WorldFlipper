@@ -24,6 +24,8 @@ gui.bat或ApWF.exe启动界面
 
 ![image](https://user-images.githubusercontent.com/31361978/158061465-d39b19b7-5821-465a-8a36-c41b194da83a.png)
 
+  2.1 蓝叠模拟器参考 https://www.cnblogs.com/rogunt/p/13047394.html 连接ADB
+
 3、在模拟器主页即可点击GO!，随后自动登录游戏开始任务
 
 ### 单人日常
