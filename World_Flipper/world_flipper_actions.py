@@ -168,7 +168,8 @@ def build_from_multiplayer(player, change_zhaomu=False):
     player.wait_touch("button_duorenyouxi", max_wait_time=30)
     player.wait_touch("button_shi", max_wait_time=5)
     player.wait_touch("button_zhaomu", max_wait_time=60)
-    if change_zhaomu:  # 如果不是互关招募
+    player.wait("icon_zhaomufangshi")
+    if change_zhaomu: 
         time.sleep(1)
         player.touch((74, 472))
         time.sleep(0.5)
