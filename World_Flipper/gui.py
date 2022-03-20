@@ -460,7 +460,8 @@ class AutoPlayer_WF(tk.Tk):
         subprocess.Popen("{0} devices".format(adb_path))
 
     def devices_screenshot(self):
-        for d in list(set([fangzhu_device, canzhan1_device, canzhan2_device, loop_device, ring_device])):
+        devices = os.popen("{0} devices".format(adb_path)).read().split()[4::2]
+        for d in devices:
             a = "{2} -s {0} shell screencap -p sdcard/screen_{1}.jpg".format(d, d, adb_path)
             b = "{2} -s {0} pull sdcard/screen_{1}.jpg ./screen".format(d, d, adb_path)
             for row in [a, b]:
