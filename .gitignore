@@ -3,10 +3,7 @@ screen/*
 release/
 backup/
 *.zip
-wanted/ajcheng.jpg
-wanted/ajcheng_pickup.png
-wanted/azhecheng.jpg
-wanted/azhecheng_pickup.png
+wanted/player*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
