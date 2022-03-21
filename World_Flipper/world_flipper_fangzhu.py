@@ -35,7 +35,7 @@ def from_main_to_room(event_mode, raid_choose, event_screenshot, allow_stranger,
         while not player.find("button_duorenyouxi"):
             find_raid(player, event_screenshot, raid_rank=0)
             player.find_touch("button_ok")
-    build_from_multiplayer(player, change_zhaomu=(not allow_stranger))
+    build_from_multiplayer(player, allow_stranger=allow_stranger)
 
 
 # 选boss建房之后开始，房主退出再重建

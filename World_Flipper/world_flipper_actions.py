@@ -163,15 +163,19 @@ def find_raid(player, raid_choose, raid_rank=1, enter_boss_raid=1):
         player.touch(rank_pos[raid_rank])  # 按难度点击相应位置
 
 
-def build_from_multiplayer(player, change_zhaomu=False):
+def build_from_multiplayer(player, allow_stranger=False):
     printWhite("{0} {1} 房主建房...".format(Timer().simple_time(), player.use_device))
     player.wait_touch("button_duorenyouxi", max_wait_time=30)
     player.wait_touch("button_shi", max_wait_time=5)
+    # 开始招募
     player.wait_touch("button_zhaomu", max_wait_time=60)
     player.wait("icon_zhaomufangshi")
-    if change_zhaomu: 
+    danxiang_flag = player.find_any(["button_danxiang0","button_danxiang1"])
+    suiji_flag = player.find_any(["button_suiji0","button_suiji1"])
+    if  (danxiang_flag == 0 and allow_stranger) or (danxiang_flag == 1 and not allow_stranger):
         time.sleep(1)
         player.touch((74, 472))
+    if  (suiji_flag == 0 and allow_stranger) or (suiji_flag == 1 and not allow_stranger):
         time.sleep(0.5)
         player.touch((71, 566))
     player.wait_touch("button_kaishizhaomu", max_wait_time=5)
