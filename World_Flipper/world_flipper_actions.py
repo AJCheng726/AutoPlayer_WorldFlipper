@@ -170,13 +170,14 @@ def build_from_multiplayer(player, allow_stranger=False):
     # 开始招募
     player.wait_touch("button_zhaomu", max_wait_time=60)
     player.wait("icon_zhaomufangshi")
-    danxiang_flag = player.find_any(["button_danxiang0","button_danxiang1"])
-    suiji_flag = player.find_any(["button_suiji0","button_suiji1"])
-    if  (danxiang_flag == 0 and allow_stranger) or (danxiang_flag == 1 and not allow_stranger):
-        time.sleep(1)
+    time.sleep(1)
+    danxiang_flag = player.find_any(["button_danxiang0", "button_danxiang1"])
+    suiji_flag = player.find_any(["button_suiji0", "button_suiji1"])
+    if player.debug == 1:
+        printRed("[招募方式识别] danxiang_flag {0}, suiji_flag {1}, allow_stranger {2}".format(danxiang_flag, suiji_flag, allow_stranger))
+    if (danxiang_flag == 0 and allow_stranger) or (danxiang_flag == 1 and not allow_stranger):
         player.touch((74, 472))
-    if  (suiji_flag == 0 and allow_stranger) or (suiji_flag == 1 and not allow_stranger):
-        time.sleep(0.5)
+    if (suiji_flag == 0 and allow_stranger) or (suiji_flag == 1 and not allow_stranger):
         player.touch((71, 566))
     player.wait_touch("button_kaishizhaomu", max_wait_time=5)
 

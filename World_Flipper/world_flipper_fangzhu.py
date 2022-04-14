@@ -12,13 +12,13 @@ def announcement(event_mode, event_screenshot, raid_choose, player, raid_rank):
         printSkyBlue("日常模式，{0}建{1}房{2}难度...".format(player.use_device, raid_choose, raid_rank))
 
 
-def one_loop(player, count):
+def one_loop(player, count, allow_stranger=False):
     timeout_flag = wait_in_room(player)
     if not timeout_flag:
         quit_battle(player)
-        build_from_multiplayer(player)
+        build_from_multiplayer(player, allow_stranger=allow_stranger)
     else:  # 房间没人来，自动解散
-        build_from_multiplayer(player)
+        build_from_multiplayer(player, allow_stranger=allow_stranger)
     count += 1
     printSkyBlue("{1} {2} 房主已执行{0}次".format(count, Timer().simple_time(), player.use_device))
     return count
@@ -60,7 +60,7 @@ def wf_owner(player, config, loop_time=0, count=0, event_mode=0):
             return count
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(timeout, False):
-                count = one_loop(player, count)
+                count = one_loop(player, count, allow_stranger=allow_stranger)
                 continue
             printSkyBlue("{0}秒未执行下一次，即将重启游戏...".format(timeout))
             return count
@@ -75,7 +75,7 @@ def wf_owner(player, config, loop_time=0, count=0, event_mode=0):
             return count
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(timeout, False):
-                count = one_loop(player, count)
+                count = one_loop(player, count, allow_stranger=allow_stranger)
                 continue
             printSkyBlue("{0}秒未执行下一次...即将重启游戏...".format(timeout))
             return count
