@@ -55,6 +55,8 @@ def wf_owner(player, config, loop_time=0, count=0, event_mode=0):
                 if check_ui(player) < 6:  # 处于房间外
                     goto_main(player)
                     from_main_to_room(event_mode, raid_choose, event_screenshot, allow_stranger, player, raid_rank)
+                    count += 1
+                    printSkyBlue("{1} {2} 房主已执行{0}次".format(count, Timer().simple_time(), player.use_device))
         except eventlet.timeout.Timeout:
             printSkyBlue("{0}秒未进入房间，即将重启游戏...".format(timeout))
             return count
@@ -70,6 +72,8 @@ def wf_owner(player, config, loop_time=0, count=0, event_mode=0):
             with eventlet.Timeout(timeout, True):
                 login(player)
                 from_main_to_room(event_mode, raid_choose, event_screenshot, allow_stranger, player, raid_rank)
+                count += 1
+                printSkyBlue("{1} {2} 房主已执行{0}次".format(count, Timer().simple_time(), player.use_device))
         except eventlet.timeout.Timeout:
             printSkyBlue("{0}秒未进入房间，即将重启游戏...".format(timeout))
             return count
