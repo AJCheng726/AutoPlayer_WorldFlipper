@@ -290,13 +290,13 @@ def change_team(player,team='1-1'):
     player.wait("label_setbianji")
     player.touch((90*int(team[0])-40,175)) # 选择set
     time.sleep(3)
-    if 10 >= int_team >= 7: # 需要下滑2次
+    if 10 >= int_team >= 7:
         for i in range(4):
             player.down_swipe(x_start=270, y_start=800, x_end=270, y_end=100) 
             time.sleep(1)
         time.sleep(2)
         player.touch((270,285+170*(int_team-7)))
-    elif 6 >= int_team >= 4:  # 需要下滑1次
+    elif 6 >= int_team >= 4:
         for i in range(2):
             player.down_swipe(x_start=270, y_start=450, x_end=270, y_end=400) 
             time.sleep(1)
