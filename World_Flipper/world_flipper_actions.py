@@ -60,31 +60,40 @@ def check_ui(player):
     flag = player.find_any(ui_pages)
 
     if flag == -1:
-        printWhite("没有找到任何特征，无法确定当前所在页面...")
+        if player.debug == 1:
+            printWhite("没有找到任何特征，无法确定当前所在页面...")
         return -1
     elif flag == 0:
-        printWhite("[0]当前处于登录界面")
+        if player.debug == 1:
+            printWhite("[0]当前处于登录界面")
         return 0
     elif flag == 1:
-        printWhite("[1]当前处于主城")
+        if player.debug == 1:
+            printWhite("[1]当前处于主城")
         return 1
     elif flag == 2:
-        printWhite("[2]发现更新列表按钮，当前处于领主战或共斗活动页面")
+        if player.debug == 1:
+            printWhite("[2]发现更新列表按钮，当前处于领主战或共斗活动页面")
         return 2
     elif flag == 3:
-        printWhite("[3]发现小黑对话，当前处于活动页面")
+        if player.debug == 1:
+            printWhite("[3]发现小黑对话，当前处于活动页面")
         return 3
     elif flag == 4:
-        printWhite("[4]发现多人游戏，当前处于建房选择页面")
+        if player.debug == 1:
+            printWhite("[4]发现多人游戏，当前处于建房选择页面")
         return 4
     elif flag == 5:
-        printWhite("[5]发现兑换道具按钮，当前处于选择难度页面")
+        if player.debug == 1:
+            printWhite("[5]发现兑换道具按钮，当前处于选择难度页面")
         return 5
     elif flag == 6:
-        printWhite("[6]发现招募按钮，当前处于房间内页面")
+        if player.debug == 1:
+            printWhite("[6]发现招募按钮，当前处于房间内页面")
         return 6
     elif flag == 7:
-        printWhite("[7]发现暂停按钮，当前处于战斗中")
+        if player.debug == 1:
+            printWhite("[7]发现暂停按钮，当前处于战斗中")
         return 7
 
 
@@ -114,36 +123,43 @@ def goto_main(player):
     printWhite("{0} {1} 前往主城...".format(Timer().simple_time(), player.use_device))
     flag = check_ui(player)
     if flag == 1:
-        printWhite("已处于主城")
+        if player.debug == 1:
+            printWhite("已处于主城")
         return
     elif flag == 6:
-        printWhite("处于房间内，放弃任务...")
+        if player.debug == 1:
+            printWhite("处于房间内，放弃任务...")
         player.find_touch("button_fanhui")
         player.wait_touch("button_jiesan", max_wait_time=2)
         time.sleep(2)
         player.touch([135, 919])
     elif player.find("button_jixu"):
-        printWhite("处于战斗结束，结算...")
+        if player.debug == 1:
+            printWhite("处于战斗结束，结算...")
         player.wait_touch("button_jixu", max_wait_time=5)
         player.wait_touch("button_ok(small)", max_wait_time=10)
         time.sleep(5)
         player.touch([135, 919])
     else:
-        printWhite("尝试前往主城...")
+        if player.debug == 1:
+            printWhite("尝试前往主城...")
         player.touch([135, 919])
         time.sleep(2)
         player.touch([135, 919])
 
     # 检查是否前往成功
     if player.wait("button_gonggao", max_wait_time=5):
-        printWhite("已处于主城")
+        if player.debug == 1:
+            printWhite("已处于主城")
         return
     else:
-        printWhite("前往失败,重启游戏...")
+        if player.debug == 1:
+            printWhite("前往失败,重启游戏...")
         restart_game(player)
         login(player)
         if check_ui(player) == 1:
-            printWhite("已处于主城")
+            if player.debug == 1:
+                printWhite("已处于主城")
             return
         else:
             raise Exception("跳转主城失败，截图并汇报开发者此错误")
@@ -174,7 +190,9 @@ def build_from_multiplayer(player, allow_stranger=False):
     danxiang_flag = player.find_any(["button_danxiang0", "button_danxiang1"])
     suiji_flag = player.find_any(["button_suiji0", "button_suiji1"])
     if player.debug == 1:
-        printRed("[招募方式识别] danxiang_flag {0}, suiji_flag {1}, allow_stranger {2}".format(danxiang_flag, suiji_flag, allow_stranger))
+        printRed(
+            "[招募方式识别] danxiang_flag {0}, suiji_flag {1}, allow_stranger {2}".format(danxiang_flag, suiji_flag, allow_stranger)
+        )
     if (danxiang_flag == 0 and allow_stranger) or (danxiang_flag == 1 and not allow_stranger):
         player.touch((74, 472))
     if (suiji_flag == 0 and allow_stranger) or (suiji_flag == 1 and not allow_stranger):
@@ -264,6 +282,32 @@ def wait_ring(player, raid):
         player.find_touch("button_ok")
         return 0
 
+def change_team(player,team='1-1'):
+    printWhite("{0} {1} 切换队伍至{2}...".format(Timer().simple_time(), player.use_device, team))
+    int_team = int(team[2:])
+    player.wait_touch("button_biandui", max_wait_time=5)
+    player.wait_touch("button_teamset", max_wait_time=5)
+    player.wait("label_setbianji")
+    player.touch((90*int(team[0])-40,175)) # 选择set
+    time.sleep(3)
+    if 10 >= int_team >= 7: # 需要下滑2次
+        for i in range(4):
+            player.down_swipe(x_start=270, y_start=800, x_end=270, y_end=100) 
+            time.sleep(1)
+        time.sleep(2)
+        player.touch((270,285+170*(int_team-7)))
+    elif 6 >= int_team >= 4:  # 需要下滑1次
+        for i in range(2):
+            player.down_swipe(x_start=270, y_start=450, x_end=270, y_end=400) 
+            time.sleep(1)
+        time.sleep(2)
+        player.touch((270,285+170*(int_team-4)))
+    elif 3 >= int_team >= 1:
+        player.touch((270,285+170*(int_team-1)))
+    time.sleep(3)
+    player.wait_touch("button_ok2", max_wait_time=5)
+    return 0
+
 
 if __name__ == "__main__":
     config = configparser.ConfigParser()
@@ -275,16 +319,17 @@ if __name__ == "__main__":
         adb_path=config["GENERAL"]["adb_path"],
         apk_name=config["WF"]["wf_apk_name"],
         active_class_name=config["WF"]["wf_active_class_name"],
-        debug=0,
+        debug=1,
         accuracy=config["GENERAL"].getfloat("accuracy"),
         screenshot_blank=config["GENERAL"].getfloat("screenshot_blank"),
         wanted_path=config["GENERAL"]["wanted_path"],
     )
 
-    player.screen_shot()
+    # player.screen_shot()
     # check_ui(player)
     # goto_main(player)
     # quit_battle(player)
     # find_raid(player,"raid_event4_h",raid_rank=0)
     # goto_main(player)
-    login(player)
+    # login(player)
+    change_team(player,team='1-8')
