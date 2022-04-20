@@ -31,7 +31,7 @@ def buy_zhenqipin(player, items_count=8):
 
 
 def maze_repeat(player, maze_choise="maze_fire", repeat=4):
-    printBlue("{0} 开始每日任务，打{1}次{2},编队{3}".format(player.use_device, repeat, maze_choise, team))
+    printBlue("{0} 开始每日任务，打{1}次{2}".format(player.use_device, repeat, maze_choise))
     goto_main(player)
     player.touch([93, 842])
     # player.wait_touch(maze_choise)
@@ -39,8 +39,6 @@ def maze_repeat(player, maze_choise="maze_fire", repeat=4):
     # player.wait("button_wanfajieshao")
     # player.touch([261, 349])
     player.wait_touch("button_shi", max_wait_time=5)
-    if team != "":
-        change_team(player,team)
     for i in range(repeat):
         player.wait_touch("button_tiaozhan")
         player.wait_touch("button_jixu")
@@ -52,7 +50,7 @@ def maze_repeat(player, maze_choise="maze_fire", repeat=4):
 def daily_task(player, maze_choise="maze_fire", repeat=4):
     if not check_game(player):
         login(player)
-    # buy_zhenqipin(player)
+    buy_zhenqipin(player)
     maze_repeat(player, maze_choise=maze_choise, repeat=repeat)
     printBlue("{0} 完成每日任务，返回主城".format(player.use_device))
 
@@ -61,15 +59,11 @@ if __name__ == "__main__":
     config = configparser.ConfigParser()
     config.read("./config.ini")
 
-    teamconfig = configparser.ConfigParser()
-    teamconfig.read("./teamset.ini")
-
     daily_device = config["WF"]["daily_device"]
     maze_choise = config["RAID"]["daily_maze_choise"]
     adb_path = config["GENERAL"]["adb_path"]
     wf_apk_name = config["WF"]["wf_apk_name"]
     wf_active_class_name = config["WF"]["wf_active_class_name"]
-    team = teamconfig["MAZE"][maze_choise]
 
     player = Autoplayer(
         use_device=daily_device,
