@@ -1,7 +1,5 @@
 import configparser
-
 import eventlet
-
 from world_flipper_actions import *
 
 eventlet.monkey_patch()
@@ -20,22 +18,24 @@ def from_battle_to_prepare(player, count, event_mode):
         return count
 
 
-def from_main_to_room(player, event_mode):
+def from_main_to_room(player, event_mode, team=""):
     player.touch((465, 809))  # 领主战
     if event_mode:
         time.sleep(3)
         player.wait_touch("button_event")  # 活动
-    find_room(player, event_mode)
+    find_room(player, event_mode, team)
 
 
-def wf_join(player, loop_time=0, count=0, event_mode=0, timeout=600, battle_timeout=420):
-    printGreen("{0}参战, 搜索{1}".format(player.use_device, fangzhu_account))
+def wf_join(player, loop_time=0, count=0, event_mode=0, timeout=600, battle_timeout=420, team=""):
+    printGreen("{0}参战, 搜索{1}，编队{2}".format(player.use_device, fangzhu_account, team))
+    if team == "":
+        raise Exception("{0}未配置编队{1}，前往teamset.ini配置".format(raid_choose, team))
     if check_game(player):  # 从战斗中开始执行
         try:
             with eventlet.Timeout(timeout, True):
                 if check_ui(player) < 6:  # 处于房间外
                     goto_main(player)
-                    from_main_to_room(player, event_mode)
+                    from_main_to_room(player, event_mode, team)
         except eventlet.timeout.Timeout:
             printRed("{0}流程超时，即将重启游戏...".format(timeout))
             return count
@@ -50,7 +50,7 @@ def wf_join(player, loop_time=0, count=0, event_mode=0, timeout=600, battle_time
         try:
             with eventlet.Timeout(timeout, True):
                 login(player)
-                from_main_to_room(player, event_mode)
+                from_main_to_room(player, event_mode, team)
         except eventlet.timeout.Timeout:
             printRed("{0}流程超时，即将重启游戏...".format(timeout))
             return count
@@ -67,10 +67,15 @@ def wf_join(player, loop_time=0, count=0, event_mode=0, timeout=600, battle_time
 if __name__ == "__main__":
     config = configparser.ConfigParser()
     config.read("./config.ini")
+
+    teamconfig = configparser.ConfigParser()
+    teamconfig.read("./teamset.ini")
+
     event_screenshot = config["RAID"]["event_screenshot"]
     raid_choose = config["RAID"]["raid_choose"]
     timeout = config["WF"].getint("timeout")
     battle_timeout = config["WF"].getint("battle_timeout")
+    team = teamconfig["RAID"][raid_choose]
     player = Autoplayer(
         use_device=config["WF"]["canzhan_device_1"],
         adb_path=config["GENERAL"]["adb_path"],
@@ -89,6 +94,7 @@ if __name__ == "__main__":
             event_mode=config["RAID"].getint("event_mode"),
             timeout=config["WF"].getint("timeout"),
             battle_timeout=battle_timeout,
+            team=team,
         )
         player.stop_app()
         time.sleep(3)

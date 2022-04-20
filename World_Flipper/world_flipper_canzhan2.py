@@ -3,10 +3,15 @@ from world_flipper_canzhan1 import *
 if __name__ == "__main__":
     config = configparser.ConfigParser()
     config.read("./config.ini")
+
+    teamconfig = configparser.ConfigParser()
+    teamconfig.read("./teamset.ini")
+
     event_screenshot = config["RAID"]["event_screenshot"]
     raid_choose = config["RAID"]["raid_choose"]
-    battle_timeout = config["WF"].getint("battle_timeout")
     timeout = config["WF"].getint("timeout")
+    battle_timeout = config["WF"].getint("battle_timeout")
+    team = teamconfig["RAID"][raid_choose]
     player = Autoplayer(
         use_device=config["WF"]["canzhan_device_2"],
         adb_path=config["GENERAL"]["adb_path"],
@@ -25,6 +30,7 @@ if __name__ == "__main__":
             event_mode=config["RAID"].getint("event_mode"),
             timeout=config["WF"].getint("timeout"),
             battle_timeout=battle_timeout,
+            team=team,
         )
         player.stop_app()
         time.sleep(3)

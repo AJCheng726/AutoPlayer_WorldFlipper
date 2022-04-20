@@ -179,12 +179,12 @@ def find_raid(player, raid_choose, raid_rank=1, enter_boss_raid=1):
         player.touch(rank_pos[raid_rank])  # 按难度点击相应位置
 
 
-def build_from_multiplayer(player, allow_stranger=False, changeteam=''):
+def build_from_multiplayer(player, allow_stranger=False, changeteam=""):
     printWhite("{0} {1} 房主建房...".format(Timer().simple_time(), player.use_device))
     player.wait_touch("button_duorenyouxi", max_wait_time=30)
     player.wait_touch("button_shi", max_wait_time=5)
     # 换队
-    if changeteam != '':
+    if changeteam != "":
         change_team(player, team=changeteam)
     # 开始招募
     player.wait_touch("button_zhaomu", max_wait_time=60)
@@ -250,10 +250,10 @@ def clear(player):
         return False
 
 
-def find_room(player, event_mode=0):
+def find_room(player, event_mode=0, changeteam=""):
     # 找建房号ID=>"ok"和"是"处理双倍\房满的问题=>没找到就更新=>准备完毕
     printWhite("{0} {1} 再次寻找房间...".format(Timer().simple_time(), player.use_device))
-    while not player.find_touch("button_zhunbeiwanbi"):
+    while not player.find("button_zhunbeiwanbi"):
         player.wait("icon_fangjianhaoinput", max_wait_time=10)
         if event_mode == 1:
             pts = player.find_location("icon_fangjianhaoinput")
@@ -267,6 +267,9 @@ def find_room(player, event_mode=0):
         player.wait_touch("button_ok", max_wait_time=2)
         player.find_touch("button_gengxinliebiao")
         # time.sleep(1)
+    if changeteam != "":
+        change_team(player, changeteam)
+    player.wait_touch("button_zhunbeiwanbi", max_wait_time=5)
 
 
 def wait_ring(player, raid):

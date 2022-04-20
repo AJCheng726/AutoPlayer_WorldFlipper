@@ -5,4 +5,3 @@ xcopy .\World_Flipper .\release\World_Flipper /s/y/i
 xcopy gui.bat .\release\ /y
 xcopy *.ini .\release\ /y
 xcopy *.exe .\release\ /y
-tar -cvzf ./ApWF.zip .\release
