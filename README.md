@@ -1,6 +1,7 @@
 # AutoPlayer_WorldFlipper
 <p align="center">
   <img src="https://user-images.githubusercontent.com/31361978/158060158-3edf56cb-5daf-435c-8504-740d4c0a3b09.png"/>
+  <img src="https://user-images.githubusercontent.com/31361978/164265458-58422bf9-d372-4538-b787-609f01f2d484.png"/>
 </p>
 
 带GUI的世界弹射物语国服脚本，现在支持3开灵车，自动建房、参战，做每日任务（搬玛那商店、打4次迷宫）
@@ -27,6 +28,15 @@ gui.bat或ApWF.exe启动界面
 &ensp;2.1 蓝叠模拟器参考 https://www.cnblogs.com/rogunt/p/13047394.html 连接ADB
 
 3、在模拟器主页即可点击GO!，随后自动登录游戏开始任务
+
+### 设置编队
+
+![image](https://user-images.githubusercontent.com/31361978/164265744-990f3177-e22f-444f-92ff-c3415596179a.png)
+
+![image](https://user-images.githubusercontent.com/31361978/164266025-57ed2596-d721-45db-b713-abf8b4e61c89.png)
+
+主页打开teamset.ini设置打本编队，格式为SET-TEAM
+
 
 ### 单人日常
 
