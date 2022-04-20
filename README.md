@@ -31,9 +31,7 @@ gui.bat或ApWF.exe启动界面
 
 ### 设置编队
 
-![image](https://user-images.githubusercontent.com/31361978/164265744-990f3177-e22f-444f-92ff-c3415596179a.png)
-
-![image](https://user-images.githubusercontent.com/31361978/164266025-57ed2596-d721-45db-b713-abf8b4e61c89.png)
+![image](https://user-images.githubusercontent.com/31361978/164265744-990f3177-e22f-444f-92ff-c3415596179a.png)  ![image](https://user-images.githubusercontent.com/31361978/164270528-a378295a-eb5b-42b1-a3fe-15c80c34ae8d.png)
 
 主页打开teamset.ini设置打本编队，格式为SET-TEAM
 
