@@ -24,22 +24,22 @@ fangzhu_account = config["WF"]["fangzhu_account"].split(",")
 def check_game(player):
     printWhite("{0} {1} 检查wf是否启动...".format(Timer().simple_time(), player.use_device))
     if player.check_app():
-        printWhite("游戏已启动")
+        printWhite("{0} {1} 游戏已启动".format(Timer().simple_time(), player.use_device))
         return 1
     else:
-        printWhite("游戏未启动...")
+        printWhite("{0} {1} 游戏未启动...".format(Timer().simple_time(), player.use_device))
         return 0
 
 
 def restart_game(player):
     printWhite("{0} {1} 重启游戏...".format(Timer().simple_time(), player.use_device))
     if player.check_app():
-        printWhite("游戏已启动")
+        printWhite("{0} {1} 游戏已启动".format(Timer().simple_time(), player.use_device))
         player.stop_app()
         time.sleep(3)
         player.start_app()
     else:
-        printWhite("游戏未启动...")
+        printWhite("{0} {1} 游戏未启动...".format(Timer().simple_time(), player.use_device))
         player.start_app()
     return
 
@@ -124,25 +124,25 @@ def goto_main(player):
     flag = check_ui(player)
     if flag == 1:
         if player.debug == 1:
-            printWhite("已处于主城")
+            printWhite("[goto_main] 已处于主城")
         return
     elif flag == 6:
         if player.debug == 1:
-            printWhite("处于房间内，放弃任务...")
+            printWhite("[goto_main] 处于房间内，放弃任务...")
         player.find_touch("button_fanhui")
         player.wait_touch("button_jiesan", max_wait_time=2)
         time.sleep(2)
         player.touch([135, 919])
     elif player.find("button_jixu"):
         if player.debug == 1:
-            printWhite("处于战斗结束，结算...")
+            printWhite("[goto_main] 处于战斗结束，结算...")
         player.wait_touch("button_jixu", max_wait_time=5)
         player.wait_touch("button_ok(small)", max_wait_time=10)
         time.sleep(5)
         player.touch([135, 919])
     else:
         if player.debug == 1:
-            printWhite("尝试前往主城...")
+            printWhite("[goto_main] 尝试前往主城...")
         player.touch([135, 919])
         time.sleep(2)
         player.touch([135, 919])
@@ -150,19 +150,19 @@ def goto_main(player):
     # 检查是否前往成功
     if player.wait("button_gonggao", max_wait_time=5):
         if player.debug == 1:
-            printWhite("已处于主城")
+            printWhite("[goto_main] 已处于主城")
         return
     else:
         if player.debug == 1:
-            printWhite("前往失败,重启游戏...")
+            printWhite("[goto_main] 前往失败,重启游戏...")
         restart_game(player)
         login(player)
         if check_ui(player) == 1:
             if player.debug == 1:
-                printWhite("已处于主城")
+                printWhite("[goto_main] 已处于主城")
             return
         else:
-            raise Exception("跳转主城失败，截图并汇报开发者此错误")
+            raise Exception("[goto_main] 跳转主城失败，截图并汇报开发者此错误")
 
 
 def find_raid(player, raid_choose, raid_rank=1, enter_boss_raid=1):
@@ -179,10 +179,13 @@ def find_raid(player, raid_choose, raid_rank=1, enter_boss_raid=1):
         player.touch(rank_pos[raid_rank])  # 按难度点击相应位置
 
 
-def build_from_multiplayer(player, allow_stranger=False):
+def build_from_multiplayer(player, allow_stranger=False, changeteam=''):
     printWhite("{0} {1} 房主建房...".format(Timer().simple_time(), player.use_device))
     player.wait_touch("button_duorenyouxi", max_wait_time=30)
     player.wait_touch("button_shi", max_wait_time=5)
+    # 换队
+    if changeteam != '':
+        change_team(player, team=changeteam)
     # 开始招募
     player.wait_touch("button_zhaomu", max_wait_time=60)
     player.wait("icon_zhaomufangshi")
@@ -282,28 +285,29 @@ def wait_ring(player, raid):
         player.find_touch("button_ok")
         return 0
 
-def change_team(player,team='1-1'):
+
+def change_team(player, team="1-1"):
     printWhite("{0} {1} 切换队伍至{2}...".format(Timer().simple_time(), player.use_device, team))
     int_team = int(team[2:])
     player.wait_touch("button_biandui", max_wait_time=5)
     player.wait_touch("button_teamset", max_wait_time=5)
     player.wait("label_setbianji")
-    player.touch((90*int(team[0])-40,175)) # 选择set
+    player.touch((90 * int(team[0]) - 40, 175))  # 选择set
     time.sleep(3)
     if 10 >= int_team >= 7:
         for i in range(4):
-            player.down_swipe(x_start=270, y_start=800, x_end=270, y_end=100) 
+            player.down_swipe(x_start=270, y_start=800, x_end=270, y_end=100)
             time.sleep(1)
         time.sleep(2)
-        player.touch((270,285+170*(int_team-7)))
+        player.touch((270, 285 + 170 * (int_team - 7)))
     elif 6 >= int_team >= 4:
         for i in range(2):
-            player.down_swipe(x_start=270, y_start=450, x_end=270, y_end=400) 
+            player.down_swipe(x_start=270, y_start=450, x_end=270, y_end=400)
             time.sleep(1)
         time.sleep(2)
-        player.touch((270,285+170*(int_team-4)))
+        player.touch((270, 285 + 170 * (int_team - 4)))
     elif 3 >= int_team >= 1:
-        player.touch((270,285+170*(int_team-1)))
+        player.touch((270, 285 + 170 * (int_team - 1)))
     time.sleep(3)
     player.wait_touch("button_ok2", max_wait_time=5)
     return 0
@@ -332,4 +336,5 @@ if __name__ == "__main__":
     # find_raid(player,"raid_event4_h",raid_rank=0)
     # goto_main(player)
     # login(player)
-    change_team(player,team='1-8')
+    # change_team(player,team='1-8')
+    goto_main(player)

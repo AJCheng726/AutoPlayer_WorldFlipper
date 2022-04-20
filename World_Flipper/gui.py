@@ -80,8 +80,13 @@ class AutoPlayer_WF(tk.Tk):
         self.timeout_entry.insert(0, timeout)
         self.timeout_entry.grid(row=6, column=1)
 
-        tk.Label(self.config_tab, text="😏 ApWF version 1.17.0").grid(row=10, column=1)
-        ttk.Button(self.config_tab, text="SAVE", command=self.save_config, width=5).grid(row=10, column=0, pady=2)
+        tk.Label(self.config_tab, text="😏 ApWF 1.18.0").grid(row=10, column=1, sticky=tk.E)
+        ttk.Button(self.config_tab, text="SAVE", command=self.save_config, width=4).grid(
+            row=10, columnspan=2, sticky=tk.W, padx=2, pady=5
+        )
+        ttk.Button(self.config_tab, text="编队", bootstyle=DANGER, command=self.open_teamset, width=4).grid(
+            row=10, columnspan=2, sticky=tk.W, padx=60, pady=5
+        )
 
         tk.Label(self.config_tab, text="搜盘子").grid(row=11, column=0)
         self.search_entry = tk.Entry(self.config_tab)
@@ -477,14 +482,14 @@ class AutoPlayer_WF(tk.Tk):
         if self.fangzhu_device_entry.get() == self.canzhan1_device_entry.get():
             fangzhu_device_tmp = self.fangzhu_device_entry.get()
             canzhan_device_tmp = self.canzhan2_device_entry.get()
-            self.fangzhu_device_entry.delete(0,END)
+            self.fangzhu_device_entry.delete(0, END)
             self.fangzhu_device_entry.insert(0, canzhan_device_tmp)
             self.fangzhu_go()
             self.canzhan1_go()
         elif self.fangzhu_device_entry.get() == self.canzhan2_device_entry.get():
             fangzhu_device_tmp = self.fangzhu_device_entry.get()
             canzhan_device_tmp = self.canzhan1_device_entry.get()
-            self.fangzhu_device_entry.delete(0,END)
+            self.fangzhu_device_entry.delete(0, END)
             self.fangzhu_device_entry.insert(0, canzhan_device_tmp)
             self.fangzhu_go()
             self.canzhan2_go()
@@ -520,6 +525,9 @@ class AutoPlayer_WF(tk.Tk):
 
     def open_wfwiki(self, search):
         webbrowser.open("https://www.wfwiki.com/index", new=0)
+
+    def open_teamset(self):
+        subprocess.Popen("teamset.ini",shell=True)
 
 
 if __name__ == "__main__":
