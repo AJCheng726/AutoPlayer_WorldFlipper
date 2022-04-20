@@ -5,7 +5,7 @@
 
 带GUI的世界弹射物语国服脚本，现在支持3开灵车，自动建房、参战，做每日任务（搬玛那商店、打4次迷宫）
 
-仅支持540x960分辨率，推荐使用雷电模拟器64位，B服理论上支持除了自动登录外的所有功能
+仅支持540x960分辨率，推荐使用雷电模拟器64位，B服需要覆盖Release中的替换包
 
 第一次使用（前往 https://github.com/AJCheng726/AutoPlayer_WorldFlipper/releases/ ）下载Release版（解压失败的话尝试bandzip），包含了脚本所需的Python和ADB环境，后续可增量覆盖toolkits以外的部分
 
