@@ -237,14 +237,20 @@ def quit_battle(player):
 
 
 def clear(player):
-    # 战斗中=>继续（同时处理升级、掉落）=>离开房间
+    # 成功结算：等待“继续”→继续→继续→继续→离开房间/OK
+    # 结算失败：退出
     printWhite("{0} {1} 等待战斗结算...".format(Timer().simple_time(), player.use_device))
     if player.wait_list(["button_jixu", "G", "button_xuzhan"], max_wait_time=battle_timeout) == "button_jixu":
-        while not player.find("icon_fangjianhaoinput"):
-            player.touch((device_w * 1 / 2, device_h * 1 / 2))
-            player.find_touch("button_ok")
-            player.wait_touch("button_likaifangjian", max_wait_time=3)
-            player.find_touch("button_jixu")
+        player.wait_touch("button_jixu", max_wait_time = 10)
+        player.wait_touch("button_jixu", max_wait_time = 10)
+        if not player.wait_touch("button_jixu", max_wait_time = 10):
+            player.wait_touch("button_ok", max_wait_time = 5)
+        player.wait_touch("button_likaifangjian", max_wait_time = 10)
+        # while not player.find("icon_fangjianhaoinput"):
+        #     player.touch((device_w * 1 / 2, device_h * 1 / 2))
+        #     player.find_touch("button_ok")
+        #     player.find_touch("button_likaifangjian")
+        #     player.find_touch("button_jixu")
         return True
     else:
         player.find_touch("button_ok")  # 发现续战或超过battle_timeout秒，可能阵亡未结算
