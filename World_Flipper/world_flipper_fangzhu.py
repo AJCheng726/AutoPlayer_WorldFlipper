@@ -47,7 +47,11 @@ def wf_owner(player, config, teamconfig, loop_time=0, count=0, event_mode=0):
     event_screenshot = config["RAID"]["event_screenshot"]
     raid_choose = config["RAID"]["raid_choose"]
     raid_rank = config["RAID"].getint("raid_rank")
-    team = teamconfig["RAID"][raid_choose]
+
+    if not event_mode:  # 根据是否活动模式，选择队伍
+        team = teamconfig["RAID"][raid_choose]
+    else:
+        team = teamconfig["RAID"][event_screenshot]
 
     announcement(event_mode, event_screenshot, raid_choose, player, raid_rank, team)
 

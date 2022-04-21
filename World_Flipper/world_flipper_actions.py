@@ -240,14 +240,16 @@ def clear(player):
     # 战斗中=>继续（同时处理升级、掉落）=>离开房间
     printWhite("{0} {1} 等待战斗结算...".format(Timer().simple_time(), player.use_device))
     if player.wait_list(["button_jixu", "G", "button_xuzhan"], max_wait_time=battle_timeout) == "button_jixu":
-        while not player.find("button_likaifangjian"):
+        while player.find_any(["button_likaifangjian","button_ok"]) != -1:
             if not player.find_touch("button_jixu"):
                 player.touch((device_w * 1 / 2, device_h * 1 / 2))
-        player.wait_touch("button_likaifangjian", max_wait_time=10)
+        player.wait_touch("button_likaifangjian", max_wait_time=3)
+        player.wait_touch("button_ok", max_wait_time=3)
         return True
     else:
         player.find_touch("button_ok")  # 发现续战或超过battle_timeout秒，可能阵亡未结算
         return False
+
 
 
 def find_room(player, event_mode=0, changeteam=""):
@@ -293,7 +295,7 @@ def change_team(player, team="1-1"):
     printWhite("{0} {1} 切换队伍至{2}...".format(Timer().simple_time(), player.use_device, team))
     int_team = int(team[2:])
     player.wait_touch("button_biandui", max_wait_time=5)
-    player.wait_touch("button_teamset", max_wait_time=5)
+    player.wait_touch("button_teamset", max_wait_time=10)
     player.wait("label_setbianji")
     player.touch((90 * int(team[0]) - 40, 175))  # 选择set
     time.sleep(3)
@@ -340,4 +342,5 @@ if __name__ == "__main__":
     # goto_main(player)
     # login(player)
     # change_team(player,team='1-8')
-    goto_main(player)
+    # goto_main(player)
+    clear(player)
