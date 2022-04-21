@@ -33,7 +33,7 @@ gui.bat或ApWF.exe启动界面
 
 ![image](https://user-images.githubusercontent.com/31361978/164265744-990f3177-e22f-444f-92ff-c3415596179a.png)  ![image](https://user-images.githubusercontent.com/31361978/164270528-a378295a-eb5b-42b1-a3fe-15c80c34ae8d.png)
 
-主页打开teamset.ini设置打本编队，格式为SET-TEAM
+主页打开teamset.ini设置打本编队，格式为SET-TEAM，如果为空则不改变队伍
 
 注意房主和参战共用同一编队配置，如果大小号编队不一致，建议建立ApWF副本使用全新的编队配置
 
