@@ -11,7 +11,7 @@ def announcement(event_mode, event_screenshot, raid_choose, player, raid_rank, t
     else:
         printSkyBlue("日常模式，{0}建{1}({2}难度)，编队{3}...".format(player.use_device, raid_choose, raid_rank, team))
     if team == "":
-        raise Exception("{0}未配置编队，前往teamset.ini配置".format(raid_choose))
+        printRed("未在teamset.ini中配置编队，使用默认编队")
 
 
 def one_loop(player, count, allow_stranger=False):
@@ -66,13 +66,13 @@ def wf_owner(player, config, teamconfig, loop_time=0, count=0, event_mode=0):
                     count += 1
                     printSkyBlue("{1} {2} 房主已执行{0}次".format(count, Timer().simple_time(), player.use_device))
         except eventlet.timeout.Timeout:
-            printSkyBlue("{0}秒未进入房间，即将重启游戏...".format(timeout))
+            printSkyBlue("{1} {2} {0}秒未进入房间，即将重启游戏...".format(timeout, Timer().simple_time(), player.use_device))
             return count
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(timeout, False):
                 count = one_loop(player, count, allow_stranger=allow_stranger)
                 continue
-            printSkyBlue("{0}秒未执行下一次，即将重启游戏...".format(timeout))
+            printSkyBlue("{1} {2} {0}秒未执行下一次，即将重启游戏...".format(timeout, Timer().simple_time(), player.use_device))
             return count
 
     else:  # 从启动游戏开始执行
@@ -83,13 +83,13 @@ def wf_owner(player, config, teamconfig, loop_time=0, count=0, event_mode=0):
                 count += 1
                 printSkyBlue("{1} {2} 房主已执行{0}次".format(count, Timer().simple_time(), player.use_device))
         except eventlet.timeout.Timeout:
-            printSkyBlue("{0}秒未进入房间，即将重启游戏...".format(timeout))
+            printSkyBlue("{1} {2} {0}秒未进入房间，即将重启游戏...".format(timeout, Timer().simple_time(), player.use_device))
             return count
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(timeout, False):
                 count = one_loop(player, count, allow_stranger=allow_stranger)
                 continue
-            printSkyBlue("{0}秒未执行下一次...即将重启游戏...".format(timeout))
+            printSkyBlue("{1} {2} {0}秒未执行下一次...即将重启游戏...".format(timeout, Timer().simple_time(), player.use_device))
             return count
 
 

@@ -29,7 +29,7 @@ def from_main_to_room(player, event_mode, team=""):
 def wf_join(player, loop_time=0, count=0, event_mode=0, timeout=600, battle_timeout=420, team=""):
     printGreen("{0}参战, 搜索{1}，编队{2}".format(player.use_device, fangzhu_account, team))
     if team == "":
-        raise Exception("{0}未配置编队{1}，前往teamset.ini配置".format(raid_choose, team))
+        printRed("未在teamset.ini中配置编队，使用默认编队")
     if check_game(player):  # 从战斗中开始执行
         try:
             with eventlet.Timeout(timeout, True):
@@ -37,13 +37,13 @@ def wf_join(player, loop_time=0, count=0, event_mode=0, timeout=600, battle_time
                     goto_main(player)
                     from_main_to_room(player, event_mode, team)
         except eventlet.timeout.Timeout:
-            printRed("{0}流程超时，即将重启游戏...".format(timeout))
+            printRed("{1} {2} {0}流程超时，即将重启游戏...".format(timeout, Timer().simple_time(), player.use_device))
             return count
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(battle_timeout, False):  # battle_timeout秒还没执行下一次就重启
                 count = from_battle_to_prepare(player, count, event_mode)
                 continue
-            printRed("{0}战斗超时，即将重启游戏...".format(battle_timeout))
+            printRed("{1} {2} {0}战斗超时，即将重启游戏...".format(battle_timeout, Timer().simple_time(), player.use_device))
             return count
 
     else:  # 从游戏启动开始执行
@@ -52,14 +52,14 @@ def wf_join(player, loop_time=0, count=0, event_mode=0, timeout=600, battle_time
                 login(player)
                 from_main_to_room(player, event_mode, team)
         except eventlet.timeout.Timeout:
-            printRed("{0}流程超时，即将重启游戏...".format(timeout))
+            printRed("{1} {2} {0}流程超时，即将重启游戏...".format(timeout, Timer().simple_time(), player.use_device))
             return count
 
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(battle_timeout, False):
                 count = from_battle_to_prepare(player, count, event_mode)
                 continue
-            printRed("{0}战斗超时，即将重启游戏...".format(battle_timeout))
+            printRed("{1} {2} {0}战斗超时，即将重启游戏...".format(battle_timeout, Timer().simple_time(), player.use_device))
             return count
     return count
 
