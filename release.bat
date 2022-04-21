@@ -1,3 +1,4 @@
+del .\release\wanted\* /Q
 xcopy .\screen .\release\screen /s/y/i
 xcopy .\utils .\release\utils /s/y/i
 xcopy .\wanted .\release\wanted /s/y/i
