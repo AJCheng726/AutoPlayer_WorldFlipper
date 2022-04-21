@@ -52,7 +52,7 @@ def maze_repeat(player, maze_choise="maze_fire", repeat=4):
 def daily_task(player, maze_choise="maze_fire", repeat=4):
     if not check_game(player):
         login(player)
-    # buy_zhenqipin(player)
+    buy_zhenqipin(player)
     maze_repeat(player, maze_choise=maze_choise, repeat=repeat)
     printBlue("{0} 完成每日任务，返回主城".format(player.use_device))
 
