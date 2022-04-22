@@ -7,3 +7,4 @@ xcopy gui.bat .\release\ /y
 xcopy *.ini .\release\ /y
 xcopy *.exe .\release\ /y
 del .\release\screen\* /Q
+del .\release\wanted\player* /Q
