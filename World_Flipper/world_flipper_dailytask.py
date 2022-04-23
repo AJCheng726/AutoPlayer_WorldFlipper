@@ -1,5 +1,6 @@
 from cv2 import repeat
 from world_flipper_actions import *
+from world_flipper_fangzhu import *
 import configparser
 import eventlet
 
@@ -31,7 +32,7 @@ def buy_zhenqipin(player, items_count=8):
 
 
 def maze_repeat(player, maze_choise="maze_fire", repeat=4):
-    printBlue("{0} 开始每日任务，打{1}次{2},编队{3}".format(player.use_device, repeat, maze_choise, team))
+    printBlue("{0} 开始每日任务，打{1}次{2},编队{3}".format(player.use_device, repeat, maze_choise, maze_team))
     goto_main(player)
     player.touch([93, 842])
     # player.wait_touch(maze_choise)
@@ -39,14 +40,32 @@ def maze_repeat(player, maze_choise="maze_fire", repeat=4):
     # player.wait("button_wanfajieshao")
     # player.touch([261, 349])
     player.wait_touch("button_shi", max_wait_time=5)
-    if team != "":
-        change_team(player,team)
+    if maze_team != "":
+        change_team(player, maze_team)
     for i in range(repeat):
         player.wait_touch("button_tiaozhan")
         player.wait_touch("button_jixu")
         player.wait_touch("button_zaicitiaozhan")
         printBlue("{0} 完成了1次{1}".format(player.use_device, maze_choise))
+
+
+def host_3_times(player, repeat=3):
+    printBlue("{0} 开始房主进程，完成3次共斗".format(player.use_device))
+    count = 0
+    announcement(event_mode, event_screenshot, raid_choose, player, raid_rank, raid_team)
     goto_main(player)
+    from_main_to_room(
+        player=player,
+        event_mode=event_mode,
+        raid_choose=raid_choose,
+        event_screenshot=event_screenshot,
+        allow_stranger=True,
+        raid_rank=raid_rank,
+        changeteam=raid_team,
+    )
+    for i in range(repeat):
+        count = one_loop(player=player, count=count, allow_stranger=True, quit=False)
+    return 0
 
 
 def daily_task(player, maze_choise="maze_fire", repeat=4):
@@ -54,7 +73,9 @@ def daily_task(player, maze_choise="maze_fire", repeat=4):
         login(player)
     buy_zhenqipin(player)
     maze_repeat(player, maze_choise=maze_choise, repeat=repeat)
+    host_3_times(player)
     printBlue("{0} 完成每日任务，返回主城".format(player.use_device))
+    goto_main(player)
 
 
 if __name__ == "__main__":
@@ -69,12 +90,23 @@ if __name__ == "__main__":
     adb_path = config["GENERAL"]["adb_path"]
     wf_apk_name = config["WF"]["wf_apk_name"]
     wf_active_class_name = config["WF"]["wf_active_class_name"]
-    team = teamconfig["MAZE"][maze_choise]
+    maze_team = teamconfig["MAZE"][maze_choise]
+
+    # 每日raid使用房主的参数
+    raid_choose = config["RAID"]["raid_choose"]
+    event_mode = config["RAID"].getint("event_mode")
+    event_screenshot = config["RAID"]["event_screenshot"]
+    raid_rank = config["RAID"].getint("raid_rank")
+    if not event_mode:  # 根据是否活动模式，选择队伍
+        raid_team = teamconfig["RAID"][raid_choose]
+    else:
+        raid_team = teamconfig["RAID"][event_screenshot]
 
     player = Autoplayer(
         use_device=daily_device,
         adb_path=adb_path,
         apk_name=wf_apk_name,
         active_class_name=wf_active_class_name,
+        debug=config["GENERAL"].getint("Debug"),
     )
     daily_task(player, maze_choise=maze_choise, repeat=4)

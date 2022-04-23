@@ -198,8 +198,10 @@ def build_from_multiplayer(player, allow_stranger=False, changeteam=""):
         )
     if (danxiang_flag == 0 and allow_stranger) or (danxiang_flag == 1 and not allow_stranger):
         player.touch((74, 472))
+        time.sleep(1)
     if (suiji_flag == 0 and allow_stranger) or (suiji_flag == 1 and not allow_stranger):
         player.touch((71, 566))
+        time.sleep(1)
     player.wait_touch("button_kaishizhaomu", max_wait_time=5)
 
 
@@ -252,7 +254,7 @@ def clear(player):
         if not player.wait_touch("button_jixu", max_wait_time = 10):
             player.touch((device_w * 1 / 2, device_h * 1 / 2))
             player.wait_touch("button_ok", max_wait_time = 5)
-        player.wait_touch("button_likaifangjian", max_wait_time = 10)
+        player.wait_touch_list(["button_likaifangjian","button_jiesan"], max_wait_time = 10)
         # while not player.find("icon_fangjianhaoinput"):
         #     player.touch((device_w * 1 / 2, device_h * 1 / 2))
         #     player.find_touch("button_ok")
@@ -349,13 +351,13 @@ if __name__ == "__main__":
         wanted_path=config["GENERAL"]["wanted_path"],
     )
 
-    # player.screen_shot()
-    # check_ui(player)
-    # goto_main(player)
-    # quit_battle(player)
-    # find_raid(player,"raid_event4_h",raid_rank=0)
-    # goto_main(player)
-    # login(player)
-    # change_team(player,team='1-8')
-    # goto_main(player)
-    clear(player)
+    # 调试招募方式变更
+    danxiang_flag = player.find_any(["button_danxiang0", "button_danxiang1"])
+    suiji_flag = player.find_any(["button_suiji0", "button_suiji1"])
+    allow_stranger = 0
+    if (danxiang_flag == 0 and allow_stranger) or (danxiang_flag == 1 and not allow_stranger):
+        player.touch((74, 472))
+        time.sleep(1)
+    if (suiji_flag == 0 and allow_stranger) or (suiji_flag == 1 and not allow_stranger):
+        player.touch((71, 566))
+        time.sleep(1)

@@ -351,6 +351,35 @@ class Autoplayer:
                 return True
             time.sleep(self.screenshot_blank)
 
+    def wait_touch_list(self, target_list, max_wait_time=10, delay=0.5, threshold=None):
+        timer = Timer()
+        if self.debug:
+            print("[wait_touch_list] 目标列表 ", target_list)
+        re = None
+        while True:
+            duration = timer.get_duration()
+            screen = self.screen_shot()
+            if max_wait_time is not None and 0 < max_wait_time < duration:
+                if self.debug:
+                    print("\n[wait_touch_list] 超时", flush=True)
+                return
+
+            for target in target_list:
+                wanted = self.imgs[target]
+                if threshold != None:  # 自定义阈值
+                    wanted[1] = threshold
+                size = wanted[0].shape
+                h, w, ___ = size
+                pts = self.locate(screen, wanted)
+                if pts:
+                    if self.debug:
+                        print("\n[wait_touch_list] 已找到目标 ", target, "位置 ", pts[0])
+                    xx = pts[0]
+                    re = target
+                    time.sleep(delay)
+                    self.touch(xx)
+            time.sleep(self.screenshot_blank)
+
     # 寻找并点击,找到返回目标名，未找到返回NONE
     def wait_list(self, target_list, max_wait_time=10, threshold=None):
         timer = Timer()

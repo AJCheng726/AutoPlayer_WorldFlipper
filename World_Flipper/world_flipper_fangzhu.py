@@ -14,13 +14,20 @@ def announcement(event_mode, event_screenshot, raid_choose, player, raid_rank, t
         printRed("未在teamset.ini中配置编队，使用默认编队")
 
 
-def one_loop(player, count, allow_stranger=False):
+def one_loop(player, count, allow_stranger=False, quit=True):
     timeout_flag = wait_in_room(player)
-    if not timeout_flag:
-        quit_battle(player)
-        build_from_multiplayer(player, allow_stranger=allow_stranger)
-    else:  # 房间没人来，自动解散
-        build_from_multiplayer(player, allow_stranger=allow_stranger)
+    if quit == True: # 灵车
+        if not timeout_flag:
+            quit_battle(player)
+            build_from_multiplayer(player, allow_stranger=allow_stranger)
+        else:  # 房间没人来，自动解散
+            build_from_multiplayer(player, allow_stranger=allow_stranger)
+    else: # 正常结算
+        if not timeout_flag:
+            clear(player)
+            build_from_multiplayer(player, allow_stranger=allow_stranger)
+        else:  # 房间没人来，自动解散
+            build_from_multiplayer(player, allow_stranger=allow_stranger)
     count += 1
     printSkyBlue("{1} {2} 房主已执行{0}次".format(count, Timer().simple_time(), player.use_device))
     return count
@@ -70,7 +77,7 @@ def wf_owner(player, config, teamconfig, loop_time=0, count=0, event_mode=0):
             return count
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(timeout, False):
-                count = one_loop(player, count, allow_stranger=allow_stranger)
+                count = one_loop(player, count, allow_stranger=allow_stranger, quit=True)
                 continue
             printSkyBlue("{1} {2} {0}秒未执行下一次，即将重启游戏...".format(timeout, Timer().simple_time(), player.use_device))
             return count
@@ -87,7 +94,7 @@ def wf_owner(player, config, teamconfig, loop_time=0, count=0, event_mode=0):
             return count
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(timeout, False):
-                count = one_loop(player, count, allow_stranger=allow_stranger)
+                count = one_loop(player, count, allow_stranger=allow_stranger, quit=True)
                 continue
             printSkyBlue("{1} {2} {0}秒未执行下一次...即将重启游戏...".format(timeout, Timer().simple_time(), player.use_device))
             return count
