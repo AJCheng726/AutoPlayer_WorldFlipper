@@ -24,6 +24,8 @@ def from_main_to_room(player, event_mode, team=""):
         time.sleep(3)
         player.wait_touch("button_event")  # 活动
     find_room(player, event_mode, team)
+    count += 1
+    printGreen("{1} {2} 参战已执行{0}次".format(count, Timer().simple_time(), player.use_device))
 
 
 def wf_join(player, loop_time=0, count=0, event_mode=0, timeout=600, battle_timeout=420, team=""):
