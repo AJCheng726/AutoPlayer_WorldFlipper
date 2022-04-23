@@ -244,17 +244,14 @@ def clear(player):
     printWhite("{0} {1} 等待战斗结算...".format(Timer().simple_time(), player.use_device))
     if player.wait_list(["button_jixu", "G", "button_xuzhan"], max_wait_time=battle_timeout) == "button_jixu":
         player.wait_touch("button_jixu", max_wait_time = 10)
-        time.sleep(1)
-        player.touch((device_w * 1 / 2, device_h * 1 / 2))
-        time.sleep(1)
-        player.wait_touch("button_jixu", max_wait_time = 10)
-        time.sleep(1)
-        player.touch((device_w * 1 / 2, device_h * 1 / 2))
-        time.sleep(1)
-        if not player.wait_touch("button_jixu", max_wait_time = 10):
+        time.sleep(2)
+        while not player.wait_touch("button_jixu", max_wait_time = 5):
+            player.touch((device_w * 1 / 2, device_h * 1 / 2))
+        time.sleep(2)
+        while not player.wait_touch("button_jixu", max_wait_time = 5):
             player.touch((device_w * 1 / 2, device_h * 1 / 2))
             player.wait_touch("button_ok", max_wait_time = 5)
-        player.wait_touch_list(["button_likaifangjian","button_jiesan"], max_wait_time = 10)
+        player.wait_touch_list(["button_likaifangjian","button_jiesan","button_ok"], max_wait_time = 10)
         # while not player.find("icon_fangjianhaoinput"):
         #     player.touch((device_w * 1 / 2, device_h * 1 / 2))
         #     player.find_touch("button_ok")
@@ -352,12 +349,14 @@ if __name__ == "__main__":
     )
 
     # 调试招募方式变更
-    danxiang_flag = player.find_any(["button_danxiang0", "button_danxiang1"])
-    suiji_flag = player.find_any(["button_suiji0", "button_suiji1"])
-    allow_stranger = 0
-    if (danxiang_flag == 0 and allow_stranger) or (danxiang_flag == 1 and not allow_stranger):
-        player.touch((74, 472))
-        time.sleep(1)
-    if (suiji_flag == 0 and allow_stranger) or (suiji_flag == 1 and not allow_stranger):
-        player.touch((71, 566))
-        time.sleep(1)
+    # danxiang_flag = player.find_any(["button_danxiang0", "button_danxiang1"])
+    # suiji_flag = player.find_any(["button_suiji0", "button_suiji1"])
+    # allow_stranger = 0
+    # if (danxiang_flag == 0 and allow_stranger) or (danxiang_flag == 1 and not allow_stranger):
+    #     player.touch((74, 472))
+    #     time.sleep(1)
+    # if (suiji_flag == 0 and allow_stranger) or (suiji_flag == 1 and not allow_stranger):
+    #     player.touch((71, 566))
+    #     time.sleep(1)
+
+    clear(player)
