@@ -24,8 +24,6 @@ def from_main_to_room(player, event_mode, team=""):
         time.sleep(3)
         player.wait_touch("button_event")  # 活动
     find_room(player, event_mode, team)
-    count += 1
-    printGreen("{1} {2} 参战已执行{0}次".format(count, Timer().simple_time(), player.use_device))
 
 
 def wf_join(player, loop_time=0, count=0, event_mode=0, timeout=600, battle_timeout=420, team=""):
@@ -41,6 +39,8 @@ def wf_join(player, loop_time=0, count=0, event_mode=0, timeout=600, battle_time
         except eventlet.timeout.Timeout:
             printRed("{1} {2} {0}流程超时，即将重启游戏...".format(timeout, Timer().simple_time(), player.use_device))
             return count
+        count += 1
+        printGreen("{1} {2} 参战已执行{0}次".format(count, Timer().simple_time(), player.use_device))
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(battle_timeout, False):  # battle_timeout秒还没执行下一次就重启
                 count = from_battle_to_prepare(player, count, event_mode)
@@ -56,7 +56,8 @@ def wf_join(player, loop_time=0, count=0, event_mode=0, timeout=600, battle_time
         except eventlet.timeout.Timeout:
             printRed("{1} {2} {0}流程超时，即将重启游戏...".format(timeout, Timer().simple_time(), player.use_device))
             return count
-
+        count += 1
+        printGreen("{1} {2} 参战已执行{0}次".format(count, Timer().simple_time(), player.use_device))
         while count < loop_time or loop_time == 0:
             with eventlet.Timeout(battle_timeout, False):
                 count = from_battle_to_prepare(player, count, event_mode)
@@ -77,7 +78,7 @@ if __name__ == "__main__":
     raid_choose = config["RAID"]["raid_choose"]
     timeout = config["WF"].getint("timeout")
     battle_timeout = config["WF"].getint("battle_timeout")
-    event_mode=config["RAID"].getint("event_mode")
+    event_mode = config["RAID"].getint("event_mode")
     if not event_mode:  # 根据是否活动模式，选择队伍
         team = teamconfig["RAID"][raid_choose]
     else:
