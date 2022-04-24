@@ -42,11 +42,14 @@ def maze_repeat(player, maze_choise="maze_fire", repeat=4):
     player.wait_touch("button_shi", max_wait_time=5)
     if maze_team != "":
         change_team(player, maze_team)
-    for i in range(repeat):
+    for i in range(repeat - 1):
         player.wait_touch("button_tiaozhan")
         player.wait_touch("button_jixu")
         player.wait_touch("button_zaicitiaozhan")
-        printBlue("{0} 完成了1次{1}".format(player.use_device, maze_choise))
+        printBlue("{0} 完成了{2}次{1}".format(player.use_device, maze_choise, i + 1))
+    player.wait_touch("button_jixu")
+    player.wait_touch("button_ok")
+    printBlue("{0} 完成了{2}次{1}".format(player.use_device, maze_choise, repeat))
 
 
 def host_3_times(player, repeat=3):
@@ -71,8 +74,8 @@ def host_3_times(player, repeat=3):
 def daily_task(player, maze_choise="maze_fire", repeat=4):
     if not check_game(player):
         login(player)
-    buy_zhenqipin(player)
-    maze_repeat(player, maze_choise=maze_choise, repeat=repeat)
+    # buy_zhenqipin(player)
+    # maze_repeat(player, maze_choise=maze_choise, repeat=repeat)
     host_3_times(player)
     printBlue("{0} 完成每日任务，返回主城".format(player.use_device))
     goto_main(player)
