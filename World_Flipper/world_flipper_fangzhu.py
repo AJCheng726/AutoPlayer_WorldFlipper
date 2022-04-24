@@ -16,13 +16,13 @@ def announcement(event_mode, event_screenshot, raid_choose, player, raid_rank, t
 
 def one_loop(player, count, allow_stranger=False, quit=True):
     timeout_flag = wait_in_room(player)
-    if quit == True: # 灵车
+    if quit == True:  # 灵车
         if not timeout_flag:
             quit_battle(player)
             build_from_multiplayer(player, allow_stranger=allow_stranger)
         else:  # 房间没人来，自动解散
             build_from_multiplayer(player, allow_stranger=allow_stranger)
-    else: # 正常结算
+    else:  # 正常结算
         if not timeout_flag:
             clear(player)
             build_from_multiplayer(player, allow_stranger=allow_stranger)
@@ -44,6 +44,7 @@ def from_main_to_room(event_mode, raid_choose, event_screenshot, allow_stranger,
             find_raid(player, event_screenshot, raid_rank=0)
             player.find_touch("button_ok")
     build_from_multiplayer(player, allow_stranger=allow_stranger, changeteam=changeteam)
+    printSkyBlue("{1} {2} 房主已执行{0}次".format(1, Timer().simple_time(), player.use_device))
 
 
 # 选boss建房之后开始，房主退出再重建
@@ -71,7 +72,6 @@ def wf_owner(player, config, teamconfig, loop_time=0, count=0, event_mode=0):
                         event_mode, raid_choose, event_screenshot, allow_stranger, player, raid_rank, changeteam=team
                     )
                     count += 1
-                    printSkyBlue("{1} {2} 房主已执行{0}次".format(count, Timer().simple_time(), player.use_device))
         except eventlet.timeout.Timeout:
             printSkyBlue("{1} {2} {0}秒未进入房间，即将重启游戏...".format(timeout, Timer().simple_time(), player.use_device))
             return count
@@ -88,7 +88,6 @@ def wf_owner(player, config, teamconfig, loop_time=0, count=0, event_mode=0):
                 login(player)
                 from_main_to_room(event_mode, raid_choose, event_screenshot, allow_stranger, player, raid_rank, changeteam=team)
                 count += 1
-                printSkyBlue("{1} {2} 房主已执行{0}次".format(count, Timer().simple_time(), player.use_device))
         except eventlet.timeout.Timeout:
             printSkyBlue("{1} {2} {0}秒未进入房间，即将重启游戏...".format(timeout, Timer().simple_time(), player.use_device))
             return count

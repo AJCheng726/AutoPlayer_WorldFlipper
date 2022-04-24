@@ -179,17 +179,14 @@ class AutoPlayer_WF(tk.Tk):
         )
 
         # 单人
-        # ttk.Label(self.danren_tab, text="连战设备").grid(row=0, column=0)
-        # self.loop_device_entry = ttk.Entry(self.danren_tab, width=14)
-        # self.loop_device_entry.insert(0, loop_device)
-        # self.loop_device_entry.grid(row=0, column=1)
+        ttk.Label(self.danren_tab, text="连战设备").grid(row=0, column=0)
+        self.loop_device_entry = ttk.Entry(self.danren_tab, width=14)
+        self.loop_device_entry.insert(0, loop_device)
+        self.loop_device_entry.grid(row=0, column=1)
 
-        # ttk.Button(self.danren_tab, text="GO!", bootstyle="success", width=5, command=lambda: self.loop_go()).grid(
-        #     row=0, column=2, sticky=tk.W, padx=5, pady=1
-        # )
-        # ttk.Button(self.danren_tab, text="STOP!", width=5, command=lambda: self.loop_stop()).grid(
-        #     row=1, column=1, sticky=tk.E, padx=5, pady=1
-        # )
+        ttk.Button(self.danren_tab, text="GO!", bootstyle="success", width=5, command=lambda: self.loop_go()).grid(
+            row=0, column=2, sticky=tk.W, padx=5, pady=1
+        )
 
         # tk.Label(self.danren_tab, text="连战设备2").grid(row=2, column=0)
         # self.loop2_device_entry = tk.Entry(self.danren_tab)

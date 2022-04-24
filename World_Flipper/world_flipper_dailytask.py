@@ -47,14 +47,14 @@ def maze_repeat(player, maze_choise="maze_fire", repeat=4):
         player.wait_touch("button_jixu")
         player.wait_touch("button_zaicitiaozhan")
         printBlue("{0} 完成了{2}次{1}".format(player.use_device, maze_choise, i + 1))
+    player.wait_touch("button_tiaozhan")
     player.wait_touch("button_jixu")
-    player.wait_touch("button_ok")
+    player.wait_touch("button_ok(small)")
     printBlue("{0} 完成了{2}次{1}".format(player.use_device, maze_choise, repeat))
 
 
 def host_3_times(player, repeat=3):
     printBlue("{0} 开始房主进程，完成3次共斗".format(player.use_device))
-    count = 0
     announcement(event_mode, event_screenshot, raid_choose, player, raid_rank, raid_team)
     goto_main(player)
     from_main_to_room(
@@ -66,8 +66,10 @@ def host_3_times(player, repeat=3):
         raid_rank=raid_rank,
         changeteam=raid_team,
     )
-    for i in range(repeat):
+    count = 1
+    for i in range(repeat - 1):
         count = one_loop(player=player, count=count, allow_stranger=True, quit=False)
+    clear(player)
     return 0
 
 
@@ -77,8 +79,8 @@ def daily_task(player, maze_choise="maze_fire", repeat=4):
     buy_zhenqipin(player)
     maze_repeat(player, maze_choise=maze_choise, repeat=repeat)
     host_3_times(player)
-    printBlue("{0} 完成每日任务，返回主城".format(player.use_device))
     goto_main(player)
+    printBlue("{0} 完成每日任务，返回主城".format(player.use_device))
 
 
 if __name__ == "__main__":

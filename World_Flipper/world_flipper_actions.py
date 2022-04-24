@@ -259,7 +259,7 @@ def clear(player):
         #     player.find_touch("button_jixu")
         return True
     else:
-        player.find_touch("button_ok")  # 发现续战或超过battle_timeout秒，可能阵亡未结算
+        player.find_touch("button_ok(small)")  # 发现续战或超过battle_timeout秒，可能阵亡未结算
         return False
 
 
@@ -359,4 +359,5 @@ if __name__ == "__main__":
     #     player.touch((71, 566))
     #     time.sleep(1)
 
-    clear(player)
+    # clear(player)
+    player.find_touch("button_ok(small)")
