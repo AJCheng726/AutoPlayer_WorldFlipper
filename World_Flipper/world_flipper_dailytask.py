@@ -70,6 +70,7 @@ def host_3_times(player, repeat=3):
     count = 1
     for i in range(repeat - 1):
         count = one_loop(player=player, count=count, allow_stranger=True, quit=False)
+    wait_in_room(player)
     clear(player)
     return 0
 

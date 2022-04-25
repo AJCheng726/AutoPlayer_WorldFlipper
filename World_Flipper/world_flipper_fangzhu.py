@@ -15,6 +15,7 @@ def announcement(event_mode, event_screenshot, raid_choose, player, raid_rank, t
 
 
 def one_loop(player, count, allow_stranger=False, quit=True):
+    # 在房间等待→结算→建房→开始招募
     timeout_flag = wait_in_room(player)
     if quit == True:  # 灵车
         if not timeout_flag:
@@ -32,8 +33,8 @@ def one_loop(player, count, allow_stranger=False, quit=True):
     printSkyBlue("{1} {2} 房主已执行{0}次".format(count, Timer().simple_time(), player.use_device))
     return count
 
-
 def from_main_to_room(event_mode, raid_choose, event_screenshot, allow_stranger, player, raid_rank, changeteam):
+    # 主页→建房间→开始招募
     player.touch((465, 809))  # 领主战
     if not event_mode:  # 日常模式
         find_raid(player, raid_choose, raid_rank=raid_rank)
@@ -47,8 +48,8 @@ def from_main_to_room(event_mode, raid_choose, event_screenshot, allow_stranger,
     printSkyBlue("{1} {2} 房主已执行{0}次".format(1, Timer().simple_time(), player.use_device))
 
 
-# 选boss建房之后开始，房主退出再重建
 def wf_owner(player, config, teamconfig, loop_time=0, count=0, event_mode=0):
+    # 选boss建房之后开始，房主退出再重建
     timeout = config["WF"].getint("timeout")
     allow_stranger = config["WF"].getint("allow_stranger")
 
