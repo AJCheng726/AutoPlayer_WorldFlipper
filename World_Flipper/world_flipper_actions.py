@@ -183,9 +183,7 @@ def build_from_multiplayer(player, allow_stranger=False, changeteam=""):
     printWhite("{0} {1} 房主建房...".format(Timer().simple_time(), player.use_device))
     player.wait_touch("button_duorenyouxi", max_wait_time=30)
     player.wait_touch("button_shi", max_wait_time=5)
-    # 换队
-    if changeteam != "":
-        change_team(player, team=changeteam)
+
     # 开始招募
     player.wait_touch("button_zhaomu", max_wait_time=60)
     player.wait("icon_zhaomufangshi")
@@ -203,6 +201,10 @@ def build_from_multiplayer(player, allow_stranger=False, changeteam=""):
         player.touch((71, 566))
         time.sleep(1)
     player.wait_touch("button_kaishizhaomu", max_wait_time=5)
+    
+    # 换队
+    if changeteam != "":
+        change_team(player, team=changeteam)
 
 
 def wait_in_room(player):
