@@ -8,7 +8,7 @@ eventlet.monkey_patch()
 
 
 def buy_zhenqipin(player, items_count=8):
-    printBlue("{0} 完成每日任务，清空商店".format(player.use_device))
+    printBlue("{0} 每日任务，清空商店，购买{1}个珍奇品".format(player.use_device,items_count))
     goto_main(player)
     player.touch([315, 916])  # 前往商店页面
     player.wait_touch("icon_zhenqipin", delay=1)
@@ -51,6 +51,7 @@ def maze_repeat(player, maze_choise="maze_fire", repeat=4):
     player.wait_touch("button_jixu")
     player.wait_touch("button_ok(small)")
     printBlue("{0} 完成了{2}次{1}".format(player.use_device, maze_choise, repeat))
+    player.wait("page_main", max_wait_time=5)
 
 
 def host_3_times(player, repeat=3):

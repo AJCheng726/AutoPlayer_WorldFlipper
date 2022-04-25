@@ -4,6 +4,9 @@ release/
 backup/
 *.zip
 wanted/player*
+*.pyc
+config.ini
+teamset.ini
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
