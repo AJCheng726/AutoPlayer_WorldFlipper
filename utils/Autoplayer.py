@@ -41,8 +41,8 @@ class Autoplayer:
         self.imgs = self.load_imgs()
         self.adb_test()
 
-    # adb模式下设置连接测试
     def adb_test(self):
+        # adb模式下设置连接测试
         raw_content = os.popen("{0} devices".format(self.adb_path)).read()
         row_list = raw_content.split("List of devices attached\n")[1].split("\n")
         devices_list = [i for i in row_list if len(i) > 1]
@@ -81,8 +81,8 @@ class Autoplayer:
                 return True
         return False
 
-    # 截屏并发送到目录./screen, 默认返回cv2读取后的图片
     def screen_shot(self):
+        # 截屏并发送到目录./screen, 默认返回cv2读取后的图片
         if self.use_device == None:
             raise Exception("[Error] 没有找到设备")
         else:
@@ -95,8 +95,8 @@ class Autoplayer:
         screen = cv2.imread("./screen/screen_{0}.jpg".format(self.use_device))
         return screen
 
-    # ADB命令模拟点击屏幕，参数pos为目标坐标(x, y)
     def touch(self, pos):
+        # ADB命令模拟点击屏幕，参数pos为目标坐标(x, y)
         x, y = pos
         a = "{3} -s {2} shell input touchscreen tap {0} {1}".format(x, y, self.use_device, self.adb_path)
         os.popen(a)
@@ -132,16 +132,16 @@ class Autoplayer:
         )
         os.popen(a)
 
-    # 蜂鸣报警器，参数n为鸣叫次数，可用于提醒出错或任务完成
     def alarm(self, n=3):
+        # 蜂鸣报警器，参数n为鸣叫次数，可用于提醒出错或任务完成
         frequency = 1500
         last = 500
         for n in range(n):
             Beep(frequency, last)
             time.sleep(0.05)
 
-    # 按cv2读取文件内容，匹配精度，图片名称格式批量读取要查找的目标图片，名称为文件名
     def load_imgs(self):
+        # 按cv2读取文件内容，匹配精度，图片名称格式批量读取要查找的目标图片，名称为文件名
         imgs = {}
         treshold = self.accuracy
         path = self.wanted_path
@@ -157,8 +157,8 @@ class Autoplayer:
 
         return imgs
 
-    # 在背景查找目标图片，以列表形式返回查找目标的中心坐标
     def locate(self, screen, wanted, show=0):
+        # 在背景查找目标图片，以列表形式返回查找目标的中心坐标
         loc_pos = []
         wanted, treshold, c_name = wanted
         try:
@@ -213,8 +213,8 @@ class Autoplayer:
         t = random.uniform(x, y)
         time.sleep(t)
 
-    # 寻找目标 不点击
     def find(self, target, threshold=None):
+        # 寻找目标 不点击
         screen = self.screen_shot()
         if self.debug:
             print("[find] 寻找目标并点击", target)
@@ -232,8 +232,8 @@ class Autoplayer:
                 print("[find] 未找到目标 ", target)
             return False
 
-    # 寻找目标 不点击
     def find_location(self, target, threshold=None):
+        # 寻找目标 不点击
         screen = self.screen_shot()
         if self.debug:
             print("[find] 寻找目标位置", target)
@@ -251,8 +251,8 @@ class Autoplayer:
                 print("[find] 未找到目标 ", target)
             return None
 
-    # 寻找多个目标，返回index，都没找到返回-1
     def find_any(self, target=[]):
+        # 寻找多个目标，返回index，都没找到返回-1
         screen = self.screen_shot()
         if self.debug:
             print("[find_any] 寻找多个目标", target)
@@ -267,8 +267,8 @@ class Autoplayer:
             print("[find_any] 未找到目标 ", target)
         return -1
 
-    # 寻找并点击, tap为FALSE则只寻找不点击，返回结果是否找到TURE/FALSE
     def find_touch(self, target, delay=0.5, threshold=None):
+        # 寻找并点击, tap为FALSE则只寻找不点击，返回结果是否找到TURE/FALSE
         screen = self.screen_shot()
         if self.debug:
             print("[find_touch] 寻找目标并点击", target)
@@ -290,8 +290,8 @@ class Autoplayer:
                 print("[find_touch] 未找到目标 ", target)
             return False
 
-    # 出现target返回true，超时返回false
     def wait(self, target, max_wait_time=None, threshold=None):
+        # 出现target返回true，超时返回false
         if self.debug:
             print("[wait] 等待目标", target)
         timer = Timer()
@@ -320,8 +320,8 @@ class Autoplayer:
                 return True
             time.sleep(self.screenshot_blank)
 
-    # 直至出现target再点击，超过max_wait_time则报错
     def wait_touch(self, target, max_wait_time=None, delay=0.5, threshold=None):
+        # 直至出现target再点击，超过max_wait_time则报错
         if self.debug:
             print("[wait_touch] 等待目标", target)
         timer = Timer()
@@ -380,8 +380,8 @@ class Autoplayer:
                     self.touch(xx)
             time.sleep(self.screenshot_blank)
 
-    # 寻找并点击,找到返回目标名，未找到返回NONE
     def wait_list(self, target_list, max_wait_time=10, threshold=None):
+        # 寻找并点击,找到返回目标名，未找到返回NONE
         timer = Timer()
         if self.debug:
             print("[wait_list] 目标列表 ", target_list)

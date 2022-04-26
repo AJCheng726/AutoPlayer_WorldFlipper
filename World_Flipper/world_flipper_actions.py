@@ -213,7 +213,8 @@ def wait_in_room(player):
     while not player.find("button_pause"):
         if not (limit_player == 3 and player.find("box_pipeizhong")):
             player.find_touch("button_tiaozhan")
-        if player.find("button_duorenyouxi") or player.find_touch("button_ok"):  # 房间解散
+        # if player.find("button_duorenyouxi") or player.find_touch("button_ok"):  # 房间解散
+        if player.find_any(["button_duorenyouxi","tips_fangjianjiesan"]) > -1:
             printWhite("{0} {1} 房间解散...准备重建...".format(Timer().simple_time(), player.use_device))
             timeout_flag = 1
             break
