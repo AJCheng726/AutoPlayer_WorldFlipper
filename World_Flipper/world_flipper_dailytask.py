@@ -81,6 +81,7 @@ def daily_task(player, maze_choise="maze_fire", repeat=4):
     buy_zhenqipin(player)
     maze_repeat(player, maze_choise=maze_choise, repeat=repeat)
     host_3_times(player)
+    time.sleep(5)   # loading
     goto_main(player)
     printBlue("{0} 完成每日任务，返回主城".format(player.use_device))
 
