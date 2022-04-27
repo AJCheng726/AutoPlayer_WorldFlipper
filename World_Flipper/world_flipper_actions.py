@@ -274,8 +274,9 @@ def clear(player):
 def find_room(player, event_mode=0, changeteam=""):
     # 找建房号ID=>"ok"和"是"处理双倍\房满的问题=>没找到就更新=>准备完毕
     printWhite("{0} {1} 再次寻找房间...".format(Timer().simple_time(), player.use_device))
+    player.wait("icon_fangjianhaoinput", max_wait_time=10)
     while not player.find("button_zhunbeiwanbi"):
-        player.wait("icon_fangjianhaoinput", max_wait_time=10)
+        # player.wait("icon_fangjianhaoinput", max_wait_time=10)
         if event_mode == 1:
             pts = player.find_location("icon_fangjianhaoinput")
             if pts and (pts[0][1] / device_h) > (730 / 960):  # 列表太靠下，没有显示房间
@@ -290,7 +291,7 @@ def find_room(player, event_mode=0, changeteam=""):
         # time.sleep(1)
     if changeteam != "":
         change_team(player, changeteam)
-    player.wait_touch("button_zhunbeiwanbi", max_wait_time=5)
+    player.wait_touch("button_zhunbeiwanbi", max_wait_time=5, delay=2)
 
 
 def wait_ring(player, raid):
