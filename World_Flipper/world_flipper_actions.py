@@ -210,7 +210,7 @@ def build_from_multiplayer(player, allow_stranger=False, changeteam=""):
 
 
 def wait_in_room(player):
-    # 发现暂停返回0，解散返回1
+    # 发现战斗中的button_pause返回0，解散返回1
     printWhite("{0} {1} 在房间中等待队友...".format(Timer().simple_time(), player.use_device))
     while not player.find("button_pause"):
         if not (limit_player == 3 and player.find("box_pipeizhong")):
