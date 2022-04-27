@@ -180,13 +180,15 @@ def find_raid(player, raid_choose, raid_rank=1, enter_boss_raid=1):
 
 
 def build_from_multiplayer(player, allow_stranger=False, changeteam=""):
+    # 多人游戏→招募→（换队）
     printWhite("{0} {1} 房主建房...".format(Timer().simple_time(), player.use_device))
-    player.wait_touch("button_duorenyouxi", max_wait_time=30)
+    # player.wait_touch("button_duorenyouxi", max_wait_time=30)
+    player.wait_touch("button_duorenyouxi")
     player.wait_touch("button_shi", max_wait_time=5)
 
     # 开始招募
     player.wait_touch("button_zhaomu", max_wait_time=60)
-    player.wait("icon_zhaomufangshi")
+    player.wait("icon_zhaomufangshi", max_wait_time=10)
     time.sleep(1)
     danxiang_flag = player.find_any(["button_danxiang0", "button_danxiang1"])
     suiji_flag = player.find_any(["button_suiji0", "button_suiji1"])
@@ -208,17 +210,16 @@ def build_from_multiplayer(player, allow_stranger=False, changeteam=""):
 
 
 def wait_in_room(player):
+    # 发现暂停返回0，解散返回1
     printWhite("{0} {1} 在房间中等待队友...".format(Timer().simple_time(), player.use_device))
-    timeout_flag = 0
     while not player.find("button_pause"):
         if not (limit_player == 3 and player.find("box_pipeizhong")):
             player.find_touch("button_tiaozhan")
         # if player.find("button_duorenyouxi") or player.find_touch("button_ok"):  # 房间解散
         if player.find_any(["button_duorenyouxi","tips_fangjianjiesan"]) > -1:
             printWhite("{0} {1} 房间解散...准备重建...".format(Timer().simple_time(), player.use_device))
-            timeout_flag = 1
-            break
-    return timeout_flag
+            return 1
+    return 0
 
 
 def quit_battle(player):
