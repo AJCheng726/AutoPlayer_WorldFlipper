@@ -323,13 +323,13 @@ def change_team(player, team=''):
             time.sleep(1)
         time.sleep(2)
         player.touch((270, 285 + 170 * (int_team - 7)))
-    elif 6 >= int_team >= 4:
-        for i in range(2):
-            player.down_swipe(x_start=270, y_start=450, x_end=270, y_end=400)
+    elif 6 >= int_team >= 5:
+        player.touch((270, 285 + 170 * 3))
+        player.wait("button_teamset", max_wait_time=10)
+        for i in range(int_team-4):
+            player.swipe((500,320),(40,320))
             time.sleep(1)
-        time.sleep(2)
-        player.touch((270, 285 + 170 * (int_team - 4)))
-    elif 3 >= int_team >= 1:
+    elif 4 >= int_team >= 1:
         player.touch((270, 285 + 170 * (int_team - 1)))
     time.sleep(3)
     player.wait_touch("button_ok2", max_wait_time=5)
@@ -364,4 +364,4 @@ if __name__ == "__main__":
     #     time.sleep(1)
 
     # clear(player)
-    player.find_touch("button_ok(small)")
+    change_team(player, '3-1')

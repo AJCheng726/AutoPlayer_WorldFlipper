@@ -97,11 +97,15 @@ class Autoplayer:
 
     def touch(self, pos):
         # ADB命令模拟点击屏幕，参数pos为目标坐标(x, y)
+        if self.debug:
+            print("[touch] touch {0}".format(pos))
         x, y = pos
         a = "{3} -s {2} shell input touchscreen tap {0} {1}".format(x, y, self.use_device, self.adb_path)
         os.popen(a)
 
     def swipe(self, pos1, pos2):
+        if self.debug:
+            print("[swipe] swipe from {0} to {1}".format(pos1,pos2))
         a = "{0} -s {1} shell input swipe {2} {3} {4} {5}".format(
             self.adb_path,
             self.use_device,
