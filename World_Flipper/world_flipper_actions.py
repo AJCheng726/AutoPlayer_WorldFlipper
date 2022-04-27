@@ -219,7 +219,6 @@ def wait_in_room(player):
         if player.find_any(["button_duorenyouxi","tips_fangjianjiesan"]) > -1:
             printWhite("{0} {1} 房间解散...准备重建...".format(Timer().simple_time(), player.use_device))
             player.find_touch("button_ok(small)")
-            player.wait_touch("button_fangqi2", max_wait_time=3)
             return 1
     return 0
 
@@ -366,4 +365,4 @@ if __name__ == "__main__":
     #     time.sleep(1)
 
     # clear(player)
-    change_team(player, '3-1')
+    player.wait_touch("button_fangqi2", max_wait_time=3)
