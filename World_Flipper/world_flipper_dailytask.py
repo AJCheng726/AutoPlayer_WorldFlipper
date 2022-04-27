@@ -72,6 +72,7 @@ def host_3_times(player, repeat=3):
         count = one_loop(player=player, count=count, allow_stranger=True, quit=False)
     wait_in_room(player)
     clear(player)
+    player.wait("page_main", max_wait_time=5)
     return 0
 
 
@@ -81,7 +82,6 @@ def daily_task(player, maze_choise="maze_fire", repeat=4):
     buy_zhenqipin(player)
     maze_repeat(player, maze_choise=maze_choise, repeat=repeat)
     host_3_times(player)
-    time.sleep(5)   # loading
     goto_main(player)
     printBlue("{0} 完成每日任务，返回主城".format(player.use_device))
 
