@@ -6,7 +6,7 @@
 
 带GUI的世界弹射物语国服脚本，支持稳定3开灵车、做每日任务（搬玛那商店、打4次迷宫），目前已更新至半周年版本
 
-仅支持540x960分辨率，推荐使用雷电模拟器64位，B服需要覆盖Release中的替换包
+仅支持540x960分辨率，推荐使用夜神模拟器64位，B服需要覆盖Release中的替换包
 
 第一次使用（前往 https://github.com/AJCheng726/AutoPlayer_WorldFlipper/releases/ ）下载Release版（解压失败的话尝试bandzip），包含了脚本所需的Python和ADB环境，后续可增量覆盖toolkits以外的部分
 
@@ -27,6 +27,8 @@ gui.bat或ApWF.exe启动界面
 
 &ensp;2.1 蓝叠模拟器参考 https://www.cnblogs.com/rogunt/p/13047394.html 连接ADB
 
+&ensp;2.2 夜神模拟器使用工具箱中的“连接夜神设备”，自动连接ADB
+
 3、在模拟器主页即可点击GO!，随后自动登录游戏开始任务
 
 ### 设置编队
@@ -39,7 +41,7 @@ gui.bat或ApWF.exe启动界面
 
 ### 单人日常
 
-点击GO!后会自动完成：清空玛那商店→打4次每日迷宫→前往主页
+点击GO!后会自动完成：清空玛那商店→打4次每日迷宫→按房主页配置建3次共斗→前往主页
 
 ![image](https://user-images.githubusercontent.com/31361978/158062148-51cd0860-94be-4e5f-824b-7d040ae86bee.png)
 
