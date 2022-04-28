@@ -16,6 +16,7 @@ from ttkbootstrap.constants import *
 sys.path.append("./utils/")
 sys.path.append("./")
 from utils.print_color import *
+from utils.Adbconnector import *
 
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("ApWF_GUI")
 
@@ -229,20 +230,25 @@ class AutoPlayer_WF(tk.Tk):
             row=0, column=2, sticky=tk.E, padx=5, pady=5
         )
 
-        tk.Button(self.gongju_tab, text="查询子进程状态", width=13, command=lambda: self.check_process()).grid(
+        tk.Button(self.gongju_tab, text="查询所有设备", width=13, command=lambda: self.check_devices()).grid(
             row=11, columnspan=3, sticky=tk.W, padx=8, pady=2
         )
-        tk.Button(self.gongju_tab, text="关闭所有子进程", width=13, command=lambda: self.kill_process()).grid(
+        tk.Button(self.gongju_tab, text="所有设备截图", width=13, command=lambda: self.devices_screenshot()).grid(
             row=11, columnspan=3, sticky=tk.E, padx=8, pady=2
         )
-        tk.Button(self.gongju_tab, text="查询所有设备", width=13, command=lambda: self.check_devices()).grid(
+        tk.Button(self.gongju_tab, text="连接夜神设备", width=13, command=lambda: self.connect_to_nox()).grid(
             row=12, columnspan=3, sticky=tk.W, padx=8, pady=2
         )
-        tk.Button(self.gongju_tab, text="所有设备截图", width=13, command=lambda: self.devices_screenshot()).grid(
-            row=12, columnspan=3, sticky=tk.E, padx=8, pady=2
+        ttk.Separator(self.gongju_tab, orient=HORIZONTAL).grid(row=20,columnspan=3,sticky='ew')
+        tk.Button(self.gongju_tab, text="查询子进程状态", width=13, command=lambda: self.check_process()).grid(
+            row=21, columnspan=3, sticky=tk.W, padx=8, pady=2
         )
+        tk.Button(self.gongju_tab, text="关闭所有子进程", width=13, command=lambda: self.kill_process()).grid(
+            row=21, columnspan=3, sticky=tk.E, padx=8, pady=2
+        )
+        ttk.Separator(self.gongju_tab, orient=HORIZONTAL).grid(row=30,columnspan=3,sticky='ew')
         tk.Button(self.gongju_tab, text="房主&参战交换", width=13, command=lambda: self.switch_host()).grid(
-            row=13, columnspan=3, sticky=tk.W, padx=8, pady=2
+            row=31, columnspan=3, sticky=tk.W, padx=8, pady=2
         )
 
         # notebook
@@ -500,6 +506,8 @@ class AutoPlayer_WF(tk.Tk):
     def open_teamset(self):
         subprocess.Popen("teamset.ini",shell=True)
 
+    def connect_to_nox(self):
+        connect_to_nox(adb_path=adb_path)
 
 if __name__ == "__main__":
     config = configparser.ConfigParser()
