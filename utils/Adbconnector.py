@@ -18,6 +18,7 @@ def connect_to_nox(adb_path):
         printDarkPink(' '.join([out,port]))
 
 
+
 if __name__ == "__main__":
-    connect_to_nox(adb_path="toolkits\\ADB\\adb.exe")
+    # connect_to_nox(adb_path="toolkits\\ADB\\adb.exe")
     pass

@@ -17,6 +17,7 @@ sys.path.append("./utils/")
 sys.path.append("./")
 from utils.print_color import *
 from utils.Adbconnector import *
+from utils.Autoplayer import Autoplayer
 
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("ApWF_GUI")
 
@@ -239,14 +240,17 @@ class AutoPlayer_WF(tk.Tk):
         tk.Button(self.gongju_tab, text="连接夜神设备", width=13, command=lambda: self.connect_to_nox()).grid(
             row=12, columnspan=3, sticky=tk.W, padx=8, pady=2
         )
-        ttk.Separator(self.gongju_tab, orient=HORIZONTAL).grid(row=20,columnspan=3,sticky='ew')
+        ttk.Separator(self.gongju_tab, orient=HORIZONTAL).grid(row=20, columnspan=3, sticky="ew")
         tk.Button(self.gongju_tab, text="查询子进程状态", width=13, command=lambda: self.check_process()).grid(
             row=21, columnspan=3, sticky=tk.W, padx=8, pady=2
         )
         tk.Button(self.gongju_tab, text="关闭所有子进程", width=13, command=lambda: self.kill_process()).grid(
             row=21, columnspan=3, sticky=tk.E, padx=8, pady=2
         )
-        ttk.Separator(self.gongju_tab, orient=HORIZONTAL).grid(row=30,columnspan=3,sticky='ew')
+        tk.Button(self.gongju_tab, text="所有设备杀后台", width=13, command=lambda: self.devices_stopapp()).grid(
+            row=22, columnspan=3, sticky=tk.W, padx=8, pady=2
+        )
+        ttk.Separator(self.gongju_tab, orient=HORIZONTAL).grid(row=30, columnspan=3, sticky="ew")
         tk.Button(self.gongju_tab, text="房主&参战交换", width=13, command=lambda: self.switch_host()).grid(
             row=31, columnspan=3, sticky=tk.W, padx=8, pady=2
         )
@@ -444,12 +448,25 @@ class AutoPlayer_WF(tk.Tk):
     def devices_screenshot(self):
         devices = os.popen("{0} devices".format(adb_path)).read().split()[4::2]
         for d in devices:
-            a = "{2} -s {0} shell screencap -p sdcard/screen_{1}.jpg".format(d, d, adb_path)
-            b = "{2} -s {0} pull sdcard/screen_{1}.jpg ./screen".format(d, d, adb_path)
+            if ":" not in d:
+                screenshot_name = d
+            else:
+                screenshot_name = d.split(":")[1]
+            a = "{2} -s {0} shell screencap -p sdcard/{1}.jpg".format(d, screenshot_name, adb_path)
+            b = "{2} -s {0} pull sdcard/{1}.jpg ./screen".format(d, screenshot_name, adb_path)
             for row in [a, b]:
                 raw_content = os.popen(row).read()
                 # time.sleep(0.2)
             printYellow("[GUI]已对设备{0}截图".format(d))
+
+    def devices_stopapp(self):
+        devices = os.popen("{0} devices".format(adb_path)).read().split()[4::2]
+        for d in devices:
+            player = Autoplayer(
+                use_device=d, adb_path=adb_path, apk_name=wf_apk_name, active_class_name=wf_active_class_name, disable_init=True
+            )
+            player.stop_app()
+            printYellow("[GUI]设备{0}杀掉游戏".format(d))
 
     def switch_host(self):
         printYellow("[GUI]房主与参战进程互换设备")
@@ -504,10 +521,11 @@ class AutoPlayer_WF(tk.Tk):
         webbrowser.open("https://www.wfwiki.com/index", new=0)
 
     def open_teamset(self):
-        subprocess.Popen("teamset.ini",shell=True)
+        subprocess.Popen("teamset.ini", shell=True)
 
     def connect_to_nox(self):
         connect_to_nox(adb_path=adb_path)
+
 
 if __name__ == "__main__":
     config = configparser.ConfigParser()
@@ -521,6 +539,8 @@ if __name__ == "__main__":
     device_w = config["GENERAL"].getint("device_w")
     device_h = config["GENERAL"].getint("device_h")
 
+    wf_apk_name = config["WF"]["wf_apk_name"]
+    wf_active_class_name = config["WF"]["wf_active_class_name"]
     fangzhu_device = config["WF"]["fangzhu_device"]
     limit_player = config["WF"].getint("limit_player")
     fangzhu_account = config["WF"]["fangzhu_account"]

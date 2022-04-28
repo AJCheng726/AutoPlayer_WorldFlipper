@@ -26,6 +26,7 @@ class Autoplayer:
         wanted_path="./wanted",
         device_w=540,
         device_h=960,
+        disable_init = False,
     ) -> None:
         self.use_device = use_device
         self.adb_path = adb_path
@@ -37,9 +38,11 @@ class Autoplayer:
         self.wanted_path = wanted_path
         self.device_w = device_w
         self.device_h = device_h
+        self.disable_init = disable_init
 
-        self.imgs = self.load_imgs()
-        self.adb_test()
+        if not disable_init:
+            self.imgs = self.load_imgs()
+            self.adb_test()
 
     def adb_test(self):
         # adb模式下设置连接测试
@@ -83,16 +86,20 @@ class Autoplayer:
 
     def screen_shot(self):
         # 截屏并发送到目录./screen, 默认返回cv2读取后的图片
+        if ":" not in self.use_device:
+            screenshot_name = self.use_device
+        else:
+            screenshot_name = self.use_device.split(":")[1]
         if self.use_device == None:
             raise Exception("[Error] 没有找到设备")
         else:
-            a = "{2} -s {0} shell screencap -p sdcard/screen_{1}.jpg".format(self.use_device, self.use_device, self.adb_path)
-            b = "{2} -s {0} pull sdcard/screen_{1}.jpg ./screen".format(self.use_device, self.use_device, self.adb_path)
+            a = "{2} -s {0} shell screencap -p sdcard/{1}.jpg".format(self.use_device, screenshot_name, self.adb_path)
+            b = "{2} -s {0} pull sdcard/{1}.jpg ./screen".format(self.use_device, screenshot_name, self.adb_path)
         for row in [a, b]:
             time.sleep(0.1)
             raw_content = os.popen(row).read()
 
-        screen = cv2.imread("./screen/screen_{0}.jpg".format(self.use_device))
+        screen = cv2.imread("./screen/{0}.jpg".format(screenshot_name))
         return screen
 
     def touch(self, pos):

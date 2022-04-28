@@ -100,7 +100,7 @@ def check_ui(player):
 def login(player):
     printWhite("{0} {1} 自动登录游戏...".format(Timer().simple_time(), player.use_device))
     player.start_app()
-    if player.wait_list(["icon_aldlgin", "tips_huanyinghuilai", "button_zhangmidenglu"], max_wait_time=180) != None:  # 自动登录超时为3分钟
+    if player.wait_list(["icon_aldlgin", "icon_aldlgin2", "tips_huanyinghuilai", "button_zhangmidenglu"], max_wait_time=60) != None:  # 自动登录超时为1分钟
         if player.find("button_zhangmidenglu"):
             player.find_touch("button_zhangmidenglu")
             time.sleep(1)
@@ -346,7 +346,7 @@ if __name__ == "__main__":
 
     player = Autoplayer(
         # use_device=config["WF"]["fangzhu_device"],
-        use_device="emulator-5556",
+        use_device="127.0.0.1:62025",
         adb_path=config["GENERAL"]["adb_path"],
         apk_name=config["WF"]["wf_apk_name"],
         active_class_name=config["WF"]["wf_active_class_name"],
@@ -368,4 +368,4 @@ if __name__ == "__main__":
     #     time.sleep(1)
 
     # clear(player)
-    player.wait_touch("button_fangqi2", max_wait_time=3)
+    player.stop_app()
