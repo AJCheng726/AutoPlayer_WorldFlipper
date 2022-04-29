@@ -240,6 +240,9 @@ class AutoPlayer_WF(tk.Tk):
         tk.Button(self.gongju_tab, text="连接夜神设备", width=13, command=lambda: self.connect_to_nox()).grid(
             row=12, columnspan=3, sticky=tk.W, padx=8, pady=2
         )
+        tk.Button(self.gongju_tab, text="所有设备杀后台", width=13, command=lambda: self.devices_stopapp()).grid(
+            row=12, columnspan=3, sticky=tk.E, padx=8, pady=2
+        )
         ttk.Separator(self.gongju_tab, orient=HORIZONTAL).grid(row=20, columnspan=3, sticky="ew")
         tk.Button(self.gongju_tab, text="查询子进程状态", width=13, command=lambda: self.check_process()).grid(
             row=21, columnspan=3, sticky=tk.W, padx=8, pady=2
@@ -247,9 +250,7 @@ class AutoPlayer_WF(tk.Tk):
         tk.Button(self.gongju_tab, text="关闭所有子进程", width=13, command=lambda: self.kill_process()).grid(
             row=21, columnspan=3, sticky=tk.E, padx=8, pady=2
         )
-        tk.Button(self.gongju_tab, text="所有设备杀后台", width=13, command=lambda: self.devices_stopapp()).grid(
-            row=22, columnspan=3, sticky=tk.W, padx=8, pady=2
-        )
+
         ttk.Separator(self.gongju_tab, orient=HORIZONTAL).grid(row=30, columnspan=3, sticky="ew")
         tk.Button(self.gongju_tab, text="房主&参战交换", width=13, command=lambda: self.switch_host()).grid(
             row=31, columnspan=3, sticky=tk.W, padx=8, pady=2
