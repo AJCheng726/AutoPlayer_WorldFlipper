@@ -49,7 +49,7 @@ class Autoplayer:
         raw_content = os.popen("{0} devices".format(self.adb_path)).read()
         row_list = raw_content.split("List of devices attached\n")[1].split("\n")
         devices_list = [i for i in row_list if len(i) > 1]
-        print(raw_content)
+        # print(raw_content)
         return devices_list
 
     def start_app(self):

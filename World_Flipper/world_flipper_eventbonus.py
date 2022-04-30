@@ -1,3 +1,4 @@
+import sys
 from world_flipper_actions import *
 import configparser
 
@@ -17,7 +18,7 @@ if __name__ == "__main__":
     config = configparser.ConfigParser()
     config.read("./config.ini")
 
-    bonus_device = config["WF"]["loop_device"]
+    bonus_device = sys.argv[1]
     adb_path = config["GENERAL"]["adb_path"]
     wf_apk_name = config["WF"]["wf_apk_name"]
     wf_active_class_name = config["WF"]["wf_active_class_name"]

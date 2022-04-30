@@ -255,6 +255,9 @@ class AutoPlayer_WF(tk.Tk):
         tk.Button(self.gongju_tab, text="房主&参战交换", width=13, command=lambda: self.switch_host()).grid(
             row=31, columnspan=3, sticky=tk.W, padx=8, pady=2
         )
+        tk.Button(self.gongju_tab, text="抽无限池", width=13, command=lambda: self.infinity_pool()).grid(
+            row=31, columnspan=3, sticky=tk.E, padx=8, pady=2
+        )
 
         # notebook
         self.notebook.add(self.config_tab, text="主页")
@@ -442,9 +445,13 @@ class AutoPlayer_WF(tk.Tk):
         self.loop2_stop()
         self.ring_stop()
         self.daily_stop()
+        self.infinity_pool_stop()
 
-    def check_devices(self):
-        subprocess.Popen("{0} devices".format(adb_path))
+    def check_devices(self, printout=True):
+        devices = subprocess.check_output("{0} devices".format(adb_path)).decode("utf-8")
+        if printout:
+            print(devices)
+        return devices.split()
 
     def devices_screenshot(self):
         devices = os.popen("{0} devices".format(adb_path)).read().split()[4::2]
@@ -488,6 +495,24 @@ class AutoPlayer_WF(tk.Tk):
             self.fangzhu_device_entry.insert(0, canzhan_device_tmp)
             self.fangzhu_go()
             self.canzhan2_go()
+
+    def infinity_pool(self):
+        printYellow("[GUI]所有设备抽无限池，结束后手动“关闭所有子进程”结束")
+        self.infinity_pool_process = []
+        devices = list(set([self.fangzhu_device_entry.get(), self.canzhan1_device_entry.get(), self.canzhan2_device_entry.get()]))
+        actived_devices = self.check_devices(printout=False)
+        devices = list(filter(lambda x: x in actived_devices, devices))
+        for d in devices:
+            self.infinity_pool_process.append(subprocess.Popen("python World_Flipper\\world_flipper_eventbonus.py {0}".format(d)))
+            time.sleep(1)
+
+    def infinity_pool_stop(self):
+        try:
+            for p in self.infinity_pool_process:
+                p.kill()
+                printYellow("[GUI]无限池子进程已关闭")
+        except:
+            printYellow("[GUI]无限池子进程未启动")
 
     def set_autoshutdown(self):
         ttk.Button(
