@@ -240,7 +240,7 @@ class AutoPlayer_WF(tk.Tk):
         tk.Button(self.gongju_tab, text="连接夜神设备", width=13, command=lambda: self.connect_to_nox()).grid(
             row=12, columnspan=3, sticky=tk.W, padx=8, pady=2
         )
-        tk.Button(self.gongju_tab, text="所有设备杀后台", width=13, command=lambda: self.devices_stopapp()).grid(
+        tk.Button(self.gongju_tab, text="所有设备杀游戏", width=13, command=lambda: self.devices_stopapp()).grid(
             row=12, columnspan=3, sticky=tk.E, padx=8, pady=2
         )
         ttk.Separator(self.gongju_tab, orient=HORIZONTAL).grid(row=20, columnspan=3, sticky="ew")

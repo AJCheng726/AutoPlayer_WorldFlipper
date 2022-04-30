@@ -26,7 +26,7 @@ class Autoplayer:
         wanted_path="./wanted",
         device_w=540,
         device_h=960,
-        disable_init = False,
+        disable_init=False,
     ) -> None:
         self.use_device = use_device
         self.adb_path = adb_path
@@ -112,7 +112,7 @@ class Autoplayer:
 
     def swipe(self, pos1, pos2):
         if self.debug:
-            print("[swipe] swipe from {0} to {1}".format(pos1,pos2))
+            print("[swipe] swipe from {0} to {1}".format(pos1, pos2))
         a = "{0} -s {1} shell input swipe {2} {3} {4} {5}".format(
             self.adb_path,
             self.use_device,
@@ -176,12 +176,7 @@ class Autoplayer:
             result = cv2.matchTemplate(screen, wanted, cv2.TM_CCOEFF_NORMED)
             location = numpy.where(result >= treshold)
         except:
-            raise Exception(
-                "定位图像出错，确认以下信息...使用设备：",
-                self.use_device,
-                "且目标文件夹下存在图像：",
-                c_name,
-            )
+            raise Exception("获取screen失败，确认设备{0}没有多个子进程占用，wanted存在{1}".format(self.use_device, c_name))
 
         h, w = wanted.shape[:-1]
 

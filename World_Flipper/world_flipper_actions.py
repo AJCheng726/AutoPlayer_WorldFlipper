@@ -1,5 +1,6 @@
 import sys
 import time
+from turtle import delay
 import eventlet
 
 sys.path.append("./utils/")
@@ -100,7 +101,10 @@ def check_ui(player):
 def login(player):
     printWhite("{0} {1} 自动登录游戏...".format(Timer().simple_time(), player.use_device))
     player.start_app()
-    if player.wait_list(["icon_aldlgin", "icon_aldlgin2", "tips_huanyinghuilai", "button_zhangmidenglu"], max_wait_time=60) != None:  # 自动登录超时为1分钟
+    if (
+        player.wait_list(["icon_aldlgin", "icon_aldlgin2", "tips_huanyinghuilai", "button_zhangmidenglu"], max_wait_time=60)
+        != None
+    ):  # 自动登录超时为1分钟
         if player.find("button_zhangmidenglu"):
             player.find_touch("button_zhangmidenglu")
             time.sleep(1)
@@ -203,7 +207,7 @@ def build_from_multiplayer(player, allow_stranger=False, changeteam=""):
         player.touch((71, 566))
         time.sleep(1)
     player.wait_touch("button_kaishizhaomu", max_wait_time=5)
-    
+
     # 换队
     if changeteam != "":
         change_team(player, team=changeteam)
@@ -216,10 +220,10 @@ def wait_in_room(player):
         if not (limit_player == 3 and player.find("box_pipeizhong")):
             player.find_touch("button_tiaozhan")
         # if player.find("button_duorenyouxi") or player.find_touch("button_ok"):  # 房间解散
-        if player.find_any(["button_duorenyouxi","tips_fangjianjiesan"]) > -1:
+        if player.find_any(["button_duorenyouxi", "tips_fangjianjiesan"]) > -1:
             printWhite("{0} {1} 房间解散...准备重建...".format(Timer().simple_time(), player.use_device))
             player.find_touch("button_ok(small)")
-            if player.wait("button_pause", max_wait_time = 5):
+            if player.wait("button_pause", max_wait_time=5):
                 quit_battle(player)
             return 1
     return 0
@@ -250,15 +254,15 @@ def clear(player):
     # 结算失败：退出
     printWhite("{0} {1} 等待战斗结算...".format(Timer().simple_time(), player.use_device))
     if player.wait_list(["button_jixu", "G", "button_xuzhan"], max_wait_time=battle_timeout) == "button_jixu":
-        player.wait_touch("button_jixu", max_wait_time = 10)
+        player.wait_touch("button_jixu", max_wait_time=10)
         time.sleep(2)
-        while not player.wait_touch("button_jixu", max_wait_time = 5):
+        while not player.wait_touch("button_jixu", max_wait_time=5):
             player.touch((device_w * 1 / 2, device_h * 1 / 2))
         time.sleep(2)
-        while not player.wait_touch("button_jixu", max_wait_time = 5):
+        while not player.wait_touch("button_jixu", max_wait_time=5):
             player.touch((device_w * 1 / 2, device_h * 1 / 2))
-            player.wait_touch("button_ok", max_wait_time = 5)
-        player.wait_touch_list(["button_likaifangjian","button_jiesan","button_ok"], max_wait_time = 10)
+            player.wait_touch("button_ok", max_wait_time=5)
+        player.wait_touch_list(["button_likaifangjian", "button_jiesan", "button_ok"], max_wait_time=10, delay=1)
         # while not player.find("icon_fangjianhaoinput"):
         #     player.touch((device_w * 1 / 2, device_h * 1 / 2))
         #     player.find_touch("button_ok")
@@ -270,9 +274,8 @@ def clear(player):
         return False
 
 
-
 def find_room(player, event_mode=0, changeteam=""):
-    # 找建房号ID=>"ok"和"是"处理双倍\房满的问题=>没找到就更新=>准备完毕
+    # 找建房号ID=>"ok"和"是"处理双倍\房满的问题=>没找到就更新=>换队=>准备完毕
     printWhite("{0} {1} 再次寻找房间...".format(Timer().simple_time(), player.use_device))
     player.wait("icon_fangjianhaoinput", max_wait_time=10)
     while not player.find("button_zhunbeiwanbi"):
@@ -282,7 +285,11 @@ def find_room(player, event_mode=0, changeteam=""):
             if pts and (pts[0][1] / device_h) > (730 / 960):  # 列表太靠下，没有显示房间
                 player.down_swipe()
                 time.sleep(2)
-        fangzhu = player.find_any(fangzhu_account)
+        try:
+            fangzhu = player.find_any(fangzhu_account)
+        except:
+            printRed("{0} {1} wanted下未找到{2}之一，不指定房主".format(Timer().simple_time(), player.use_device, fangzhu_account))
+            fangzhu_account = ["icon_chufaqian","icon_chufaqianpickup"]
         if fangzhu > -1:
             player.find_touch(fangzhu_account[fangzhu])
         player.wait_touch("button_shi", max_wait_time=2)
@@ -311,8 +318,8 @@ def wait_ring(player, raid):
         return 0
 
 
-def change_team(player, team=''):
-    if team == '': # 如果送来的队伍为空，则不切换队伍
+def change_team(player, team=""):
+    if team == "":  # 如果送来的队伍为空，则不切换队伍
         return -1
     printWhite("{0} {1} 切换队伍至{2}...".format(Timer().simple_time(), player.use_device, team))
     int_team = int(team[2:])
@@ -330,14 +337,30 @@ def change_team(player, team=''):
     elif 6 >= int_team >= 5:
         player.touch((270, 285 + 170 * 3))
         player.wait("button_teamset", max_wait_time=10)
-        for i in range(int_team-4):
-            player.swipe((500,320),(40,320))
+        for i in range(int_team - 4):
+            player.swipe((500, 320), (40, 320))
             time.sleep(1)
     elif 4 >= int_team >= 1:
         player.touch((270, 285 + 170 * (int_team - 1)))
     time.sleep(3)
     player.wait_touch("button_ok2", max_wait_time=5)
     return 0
+
+
+def teamset_from_ini(teamconfig, event_mode, raid_choose, event_screenshot):
+    # 从teamset.ini获取队伍编号
+    if not event_mode:  # 根据是否活动模式，选择队伍
+        try:
+            return teamconfig["RAID"][raid_choose]
+        except:
+            printRed("从teamset.ini中未获取{0}的编队，采用默认编队".format(raid_choose))
+            return ""
+    else:
+        try:
+            return teamconfig["RAID"][event_screenshot]
+        except:
+            printRed("从teamset.ini中未获取{0}的编队，采用默认编队".format(event_screenshot))
+            return ""
 
 
 if __name__ == "__main__":

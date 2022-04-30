@@ -11,11 +11,10 @@ if __name__ == "__main__":
     raid_choose = config["RAID"]["raid_choose"]
     timeout = config["WF"].getint("timeout")
     battle_timeout = config["WF"].getint("battle_timeout")
-    event_mode=config["RAID"].getint("event_mode")
-    if not event_mode:  # 根据是否活动模式，选择队伍
-        team = teamconfig["RAID"][raid_choose]
-    else:
-        team = teamconfig["RAID"][event_screenshot]
+    event_mode = config["RAID"].getint("event_mode")
+    team = teamset_from_ini(
+        teamconfig=teamconfig, event_mode=event_mode, raid_choose=raid_choose, event_screenshot=event_screenshot
+    )
     player = Autoplayer(
         use_device=config["WF"]["canzhan_device_2"],
         adb_path=config["GENERAL"]["adb_path"],
@@ -31,8 +30,8 @@ if __name__ == "__main__":
         count = wf_join(
             player,
             count=count,
-            event_mode=config["RAID"].getint("event_mode"),
-            timeout=config["WF"].getint("timeout"),
+            event_mode=event_mode,
+            timeout=timeout,
             battle_timeout=battle_timeout,
             team=team,
         )
