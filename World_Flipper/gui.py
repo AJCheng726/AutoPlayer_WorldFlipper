@@ -255,7 +255,7 @@ class AutoPlayer_WF(tk.Tk):
         tk.Button(self.gongju_tab, text="房主&参战交换", width=13, command=lambda: self.switch_host()).grid(
             row=31, columnspan=3, sticky=tk.W, padx=8, pady=2
         )
-        tk.Button(self.gongju_tab, text="抽无限池", width=13, command=lambda: self.infinity_pool()).grid(
+        tk.Button(self.gongju_tab, text="所有设备抽无限池", width=13, command=lambda: self.infinity_pool()).grid(
             row=31, columnspan=3, sticky=tk.E, padx=8, pady=2
         )
 

@@ -289,7 +289,7 @@ def find_room(player, event_mode=0, changeteam=""):
             fangzhu = player.find_any(fangzhu_account)
         except:
             printRed("{0} {1} wanted下未找到{2}之一，不指定房主".format(Timer().simple_time(), player.use_device, fangzhu_account))
-            fangzhu_account = ["icon_chufaqian","icon_chufaqianpickup"]
+            fangzhu = player.find_any(["icon_chufaqian", "icon_chufaqianpickup"])
         if fangzhu > -1:
             player.find_touch(fangzhu_account[fangzhu])
         player.wait_touch("button_shi", max_wait_time=2)
@@ -369,7 +369,7 @@ if __name__ == "__main__":
 
     player = Autoplayer(
         # use_device=config["WF"]["fangzhu_device"],
-        use_device="127.0.0.1:62025",
+        use_device="127.0.0.1:62001",
         adb_path=config["GENERAL"]["adb_path"],
         apk_name=config["WF"]["wf_apk_name"],
         active_class_name=config["WF"]["wf_active_class_name"],
@@ -391,4 +391,5 @@ if __name__ == "__main__":
     #     time.sleep(1)
 
     # clear(player)
-    player.stop_app()
+    # player.stop_app()
+    find_room(player)
