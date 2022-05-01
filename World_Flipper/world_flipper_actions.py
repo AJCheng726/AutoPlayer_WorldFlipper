@@ -262,7 +262,7 @@ def clear(player):
         while not player.wait_touch("button_jixu", max_wait_time=5):
             player.touch((device_w * 1 / 2, device_h * 1 / 2))
             player.wait_touch("button_ok", max_wait_time=5)
-        player.wait_touch_list(["button_likaifangjian", "button_jiesan", "button_ok"], max_wait_time=10, delay=1)
+        player.wait_touch_list(["button_likaifangjian", "button_jiesan", "button_ok(small)"], max_wait_time=10, delay=1)
         # while not player.find("icon_fangjianhaoinput"):
         #     player.touch((device_w * 1 / 2, device_h * 1 / 2))
         #     player.find_touch("button_ok")
