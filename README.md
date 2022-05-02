@@ -10,7 +10,7 @@
 
 第一次使用（前往 https://github.com/AJCheng726/AutoPlayer_WorldFlipper/releases/ ）下载Release版（解压失败的话尝试bandzip），包含了脚本所需的Python和ADB环境，后续可增量覆盖toolkits以外的部分
 
-有问题可加群，985729887（验证问题答案：540x960），欢迎加好友一起挂共斗
+有问题可加群，985729887（回答github即可），欢迎加好友一起挂共斗
 
 ## 使用说明
 gui.bat或ApWF.exe启动界面
