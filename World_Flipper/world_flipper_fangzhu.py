@@ -5,18 +5,18 @@ import configparser
 eventlet.monkey_patch()
 
 
-def announcement(event_mode, event_screenshot, raid_choose, player, raid_rank, team):
+def announcement(event_mode, event_screenshot, raid_choose, player, raid_rank, team, limit_player):
     if event_mode:
-        printSkyBlue("活动模式，{0}建{1}房，编队{2}...".format(player.use_device, event_screenshot, team))
+        printSkyBlue("活动模式，{0}建{1}房，编队{2}，人数限制{3}...".format(player.use_device, event_screenshot, team, limit_player))
     else:
-        printSkyBlue("日常模式，{0}建{1}({2}难度)，编队{3}...".format(player.use_device, raid_choose, raid_rank, team))
+        printSkyBlue("日常模式，{0}建{1}({2}难度)，编队{3}，人数限制{4}...".format(player.use_device, raid_choose, raid_rank, team, limit_player))
     if team == "":
         printRed("未在teamset.ini中配置编队，使用默认编队")
 
 
-def one_loop(player, count, allow_stranger=False, quit=True):
+def one_loop(player, count, limit_player, allow_stranger=False, quit=True):
     # 在房间等待→结算→建房→开始招募
-    timeout_flag = wait_in_room(player)
+    timeout_flag = wait_in_room(player, limit_player=limit_player)
     if quit == True:  # 灵车
         if not timeout_flag:
             quit_battle(player)
@@ -51,7 +51,7 @@ def from_main_to_room(event_mode, raid_choose, event_screenshot, allow_stranger,
 
 def wf_owner(player, config, teamconfig, event_mode, loop_time=0, count=0):
     # 选boss建房之后开始，房主退出再重建
-    announcement(event_mode, event_screenshot, raid_choose, player, raid_rank, team)
+    announcement(event_mode, event_screenshot, raid_choose, player, raid_rank, team, limit_player)
     if not check_game(player):  # 游戏未启动
         try:
             with eventlet.Timeout(timeout, True):
@@ -71,7 +71,7 @@ def wf_owner(player, config, teamconfig, event_mode, loop_time=0, count=0):
     # 循环
     while count < loop_time or loop_time == 0:
         with eventlet.Timeout(timeout, False):
-            count = one_loop(player, count, allow_stranger=allow_stranger, quit=True)
+            count = one_loop(player, count, limit_player=limit_player, allow_stranger=allow_stranger, quit=True)
             continue
         printSkyBlue("{1} {2} {0}秒未开始挑战，重启游戏...".format(timeout, Timer().simple_time(), player.use_device))
         return count
@@ -85,6 +85,7 @@ if __name__ == "__main__":
     teamconfig = configparser.ConfigParser()
     teamconfig.read("./teamset.ini")
     timeout = config["WF"].getint("timeout")
+    limit_player = config["WF"].getint("limit_player")
     allow_stranger = config["WF"].getint("allow_stranger")
 
     event_screenshot = config["RAID"]["event_screenshot"]

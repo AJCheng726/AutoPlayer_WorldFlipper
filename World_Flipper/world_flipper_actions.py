@@ -17,7 +17,6 @@ config.read("./config.ini")
 
 device_w = config["GENERAL"].getint("device_w")
 device_h = config["GENERAL"].getint("device_h")
-limit_player = config["WF"].getint("limit_player")
 battle_timeout = config["WF"].getint("battle_timeout")
 fangzhu_account = config["WF"]["fangzhu_account"].split(",")
 
@@ -213,7 +212,7 @@ def build_from_multiplayer(player, allow_stranger=False, changeteam=""):
         change_team(player, team=changeteam)
 
 
-def wait_in_room(player):
+def wait_in_room(player,limit_player):
     # 发现战斗中的button_pause返回0，解散返回1
     printWhite("{0} {1} 在房间中等待队友...".format(Timer().simple_time(), player.use_device))
     while not player.find("button_pause"):

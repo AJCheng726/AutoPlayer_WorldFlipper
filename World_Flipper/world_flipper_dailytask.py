@@ -56,7 +56,7 @@ def maze_repeat(player, maze_choise="maze_fire", repeat=4):
 
 def host_3_times(player, repeat=3):
     printBlue("{0} 开始房主进程，完成3次共斗".format(player.use_device))
-    announcement(event_mode, event_screenshot, raid_choose, player, raid_rank, raid_team)
+    announcement(event_mode, event_screenshot, raid_choose, player, raid_rank, raid_team,limit_player=3)
     goto_main(player)
     from_main_to_room(
         player=player,
@@ -70,17 +70,17 @@ def host_3_times(player, repeat=3):
     count = 1
     for i in range(repeat - 1):
         count = one_loop(player=player, count=count, allow_stranger=True, quit=False)
-    wait_in_room(player)
+    wait_in_room(player,limit_player=3)
     clear(player)
     player.wait("page_main", max_wait_time=5)
     return 0
 
 
 def daily_task(player, maze_choise="maze_fire", repeat=4):
-    if not check_game(player):
-        login(player)
-    buy_zhenqipin(player)
-    maze_repeat(player, maze_choise=maze_choise, repeat=repeat)
+    # if not check_game(player):
+    #     login(player)
+    # buy_zhenqipin(player)
+    # maze_repeat(player, maze_choise=maze_choise, repeat=repeat)
     host_3_times(player)
     goto_main(player)
     printBlue("{0} 完成每日任务，返回主城".format(player.use_device))
