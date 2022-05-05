@@ -222,7 +222,7 @@ def wait_in_room(player):
         # if player.find("button_duorenyouxi") or player.find_touch("button_ok"):  # 房间解散
         if player.find_any(["button_duorenyouxi", "tips_fangjianjiesan"]) > -1:
             printWhite("{0} {1} 房间解散...准备重建...".format(Timer().simple_time(), player.use_device))
-            player.find_touch("button_ok(small)")
+            player.wait_touch("button_ok(small)", max_wait_time=5)
             if player.wait("button_pause", max_wait_time=5):
                 quit_battle(player)
             return 1
@@ -392,4 +392,5 @@ if __name__ == "__main__":
 
     # clear(player)
     # player.stop_app()
-    find_room(player)
+    player.wait_touch("button_ok(medium)", max_wait_time=5)
+    # player.find("tips_fangjianjiesan")

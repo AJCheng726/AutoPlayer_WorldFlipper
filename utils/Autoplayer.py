@@ -57,7 +57,7 @@ class Autoplayer:
     def adb_connect(self):
         # 连接adb
         print("与{0}建立adb连接...".format(self.use_device))
-        feedback = subprocess.check_output("{0} connect {1}".format(self.adb_path,self.use_device)).decode("utf-8")
+        feedback = subprocess.check_output("{0} connect {1}".format(self.adb_path,self.use_device)).decode("utf-8")[:-1:]
         if 'connected' not in feedback:
             raise Exception("设备{0}连接失败，重启模拟器、确认设备号后重试".format(self.use_device))
         print(feedback)
