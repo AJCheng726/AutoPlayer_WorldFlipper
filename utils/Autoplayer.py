@@ -1,4 +1,5 @@
 import os
+import subprocess
 import random
 import sys
 import time
@@ -43,6 +44,7 @@ class Autoplayer:
         if not disable_init:
             self.imgs = self.load_imgs()
             self.adb_test()
+            self.adb_connect()
 
     def adb_test(self):
         # adb模式下设置连接测试
@@ -51,6 +53,14 @@ class Autoplayer:
         devices_list = [i for i in row_list if len(i) > 1]
         # print(raw_content)
         return devices_list
+
+    def adb_connect(self):
+        # 连接adb
+        print("与{0}建立adb连接...".format(self.use_device))
+        feedback = subprocess.check_output("{0} connect {1}".format(self.adb_path,self.use_device)).decode("utf-8")
+        if 'connected' not in feedback:
+            raise Exception("设备{0}连接失败，重启模拟器、确认设备号后重试".format(self.use_device))
+        print(feedback)
 
     def start_app(self):
         if self.debug:
