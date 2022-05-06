@@ -286,11 +286,12 @@ def find_room(player, event_mode=0, changeteam=""):
                 time.sleep(2)
         try:
             fangzhu = player.find_any(fangzhu_account)
+            if fangzhu > -1:
+                player.find_touch(fangzhu_account[fangzhu])
         except:
             printRed("{0} {1} wanted下未找到{2}之一，不指定房主".format(Timer().simple_time(), player.use_device, fangzhu_account))
             fangzhu = player.find_any(["icon_chufaqian", "icon_chufaqianpickup"])
-        if fangzhu > -1:
-            player.find_touch(fangzhu_account[fangzhu])
+            player.find_touch(["icon_chufaqian", "icon_chufaqianpickup"][fangzhu])
         player.wait_touch("button_shi", max_wait_time=2)
         player.wait_touch("button_ok", max_wait_time=2)
         player.find_touch("button_gengxinliebiao")
