@@ -10,8 +10,6 @@ def announcement(event_mode, event_screenshot, raid_choose, player, raid_rank, t
         printSkyBlue("活动模式，{0}建{1}房，编队{2}，人数限制{3}...".format(player.use_device, event_screenshot, team, limit_player))
     else:
         printSkyBlue("日常模式，{0}建{1}({2}难度)，编队{3}，人数限制{4}...".format(player.use_device, raid_choose, raid_rank, team, limit_player))
-    if team == "":
-        printRed("未在teamset.ini中配置编队，使用默认编队")
 
 
 def one_loop(player, count, limit_player, allow_stranger=False, quit=True):
