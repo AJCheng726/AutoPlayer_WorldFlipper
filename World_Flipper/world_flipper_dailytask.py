@@ -77,10 +77,10 @@ def host_3_times(player, repeat=3):
 
 
 def daily_task(player, maze_choise="maze_fire", repeat=4):
-    # if not check_game(player):
-    #     login(player)
-    # buy_zhenqipin(player)
-    # maze_repeat(player, maze_choise=maze_choise, repeat=repeat)
+    if not check_game(player):
+        login(player)
+    buy_zhenqipin(player)
+    maze_repeat(player, maze_choise=maze_choise, repeat=repeat)
     host_3_times(player)
     goto_main(player)
     printBlue("{0} 完成每日任务，返回主城".format(player.use_device))
@@ -105,10 +105,7 @@ if __name__ == "__main__":
     event_mode = config["RAID"].getint("event_mode")
     event_screenshot = config["RAID"]["event_screenshot"]
     raid_rank = config["RAID"].getint("raid_rank")
-    if not event_mode:  # 根据是否活动模式，选择队伍
-        raid_team = teamconfig["RAID"][raid_choose]
-    else:
-        raid_team = teamconfig["RAID"][event_screenshot]
+    raid_team = teamset_from_ini(teamconfig, event_mode, raid_choose, event_screenshot)
 
     player = Autoplayer(
         use_device=daily_device,
