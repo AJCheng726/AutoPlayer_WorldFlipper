@@ -50,18 +50,27 @@ class Autoplayer:
     def adb_test(self):
         # adb模式下设置连接测试
         raw_content = os.popen("{0} devices".format(self.adb_path)).read()
-        row_list = raw_content.split("List of devices attached\n")[1].split("\n")
-        devices_list = [i for i in row_list if len(i) > 1]
         # print(raw_content)
-        return devices_list
+        deivces_list = raw_content.split("List of devices attached\n")[1].split("\n")
+        deivces_list = [i for i in deivces_list if len(i) > 1]
+        devices_dict = {}
+        for device_and_sit in deivces_list:
+            devices_dict[device_and_sit.split('\t')[0]] = device_and_sit.split('\t')[1]
+        return devices_dict
 
     def adb_connect(self):
         # 连接adb
-        print("与{0}建立adb连接...".format(self.use_device))
-        feedback = subprocess.check_output("{0} connect {1}".format(self.adb_path,self.use_device)).decode("utf-8")[:-1:]
-        if 'connected' not in feedback:
-            raise Exception("设备{0}连接失败，重启模拟器、确认设备号后重试".format(self.use_device))
-        print(feedback)
+        try:
+            devices_dict = self.adb_test()
+            if devices_dict[self.use_device] == 'devcice':
+                print('{0}已连接adb'.format(self.use_device))
+                return
+        except:
+            print("与{0}建立adb连接...".format(self.use_device))
+            feedback = subprocess.check_output("{0} connect {1}".format(self.adb_path,self.use_device)).decode("utf-8")[:-1:]
+            if 'connected' not in feedback:
+                raise Exception("设备{0}连接失败，重启模拟器、确认设备号后重试".format(self.use_device))
+            print(feedback)
 
     def adb_disconnect(self):
         # 断开adb
@@ -451,22 +460,9 @@ if __name__ == "__main__":
     config.read("./config.ini")
 
     player1 = Autoplayer(
-        use_device="emulator-5554",
+        use_device="127.0.0.1:62027",
         adb_path=config["GENERAL"]["adb_path"],
         apk_name=config["WF"]["wf_apk_name"],
         active_class_name=config["WF"]["wf_active_class_name"],
-        debug=1,
+        debug=0,
     )
-    player1.screen_shot()
-    player1.find_location("raid_event3", 0.85)
-    # player1.find_touch("raid_event3")
-
-    # player2 = Autoplayer(
-    #     use_device="emulator-5556",
-    #     adb_path="toolkits\\ADB\\adb.exe",
-    #     apk_name="com.leiting.wf",
-    #     active_class_name="air.com.leiting.wf.AppEntry",
-    # )
-    # player2.debug = 1
-    # screen = player2.screen_shot()
-    # player2.find_location("icon_fangjianhaoinput")
