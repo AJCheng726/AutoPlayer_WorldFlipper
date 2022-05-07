@@ -43,7 +43,8 @@ class Autoplayer:
 
         if not disable_init:
             self.imgs = self.load_imgs()
-            self.adb_test()
+            # self.adb_test()
+            self.adb_disconnect()
             self.adb_connect()
 
     def adb_test(self):
@@ -61,6 +62,14 @@ class Autoplayer:
         if 'connected' not in feedback:
             raise Exception("设备{0}连接失败，重启模拟器、确认设备号后重试".format(self.use_device))
         print(feedback)
+
+    def adb_disconnect(self):
+        # 断开adb
+        try:
+            feedback = subprocess.check_output("{0} disconnect {1}".format(self.adb_path,self.use_device)).decode("utf-8")[:-1:]
+            print(feedback)
+        except:
+            print('未发现设备{0}或无法断开'.format(self.use_device))
 
     def start_app(self):
         if self.debug:
