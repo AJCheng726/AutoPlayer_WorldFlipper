@@ -165,7 +165,7 @@ def goto_main(player):
                 printWhite("[goto_main] 已处于主城")
             return
         else:
-            raise Exception("[goto_main] 跳转主城失败，截图并汇报开发者此错误")
+            printRed("{0} {1} 前往主城失败，等待游戏重启...".format(Timer().simple_time(), player.use_device))
 
 
 def find_raid(player, raid_choose, raid_rank=1, enter_boss_raid=1):
