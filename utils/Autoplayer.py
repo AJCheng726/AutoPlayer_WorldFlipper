@@ -43,11 +43,9 @@ class Autoplayer:
 
         if not disable_init:
             self.imgs = self.load_imgs()
-            # self.adb_test()
-            self.adb_disconnect()
             self.adb_connect()
 
-    def adb_test(self):
+    def devices_check(self):
         # adb模式下设置连接测试
         raw_content = os.popen("{0} devices".format(self.adb_path)).read()
         # print(raw_content)
@@ -61,16 +59,17 @@ class Autoplayer:
     def adb_connect(self):
         # 连接adb
         try:
-            devices_dict = self.adb_test()
+            devices_dict = self.devices_check()
             if devices_dict[self.use_device] == 'devcice':
                 print('{0}已连接adb'.format(self.use_device))
                 return
         except:
             print("与{0}建立adb连接...".format(self.use_device))
+            self.adb_disconnect()
             feedback = subprocess.check_output("{0} connect {1}".format(self.adb_path,self.use_device)).decode("utf-8")[:-1:]
-            if 'connected' not in feedback:
-                raise Exception("设备{0}连接失败，重启模拟器、确认设备号后重试".format(self.use_device))
-            print(feedback)
+            if devices_dict[self.use_device] != 'devcice':
+                print(feedback)
+                print("尝试连接{0}失败...".format(self.use_device))
 
     def adb_disconnect(self):
         # 断开adb
@@ -465,4 +464,6 @@ if __name__ == "__main__":
         apk_name=config["WF"]["wf_apk_name"],
         active_class_name=config["WF"]["wf_active_class_name"],
         debug=0,
+        disable_init=True,
     )
+    print(player1.devices_check())
