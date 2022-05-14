@@ -67,7 +67,7 @@ class Autoplayer:
             print("与{0}建立adb连接...".format(self.use_device))
             self.adb_disconnect()
             feedback = subprocess.check_output("{0} connect {1}".format(self.adb_path,self.use_device)).decode("utf-8")[:-1:]
-            if devices_dict[self.use_device] != 'devcice':
+            if 'connected' not in feedback:
                 print(feedback)
                 print("尝试连接{0}失败...".format(self.use_device))
 
