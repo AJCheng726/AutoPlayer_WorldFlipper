@@ -212,7 +212,7 @@ def build_from_multiplayer(player, allow_stranger=False, changeteam=""):
         change_team(player, team=changeteam)
 
 
-def wait_in_room(player,limit_player):
+def wait_in_room(player, limit_player):
     # 发现战斗中的button_pause返回0，解散返回1
     printWhite("{0} {1} 在房间中等待队友...".format(Timer().simple_time(), player.use_device))
     while not player.find("button_pause"):
@@ -274,7 +274,7 @@ def clear(player):
 
 
 def find_room(player, event_mode=0, changeteam=""):
-    # 找建房号ID=>"ok"和"是"处理双倍\房满的问题=>没找到就更新=>换队=>准备完毕
+    # 找建房号ID=>"ok"和"是"处理双倍\房满的问题=>没找到就更新=>关闭自动续战=>(换队)=>准备完毕
     printWhite("{0} {1} 再次寻找房间...".format(Timer().simple_time(), player.use_device))
     player.wait("icon_fangjianhaoinput", max_wait_time=10)
     while not player.find("button_zhunbeiwanbi"):
@@ -296,6 +296,7 @@ def find_room(player, event_mode=0, changeteam=""):
         player.wait_touch("button_ok", max_wait_time=2)
         player.find_touch("button_gengxinliebiao")
         # time.sleep(1)
+    shut_autofight_off(player)
     if changeteam != "":
         change_team(player, changeteam)
     player.wait_touch("button_zhunbeiwanbi", max_wait_time=5, delay=2)
@@ -363,6 +364,10 @@ def teamset_from_ini(teamconfig, event_mode, raid_choose, event_screenshot):
             return ""
 
 
+def shut_autofight_off(player):
+    player.find_touch("button_autofight(on)",threshold=0.9)
+
+
 if __name__ == "__main__":
     config = configparser.ConfigParser()
     config.read("./config.ini")
@@ -390,7 +395,4 @@ if __name__ == "__main__":
     #     player.touch((71, 566))
     #     time.sleep(1)
 
-    # clear(player)
-    # player.stop_app()
-    player.wait_touch("button_ok(medium)", max_wait_time=5)
-    # player.find("tips_fangjianjiesan")
+    shut_autofight_off(player)
