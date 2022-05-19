@@ -14,7 +14,7 @@ def from_battle_to_prepare(player, count, event_mode):
         printGreen("{1} {2} 参战已执行{0}次".format(count, Timer().simple_time(), player.use_device))
         return count
     else:
-        printRed("{1} {2} 阵亡，寻找房间...".format(count, Timer().simple_time(), player.use_device))
+        printRed("{1} {2} 阵亡或解散，寻找房间...".format(count, Timer().simple_time(), player.use_device))
         find_room(player, event_mode)
         return count
 

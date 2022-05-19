@@ -29,6 +29,7 @@ def check_game(player):
     else:
         printWhite("{0} {1} 游戏未启动...".format(Timer().simple_time(), player.use_device))
         player.stop_app()
+        time.sleep(1)
         return 0
 
 
@@ -37,12 +38,12 @@ def restart_game(player):
     if player.check_current_app():
         printWhite("{0} {1} 游戏已启动".format(Timer().simple_time(), player.use_device))
         player.stop_app()
-        time.sleep(3)
+        time.sleep(1)
         player.start_app()
     else:
         printWhite("{0} {1} 游戏未启动...".format(Timer().simple_time(), player.use_device))
         player.stop_app()
-        time.sleep(3)
+        time.sleep(1)
         player.start_app()
     return
 
@@ -261,10 +262,13 @@ def clear(player):
         time.sleep(2)
         while not player.wait_touch("button_jixu", max_wait_time=5):
             player.touch((device_w * 1 / 2, device_h * 1 / 2))
+            if player.find_touch("button_ok(small)"):
+                return False
         time.sleep(2)
         while not player.wait_touch("button_jixu", max_wait_time=5):
             player.touch((device_w * 1 / 2, device_h * 1 / 2))
-            player.wait_touch("button_ok", max_wait_time=5)
+            if player.find_touch("button_ok(small)"):
+                return False
         player.wait_touch_list(["button_likaifangjian", "button_jiesan", "button_ok(small)"], max_wait_time=10, delay=1)
         return True
     elif (flag == "G") or (flag == "button_xuzhan"):    # 阵亡未结算
