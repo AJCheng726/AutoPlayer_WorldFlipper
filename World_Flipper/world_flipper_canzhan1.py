@@ -23,8 +23,10 @@ def from_main_to_room(player, event_mode, team=""):
     # 主页→领主战→房间→准备完毕
     player.touch((465, 809))  # 领主战
     if event_mode:
-        time.sleep(3)
-        player.wait_touch("button_event")  # 活动
+        player.wait('button_gengxinliebiao')
+        time.sleep(1)
+        player.touch([88,242]) # 活动
+        # player.wait_touch("button_event")  # 活动
     find_room(player, event_mode, team)
 
 

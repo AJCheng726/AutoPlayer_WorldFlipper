@@ -38,8 +38,11 @@ def from_main_to_room(event_mode, raid_choose, event_screenshot, allow_stranger,
     if not event_mode:  # 日常模式
         find_raid(player, raid_choose, raid_rank=raid_rank)
     else:  # 活动模式
-        time.sleep(3)
-        player.wait_touch("button_event")  # 活动
+        player.wait('button_gengxinliebiao')
+        time.sleep(1)
+        player.touch([88,242]) # 活动
+        # time.sleep(3)
+        # player.wait_touch("button_event")  # 活动
         while not player.find("button_duorenyouxi"):
             find_raid(player, event_screenshot, raid_rank=0)
             player.find_touch("button_ok")
