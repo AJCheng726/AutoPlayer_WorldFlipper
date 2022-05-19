@@ -1,4 +1,5 @@
 import os
+import re
 import subprocess
 import random
 import sys
@@ -53,31 +54,31 @@ class Autoplayer:
         deivces_list = [i for i in deivces_list if len(i) > 1]
         devices_dict = {}
         for device_and_sit in deivces_list:
-            devices_dict[device_and_sit.split('\t')[0]] = device_and_sit.split('\t')[1]
+            devices_dict[device_and_sit.split("\t")[0]] = device_and_sit.split("\t")[1]
         return devices_dict
 
     def adb_connect(self):
         # 连接adb
         try:
             devices_dict = self.devices_check()
-            if devices_dict[self.use_device] == 'devcice':
-                print('{0}已连接adb'.format(self.use_device))
+            if devices_dict[self.use_device] == "devcice":
+                print("{0}已连接adb".format(self.use_device))
                 return
         except:
             print("与{0}建立adb连接...".format(self.use_device))
             self.adb_disconnect()
-            feedback = subprocess.check_output("{0} connect {1}".format(self.adb_path,self.use_device)).decode("utf-8")[:-1:]
-            if 'connected' not in feedback:
+            feedback = subprocess.popen("{0} connect {1}".format(self.adb_path, self.use_device)).read()[:-1:]
+            if "connected" not in feedback:
                 print(feedback)
                 print("尝试连接{0}失败...".format(self.use_device))
 
     def adb_disconnect(self):
         # 断开adb
         try:
-            feedback = subprocess.check_output("{0} disconnect {1}".format(self.adb_path,self.use_device)).decode("utf-8")[:-1:]
+            feedback = subprocess.popen("{0} disconnect {1}".format(self.adb_path, self.use_device)).read()[:-1:]
             print(feedback)
         except:
-            print('未发现设备{0}或无法断开'.format(self.use_device))
+            print("未发现设备{0}或无法断开".format(self.use_device))
 
     def start_app(self):
         if self.debug:
@@ -102,6 +103,17 @@ class Autoplayer:
             return False
         else:
             return True
+
+    def check_current_app(self):
+        cmd = "{0} -s {1} shell dumpsys window | findstr mCurrentFocus".format(self.adb_path, self.use_device)
+        current_apks = os.popen(cmd).read()
+        current_apks = re.findall(r"u0 (.*)/",current_apks)
+        if self.debug:
+            print("[check_current_app] {0} currentfocus apk is {1}".format(self.use_device, current_apks))
+        if self.apk_name in current_apks:
+            return True
+        else:
+            return False
 
     def check_restart(self, restart_time):
         for time in restart_time:
@@ -191,7 +203,7 @@ class Autoplayer:
             a = [cv2.imread(file_path), treshold, name]
             imgs[name] = a
         if self.debug:
-            print("从{0}加载图片{1}".format(path, len(file_list)))
+            print("[load_imgs] 从{0}加载图片{1}".format(path, len(file_list)))
 
         return imgs
 
@@ -337,10 +349,10 @@ class Autoplayer:
         while True:
             duration = timer.get_duration()
             if self.debug:
-                print("\r > wait %s ... %ds " % (target, duration), end="")
+                print("\r[wait] wait %s ... %ds " % (target, duration), end="")
             if max_wait_time is not None and 0 < max_wait_time < duration:
                 if self.debug:
-                    print("\n[wait] 超时", flush=True)
+                    print("\n[wait] 超时")
                 return False
 
             screen = self.screen_shot()
@@ -367,10 +379,10 @@ class Autoplayer:
         while True:
             duration = timer.get_duration()
             if self.debug:
-                print("\r[wait_touch] wait %s ... %ds " % (target, duration), end="")
+                print("\r[wait_touch] wait ... %ds " % (duration), end="")
             if max_wait_time is not None and 0 < max_wait_time < duration:
                 if self.debug:
-                    print("\n[wait_touch] 超时", flush=True)
+                    print("\n[wait_touch] 超时")
                 return False
 
             screen = self.screen_shot()
@@ -391,12 +403,14 @@ class Autoplayer:
         re = None
         while True:
             duration = timer.get_duration()
-            screen = self.screen_shot()
+            if self.debug:
+                print("\r[wait_touch_list] wait ... %ds " % (duration), end="")
             if max_wait_time is not None and 0 < max_wait_time < duration:
                 if self.debug:
-                    print("[wait_touch_list] 超时", flush=True)
+                    print("\n[wait_touch_list] 超时")
                 return
 
+            screen = self.screen_shot()
             for target in target_list:
                 wanted = self.imgs[target]
                 if threshold != None:  # 自定义阈值
@@ -406,7 +420,7 @@ class Autoplayer:
                 pts = self.locate(screen, wanted)
                 if pts:
                     if self.debug:
-                        print("[wait_touch_list] 已找到目标 ", target, "位置 ", pts[0])
+                        print("\n[wait_touch_list] 已找到目标 ", target, "位置 ", pts[0])
                     xx = pts[0]
                     re = target
                     time.sleep(delay)
@@ -421,12 +435,14 @@ class Autoplayer:
         re = None
         while True:
             duration = timer.get_duration()
-            screen = self.screen_shot()
+            if self.debug:
+                print("\r[wait_list] wait ... %ds " % (duration), end="")
             if max_wait_time is not None and 0 < max_wait_time < duration:
                 if self.debug:
-                    print("\n[wait_list] 超时", flush=True)
+                    print("\n[wait_list] 超时")
                 return
 
+            screen = self.screen_shot()
             for target in target_list:
                 wanted = self.imgs[target]
                 if threshold != None:  # 自定义阈值
@@ -463,7 +479,7 @@ if __name__ == "__main__":
         adb_path=config["GENERAL"]["adb_path"],
         apk_name=config["WF"]["wf_apk_name"],
         active_class_name=config["WF"]["wf_active_class_name"],
-        debug=0,
+        debug=1,
         disable_init=True,
     )
-    player1.stop_app()
+    print(player1.apk_name,player1.check_current_app())

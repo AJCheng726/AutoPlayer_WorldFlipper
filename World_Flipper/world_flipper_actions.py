@@ -23,23 +23,26 @@ fangzhu_account = config["WF"]["fangzhu_account"].split(",")
 
 def check_game(player):
     printWhite("{0} {1} 检查wf是否启动...".format(Timer().simple_time(), player.use_device))
-    if player.check_app():
+    if player.check_current_app():
         printWhite("{0} {1} 游戏已启动".format(Timer().simple_time(), player.use_device))
         return 1
     else:
         printWhite("{0} {1} 游戏未启动...".format(Timer().simple_time(), player.use_device))
+        player.stop_app()
         return 0
 
 
 def restart_game(player):
     printWhite("{0} {1} 重启游戏...".format(Timer().simple_time(), player.use_device))
-    if player.check_app():
+    if player.check_current_app():
         printWhite("{0} {1} 游戏已启动".format(Timer().simple_time(), player.use_device))
         player.stop_app()
         time.sleep(3)
         player.start_app()
     else:
         printWhite("{0} {1} 游戏未启动...".format(Timer().simple_time(), player.use_device))
+        player.stop_app()
+        time.sleep(3)
         player.start_app()
     return
 
