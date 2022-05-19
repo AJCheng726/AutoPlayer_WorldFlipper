@@ -394,7 +394,7 @@ class Autoplayer:
             screen = self.screen_shot()
             if max_wait_time is not None and 0 < max_wait_time < duration:
                 if self.debug:
-                    print("\n[wait_touch_list] 超时", flush=True)
+                    print("[wait_touch_list] 超时", flush=True)
                 return
 
             for target in target_list:
@@ -406,7 +406,7 @@ class Autoplayer:
                 pts = self.locate(screen, wanted)
                 if pts:
                     if self.debug:
-                        print("\n[wait_touch_list] 已找到目标 ", target, "位置 ", pts[0])
+                        print("[wait_touch_list] 已找到目标 ", target, "位置 ", pts[0])
                     xx = pts[0]
                     re = target
                     time.sleep(delay)
