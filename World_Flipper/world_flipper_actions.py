@@ -252,7 +252,8 @@ def clear(player):
     # 成功结算：等待“继续”→继续→继续→继续→离开房间/OK
     # 结算失败：退出
     printWhite("{0} {1} 等待战斗结算...".format(Timer().simple_time(), player.use_device))
-    if player.wait_list(["button_jixu", "G", "button_xuzhan"], max_wait_time=battle_timeout) == "button_jixu":
+    flag = player.wait_list(["button_jixu", "G", "button_xuzhan"], max_wait_time=battle_timeout)
+    if flag == "button_jixu":
         player.wait_touch("button_jixu", max_wait_time=10)
         time.sleep(2)
         while not player.wait_touch("button_jixu", max_wait_time=5):
@@ -262,15 +263,12 @@ def clear(player):
             player.touch((device_w * 1 / 2, device_h * 1 / 2))
             player.wait_touch("button_ok", max_wait_time=5)
         player.wait_touch_list(["button_likaifangjian", "button_jiesan", "button_ok(small)"], max_wait_time=10, delay=1)
-        # while not player.find("icon_fangjianhaoinput"):
-        #     player.touch((device_w * 1 / 2, device_h * 1 / 2))
-        #     player.find_touch("button_ok")
-        #     player.find_touch("button_likaifangjian")
-        #     player.find_touch("button_jixu")
         return True
-    else:
-        player.find_touch("button_ok(small)")  # 发现续战或超过battle_timeout秒，可能阵亡未结算
+    elif (flag == "G") or (flag == "button_xuzhan"):    # 阵亡未结算
         return False
+    else:   # 返回None
+        printRed("{0} {1} 结算失败，等待游戏重启...".format(Timer().simple_time(), player.use_device))
+        time.sleep(battle_timeout)
 
 
 def find_room(player, event_mode=0, changeteam=""):

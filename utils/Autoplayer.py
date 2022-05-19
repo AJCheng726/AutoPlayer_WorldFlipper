@@ -459,11 +459,11 @@ if __name__ == "__main__":
     config.read("./config.ini")
 
     player1 = Autoplayer(
-        use_device="127.0.0.1:62027",
+        use_device="127.0.0.1:62001",
         adb_path=config["GENERAL"]["adb_path"],
         apk_name=config["WF"]["wf_apk_name"],
         active_class_name=config["WF"]["wf_active_class_name"],
         debug=0,
         disable_init=True,
     )
-    print(player1.devices_check())
+    player1.stop_app()
