@@ -67,7 +67,7 @@ class Autoplayer:
         except:
             print("与{0}建立adb连接...".format(self.use_device))
             self.adb_disconnect()
-            feedback = subprocess.popen("{0} connect {1}".format(self.adb_path, self.use_device)).read()[:-1:]
+            feedback = os.popen("{0} connect {1}".format(self.adb_path, self.use_device)).read()[:-1:]
             if "connected" not in feedback:
                 print(feedback)
                 print("尝试连接{0}失败...".format(self.use_device))
@@ -75,7 +75,7 @@ class Autoplayer:
     def adb_disconnect(self):
         # 断开adb
         try:
-            feedback = subprocess.popen("{0} disconnect {1}".format(self.adb_path, self.use_device)).read()[:-1:]
+            feedback = os.popen("{0} disconnect {1}".format(self.adb_path, self.use_device)).read()[:-1:]
             print(feedback)
         except:
             print("未发现设备{0}或无法断开".format(self.use_device))
