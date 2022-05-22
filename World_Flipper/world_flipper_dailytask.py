@@ -8,7 +8,7 @@ eventlet.monkey_patch()
 
 
 def buy_zhenqipin(player, items_count=8):
-    printBlue("{0} 每日任务，清空商店，购买{1}个珍奇品".format(player.use_device,items_count))
+    printBlue("{0} 每日任务，清空商店，购买{1}个珍奇品".format(player.use_device, items_count))
     goto_main(player)
     player.touch([315, 916])  # 前往商店页面
     player.wait_touch("icon_zhenqipin", delay=1)
@@ -54,9 +54,13 @@ def maze_repeat(player, maze_choise="maze_fire", repeat=4):
     player.wait("page_main", max_wait_time=5)
 
 
-def host_3_times(player, repeat=3):
+def hell_repeat(player, hell_choise, repeat):
+    pass
+
+
+def host_raid(player, repeat=3):
     printBlue("{0} 开始房主进程，完成3次共斗".format(player.use_device))
-    announcement(event_mode, event_screenshot, raid_choose, player, raid_rank, raid_team,limit_player=3)
+    announcement(event_mode, event_screenshot, raid_choose, player, raid_rank, raid_team, limit_player=3)
     goto_main(player)
     from_main_to_room(
         player=player,
@@ -69,21 +73,11 @@ def host_3_times(player, repeat=3):
     )
     count = 1
     for i in range(repeat - 1):
-        count = one_loop(player=player, count=count, allow_stranger=True, quit=False,limit_player=3)
-    wait_in_room(player,limit_player=3)
+        count = one_loop(player=player, count=count, allow_stranger=True, quit=False, limit_player=3)
+    wait_in_room(player, limit_player=3)
     clear(player)
     player.wait("page_main", max_wait_time=5)
     return 0
-
-
-def daily_task(player, maze_choise="maze_fire", repeat=4):
-    if not check_game(player):
-        login(player)
-    buy_zhenqipin(player)
-    maze_repeat(player, maze_choise=maze_choise, repeat=repeat)
-    host_3_times(player)
-    goto_main(player)
-    printBlue("{0} 完成每日任务，返回主城".format(player.use_device))
 
 
 if __name__ == "__main__":
@@ -94,11 +88,16 @@ if __name__ == "__main__":
     teamconfig.read("./teamset.ini")
 
     daily_device = config["WF"]["daily_device"]
-    maze_choise = config["RAID"]["daily_maze_choise"]
+    daily_maze_choise = config["RAID"]["daily_maze_choise"]
+    daily_maze_times = config["RAID"].getint("daily_maze_times")
+    daily_hell_choise = config["RAID"]["daily_hell_choise"]
+    daily_hell_times = config["RAID"].getint("daily_hell_times")
+    daily_raid_choise = config["RAID"]["daily_raid_choise"]
+    daily_raid_times = config["RAID"].getint("daily_raid_times")
     adb_path = config["GENERAL"]["adb_path"]
     wf_apk_name = config["WF"]["wf_apk_name"]
     wf_active_class_name = config["WF"]["wf_active_class_name"]
-    maze_team = teamconfig["MAZE"][maze_choise]
+    maze_team = teamconfig["MAZE"][daily_maze_choise]
 
     # 每日raid使用房主的参数
     raid_choose = config["RAID"]["raid_choose"]
@@ -114,4 +113,12 @@ if __name__ == "__main__":
         active_class_name=wf_active_class_name,
         debug=config["GENERAL"].getint("Debug"),
     )
-    daily_task(player, maze_choise=maze_choise, repeat=4)
+
+    # 开始每日
+    if not check_game(player):
+        login(player)
+    buy_zhenqipin(player)
+    maze_repeat(player, maze_choise=daily_maze_choise, repeat=daily_maze_times)
+    host_raid(player, repeat=daily_raid_times)
+    goto_main(player)
+    printBlue("{0} 完成每日任务，返回主城".format(player.use_device))

@@ -185,23 +185,47 @@ class AutoPlayer_WF(tk.Tk):
         self.loop_device_entry = ttk.Entry(self.danren_tab, width=14)
         self.loop_device_entry.insert(0, loop_device)
         self.loop_device_entry.grid(row=0, column=1)
-
         ttk.Button(self.danren_tab, text="GO!", bootstyle="success", width=5, command=lambda: self.loop_go()).grid(
             row=0, column=2, sticky=tk.W, padx=5, pady=1
         )
 
-        tk.Label(self.danren_tab, text="每日迷宫").grid(row=8, column=0)
-        self.daily_maze_choise_entry = ttk.Entry(self.danren_tab, width=14)
-        self.daily_maze_choise_entry.insert(0, daily_maze_choise)
-        self.daily_maze_choise_entry.grid(row=8, column=1, sticky=tk.W)
+        ttk.Separator(self.danren_tab, orient=HORIZONTAL).grid(row=1, columnspan=3, sticky="ew")
 
-        ttk.Label(self.danren_tab, text="每日设备").grid(row=10, column=0)
+        tk.Label(self.danren_tab, text="每日迷宫").grid(row=10, column=0)
+        self.daily_maze_choise_entry = ttk.Entry(self.danren_tab, width=14)
+        self.daily_maze_choise_entry.insert(0, "和房主页配置一样")
+        self.daily_maze_choise_entry.config(state='readonly')
+        self.daily_maze_choise_entry.grid(row=10, column=1, sticky=tk.W)
+        self.daily_maze_times_entry = ttk.Entry(self.danren_tab, width=2)
+        self.daily_maze_times_entry.insert(0, daily_maze_times)
+        self.daily_maze_times_entry.grid(row=10, column=2, sticky=tk.W, padx=5)
+        tk.Label(self.danren_tab, text="次").grid(row=10, column=2, sticky=tk.E, padx=10)
+
+        tk.Label(self.danren_tab, text="每日地狱").grid(row=11, column=0)
+        self.daily_hell_choise_entry = ttk.Entry(self.danren_tab, width=14)
+        self.daily_hell_choise_entry.insert(0, daily_hell_choise)
+        self.daily_hell_choise_entry.grid(row=11, column=1, sticky=tk.W)
+        self.daily_hell_times_entry = ttk.Entry(self.danren_tab, width=2)
+        self.daily_hell_times_entry.insert(0, daily_hell_times)
+        self.daily_hell_times_entry.grid(row=11, column=2, sticky=tk.W, padx=5)
+        tk.Label(self.danren_tab, text="次").grid(row=11, column=2, sticky=tk.E, padx=10)
+
+        tk.Label(self.danren_tab, text="每日共斗").grid(row=12, column=0)
+        self.daily_raid_choise_entry = ttk.Entry(self.danren_tab, width=14)
+        self.daily_raid_choise_entry.insert(0, daily_raid_choise)
+        self.daily_raid_choise_entry.grid(row=12, column=1, sticky=tk.W)
+        self.daily_raid_times_entry = ttk.Entry(self.danren_tab, width=2)
+        self.daily_raid_times_entry.insert(0, daily_raid_times)
+        self.daily_raid_times_entry.grid(row=12, column=2, sticky=tk.W, padx=5)
+        tk.Label(self.danren_tab, text="次").grid(row=12, column=2, sticky=tk.E, padx=10)
+
+        ttk.Label(self.danren_tab, text="每日设备").grid(row=19, column=0)
         self.daily_device_entry = ttk.Entry(self.danren_tab, width=14)
         self.daily_device_entry.insert(0, daily_device)
-        self.daily_device_entry.grid(row=10, column=1)
+        self.daily_device_entry.grid(row=19, column=1)
 
         ttk.Button(self.danren_tab, text="GO!", bootstyle="success", width=5, command=lambda: self.daily_go()).grid(
-            row=10, column=2, sticky=tk.W, padx=5, pady=1
+            row=19, column=2, sticky=tk.W, padx=5, pady=1
         )
 
         # tk.Label(self.danren_tab, text="蹭铃铛设备").grid(row=10, column=0)
@@ -281,6 +305,11 @@ class AutoPlayer_WF(tk.Tk):
         config["RAID"]["raid_choose"] = self.raid_choose_entry.get()
         # config["RAID"]["ring_raid_choose"] = self.ring_raid_choose_entry.get()
         config["RAID"]["daily_maze_choise"] = self.daily_maze_choise_entry.get()
+        config["RAID"]["daily_maze_times"] = self.daily_maze_times_entry.get()
+        config["RAID"]["daily_hell_choise"] = self.daily_hell_choise_entry.get()
+        config["RAID"]["daily_hell_times"] = self.daily_hell_times_entry.get()
+        config["RAID"]["daily_raid_choise"] = self.daily_raid_choise_entry.get()
+        config["RAID"]["daily_raid_times"] = self.daily_raid_times_entry.get()
         config["RAID"]["raid_rank"] = self.raid_rank_entry.get()
         config["WF"]["fangzhu_device"] = self.fangzhu_device_entry.get()
         config["WF"]["limit_player"] = self.limit_player_entry.get()
@@ -586,6 +615,11 @@ if __name__ == "__main__":
     raid_choose = config["RAID"]["raid_choose"]
     ring_raid_choose = config["RAID"]["ring_raid_choose"]
     daily_maze_choise = config["RAID"]["daily_maze_choise"]
+    daily_maze_times = config["RAID"]["daily_maze_times"]
+    daily_hell_choise = config["RAID"]["daily_hell_choise"]
+    daily_hell_times = config["RAID"]["daily_hell_times"]
+    daily_raid_choise = config["RAID"]["daily_raid_choise"]
+    daily_raid_times = config["RAID"]["daily_raid_times"]
 
     AutoPlayer_wf = AutoPlayer_WF()
     AutoPlayer_wf.mainloop()
