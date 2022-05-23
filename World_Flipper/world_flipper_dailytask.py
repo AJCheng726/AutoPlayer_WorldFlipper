@@ -146,7 +146,7 @@ if __name__ == "__main__":
     # 开始每日
     if not check_game(player):
         login(player)
-    # buy_zhenqipin(player)
+    buy_zhenqipin(player)
     maze_repeat(player, maze_choise=daily_maze_choise, repeat=daily_maze_times)
     host_raid(player, repeat=daily_raid_times)
     deep_repeat(player,deep_choise=daily_deep_choise,repeat=daily_deep_times)

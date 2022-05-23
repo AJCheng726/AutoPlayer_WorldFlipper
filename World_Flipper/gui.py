@@ -5,6 +5,7 @@ import subprocess
 import sys
 import time
 import tkinter as tk
+from turtle import bgcolor
 import webbrowser
 from distutils import command
 from re import search
@@ -82,7 +83,7 @@ class AutoPlayer_WF(tk.Tk):
         self.timeout_entry.insert(0, timeout)
         self.timeout_entry.grid(row=6, column=1)
 
-        tk.Label(self.config_tab, text="😏 ApWF 1.21.0").grid(row=10, column=1, sticky=tk.E)
+        tk.Label(self.config_tab, text="😏 ApWF 1.24.0").grid(row=10, column=1, sticky=tk.E)
         ttk.Button(self.config_tab, text="SAVE", command=self.save_config, width=4).grid(
             row=10, columnspan=2, sticky=tk.W, padx=2, pady=5
         )
@@ -110,7 +111,7 @@ class AutoPlayer_WF(tk.Tk):
 
         # 房主
         tk.Label(self.fangzhu_tab, text="房主设备").grid(row=0, column=0)
-        self.fangzhu_device_entry = tk.Entry(self.fangzhu_tab)
+        self.fangzhu_device_entry = ttk.Entry(self.fangzhu_tab,width=19)
         self.fangzhu_device_entry.insert(0, fangzhu_device)
         self.fangzhu_device_entry.grid(row=0, column=1)
 
@@ -135,12 +136,12 @@ class AutoPlayer_WF(tk.Tk):
         self.raid_rank_entry.grid(row=4, column=1, sticky=tk.E)
 
         tk.Label(self.fangzhu_tab, text="活动目标\n(开启活动模式)").grid(row=6, column=0)
-        self.event_screenshot_entry = tk.Entry(self.fangzhu_tab)
+        self.event_screenshot_entry = ttk.Entry(self.fangzhu_tab,width=19)
         self.event_screenshot_entry.insert(0, event_screenshot)
         self.event_screenshot_entry.grid(row=6, column=1)
 
         tk.Label(self.fangzhu_tab, text="日常目标\n(关闭活动模式)").grid(row=7, column=0)
-        self.raid_choose_entry = tk.Entry(self.fangzhu_tab)
+        self.raid_choose_entry = ttk.Entry(self.fangzhu_tab,width=19)
         self.raid_choose_entry.insert(0, raid_choose)
         self.raid_choose_entry.grid(row=7, column=1)
 
@@ -153,17 +154,17 @@ class AutoPlayer_WF(tk.Tk):
 
         # 参战
         tk.Label(self.canzhan_tab, text="房主截图").grid(row=0, column=0)
-        self.fangzhu_account_entry = tk.Entry(self.canzhan_tab)
+        self.fangzhu_account_entry = ttk.Entry(self.canzhan_tab,width=23)
         self.fangzhu_account_entry.insert(0, fangzhu_account)
         self.fangzhu_account_entry.grid(row=0, column=1)
 
         tk.Label(self.canzhan_tab, text="战斗超时").grid(row=1, column=0)
-        self.battle_timeout_entry = tk.Entry(self.canzhan_tab)
+        self.battle_timeout_entry = ttk.Entry(self.canzhan_tab,width=23)
         self.battle_timeout_entry.insert(0, battle_timeout)
         self.battle_timeout_entry.grid(row=1, column=1)
 
         ttk.Label(self.canzhan_tab, text="参战1设备").grid(row=10, column=0)
-        self.canzhan1_device_entry = ttk.Entry(self.canzhan_tab, width=10)
+        self.canzhan1_device_entry = ttk.Entry(self.canzhan_tab, width=14)
         self.canzhan1_device_entry.insert(0, canzhan1_device)
         self.canzhan1_device_entry.grid(row=10, column=1, sticky=tk.W)
 
@@ -172,7 +173,7 @@ class AutoPlayer_WF(tk.Tk):
         )
 
         ttk.Label(self.canzhan_tab, text="参战2设备").grid(row=20, column=0)
-        self.canzhan2_device_entry = ttk.Entry(self.canzhan_tab, width=10)
+        self.canzhan2_device_entry = ttk.Entry(self.canzhan_tab, width=14)
         self.canzhan2_device_entry.insert(0, canzhan2_device)
         self.canzhan2_device_entry.grid(row=20, column=1, sticky=tk.W)
 
