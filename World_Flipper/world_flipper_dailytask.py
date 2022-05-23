@@ -32,6 +32,8 @@ def buy_zhenqipin(player, items_count=8):
 
 
 def maze_repeat(player, maze_choise="maze_fire", repeat=4):
+    if repeat == 0:
+        return
     printBlue("{0} 开始每日任务，打{1}次{2},编队{3}".format(player.use_device, repeat, maze_choise, maze_team))
     goto_main(player)
     player.touch([93, 842])
@@ -54,11 +56,35 @@ def maze_repeat(player, maze_choise="maze_fire", repeat=4):
     player.wait("page_main", max_wait_time=5)
 
 
-def hell_repeat(player, hell_choise, repeat):
+def hell_repeat(player, hell_choise, repeat=2):
     pass
 
 
+def deep_repeat(player, deep_choise, repeat):
+    if repeat == 0:
+        return
+    printBlue("{0} 开始每日任务，打{1}次{2},编队{3}".format(player.use_device, repeat, deep_choise, deep_team))    
+    goto_main(player)
+    player.touch([93, 842])
+    player.wait_touch("deep_enter")
+    find_raid(player, deep_choise, raid_rank=0, enter_boss_raid=0)
+    if maze_team != "":
+        change_team(player, deep_team)
+    player.wait_touch("button_tiaozhan")
+    for i in range(repeat - 1):
+        player.wait_touch("button_jixu")
+        player.wait_touch("button_zaicitiaozhan")
+        printBlue("{0} 完成了{2}次{1}".format(player.use_device, deep_choise, i + 1))
+        player.wait_touch("button_tiaozhan")
+    player.wait_touch("button_jixu")
+    player.wait_touch("button_ok(small)")
+    printBlue("{0} 完成了{2}次{1}".format(player.use_device, deep_choise, repeat))
+    player.wait("page_main", max_wait_time=5)
+
+
 def host_raid(player, repeat=3):
+    if repeat == 0:
+        return
     printBlue("{0} 开始房主进程，完成3次共斗".format(player.use_device))
     announcement(event_mode, event_screenshot, raid_choose, player, raid_rank, raid_team, limit_player=3)
     goto_main(player)
@@ -94,10 +120,13 @@ if __name__ == "__main__":
     daily_hell_times = config["RAID"].getint("daily_hell_times")
     daily_raid_choise = config["RAID"]["daily_raid_choise"]
     daily_raid_times = config["RAID"].getint("daily_raid_times")
+    daily_deep_choise = config["RAID"]["daily_deep_choise"]
+    daily_deep_times = config["RAID"].getint("daily_deep_times")
     adb_path = config["GENERAL"]["adb_path"]
     wf_apk_name = config["WF"]["wf_apk_name"]
     wf_active_class_name = config["WF"]["wf_active_class_name"]
     maze_team = teamconfig["MAZE"][daily_maze_choise]
+    deep_team = teamconfig["DEEP"][daily_deep_choise]
 
     # 每日raid使用房主的参数
     raid_choose = config["RAID"]["raid_choose"]
@@ -117,8 +146,9 @@ if __name__ == "__main__":
     # 开始每日
     if not check_game(player):
         login(player)
-    buy_zhenqipin(player)
+    # buy_zhenqipin(player)
     maze_repeat(player, maze_choise=daily_maze_choise, repeat=daily_maze_times)
     host_raid(player, repeat=daily_raid_times)
+    deep_repeat(player,deep_choise=daily_deep_choise,repeat=daily_deep_times)
     goto_main(player)
     printBlue("{0} 完成每日任务，返回主城".format(player.use_device))

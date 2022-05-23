@@ -193,8 +193,7 @@ class AutoPlayer_WF(tk.Tk):
 
         tk.Label(self.danren_tab, text="每日迷宫").grid(row=10, column=0)
         self.daily_maze_choise_entry = ttk.Entry(self.danren_tab, width=14)
-        self.daily_maze_choise_entry.insert(0, "和房主页配置一样")
-        self.daily_maze_choise_entry.config(state='readonly')
+        self.daily_maze_choise_entry.insert(0, daily_maze_choise)
         self.daily_maze_choise_entry.grid(row=10, column=1, sticky=tk.W)
         self.daily_maze_times_entry = ttk.Entry(self.danren_tab, width=2)
         self.daily_maze_times_entry.insert(0, daily_maze_times)
@@ -204,6 +203,7 @@ class AutoPlayer_WF(tk.Tk):
         tk.Label(self.danren_tab, text="每日地狱").grid(row=11, column=0)
         self.daily_hell_choise_entry = ttk.Entry(self.danren_tab, width=14)
         self.daily_hell_choise_entry.insert(0, daily_hell_choise)
+        self.daily_hell_choise_entry.config(state='readonly')
         self.daily_hell_choise_entry.grid(row=11, column=1, sticky=tk.W)
         self.daily_hell_times_entry = ttk.Entry(self.danren_tab, width=2)
         self.daily_hell_times_entry.insert(0, daily_hell_times)
@@ -212,12 +212,22 @@ class AutoPlayer_WF(tk.Tk):
 
         tk.Label(self.danren_tab, text="每日共斗").grid(row=12, column=0)
         self.daily_raid_choise_entry = ttk.Entry(self.danren_tab, width=14)
-        self.daily_raid_choise_entry.insert(0, daily_raid_choise)
+        self.daily_raid_choise_entry.insert(0, "和房主页配置一样")
+        self.daily_raid_choise_entry.config(state='readonly')
         self.daily_raid_choise_entry.grid(row=12, column=1, sticky=tk.W)
         self.daily_raid_times_entry = ttk.Entry(self.danren_tab, width=2)
         self.daily_raid_times_entry.insert(0, daily_raid_times)
         self.daily_raid_times_entry.grid(row=12, column=2, sticky=tk.W, padx=5)
         tk.Label(self.danren_tab, text="次").grid(row=12, column=2, sticky=tk.E, padx=10)
+
+        tk.Label(self.danren_tab, text="每日深层").grid(row=13, column=0)
+        self.daily_deep_choise_entry = ttk.Entry(self.danren_tab, width=14)
+        self.daily_deep_choise_entry.insert(0, daily_deep_choise)
+        self.daily_deep_choise_entry.grid(row=13, column=1, sticky=tk.W)
+        self.daily_deep_times_entry = ttk.Entry(self.danren_tab, width=2)
+        self.daily_deep_times_entry.insert(0, daily_deep_times)
+        self.daily_deep_times_entry.grid(row=13, column=2, sticky=tk.W, padx=5)
+        tk.Label(self.danren_tab, text="次").grid(row=13, column=2, sticky=tk.E, padx=10)
 
         ttk.Label(self.danren_tab, text="每日设备").grid(row=19, column=0)
         self.daily_device_entry = ttk.Entry(self.danren_tab, width=14)
@@ -310,6 +320,8 @@ class AutoPlayer_WF(tk.Tk):
         config["RAID"]["daily_hell_times"] = self.daily_hell_times_entry.get()
         config["RAID"]["daily_raid_choise"] = self.daily_raid_choise_entry.get()
         config["RAID"]["daily_raid_times"] = self.daily_raid_times_entry.get()
+        config["RAID"]["daily_deep_choise"] = self.daily_deep_choise_entry.get()
+        config["RAID"]["daily_deep_times"] = self.daily_deep_times_entry.get()
         config["RAID"]["raid_rank"] = self.raid_rank_entry.get()
         config["WF"]["fangzhu_device"] = self.fangzhu_device_entry.get()
         config["WF"]["limit_player"] = self.limit_player_entry.get()
@@ -359,7 +371,7 @@ class AutoPlayer_WF(tk.Tk):
 
     def daily_go(self):
         ttk.Button(self.danren_tab, text="STOP!", width=5, command=lambda: self.daily_stop()).grid(
-            row=10, column=2, sticky=tk.W, padx=5, pady=1
+            row=19, column=2, sticky=tk.W, padx=5, pady=1
         )
         self.save_config()
         self.proc_daily = subprocess.Popen("python World_Flipper\\world_flipper_dailytask.py")
@@ -421,7 +433,7 @@ class AutoPlayer_WF(tk.Tk):
 
     def daily_stop(self):
         ttk.Button(self.danren_tab, text="GO!", bootstyle="success", width=5, command=lambda: self.daily_go()).grid(
-            row=10, column=2, sticky=tk.W, padx=5, pady=1
+            row=19, column=2, sticky=tk.W, padx=5, pady=1
         )
         try:
             self.proc_daily.kill()
@@ -620,6 +632,8 @@ if __name__ == "__main__":
     daily_hell_times = config["RAID"]["daily_hell_times"]
     daily_raid_choise = config["RAID"]["daily_raid_choise"]
     daily_raid_times = config["RAID"]["daily_raid_times"]
+    daily_deep_choise = config["RAID"]["daily_deep_choise"]
+    daily_deep_times = config["RAID"]["daily_deep_times"]
 
     AutoPlayer_wf = AutoPlayer_WF()
     AutoPlayer_wf.mainloop()
