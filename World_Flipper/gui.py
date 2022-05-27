@@ -204,7 +204,6 @@ class AutoPlayer_WF(tk.Tk):
         tk.Label(self.danren_tab, text="每日地狱").grid(row=11, column=0)
         self.daily_hell_choise_entry = ttk.Entry(self.danren_tab, width=14)
         self.daily_hell_choise_entry.insert(0, daily_hell_choise)
-        self.daily_hell_choise_entry.config(state='readonly')
         self.daily_hell_choise_entry.grid(row=11, column=1, sticky=tk.W)
         self.daily_hell_times_entry = ttk.Entry(self.danren_tab, width=2)
         self.daily_hell_times_entry.insert(0, daily_hell_times)

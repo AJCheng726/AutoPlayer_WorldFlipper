@@ -61,22 +61,25 @@ class Autoplayer:
         # 连接adb
         try:
             devices_dict = self.devices_check()
-            if devices_dict[self.use_device] == "devcice":
+            if devices_dict[self.use_device] == "device":
                 print("{0}已连接adb".format(self.use_device))
                 return
         except:
             print("与{0}建立adb连接...".format(self.use_device))
-            self.adb_disconnect()
+            # self.adb_disconnect()
+            # time.sleep(1)
             feedback = os.popen("{0} connect {1}".format(self.adb_path, self.use_device)).read()[:-1:]
             if "connected" not in feedback:
-                print(feedback)
+                # print(feedback)
                 print("尝试连接{0}失败...".format(self.use_device))
+            elif "connected" in feedback:
+                print("连接{0}成功...".format(self.use_device))
 
     def adb_disconnect(self):
         # 断开adb
         try:
             feedback = os.popen("{0} disconnect {1}".format(self.adb_path, self.use_device)).read()[:-1:]
-            print(feedback)
+            # print(feedback)
         except:
             print("未发现设备{0}或无法断开".format(self.use_device))
 
@@ -482,4 +485,6 @@ if __name__ == "__main__":
         debug=1,
         disable_init=True,
     )
-    print(player1.apk_name,player1.check_current_app())
+    devices_dict = player1.devices_check()
+    print(devices_dict)
+    print(devices_dict[player1.use_device] == "device")
