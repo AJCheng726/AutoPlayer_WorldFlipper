@@ -10,6 +10,8 @@ from winsound import Beep
 import cv2
 import numpy
 
+from utils.print_color import printRed
+
 sys.path.append("./")
 
 from utils.Timer import Timer
@@ -110,7 +112,7 @@ class Autoplayer:
     def check_current_app(self):
         cmd = "{0} -s {1} shell dumpsys window | findstr mCurrentFocus".format(self.adb_path, self.use_device)
         current_apks = os.popen(cmd).read()
-        current_apks = re.findall(r"u0 (.*)/",current_apks)
+        current_apks = re.findall(r"u0 (.*)/", current_apks)
         if self.debug:
             print("[check_current_app] {0} currentfocus apk is {1}".format(self.use_device, current_apks))
         if self.apk_name in current_apks:
@@ -218,7 +220,13 @@ class Autoplayer:
             result = cv2.matchTemplate(screen, wanted, cv2.TM_CCOEFF_NORMED)
             location = numpy.where(result >= treshold)
         except:
-            raise Exception("获取screen失败，确认设备{0}没有多个子进程占用，wanted存在{1}".format(self.use_device, c_name))
+            # raise Exception("获取screen失败，确认设备{0}没有多个子进程占用，wanted存在{1}".format(self.use_device, c_name))
+            printRed(
+                "{0} 获取定位失败，adb连接可能不稳定，按照下面步骤排查：1、检查wanted文件夹{1}是否存在且完整 2、关闭所有子进程->重启所有模拟器->再次连接adb or 启动进程".format(
+                    self.use_device, c_name
+                )
+            )
+            return
 
         h, w = wanted.shape[:-1]
 

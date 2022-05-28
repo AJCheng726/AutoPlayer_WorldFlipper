@@ -10,7 +10,7 @@ eventlet.monkey_patch()
 def daily_announce(daily_maze_times, daily_hell_times, daily_raid_times, daily_deep_times):
     total_ap = daily_maze_times * 14 + daily_hell_times * 30 + daily_raid_times * 18 + daily_deep_times * 20
     printDarkBlue(
-        "{0} 开始每日任务，打{1}次迷宫、{2}次地狱、{3}次深层、{4}次共斗，预计消耗{5}体力，需要提前嗑药保证每日任务完成".format(
+        "{0} 开始每日任务，打{1}次迷宫、{2}次地狱、{3}次深层、{4}次共斗，预计消耗{5}体力，需要提前嗑药".format(
             player.use_device, daily_maze_times, daily_hell_times, daily_deep_times, daily_raid_times, total_ap
         )
     )
