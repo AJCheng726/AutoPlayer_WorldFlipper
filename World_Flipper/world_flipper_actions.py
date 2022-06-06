@@ -335,7 +335,7 @@ def change_team(player, team=""):
     player.touch((90 * int(team[0]) - 40, 175))  # 选择set
     time.sleep(3)
     if 10 >= int_team >= 7:
-        for i in range(4):
+        for i in range(5):
             player.down_swipe(x_start=270, y_start=800, x_end=270, y_end=100)
             time.sleep(1)
         time.sleep(2)
@@ -400,4 +400,4 @@ if __name__ == "__main__":
     #     player.touch((71, 566))
     #     time.sleep(1)
 
-    shut_autofight_off(player)
+    change_team(player,team='4-10')
