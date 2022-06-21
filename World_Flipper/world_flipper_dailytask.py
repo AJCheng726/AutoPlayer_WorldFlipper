@@ -94,6 +94,11 @@ def hell_repeat(player, hell_choise, repeat=2):
             player.wait_touch("diff_hell")
             player.wait_touch("button_shi", max_wait_time=5)
             player.wait_touch("button_tiaozhan")
+    player.wait_touch("button_jixu")
+    player.wait_touch("button_ok(small)")
+    printBlue("{0} 完成了{2}次{1}".format(player.use_device, hell_choise, repeat))
+    player.wait("page_main", max_wait_time=5)
+        
         
     player.wait_touch("button_jixu")
     player.wait_touch("button_ok(small)")
