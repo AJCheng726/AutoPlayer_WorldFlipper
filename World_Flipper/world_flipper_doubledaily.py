@@ -67,7 +67,7 @@ if __name__ == "__main__":
     )
 
     devices_list = list(set([config["WF"]["canzhan_device_1"], config["WF"]["canzhan_device_2"], config["WF"]["fangzhu_device"]]))
-    count = 2
+    count = 5
     printBlue("{0} 开始执行互建共斗{1}次".format(devices_list, count))
 
     player1 = Autoplayer(
