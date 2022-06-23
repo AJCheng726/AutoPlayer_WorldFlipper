@@ -71,7 +71,7 @@ class Autoplayer:
             # self.adb_disconnect()
             # time.sleep(1)
             print("{0} connect {1}".format(self.adb_path, self.use_device))
-            feedback = os.popen("{0} connect {1}".format(self.adb_path, self.use_device)).read()[:-1:]
+            feedback = os.popen("{0} connect {1}".format(self.adb_path, self.use_device)).read().decode(encoding="utf-8")[:-1:]
             if "connected" not in feedback:
                 # print(feedback)
                 print("尝试连接{0}失败...".format(self.use_device))
@@ -487,7 +487,7 @@ if __name__ == "__main__":
     config.read("./config.ini")
 
     player1 = Autoplayer(
-        use_device="127.0.0.1:62001",
+        use_device="127.0.0.1:62025",
         adb_path=config["GENERAL"]["adb_path"],
         apk_name=config["WF"]["wf_apk_name"],
         active_class_name=config["WF"]["wf_active_class_name"],
