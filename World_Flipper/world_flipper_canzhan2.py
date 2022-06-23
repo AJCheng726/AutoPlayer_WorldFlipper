@@ -29,11 +29,11 @@ if __name__ == "__main__":
     while True:
         count = wf_join(
             player,
+            config,
+            teamconfig,
             count=count,
-            event_mode=event_mode,
-            timeout=timeout,
+            loop_time=0,
             battle_timeout=battle_timeout,
-            team=team,
         )
         player.stop_app()
         time.sleep(3)
