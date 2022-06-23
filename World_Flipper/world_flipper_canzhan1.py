@@ -91,6 +91,7 @@ if __name__ == "__main__":
             player,
             count=count,
             event_mode=event_mode,
+            loop_time=0,
             timeout=timeout,
             battle_timeout=battle_timeout,
             team=team,
