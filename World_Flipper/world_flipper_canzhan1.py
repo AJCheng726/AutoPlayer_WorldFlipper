@@ -23,15 +23,21 @@ def from_main_to_room(player, event_mode, team=""):
     # 主页→领主战→房间→准备完毕
     player.touch((465, 809))  # 领主战
     if event_mode:
-        player.wait('button_gengxinliebiao')
+        player.wait("button_gengxinliebiao")
         time.sleep(1)
-        player.touch([88,242]) # 活动
+        player.touch([88, 242])  # 活动
         # player.wait_touch("button_event")  # 活动
     find_room(player, event_mode, team)
 
 
-def wf_join(player, event_mode, team, loop_time=0, count=0, timeout=600, battle_timeout=420):
+def wf_join(player, config, teamconfig, loop_time=0, count=0, battle_timeout=420):
     # （登录）→第一次进房间→循环
+    event_screenshot = config["RAID"]["event_screenshot"]
+    raid_choose = config["RAID"]["raid_choose"]
+    event_mode = config["RAID"].getint("event_mode")
+    timeout = config["WF"].getint("timeout")
+    battle_timeout = config["WF"].getint("battle_timeout")
+    team = teamset_from_ini(teamconfig, event_mode, raid_choose, event_screenshot)
     printGreen("{0}参战, 搜索{1}，编队{2}".format(player.use_device, fangzhu_account, team))
     if not check_game(player):  # 游戏未启动
         try:
@@ -67,14 +73,6 @@ if __name__ == "__main__":
     teamconfig = configparser.ConfigParser()
     teamconfig.read("./teamset.ini")
 
-    event_screenshot = config["RAID"]["event_screenshot"]
-    raid_choose = config["RAID"]["raid_choose"]
-    timeout = config["WF"].getint("timeout")
-    battle_timeout = config["WF"].getint("battle_timeout")
-    event_mode = config["RAID"].getint("event_mode")
-    team = teamset_from_ini(
-        teamconfig=teamconfig, event_mode=event_mode, raid_choose=raid_choose, event_screenshot=event_screenshot
-    )
     player = Autoplayer(
         use_device=config["WF"]["canzhan_device_1"],
         adb_path=config["GENERAL"]["adb_path"],
@@ -89,12 +87,11 @@ if __name__ == "__main__":
     while True:
         count = wf_join(
             player,
+            config,
+            teamconfig,
             count=count,
-            event_mode=event_mode,
             loop_time=0,
-            timeout=timeout,
             battle_timeout=battle_timeout,
-            team=team,
         )
         player.stop_app()
         time.sleep(3)

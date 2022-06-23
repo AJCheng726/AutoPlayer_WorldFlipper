@@ -38,9 +38,9 @@ def from_main_to_room(event_mode, raid_choose, event_screenshot, allow_stranger,
     if not event_mode:  # 日常模式
         find_raid(player, raid_choose, raid_rank=raid_rank)
     else:  # 活动模式
-        player.wait('button_gengxinliebiao')
+        player.wait("button_gengxinliebiao")
         time.sleep(1)
-        player.touch([88,242]) # 活动
+        player.touch([88, 242])  # 活动
         # time.sleep(3)
         # player.wait_touch("button_event")  # 活动
         while not player.find("button_duorenyouxi"):
@@ -50,8 +50,16 @@ def from_main_to_room(event_mode, raid_choose, event_screenshot, allow_stranger,
     printSkyBlue("{1} {2} 房主已执行{0}次".format(1, Timer().simple_time(), player.use_device))
 
 
-def wf_owner(player, config, teamconfig, event_mode, loop_time=0, count=0):
+def wf_owner(player, config, teamconfig, loop_time=0, count=0):
     # 选boss建房之后开始，房主退出再重建
+    event_screenshot = config["RAID"]["event_screenshot"]
+    raid_choose = config["RAID"]["raid_choose"]
+    raid_rank = config["RAID"].getint("raid_rank")
+    event_mode = config["RAID"].getint("event_mode")
+    team = teamset_from_ini(teamconfig, event_mode, raid_choose, event_screenshot)
+    limit_player = config["WF"].getint("limit_player")
+    timeout = config["WF"].getint("timeout")
+    allow_stranger = config["WF"].getint("allow_stranger")
     announcement(event_mode, event_screenshot, raid_choose, player, raid_rank, team, limit_player)
     if not check_game(player):  # 游戏未启动
         try:
@@ -85,18 +93,6 @@ if __name__ == "__main__":
 
     teamconfig = configparser.ConfigParser()
     teamconfig.read("./teamset.ini")
-    timeout = config["WF"].getint("timeout")
-    limit_player = config["WF"].getint("limit_player")
-    allow_stranger = config["WF"].getint("allow_stranger")
-
-    event_screenshot = config["RAID"]["event_screenshot"]
-    raid_choose = config["RAID"]["raid_choose"]
-    raid_rank = config["RAID"].getint("raid_rank")
-    event_mode = config["RAID"].getint("event_mode")
-
-    team = teamset_from_ini(
-        teamconfig=teamconfig, event_mode=event_mode, raid_choose=raid_choose, event_screenshot=event_screenshot
-    )
 
     player = Autoplayer(
         use_device=config["WF"]["fangzhu_device"],
@@ -110,6 +106,6 @@ if __name__ == "__main__":
     )
     count = 0
     while True:
-        count = wf_owner(player, config, teamconfig, count=count, event_mode=event_mode)
+        count = wf_owner(player, config, teamconfig, count=count)
         player.stop_app()
         time.sleep(3)

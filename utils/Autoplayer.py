@@ -70,6 +70,7 @@ class Autoplayer:
             print("与{0}建立adb连接...".format(self.use_device))
             # self.adb_disconnect()
             # time.sleep(1)
+            print("{0} connect {1}".format(self.adb_path, self.use_device))
             feedback = os.popen("{0} connect {1}".format(self.adb_path, self.use_device)).read()[:-1:]
             if "connected" not in feedback:
                 # print(feedback)
