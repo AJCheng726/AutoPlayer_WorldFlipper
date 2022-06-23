@@ -19,6 +19,15 @@ def shuangrengongdou(player1, player2, count=5):
     for t in threads:
         t.join()
 
+    threads = [
+        Thread(target=wf_owner, args=(player2, config, teamconfig, count, 0)),
+        Thread(target=wf_join, args=(player1, config, teamconfig, count, 0, battle_timeout)),
+    ]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+
 
 if __name__ == "__main__":
     config = configparser.ConfigParser()
