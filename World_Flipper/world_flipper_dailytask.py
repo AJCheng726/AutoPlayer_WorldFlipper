@@ -25,7 +25,7 @@ def buy_zhenqipin(player, items_count=8):
     for i in range(items_count):
         try:
             with eventlet.Timeout(10, True):
-                print("{0} 购买第{1}个珍品".format(player.use_device, i+1))
+                print("{0} 购买第{1}个珍品".format(player.use_device, i + 1))
                 player.wait("tips_zhenqipin")
                 player.touch([325, 350])
                 player.wait("button_goumai")
@@ -87,7 +87,7 @@ def hell_repeat(player, hell_choise, repeat=2):
             player.wait_touch("button_zaicitiaozhan")
             player.wait_touch("button_tiaozhan")
             i += 1
-        elif flag == "G":
+        elif flag in ["G", "button_xuzhan"]:
             printRed("{0} 地狱本失败,重试".format(player.use_device))
             player.wait_touch("button_fangqi3")
             player.wait_touch("button_ok(small)")
@@ -97,13 +97,6 @@ def hell_repeat(player, hell_choise, repeat=2):
     player.wait_touch("button_jixu")
     player.wait_touch("button_ok(small)")
     printBlue("{0} 完成了{2}次{1}".format(player.use_device, hell_choise, repeat))
-    player.wait("page_main", max_wait_time=5)
-        
-        
-    player.wait_touch("button_jixu")
-    player.wait_touch("button_ok(small)")
-    printBlue("{0} 完成了{2}次{1}".format(player.use_device, hell_choise, repeat))
-    player.wait("page_main", max_wait_time=5)
 
 
 def deep_repeat(player, deep_choise, repeat):
