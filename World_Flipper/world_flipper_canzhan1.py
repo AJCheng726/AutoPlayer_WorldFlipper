@@ -1,4 +1,5 @@
 import configparser
+from turtle import goto
 import eventlet
 from world_flipper_actions import *
 
@@ -17,6 +18,15 @@ def from_battle_to_prepare(player, count, event_mode):
         printRed("{1} {2} 阵亡或解散，寻找房间...".format(count, Timer().simple_time(), player.use_device))
         find_room(player, event_mode)
         return count
+
+
+def from_prepare_to_main(player):
+    result = clear(player)
+    if result:
+        goto_main(player)
+    else:
+        printRed("{1} {2} 阵亡或解散，寻找房间...".format(count, Timer().simple_time(), player.use_device))
+        goto_main(player)
 
 
 def from_main_to_room(player, event_mode, team=""):

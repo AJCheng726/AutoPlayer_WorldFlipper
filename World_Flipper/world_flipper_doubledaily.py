@@ -10,22 +10,38 @@ eventlet.monkey_patch()
 
 def shuangrengongdou(player1, player2, count=5):
     # 交换完成count次共斗
-    threads = [
+    threads1 = [
         Thread(target=wf_owner, args=(player1, config, teamconfig, count, 0)),
         Thread(target=wf_join, args=(player2, config, teamconfig, count, 0, battle_timeout)),
     ]
-    for t in threads:
-        t.start()
-    for t in threads:
-        t.join()
-
-    threads = [
+    threads2 = [
+        Thread(target=loop_end, args=(player1, config, True)),
+        Thread(target=from_prepare_to_main, args=(player2,)),
+    ]
+    threads3 = [
         Thread(target=wf_owner, args=(player2, config, teamconfig, count, 0)),
         Thread(target=wf_join, args=(player1, config, teamconfig, count, 0, battle_timeout)),
     ]
-    for t in threads:
+    threads4 = [
+        Thread(target=loop_end, args=(player2, config, True)),
+        Thread(target=from_prepare_to_main, args=(player1,)),
+    ]
+
+    for t in threads1:
         t.start()
-    for t in threads:
+    for t in threads1:
+        t.join()
+    for t in threads2:
+        t.start()
+    for t in threads2:
+        t.join()
+    for t in threads3:
+        t.start()
+    for t in threads3:
+        t.join()
+    for t in threads4:
+        t.start()
+    for t in threads4:
         t.join()
 
 

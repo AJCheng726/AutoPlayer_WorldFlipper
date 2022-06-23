@@ -32,6 +32,23 @@ def one_loop(player, count, limit_player, allow_stranger=False, quit=True):
     return count
 
 
+def loop_end(player, config, quit=True):
+    # 在房间等待→结算→建房→开始招募
+    limit_player = config["WF"].getint("limit_player")
+    timeout_flag = wait_in_room(player, limit_player=limit_player)
+    if quit == True:  # 灵车
+        if not timeout_flag:
+            quit_battle(player)
+        else:  # 房间没人来，自动解散
+            pass
+    else:  # 正常结算
+        if not timeout_flag:
+            clear(player)
+        else:  # 房间没人来，自动解散
+            pass
+    goto_main(player)
+
+
 def from_main_to_room(event_mode, raid_choose, event_screenshot, allow_stranger, player, raid_rank, changeteam):
     # 主页→建房间→开始招募
     player.touch((465, 809))  # 领主战
