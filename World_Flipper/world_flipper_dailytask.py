@@ -7,11 +7,11 @@ import eventlet
 eventlet.monkey_patch()
 
 
-def daily_announce(daily_maze_times, daily_hell_times, daily_raid_times, daily_deep_times):
+def daily_announce(device, daily_maze_times, daily_hell_times, daily_raid_times, daily_deep_times):
     total_ap = daily_maze_times * 14 + daily_hell_times * 30 + daily_raid_times * 18 + daily_deep_times * 20
     printDarkBlue(
         "{0} 开始每日任务，打{1}次迷宫、{2}次地狱、{3}次深层、{4}次共斗，预计消耗{5}体力，需要提前嗑药".format(
-            player.use_device, daily_maze_times, daily_hell_times, daily_deep_times, daily_raid_times, total_ap
+            device, daily_maze_times, daily_hell_times, daily_deep_times, daily_raid_times, total_ap
         )
     )
 
@@ -40,7 +40,7 @@ def buy_zhenqipin(player, items_count=8):
             return
 
 
-def maze_repeat(player, maze_choise="maze_fire", repeat=4):
+def maze_repeat(player, maze_choise="maze_fire", repeat=4, maze_team=""):
     if repeat == 0:
         return
     printBlue("{0} 开始每日任务，打{1}次{2},编队{3}".format(player.use_device, repeat, maze_choise, maze_team))
@@ -65,7 +65,7 @@ def maze_repeat(player, maze_choise="maze_fire", repeat=4):
     player.wait("page_main", max_wait_time=5)
 
 
-def hell_repeat(player, hell_choise, repeat=2):
+def hell_repeat(player, hell_choise, repeat=2, hell_team=""):
     if repeat == 0:
         return
     printBlue("{0} 地狱本，打{1}次{2},编队{3}".format(player.use_device, repeat, hell_choise, hell_team))
@@ -99,7 +99,7 @@ def hell_repeat(player, hell_choise, repeat=2):
     printBlue("{0} 完成了{2}次{1}".format(player.use_device, hell_choise, repeat))
 
 
-def deep_repeat(player, deep_choise, repeat):
+def deep_repeat(player, deep_choise, repeat, deep_team=""):
     if repeat == 0:
         return
     printBlue("{0} 深层任务，打{1}次{2},编队{3}".format(player.use_device, repeat, deep_choise, deep_team))
@@ -184,13 +184,13 @@ if __name__ == "__main__":
     )
 
     # 开始每日
-    daily_announce(daily_maze_times, daily_hell_times, daily_raid_times, daily_deep_times)
+    daily_announce(player.use_device, daily_maze_times, daily_hell_times, daily_raid_times, daily_deep_times)
     if not check_game(player):
         login(player)
     buy_zhenqipin(player)
-    maze_repeat(player, maze_choise=daily_maze_choise, repeat=daily_maze_times)
-    hell_repeat(player, hell_choise=daily_hell_choise, repeat=daily_hell_times)
+    maze_repeat(player, maze_choise=daily_maze_choise, repeat=daily_maze_times, maze_team=maze_team)
+    hell_repeat(player, hell_choise=daily_hell_choise, repeat=daily_hell_times, hell_team=hell_team)
     host_raid(player, repeat=daily_raid_times)
-    deep_repeat(player, deep_choise=daily_deep_choise, repeat=daily_deep_times)
+    deep_repeat(player, deep_choise=daily_deep_choise, repeat=daily_deep_times, deep_team=deep_team)
     goto_main(player)
     printBlue("{0} 完成每日任务，返回主城".format(player.use_device))
