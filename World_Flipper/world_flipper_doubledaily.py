@@ -145,5 +145,5 @@ if __name__ == "__main__":
 
     double_daily(player1, player2, config, teamconfig)
     double_raid_count = 5
-    printBlue("{0} 开始执行互建共斗{1}次".format(devices_list, count))
+    printBlue("{0} 开始执行互建共斗{1}次".format(devices_list, double_raid_count))
     double_raid(player1, player2, config, double_raid_count)
