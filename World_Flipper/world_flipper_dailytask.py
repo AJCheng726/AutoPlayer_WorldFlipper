@@ -79,13 +79,16 @@ def hell_repeat(player, hell_choise, repeat=2, hell_team=""):
         change_team(player, hell_team)
     player.wait_touch("button_tiaozhan")
     i = 0
-    while i < repeat - 1:
+    while i <= repeat - 1:
         flag = player.wait_list(["button_jixu", "G", "button_xuzhan"])
         if flag == "button_jixu":
             printBlue("{0} 完成了{2}次{1}".format(player.use_device, hell_choise, i + 1))
             player.wait_touch("button_jixu")
-            player.wait_touch("button_zaicitiaozhan")
-            player.wait_touch("button_tiaozhan")
+            if i < repeat - 1:
+                player.wait_touch("button_zaicitiaozhan")
+                player.wait_touch("button_tiaozhan")
+            elif i == repeat - 1:
+                player.wait_touch("button_ok(small)")
             i += 1
         elif flag in ["G", "button_xuzhan"]:
             printRed("{0} 地狱本失败,重试".format(player.use_device))
@@ -94,9 +97,9 @@ def hell_repeat(player, hell_choise, repeat=2, hell_team=""):
             player.wait_touch("diff_hell")
             player.wait_touch("button_shi", max_wait_time=5)
             player.wait_touch("button_tiaozhan")
-    player.wait_touch("button_jixu")
-    player.wait_touch("button_ok(small)")
-    printBlue("{0} 完成了{2}次{1}".format(player.use_device, hell_choise, repeat))
+    # player.wait_touch("button_jixu")
+    # player.wait_touch("button_ok(small)")
+    # printBlue("{0} 完成了{2}次{1}".format(player.use_device, hell_choise, repeat))
 
 
 def deep_repeat(player, deep_choise, repeat, deep_team=""):
