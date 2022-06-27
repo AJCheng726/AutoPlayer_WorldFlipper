@@ -111,7 +111,7 @@ class AutoPlayer_WF(tk.Tk):
 
         # 房主
         tk.Label(self.fangzhu_tab, text="房主设备").grid(row=0, column=0)
-        self.fangzhu_device_entry = ttk.Entry(self.fangzhu_tab,width=19)
+        self.fangzhu_device_entry = ttk.Entry(self.fangzhu_tab, width=19)
         self.fangzhu_device_entry.insert(0, fangzhu_device)
         self.fangzhu_device_entry.grid(row=0, column=1)
 
@@ -136,12 +136,12 @@ class AutoPlayer_WF(tk.Tk):
         self.raid_rank_entry.grid(row=4, column=1, sticky=tk.E)
 
         tk.Label(self.fangzhu_tab, text="活动目标\n(开启活动模式)").grid(row=6, column=0)
-        self.event_screenshot_entry = ttk.Entry(self.fangzhu_tab,width=19)
+        self.event_screenshot_entry = ttk.Entry(self.fangzhu_tab, width=19)
         self.event_screenshot_entry.insert(0, event_screenshot)
         self.event_screenshot_entry.grid(row=6, column=1)
 
         tk.Label(self.fangzhu_tab, text="日常目标\n(关闭活动模式)").grid(row=7, column=0)
-        self.raid_choose_entry = ttk.Entry(self.fangzhu_tab,width=19)
+        self.raid_choose_entry = ttk.Entry(self.fangzhu_tab, width=19)
         self.raid_choose_entry.insert(0, raid_choose)
         self.raid_choose_entry.grid(row=7, column=1)
 
@@ -154,12 +154,12 @@ class AutoPlayer_WF(tk.Tk):
 
         # 参战
         tk.Label(self.canzhan_tab, text="房主截图").grid(row=0, column=0)
-        self.fangzhu_account_entry = ttk.Entry(self.canzhan_tab,width=23)
+        self.fangzhu_account_entry = ttk.Entry(self.canzhan_tab, width=23)
         self.fangzhu_account_entry.insert(0, fangzhu_account)
         self.fangzhu_account_entry.grid(row=0, column=1)
 
         tk.Label(self.canzhan_tab, text="战斗超时").grid(row=1, column=0)
-        self.battle_timeout_entry = ttk.Entry(self.canzhan_tab,width=23)
+        self.battle_timeout_entry = ttk.Entry(self.canzhan_tab, width=23)
         self.battle_timeout_entry.insert(0, battle_timeout)
         self.battle_timeout_entry.grid(row=1, column=1)
 
@@ -210,15 +210,15 @@ class AutoPlayer_WF(tk.Tk):
         self.daily_hell_times_entry.grid(row=11, column=2, sticky=tk.W, padx=5)
         tk.Label(self.danren_tab, text="次").grid(row=11, column=2, sticky=tk.E, padx=10)
 
-        # tk.Label(self.danren_tab, text="每日共斗").grid(row=12, column=0)
-        # self.daily_raid_choise_entry = ttk.Entry(self.danren_tab, width=14)
-        # self.daily_raid_choise_entry.insert(0, "和房主页配置一样")
-        # self.daily_raid_choise_entry.config(state='readonly')
-        # self.daily_raid_choise_entry.grid(row=12, column=1, sticky=tk.W)
-        # self.daily_raid_times_entry = ttk.Entry(self.danren_tab, width=2)
-        # self.daily_raid_times_entry.insert(0, daily_raid_times)
-        # self.daily_raid_times_entry.grid(row=12, column=2, sticky=tk.W, padx=5)
-        # tk.Label(self.danren_tab, text="次").grid(row=12, column=2, sticky=tk.E, padx=10)
+        tk.Label(self.danren_tab, text="每日共斗").grid(row=12, column=0)
+        self.daily_raid_choise_entry = ttk.Entry(self.danren_tab, width=14)
+        self.daily_raid_choise_entry.insert(0, "和房主页配置一样")
+        self.daily_raid_choise_entry.config(state="readonly")
+        self.daily_raid_choise_entry.grid(row=12, column=1, sticky=tk.W)
+        self.daily_raid_times_entry = ttk.Entry(self.danren_tab, width=2)
+        self.daily_raid_times_entry.insert(0, daily_raid_times)
+        self.daily_raid_times_entry.grid(row=12, column=2, sticky=tk.W, padx=5)
+        tk.Label(self.danren_tab, text="次").grid(row=12, column=2, sticky=tk.E, padx=10)
 
         tk.Label(self.danren_tab, text="每日深层").grid(row=13, column=0)
         self.daily_deep_choise_entry = ttk.Entry(self.danren_tab, width=14)
@@ -292,6 +292,9 @@ class AutoPlayer_WF(tk.Tk):
         tk.Button(self.gongju_tab, text="所有设备抽无限池", width=13, command=lambda: self.infinity_pool()).grid(
             row=31, columnspan=3, sticky=tk.E, padx=8, pady=2
         )
+        tk.Button(self.gongju_tab, text="双号每日任务", width=13, command=lambda: self.double_daily()).grid(
+            row=32, columnspan=3, sticky=tk.W, padx=8, pady=2
+        )
 
         # notebook
         self.notebook.add(self.config_tab, text="主页")
@@ -318,8 +321,8 @@ class AutoPlayer_WF(tk.Tk):
         config["RAID"]["daily_maze_times"] = self.daily_maze_times_entry.get()
         config["RAID"]["daily_hell_choise"] = self.daily_hell_choise_entry.get()
         config["RAID"]["daily_hell_times"] = self.daily_hell_times_entry.get()
-        # config["RAID"]["daily_raid_choise"] = self.daily_raid_choise_entry.get()
-        # config["RAID"]["daily_raid_times"] = self.daily_raid_times_entry.get()
+        config["RAID"]["daily_raid_choise"] = self.daily_raid_choise_entry.get()
+        config["RAID"]["daily_raid_times"] = self.daily_raid_times_entry.get()
         config["RAID"]["daily_deep_choise"] = self.daily_deep_choise_entry.get()
         config["RAID"]["daily_deep_times"] = self.daily_deep_times_entry.get()
         config["RAID"]["raid_rank"] = self.raid_rank_entry.get()
@@ -487,6 +490,7 @@ class AutoPlayer_WF(tk.Tk):
         self.ring_stop()
         self.daily_stop()
         self.infinity_pool_stop()
+        self.double_daily_stop()
 
     def check_devices(self, printout=True):
         devices = subprocess.check_output("{0} devices".format(adb_path)).decode("utf-8")
@@ -554,6 +558,20 @@ class AutoPlayer_WF(tk.Tk):
                 printYellow("[GUI]无限池子进程已关闭")
         except:
             printYellow("[GUI]无限池子进程未启动")
+
+    def double_daily(self):
+        printYellow("[GUI]开始双号每日任务，结束后手动“关闭所有子进程”结束")
+        self.save_config()
+        self.proc_doubledaily = subprocess.Popen(
+            "python World_Flipper\\world_flipper_doubledaily.py",
+        )
+
+    def double_daily_stop(self):
+        try:
+            self.proc_doubledaily.kill()
+            printYellow("[GUI]双号每日子进程已关闭")
+        except:
+            printYellow("[GUI]双号每日子进程未启动")
 
     def set_autoshutdown(self):
         ttk.Button(

@@ -1,10 +1,9 @@
 import os
 import re
-import subprocess
 import random
 import sys
 import time
-from datetime import datetime, timedelta
+from datetime import datetime
 from winsound import Beep
 
 import cv2
@@ -16,6 +15,9 @@ sys.path.append("./")
 
 from utils.Timer import Timer
 
+def exec(cmd:str):
+    pip = os.popen(cmd)
+    return pip.buffer.read().decode(encoding='utf8')
 
 class Autoplayer:
     def __init__(
@@ -71,9 +73,10 @@ class Autoplayer:
             # self.adb_disconnect()
             # time.sleep(1)
             print("{0} connect {1}".format(self.adb_path, self.use_device))
-            feedback = os.popen("{0} connect {1}".format(self.adb_path, self.use_device)).read()[:-1:]
+            # feedback = os.popen("{0} connect {1}".format(self.adb_path, self.use_device)).read()[:-1:]
+            feedback = exec("{0} connect {1}".format(self.adb_path, self.use_device))[:-1:]
             if "connected" not in feedback:
-                # print(feedback)
+                print(feedback)
                 print("尝试连接{0}失败...".format(self.use_device))
             elif "connected" in feedback:
                 print("连接{0}成功...".format(self.use_device))
