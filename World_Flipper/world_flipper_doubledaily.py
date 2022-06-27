@@ -1,3 +1,4 @@
+from ast import Raise
 from world_flipper_actions import *
 from world_flipper_fangzhu import *
 from world_flipper_canzhan1 import *
@@ -122,6 +123,8 @@ if __name__ == "__main__":
     teamconfig.read("./teamset.ini")
 
     devices_list = list(set([config["WF"]["canzhan_device_1"], config["WF"]["canzhan_device_2"], config["WF"]["fangzhu_device"]]))
+    if len(devices_list) > 2:
+        printRed("当房主设备与参战1或参战2设备相同时才能使用此功能，目前发现设备{0}".format(devices_list))
     player1 = Autoplayer(
         use_device=devices_list[0],
         adb_path=config["GENERAL"]["adb_path"],
