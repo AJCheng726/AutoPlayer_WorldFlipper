@@ -1,6 +1,6 @@
 import sys
 import time
-from turtle import delay
+from turtle import delay, goto
 import eventlet
 
 sys.path.append("./utils/")
@@ -103,7 +103,13 @@ def check_ui(player):
 
 def login(player):
     printWhite("{0} {1} 自动登录游戏...".format(Timer().simple_time(), player.use_device))
-    player.start_app()
+    if player.check_current_app() == False:
+        player.stop_app()
+        time.sleep(3)
+        player.start_app()
+    if check_ui(player) > 0:
+        goto_main(player)
+        return
     if (
         player.wait_list(["icon_aldlgin", "icon_aldlgin2", "tips_huanyinghuilai", "button_zhangmidenglu"], max_wait_time=60)
         != None
