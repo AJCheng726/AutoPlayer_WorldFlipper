@@ -22,8 +22,8 @@ def double_daily(player1, player2, config, teamconfig):
     deep_team = teamconfig["DEEP"][daily_deep_choise]
     hell_team = teamconfig["HELL"][daily_hell_choise]
 
-    daily_announce(player1.use_device, daily_maze_times, daily_hell_times, daily_raid_times, daily_deep_times)
-    daily_announce(player2.use_device, daily_maze_times, daily_hell_times, daily_raid_times, daily_deep_times)
+    daily_announce(player1.use_device, daily_maze_times, daily_hell_times, 1, daily_deep_times)
+    daily_announce(player2.use_device, daily_maze_times, daily_hell_times, 1, daily_deep_times)
     threads1 = [Thread(target=login, args=(player1,)), Thread(target=login, args=(player2,))]
     threads2 = [Thread(target=buy_zhenqipin, args=(player1,)), Thread(target=buy_zhenqipin, args=(player2,))]
     threads3 = [
@@ -69,28 +69,33 @@ def double_daily(player1, player2, config, teamconfig):
     printBlue("{0} 完成每日任务，返回主城".format(player2.use_device))
 
 
-def double_raid(player1, player2, config, count=5):
-    # 交换完成count次共斗
+def double_raid(player1, player2, config, teamconfig):
+    # 交换完成repeat次共斗
     event_screenshot = config["RAID"]["event_screenshot"]
     raid_choose = config["RAID"]["raid_choose"]
     battle_timeout = config["WF"].getint("battle_timeout")
     event_mode = config["RAID"].getint("event_mode")
+    repeat = config["RAID"].getint("daily_raid_times")
 
     team = teamset_from_ini(
         teamconfig=teamconfig, event_mode=event_mode, raid_choose=raid_choose, event_screenshot=event_screenshot
     )
 
+    printBlue("{0} 开始执行互建共斗{1}次".format(devices_list, repeat))
+    if repeat < 1:
+        return
+
     threads1 = [
-        Thread(target=wf_owner, args=(player1, config, teamconfig, count, 0)),
-        Thread(target=wf_join, args=(player2, config, teamconfig, count, 0, battle_timeout)),
+        Thread(target=wf_owner, args=(player1, config, teamconfig, repeat, 0)),
+        Thread(target=wf_join, args=(player2, config, teamconfig, repeat, 0, battle_timeout)),
     ]
     threads2 = [
         Thread(target=loop_end, args=(player1, config, True)),
         Thread(target=from_prepare_to_main, args=(player2,)),
     ]
     threads3 = [
-        Thread(target=wf_owner, args=(player2, config, teamconfig, count, 0)),
-        Thread(target=wf_join, args=(player1, config, teamconfig, count, 0, battle_timeout)),
+        Thread(target=wf_owner, args=(player2, config, teamconfig, repeat, 0)),
+        Thread(target=wf_join, args=(player1, config, teamconfig, repeat, 0, battle_timeout)),
     ]
     threads4 = [
         Thread(target=loop_end, args=(player2, config, True)),
@@ -147,6 +152,4 @@ if __name__ == "__main__":
     )
 
     double_daily(player1, player2, config, teamconfig)
-    double_raid_count = 5
-    printBlue("{0} 开始执行互建共斗{1}次".format(devices_list, double_raid_count))
-    double_raid(player1, player2, config, double_raid_count)
+    double_raid(player1, player2, config, teamconfig)
